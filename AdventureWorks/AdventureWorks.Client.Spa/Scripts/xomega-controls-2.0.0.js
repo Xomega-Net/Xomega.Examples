@@ -32,6 +32,29 @@ xomegaControls._modalViewPopup = function (action, viewID, uplContainerID, neste
             target.find('.btn-close').click();
         });
 
+        // workaround for a jQuery UI bug with calculating z-index
+        // manifested by our moving the dialong inside the form element
+        $.widget("ui.dialog", $.ui.dialog, {
+            _moveToTop: function (event, silent) {
+                var moved = false,
+                    //zIndices = this.uiDialog.siblings(".ui-front:visible").map(function () {
+                    zIndices = $(".ui-front:visible").map(function () {
+                        return +$(this).css("z-index");
+                    }).get(),
+                    zIndexMax = Math.max.apply(null, zIndices);
+
+                if (zIndexMax >= +this.uiDialog.css("z-index")) {
+                    this.uiDialog.css("z-index", zIndexMax + 1);
+                    moved = true;
+                }
+
+                if (moved && !silent) {
+                    this._trigger("focus", event);
+                }
+                return moved;
+            },
+        });
+
         let dlg = xomegaControls.createViewDialog(target);
         dlg.appendTo('form:first'); // move inside the form element to handle postbacks
     }

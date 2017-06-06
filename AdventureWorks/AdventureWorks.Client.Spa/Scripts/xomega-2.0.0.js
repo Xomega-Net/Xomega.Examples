@@ -970,7 +970,7 @@ var xomega;
                 // and to true when it is subsequently changed
                 if (_this.Modified() == null)
                     _this.Modified(false);
-                else {
+                else if (_this.Editable()) {
                     _this.Modified(true);
                     _this.validate(true); // don't validate unmodified value
                 }
