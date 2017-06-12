@@ -155,6 +155,12 @@ pkg/
 !**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
+# JS resources from external packages
+**/Scripts/*
+**/themes/*
+**/images/*
+xomega-controls.css
+durandal.css
 
 # Windows Azure Build Output
 csx/
