@@ -18,6 +18,7 @@ To run these examples you need to have the following software installed:
 
 ## Setting up your projects
 You need to make the following updates to be able to run the examples.
+- Reinstall 3rd party NuGet packages, by opening _Tools > NuGet Package Manager > Package Manager Console_, and running the following command: `Update-Package -Reinstall -IgnoreDependencies -FileConflictAction Ignore`
 - Update connection strings in the Web.config and App.config files in the applicable projects to point to your AdventureWorks DB.
 - On the properties of the AdventureWorks.Services.Wcf and AdventureWorks.Services.Rest projects select "Don't open a page" option as a Start Action under the Web tab.
 
