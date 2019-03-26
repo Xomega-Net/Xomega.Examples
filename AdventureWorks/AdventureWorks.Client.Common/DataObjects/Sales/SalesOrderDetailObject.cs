@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Client.Objects
 {
@@ -68,7 +69,6 @@ namespace AdventureWorks.Client.Objects
             OrderQtyProperty.Required = true;
             ProductIdProperty = new EnumIntProperty(this, ProductId);
             ProductIdProperty.Required = true;
-            ProductIdProperty.Size = 10;
             ProductIdProperty.EnumType = "product";
             RowguidProperty = new GuidProperty(this, Rowguid);
             RowguidProperty.Required = true;
@@ -80,7 +80,6 @@ namespace AdventureWorks.Client.Objects
             SalesOrderIdProperty.Editable = false;
             SpecialOfferIdProperty = new EnumIntProperty(this, SpecialOfferId);
             SpecialOfferIdProperty.Required = true;
-            SpecialOfferIdProperty.Size = 10;
             SpecialOfferIdProperty.EnumType = "special offer";
             UnitPriceProperty = new MoneyProperty(this, UnitPrice);
             UnitPriceProperty.Required = true;
@@ -92,69 +91,81 @@ namespace AdventureWorks.Client.Objects
 
         #region CRUD Operations
 
-        protected override void DoRead(object options)
+        protected override ErrorList DoRead(object options)
         {
-            SalesOrder_Detail_Read(options);
+            var output = SalesOrder_Detail_Read(options);
+            return output.Messages;
         }
 
-        protected override void DoSave(object options)
+        protected override ErrorList DoSave(object options)
         {
             if (IsNew)
             {
-                SalesOrder_Detail_Create(options);
+                var output = SalesOrder_Detail_Create(options);
+                return output.Messages;
             }
             else
             {
-                SalesOrder_Detail_Update(options);
+                var output = SalesOrder_Detail_Update(options);
+                return output.Messages;
             }
         }
 
-        protected override void DoDelete(object options)
+        protected override ErrorList DoDelete(object options)
         {
-            SalesOrder_Detail_Delete(options);
+            var output = SalesOrder_Detail_Delete(options);
+            return output.Messages;
         }
 
         #endregion
 
         #region Service Operations
 
-        protected virtual void SalesOrder_Detail_Read(object options)
+        protected virtual Output<SalesOrderDetail_ReadOutput> SalesOrder_Detail_Read(object options)
         {
             int _salesOrderDetailId = (int)SalesOrderDetailIdProperty.TransportValue;
             using (var s = ServiceProvider.CreateScope())
             {
-                SalesOrderDetail_ReadOutput output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_Read(_salesOrderDetailId);
-                FromDataContract(output, options);
+                var output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_Read(_salesOrderDetailId);
+
+                FromDataContract(output?.Result, options);
+                return output;
             }
         }
 
-        protected virtual void SalesOrder_Detail_Create(object options)
+        protected virtual Output<SalesOrderDetail_CreateOutput> SalesOrder_Detail_Create(object options)
         {
             int _salesOrderId = (int)SalesOrderIdProperty.TransportValue;
             SalesOrderDetail_CreateInput_Data _data = ToDataContract<SalesOrderDetail_CreateInput_Data>(options);
             using (var s = ServiceProvider.CreateScope())
             {
-                SalesOrderDetail_CreateOutput output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_Create(_salesOrderId, _data);
-                FromDataContract(output, options);
+                var output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_Create(_salesOrderId, _data);
+
+                FromDataContract(output?.Result, options);
+                return output;
             }
         }
 
-        protected virtual void SalesOrder_Detail_Update(object options)
+        protected virtual Output SalesOrder_Detail_Update(object options)
         {
             int _salesOrderDetailId = (int)SalesOrderDetailIdProperty.TransportValue;
             SalesOrderDetail_UpdateInput_Data _data = ToDataContract<SalesOrderDetail_UpdateInput_Data>(options);
             using (var s = ServiceProvider.CreateScope())
             {
-                s.ServiceProvider.GetService<ISalesOrderService>().Detail_Update(_salesOrderDetailId, _data);
+                var output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_Update(_salesOrderDetailId, _data);
+
+                return output;
             }
         }
 
-        protected virtual void SalesOrder_Detail_Delete(object options)
+        protected virtual Output SalesOrder_Detail_Delete(object options)
         {
             int _salesOrderDetailId = (int)SalesOrderDetailIdProperty.TransportValue;
             using (var s = ServiceProvider.CreateScope())
             {
-                s.ServiceProvider.GetService<ISalesOrderService>().Detail_Delete(_salesOrderDetailId);
+                var output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_Delete(_salesOrderDetailId);
+
+                return output;
             }
         }
 

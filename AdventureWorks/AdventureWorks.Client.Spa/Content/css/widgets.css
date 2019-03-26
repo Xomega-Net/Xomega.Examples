@@ -42,6 +42,39 @@
   padding: 0.5rem;
 }
 
+/* Errors panel
+   ===================================================== */
+.errors > .widget-header .widget-title {
+  padding-left: 0px;
+  font-size: 1.1em;
+  font-variant: inherit;
+}
+
+.errors > .widget-header .widget-toolbar {
+  float: right;
+  margin-right: -0.7em;
+}
+
+.close-button {
+  float: right;
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+  padding: 1px
+}
+
+.severity-icon {
+  margin: 3px 5px;
+}
+
+.Warning .severity-icon {
+  color: orange
+}
+
+.Info .severity-icon {
+  color: blue
+}
+
 /* Tabs
    ===================================================== */
 

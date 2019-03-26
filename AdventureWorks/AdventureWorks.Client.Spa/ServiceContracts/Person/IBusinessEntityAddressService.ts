@@ -12,7 +12,7 @@ export class IBusinessEntityAddressService {
     public static getReadListRequest(_businessEntityId: any): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
-        req.url += `business-entity/${ _businessEntityId }/address`;
+        req.url += `business entity/${ _businessEntityId }/address`;
         return req;
     }
 }

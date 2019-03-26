@@ -11,7 +11,7 @@ namespace AdventureWorks.Client.Web
 {
     public partial class SiteMaster
     {
-
+    
         /// <summary>
         /// HeadContent control.
         /// </summary>
@@ -20,7 +20,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
-
+        
         /// <summary>
         /// HeadLoginView control.
         /// </summary>
@@ -29,7 +29,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LoginView HeadLoginView;
-
+        
         /// <summary>
         /// SiteMap control.
         /// </summary>
@@ -38,7 +38,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu SiteMap;
-
+        
         /// <summary>
         /// dsSiteMap control.
         /// </summary>
@@ -47,7 +47,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SiteMapDataSource dsSiteMap;
-
+        
         /// <summary>
         /// MainContent control.
         /// </summary>

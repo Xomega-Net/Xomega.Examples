@@ -9,11 +9,6 @@
         xmlns:edm="http://www.xomega.net/edm"
         name="sales">
   <types>
-    <type name="line total" base="money">
-      <config>
-        <sql:type name="numeric(38,6)" db="sqlsrv"/>
-      </config>
-    </type>
     <type name="sales order detail" base="integer key"/>
     <type name="sales order" base="integer key"/>
     <type name="sales order reason" base="sales reason"/>
@@ -836,9 +831,9 @@
         <ui:params>
           <ui:param name="_action" value="select"/>
           <ui:param name="_selection" value="single"/>
-          <ui:param name="store name operator" value="CONT"/>
+          <ui:param name="store name operator" value="CN"/>
           <ui:param name="store name" field="store name"/>
-          <ui:param name="person name operator" value="CONT"/>
+          <ui:param name="person name operator" value="CN"/>
           <ui:param name="person name" field="person name"/>
         </ui:params>
         <ui:result data-object="..">

@@ -4,47 +4,53 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Web.Http;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Rest
 {
     ///<summary>
     /// Cross-reference table mapping customers, vendors, and employees to their addresses.
     ///</summary>
-    public partial class BusinessEntityAddressController : ApiController
+    public partial class BusinessEntityAddressController : ControllerBase
     {
-        private ErrorParser errorParser;
+        private ErrorList currentErrors;
+        private ErrorParser errorsParser;
         private IBusinessEntityAddressService svc;
 
-        public BusinessEntityAddressController(IServiceProvider serviceProvider)
+        public BusinessEntityAddressController(ErrorList errorList, ErrorParser errorParser, IBusinessEntityAddressService service)
         {
-            errorParser = serviceProvider.GetService<ErrorParser>();
-            svc = serviceProvider.GetService<IBusinessEntityAddressService>();
-            if (svc is IPrincipalProvider)
-                ((IPrincipalProvider)svc).CurrentPrincipal = RequestContext.Principal;
+            currentErrors = errorList;
+            errorsParser = errorParser;
+            svc = service;
         }
 
-        [Route("business-entity/{_businessEntityId}/address")]
+        [Route("business entity/{_businessEntityId}/address")]
         [HttpGet]
-        public HttpResponseMessage ReadList([FromUri] int _businessEntityId)
+        public ActionResult ReadList([FromRoute] int _businessEntityId)
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                IEnumerable<BusinessEntityAddress_ReadListOutput> output = svc.ReadList(_businessEntityId);
-                response = Request.CreateResponse(output);
+                if (ModelState.IsValid)
+                {
+                    Output<ICollection<BusinessEntityAddress_ReadListOutput>> output = svc.ReadList(_businessEntityId);
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
     }

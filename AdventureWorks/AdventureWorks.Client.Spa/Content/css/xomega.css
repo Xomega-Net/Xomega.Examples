@@ -102,13 +102,17 @@ label.required {
 /* Messages */
 
 .Critical {
-  color: Red;
+  color: red;
 }
 
 .Error {
-  color: Red;
+  color: red;
 }
 
 .Warning {
-  color: Purple;
+  color: darkblue;
+}
+
+.Info {
+  color: inherit;
 }

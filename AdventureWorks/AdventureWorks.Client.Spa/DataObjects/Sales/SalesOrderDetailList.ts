@@ -33,7 +33,6 @@ export class SalesOrderDetailList extends DataListObject {
         this.OrderQty.Editable(false);
         this.Product = new EnumProperty();
         this.Product.Required(true);
-        this.Product.Size = 10;
         this.Product.EnumType = "product";
         this.Product.Editable(false);
         this.SalesOrderDetailId = new IntegerProperty();
@@ -41,7 +40,6 @@ export class SalesOrderDetailList extends DataListObject {
         this.SalesOrderDetailId.Editable(false);
         this.SpecialOffer = new EnumProperty();
         this.SpecialOffer.Required(true);
-        this.SpecialOffer.Size = 10;
         this.SpecialOffer.EnumType = "special offer";
         this.SpecialOffer.Editable(false);
         this.UnitPrice = new MoneyProperty();
@@ -62,8 +60,11 @@ export class SalesOrderDetailList extends DataListObject {
     protected getSalesOrder_Detail_ReadListRequest(_salesOrderId: any, options?): JQueryAjaxSettings {
         let obj = this;
         let req = ISalesOrderService.getDetail_ReadListRequest(_salesOrderId);
-        req.success = data => obj.fromJSON(data, options);
-        req.error = (xhr, status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
+        req.success = (_data, _status, xhr) => {
+            obj.fromJSON(_data.Result, options);
+            obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
+        }
+        req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 }

@@ -27,7 +27,7 @@ export class BusinessEntityAddressReadListCacheLoader extends BaseLookupCacheLoa
         let cl = this;
         req.success = function (data) {
             let lkpData: { [key: string]: Header } = {};
-            let rows: BusinessEntityAddress_ReadListOutput[] = data || [];
+            let rows: BusinessEntityAddress_ReadListOutput[] = data.Result || [];
             for (let row of rows) {
                 let h: Header = lkpData[row.AddressId] || new Header(tableType, row.AddressId, row.AddressType);
                 h.addToAttribute('address line 1', row.AddressLine1);

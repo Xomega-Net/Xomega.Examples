@@ -34,7 +34,6 @@ export class SalesOrderDetailObject extends DataObject {
         this.OrderQty.Required(true);
         this.ProductId = new EnumProperty();
         this.ProductId.Required(true);
-        this.ProductId.Size = 10;
         this.ProductId.EnumType = "product";
         this.Rowguid = new GuidProperty();
         this.Rowguid.Required(true);
@@ -46,7 +45,6 @@ export class SalesOrderDetailObject extends DataObject {
         this.SalesOrderId.Editable(false);
         this.SpecialOfferId = new EnumProperty();
         this.SpecialOfferId.Required(true);
-        this.SpecialOfferId.Size = 10;
         this.SpecialOfferId.EnumType = "special offer";
         this.UnitPrice = new MoneyProperty();
         this.UnitPrice.Required(true);
@@ -79,27 +77,36 @@ export class SalesOrderDetailObject extends DataObject {
         let obj = this;
         let _salesOrderDetailId: any = obj.SalesOrderDetailId.TransportValue();
         let req = ISalesOrderService.getDetail_ReadRequest(_salesOrderDetailId);
-        req.success = data => obj.fromJSON(data, options);
-        req.error = (xhr, status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
+        req.success = (_data, _status, xhr) => {
+            obj.fromJSON(_data.Result, options);
+            obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
+        }
+        req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 
     protected getSalesOrder_Detail_CreateRequest(options?): JQueryAjaxSettings {
         let obj = this;
         let _salesOrderId: any = obj.SalesOrderId.TransportValue();
-        let _data: SalesOrderDetail_CreateInput_Data = obj.toStruct(SalesOrderDetail_CreateInput_Data);
+        let _data: SalesOrderDetail_CreateInput_Data = obj.toStruct(SalesOrderDetail_CreateInput_Data, options);
         let req = ISalesOrderService.getDetail_CreateRequest(_salesOrderId, _data);
-        req.success = data => obj.fromJSON(data, options);
-        req.error = (xhr, status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
+        req.success = (_data, _status, xhr) => {
+            obj.fromJSON(_data.Result, options);
+            obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
+        }
+        req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 
     protected getSalesOrder_Detail_UpdateRequest(options?): JQueryAjaxSettings {
         let obj = this;
         let _salesOrderDetailId: any = obj.SalesOrderDetailId.TransportValue();
-        let _data: SalesOrderDetail_UpdateInput_Data = obj.toStruct(SalesOrderDetail_UpdateInput_Data);
+        let _data: SalesOrderDetail_UpdateInput_Data = obj.toStruct(SalesOrderDetail_UpdateInput_Data, options);
         let req = ISalesOrderService.getDetail_UpdateRequest(_salesOrderDetailId, _data);
-        req.error = (xhr, status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
+        req.success = (_data, _status, xhr) => {
+            obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
+        }
+        req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 
@@ -107,7 +114,10 @@ export class SalesOrderDetailObject extends DataObject {
         let obj = this;
         let _salesOrderDetailId: any = obj.SalesOrderDetailId.TransportValue();
         let req = ISalesOrderService.getDetail_DeleteRequest(_salesOrderDetailId);
-        req.error = (xhr, status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
+        req.success = (_data, _status, xhr) => {
+            obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
+        }
+        req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 }

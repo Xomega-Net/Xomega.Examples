@@ -44,10 +44,8 @@ namespace AdventureWorks.Client.Objects
             SalesPersonIdProperty.EnumType = "sales person";
             SalesReasonProperty = new EnumIntProperty(this, SalesReason);
             SalesReasonProperty.IsMultiValued = true;
-            SalesReasonProperty.Size = 10;
             SalesReasonProperty.EnumType = "sales reason";
             TerritoryIdProperty = new EnumIntProperty(this, TerritoryId);
-            TerritoryIdProperty.Size = 10;
             TerritoryIdProperty.EnumType = "sales territory";
         }
 

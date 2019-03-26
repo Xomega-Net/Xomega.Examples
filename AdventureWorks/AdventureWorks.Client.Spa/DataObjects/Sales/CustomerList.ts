@@ -37,7 +37,6 @@ export class CustomerList extends DataListObject {
         this.StoreName = new TextProperty();
         this.StoreName.Editable(false);
         this.TerritoryId = new EnumProperty();
-        this.TerritoryId.Size = 10;
         this.TerritoryId.EnumType = "sales territory";
         this.TerritoryId.Editable(false);
     }
@@ -52,8 +51,11 @@ export class CustomerList extends DataListObject {
     protected getCustomer_ReadListRequest(_criteria: Customer_ReadListInput_Criteria, options?): JQueryAjaxSettings {
         let obj = this;
         let req = ICustomerService.getReadListRequest(_criteria);
-        req.success = data => obj.fromJSON(data, options);
-        req.error = (xhr, status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
+        req.success = (_data, _status, xhr) => {
+            obj.fromJSON(_data.Result, options);
+            obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
+        }
+        req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 }

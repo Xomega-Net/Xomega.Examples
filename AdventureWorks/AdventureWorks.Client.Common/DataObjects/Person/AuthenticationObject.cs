@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Client.Objects
 {
@@ -51,21 +52,24 @@ namespace AdventureWorks.Client.Objects
 
         #region CRUD Operations
 
-        protected override void DoSave(object options)
+        protected override ErrorList DoSave(object options)
         {
-            Person_Authenticate(options);
+            var output = Person_Authenticate(options);
+            return output.Messages;
         }
 
         #endregion
 
         #region Service Operations
 
-        protected virtual void Person_Authenticate(object options)
+        protected virtual Output Person_Authenticate(object options)
         {
             Credentials _credentials = ToDataContract<Credentials>(options);
             using (var s = ServiceProvider.CreateScope())
             {
-                s.ServiceProvider.GetService<IPersonService>().Authenticate(_credentials);
+                var output = s.ServiceProvider.GetService<IPersonService>().Authenticate(_credentials);
+
+                return output;
             }
         }
 

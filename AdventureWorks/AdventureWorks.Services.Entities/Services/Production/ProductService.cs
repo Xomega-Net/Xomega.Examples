@@ -8,6 +8,7 @@
 // To prevent this and preserve manual custom changes please remove the line above.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -25,22 +26,21 @@ namespace AdventureWorks.Services.Entities
         public ProductService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
-            if (ctx == null) ctx = new AdventureWorksEntities();
         }
 
-        public virtual IEnumerable<Product_ReadListOutput> ReadList()
+        public virtual Output<ICollection<Product_ReadListOutput>> ReadList()
         {
             // CUSTOM_CODE_START: add custom security checks for ReadList operation below
             // CUSTOM_CODE_END
-            IEnumerable<Product_ReadListOutput> res = null;
+            ICollection<Product_ReadListOutput> res = null;
             try
             {
                 var src = from obj in ctx.Product select obj;
-                #region Source filter
+
                 // CUSTOM_CODE_START: add custom filter criteria to the source query for ReadList operation below
                 // src = src.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 var qry = from obj in src
                           select new Product_ReadListOutput() {
                               ProductId = obj.ProductId,
@@ -48,22 +48,22 @@ namespace AdventureWorks.Services.Entities
                               // CUSTOM_CODE_START: set the IsActive output parameter of ReadList operation below
                               IsActive = (obj.SellEndDate == null || obj.SellEndDate > DateTime.Today)
                                          && obj.DiscontinuedDate == null, // CUSTOM_CODE_END
-                              ProductSubcategoryId = obj.ProductSubcategoryIdObject.ProductSubcategoryId,
-                              ProductModelId = obj.ProductModelIdObject.ProductModelId,
+                              ProductSubcategoryId = obj.ProductSubcategoryId,
+                              ProductModelId = obj.ProductModelId,
                           };
-                #region Result filter
+
                 // CUSTOM_CODE_START: add custom filter criteria to the result query for ReadList operation below
                 // qry = qry.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 currentErrors.AbortIfHasErrors();
                 res = qry.ToList();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return res;
+            return new Output<ICollection<Product_ReadListOutput>>(currentErrors, res);
         }
     }
 }

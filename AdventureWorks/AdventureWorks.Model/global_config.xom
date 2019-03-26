@@ -7,7 +7,8 @@
         xmlns:wcf="http://www.xomega.net/wcf"
         xmlns:ui="http://www.xomega.net/ui">
 
-  <wcf:services-config namespace="AdventureWorks.Services"
+  <wcf:services-config async="false"
+                       namespace="AdventureWorks.Services"
                        implNamespace="AdventureWorks.Services.Entities"
                        tsOutputPath="../AdventureWorks.Client.Spa/ServiceContracts/{Module/}{File}">
 
@@ -29,10 +30,12 @@
       <ui:list details-mode="popup">
         <ui:criteria>
           <ui:fields columns="2" flow="vertical"/>
+          <ui:errors position="bottom"/>
         </ui:criteria>
       </ui:list>
       <ui:details>
         <ui:fields columns="2" flow="vertical"/>
+        <ui:errors position="top"/>
         <ui:children layout="tabs"/>
       </ui:details>
       <ui:description>Standard layout for list view with popup details</ui:description>
@@ -58,7 +61,8 @@
   <!-- configuration for generation of enumerations -->
   <xfk:enumerations-config namespace="AdventureWorks.Enumerations"/>
 
-  <!-- configuration for generation of Entity Framework model -->
-  <edm:entities-config modelName="AdventureWorks"/>
-
+  <!-- configuration for generation of Entity Framework classes -->
+  <edm:entities-config efCore="true"
+                       namespace="AdventureWorks.Services.Entities"
+                       context="AdventureWorksEntities"/>
 </config>

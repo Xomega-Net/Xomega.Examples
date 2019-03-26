@@ -62,8 +62,8 @@ namespace AdventureWorks.Client.Wpf
             }
             catch (MessageSecurityException)
             {
-                ErrorList errors = new ErrorList();
-                errors.AddError(ErrorType.Security, "Invalid credentials");
+                ErrorList errors = new ErrorList(Messages.ResourceManager);
+                errors.AddError(ErrorType.Security, Messages.InvalidCredentials);
                 errors.Abort(errors.ErrorsText);
             }
         }

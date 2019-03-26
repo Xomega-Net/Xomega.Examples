@@ -8,6 +8,7 @@
 // To prevent this and preserve manual custom changes please remove the line above.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -25,45 +26,43 @@ namespace AdventureWorks.Services.Entities
         public SalesPersonService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
-            if (ctx == null) ctx = new AdventureWorksEntities();
         }
 
-        public virtual IEnumerable<SalesPerson_ReadListOutput> ReadList()
+        public virtual Output<ICollection<SalesPerson_ReadListOutput>> ReadList()
         {
             // CUSTOM_CODE_START: add custom security checks for ReadList operation below
             // CUSTOM_CODE_END
-            IEnumerable<SalesPerson_ReadListOutput> res = null;
+            ICollection<SalesPerson_ReadListOutput> res = null;
             try
             {
                 var src = from obj in ctx.SalesPerson select obj;
-                #region Source filter
+
                 // CUSTOM_CODE_START: add custom filter criteria to the source query for ReadList operation below
                 // src = src.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 var qry = from obj in src
                           select new SalesPerson_ReadListOutput() {
                               BusinessEntityId = obj.BusinessEntityId,
-                              TerritoryId = obj.TerritoryIdObject.TerritoryId,
+                              TerritoryId = obj.TerritoryId,
                               // CUSTOM_CODE_START: set the Name output parameter of ReadList operation below
-                              Name = obj.BusinessEntityIdObject.BusinessEntityIdObject.LastName + ", " + 
-                                     obj.BusinessEntityIdObject.BusinessEntityIdObject.FirstName, // CUSTOM_CODE_END
+                              Name = obj.BusinessEntityObject.BusinessEntityObject.FullName, // CUSTOM_CODE_END
                               // CUSTOM_CODE_START: set the IsCurrent output parameter of ReadList operation below
-                              IsCurrent = obj.BusinessEntityIdObject.CurrentFlag, // CUSTOM_CODE_END
+                              IsCurrent = obj.BusinessEntityObject.CurrentFlag, // CUSTOM_CODE_END
                           };
-                #region Result filter
+
                 // CUSTOM_CODE_START: add custom filter criteria to the result query for ReadList operation below
                 // qry = qry.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 currentErrors.AbortIfHasErrors();
                 res = qry.ToList();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return res;
+            return new Output<ICollection<SalesPerson_ReadListOutput>>(currentErrors, res);
         }
     }
 }

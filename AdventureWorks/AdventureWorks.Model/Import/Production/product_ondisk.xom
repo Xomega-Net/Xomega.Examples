@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
+        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:rest="http://www.xomega.net/rest"
+        xmlns:ui="http://www.xomega.net/ui"
+        xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
+        xmlns:sql="http://www.xomega.net/sql"
+        xmlns:clr="http://www.xomega.net/clr"
+        xmlns:edm="http://www.xomega.net/edm"
+        name="production">
+  <types>
+    <type name="product ondisk" base="integer key"/>
+  </types>
+  <objects>
+    <object name="product ondisk">
+      <fields>
+        <field name="product id" type="product ondisk" key="serial" required="true">
+          <config>
+            <sql:column name="ProductID"/>
+          </config>
+        </field>
+        <field name="name" type="name" required="true">
+          <config>
+            <sql:column name="Name"/>
+          </config>
+        </field>
+        <field name="product number" type="string25" required="true">
+          <config>
+            <sql:column name="ProductNumber"/>
+          </config>
+        </field>
+        <field name="make flag" type="boolean" required="true">
+          <config>
+            <sql:column name="MakeFlag" default="((1))"/>
+          </config>
+        </field>
+        <field name="finished goods flag" type="boolean" required="true">
+          <config>
+            <sql:column name="FinishedGoodsFlag" default="((1))"/>
+          </config>
+        </field>
+        <field name="color" type="string15">
+          <config>
+            <sql:column name="Color"/>
+          </config>
+        </field>
+        <field name="safety stock level" type="small int" required="true">
+          <config>
+            <sql:column name="SafetyStockLevel"/>
+          </config>
+        </field>
+        <field name="reorder point" type="small int" required="true">
+          <config>
+            <sql:column name="ReorderPoint"/>
+          </config>
+        </field>
+        <field name="standard cost" type="money" required="true">
+          <config>
+            <sql:column name="StandardCost"/>
+          </config>
+        </field>
+        <field name="list price" type="money" required="true">
+          <config>
+            <sql:column name="ListPrice"/>
+          </config>
+        </field>
+        <field name="size" type="string5">
+          <config>
+            <sql:column name="Size"/>
+          </config>
+        </field>
+        <field name="size unit measure code" type="code3">
+          <config>
+            <sql:column name="SizeUnitMeasureCode"/>
+          </config>
+        </field>
+        <field name="weight unit measure code" type="code3">
+          <config>
+            <sql:column name="WeightUnitMeasureCode"/>
+          </config>
+        </field>
+        <field name="weight" type="decimal_8_2">
+          <config>
+            <sql:column name="Weight"/>
+          </config>
+        </field>
+        <field name="days to manufacture" type="integer" required="true">
+          <config>
+            <sql:column name="DaysToManufacture"/>
+          </config>
+        </field>
+        <field name="product line" type="code2">
+          <config>
+            <sql:column name="ProductLine"/>
+          </config>
+        </field>
+        <field name="class" type="code2">
+          <config>
+            <sql:column name="Class"/>
+          </config>
+        </field>
+        <field name="style" type="code2">
+          <config>
+            <sql:column name="Style"/>
+          </config>
+        </field>
+        <field name="product subcategory id" type="integer">
+          <config>
+            <sql:column name="ProductSubcategoryID"/>
+          </config>
+        </field>
+        <field name="product model id" type="integer">
+          <config>
+            <sql:column name="ProductModelID"/>
+          </config>
+        </field>
+        <field name="sell start date" type="extended date time" required="true">
+          <config>
+            <sql:column name="SellStartDate"/>
+          </config>
+        </field>
+        <field name="sell end date" type="extended date time">
+          <config>
+            <sql:column name="SellEndDate"/>
+          </config>
+        </field>
+        <field name="discontinued date" type="extended date time">
+          <config>
+            <sql:column name="DiscontinuedDate"/>
+          </config>
+        </field>
+        <field name="modified date" type="extended date time" required="true">
+          <config>
+            <sql:column name="ModifiedDate" default="(sysdatetime())"/>
+          </config>
+        </field>
+      </fields>
+      <config>
+        <sql:table name="Production.Product_ondisk"/>
+      </config>
+    </object>
+  </objects>
+</module>

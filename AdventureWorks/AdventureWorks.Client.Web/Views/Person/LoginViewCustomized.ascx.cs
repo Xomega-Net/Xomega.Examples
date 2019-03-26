@@ -19,6 +19,11 @@ namespace AdventureWorks.Client.Web
 
             btn_Save.Text = "Login";
             pnlMain.Width = new Unit("500px");
+        }
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
 
             if (Page.User.Identity.IsAuthenticated)
             {
@@ -26,7 +31,7 @@ namespace AdventureWorks.Client.Web
                 // to this view, so display an appropriate message (instead of the login form) here
                 lblLoginViewTitle.Text = "Unauthorized";
                 ErrorList el = new ErrorList();
-                el.AddError(ErrorType.Security, "You are not authorized to view this page");
+                el.AddError(ErrorType.Security, Messages.PageNotAuthorized);
                 Model.Errors = el;
                 pnl_Object.Visible = false;
                 btn_Save.Visible = false;
@@ -44,7 +49,7 @@ namespace AdventureWorks.Client.Web
                 ClaimsIdentity ci = null;
                 if (authObj != null && authObj.EmailProperty.Value != null)
                 {
-                    PersonInfo userInfo = ServiceProvider.GetService<IPersonService>().Read(authObj.EmailProperty.Value);
+                    PersonInfo userInfo = ServiceProvider.GetService<IPersonService>().Read(authObj.EmailProperty.Value).Result;
                     ci = SecurityManager.CreateIdentity(CookieAuthenticationDefaults.AuthenticationType, userInfo);
                 }
                 if (ci != null)

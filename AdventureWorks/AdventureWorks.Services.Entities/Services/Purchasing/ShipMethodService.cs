@@ -8,6 +8,7 @@
 // To prevent this and preserve manual custom changes please remove the line above.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -25,40 +26,39 @@ namespace AdventureWorks.Services.Entities
         public ShipMethodService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
-            if (ctx == null) ctx = new AdventureWorksEntities();
         }
 
-        public virtual IEnumerable<ShipMethod_ReadListOutput> ReadList()
+        public virtual Output<ICollection<ShipMethod_ReadListOutput>> ReadList()
         {
             // CUSTOM_CODE_START: add custom security checks for ReadList operation below
             // CUSTOM_CODE_END
-            IEnumerable<ShipMethod_ReadListOutput> res = null;
+            ICollection<ShipMethod_ReadListOutput> res = null;
             try
             {
                 var src = from obj in ctx.ShipMethod select obj;
-                #region Source filter
+
                 // CUSTOM_CODE_START: add custom filter criteria to the source query for ReadList operation below
                 // src = src.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 var qry = from obj in src
                           select new ShipMethod_ReadListOutput() {
                               ShipMethodId = obj.ShipMethodId,
                               Name = obj.Name,
                           };
-                #region Result filter
+
                 // CUSTOM_CODE_START: add custom filter criteria to the result query for ReadList operation below
                 // qry = qry.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 currentErrors.AbortIfHasErrors();
                 res = qry.ToList();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return res;
+            return new Output<ICollection<ShipMethod_ReadListOutput>>(currentErrors, res);
         }
     }
 }

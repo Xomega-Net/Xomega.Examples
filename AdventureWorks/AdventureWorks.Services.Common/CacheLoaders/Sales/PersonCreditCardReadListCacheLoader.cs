@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using Xomega.Framework;
 using Xomega.Framework.Lookup;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
@@ -20,26 +21,30 @@ namespace AdventureWorks.Services
         }
 
         // !!! override this function, and call the base function with proper arguments !!!
-        protected virtual IEnumerable<PersonCreditCard_ReadListOutput> ReadList(int _businessEntityId)
+        protected virtual Output<ICollection<PersonCreditCard_ReadListOutput>> ReadList(int _businessEntityId)
         {
             using (var s = serviceProvider.CreateScope())
             {
-                return s.ServiceProvider.GetService<IPersonCreditCardService>().ReadList(_businessEntityId);
+                var svc = s.ServiceProvider.GetService<IPersonCreditCardService>();
+                return svc.ReadList(_businessEntityId);
             }
         }
 
         protected override void LoadCache(string tableType, CacheUpdater updateCache)
         {
             Dictionary<string, Dictionary<string, Header>> data = new Dictionary<string, Dictionary<string, Header>>();
-            foreach (PersonCreditCard_ReadListOutput row in ReadList(default(int)))
+            var output = ReadList(default(int));
+
+            foreach (var row in output.Result)
             {
                 string type = "person credit card";
-                Dictionary<string, Header> tbl;
-                if (!data.TryGetValue(type, out tbl)) data[type] = tbl = new Dictionary<string, Header>();
 
+                if (!data.TryGetValue(type, out Dictionary<string, Header> tbl))
+                {
+                    data[type] = tbl = new Dictionary<string, Header>();
+                }
                 string id = "" + row.CreditCardId;
-                Header h;
-                if (!tbl.TryGetValue(id, out h))
+                if (!tbl.TryGetValue(id, out Header h))
                 {
                     tbl[id] = h = new Header(type, id, row.CreditCardName);
                 }

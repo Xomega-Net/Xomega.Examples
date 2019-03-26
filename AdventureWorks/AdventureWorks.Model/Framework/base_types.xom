@@ -264,7 +264,7 @@
       <config>
         <sql:type name="float" db="sqlsrv"/>
         <edm:type Type="Double"/>
-        <clr:type name="float" valuetype="true"/>
+        <clr:type name="double" valuetype="true"/>
         <xfk:property class="DecimalProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
       </config>
       <usage generic="true"/>
@@ -275,6 +275,7 @@
     <type name="real" base="float">
       <config>
         <sql:type name="real" db="sqlsrv"/>
+        <edm:type Type="Single"/>
       </config>
       <usage generic="true" replaced-by="float"/>
       <doc>
@@ -302,7 +303,7 @@
         <summary>Generic string with a certain maximum size.</summary>
       </doc>
     </type>
-    <type name="code" base="string" size="10">
+    <type name="code" base="string" size="15">
       <config>
         <sql:type name="nchar" db="sqlsrv"/>
       </config>
@@ -311,9 +312,8 @@
         <summary>A short fixed-size string that is typically used for codes.</summary>
       </doc>
     </type>
-    <type name="enumeration" base="code">
+    <type name="selection">
       <config>
-        <xfk:property class="EnumProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
         <ui:control>
           <ComboBox Style="{StaticResource ControlStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
         </ui:control>
@@ -339,12 +339,25 @@
       </config>
       <usage generic="true"/>
       <doc>
-        <summary>A code associated with an enumeration.</summary>
+        <summary>A base type associated with selection UI controls.</summary>
       </doc>
     </type>
-    <type name="integer enumeration" base="enumeration">
+    <type name="enumeration" base="selection" size="25">
       <config>
-        <xfk:property class="EnumIntProperty" namespace="Xomega.Framework.Properties"/>
+        <sql:type name="nchar" db="sqlsrv"/>
+        <edm:type Type="String"/>
+        <clr:type name="string"/>
+        <xfk:property class="EnumProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
+      </config>
+      <usage generic="true"/>
+      <doc>
+        <summary>An enumeration based on short code string values.</summary>
+      </doc>
+    </type>
+    <type name="integer enumeration" base="selection">
+      <config>
+        <xfk:property class="EnumIntProperty" namespace="Xomega.Framework.Properties"
+                      tsClass="EnumProperty" tsModule="xomega"/>
         <edm:type Type="Int32"/>
         <clr:type name="int" valuetype="true"/>
         <sql:type name="int"/>
@@ -393,9 +406,10 @@
         <summary>An enumeration based on big integer values.</summary>
       </doc>
     </type>
-    <type name="boolean enumeration" base="enumeration">
+    <type name="boolean enumeration" base="selection">
       <config>
-        <xfk:property class="EnumBoolProperty" namespace="Xomega.Framework.Properties"/>
+        <xfk:property class="EnumBoolProperty" namespace="Xomega.Framework.Properties"
+                      tsClass="EnumProperty" tsModule="xomega"/>
         <edm:type Type="Boolean"/>
         <clr:type name="bool" valuetype="true"/>
         <sql:type name="bit"/>
@@ -437,6 +451,15 @@
     <type name="text" base="memo">
       <config>
         <sql:type name="text" db="sqlsrv"/>
+      </config>
+      <usage generic="true" replaced-by="memo"/>
+      <doc>
+        <summary>A large text that can be over 8000 characters long. (Deprecated)</summary>
+      </doc>
+    </type>
+    <type name="national text" base="memo">
+      <config>
+        <sql:type name="ntext" db="sqlsrv"/>
       </config>
       <usage generic="true" replaced-by="memo"/>
       <doc>
@@ -491,9 +514,10 @@
         <summary>Globally unique identifier.</summary>
       </doc>
     </type>
-    <type name="guid enumeration" base="enumeration">
+    <type name="guid enumeration" base="selection">
       <config>
-        <xfk:property class="EnumGuidProperty" namespace="Xomega.Framework.Properties"/>
+        <xfk:property class="EnumGuidProperty" namespace="Xomega.Framework.Properties"
+                      tsClass="EnumProperty" tsModule="xomega"/>
         <sql:type name="uniqueidentifier" db="sqlsrv"/>
         <edm:type Type="Guid"/>
         <clr:type name="Guid" valuetype="true"/>
@@ -533,6 +557,24 @@
         <summary>Large binary data that can exceed 8000 bytes.</summary>
       </doc>
     </type>
+    <type name="image" base="binary">
+      <config>
+        <sql:type name="image" db="sqlsrv"/>
+      </config>
+      <usage generic="true" replaced-by="large binary"/>
+      <doc>
+        <summary>Large binary data that can exceed 8000 bytes.</summary>
+      </doc>
+    </type>
+    <type name="row version" base="binary">
+      <config>
+        <sql:type name="timestamp" db="sqlsrv"/>
+      </config>
+      <usage generic="true"/>
+      <doc>
+        <summary>An incrementing number generally used as a mechanism for version-stamping table rows.</summary>
+      </doc>
+    </type>
     <type name="xml" base="string">
       <config>
         <sql:type name="xml" db="sqlsrv"/>
@@ -555,7 +597,7 @@
       <config>
         <sql:type name="geometry" db="sqlsrv" minver="10"/>
         <edm:type Type="Geometry" minFwkVer="4"/>
-        <clr:type name="DbGeometry" namespace="System.Data.Spatial"/>
+        <clr:type name="IGeometry" namespace="GeoAPI.Geometries"/>
       </config>
       <usage generic="true"/>
       <doc>
@@ -566,15 +608,24 @@
       <config>
         <sql:type name="geography" db="sqlsrv" minver="10"/>
         <edm:type Type="Geography" minFwkVer="4"/>
-        <clr:type name="DbGeography" namespace="System.Data.Spatial"/>
+        <clr:type name="IPoint" namespace="GeoAPI.Geometries"/>
       </config>
       <usage generic="true"/>
       <doc>
         <summary>Represents data in a round-earth coordinate system.</summary>
       </doc>
     </type>
+    <type name="variant">
+      <config>
+        <sql:type name="sql_variant" db="sqlsrv"/>
+      </config>
+      <usage generic="true"/>
+      <doc>
+        <summary>Stores values of various supported data types.</summary>
+      </doc>
+    </type>
     <type name="yesno" base="boolean enumeration">
-      <enum ref="yesno"/>
+      <enum ref="yesno" validation="none"/>
       <usage generic="true"/>
     </type>
     <type name="plain password" base="string">

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
@@ -25,7 +26,7 @@ namespace AdventureWorks.Services
         ///</summary>
         [OperationContract]
         [FaultContract(typeof(ErrorList))]
-        IEnumerable<SpecialOffer_ReadListOutput> ReadList();
+        Output<ICollection<SpecialOffer_ReadListOutput>> ReadList();
 
     }
     #endregion
@@ -38,12 +39,22 @@ namespace AdventureWorks.Services
     [DataContract]
     public class SpecialOffer_ReadListOutput
     {
+        
         [DataMember]
         public int SpecialOfferId { get; set; }
+        
+        ///<summary>
+        /// Discount description.
+        ///</summary>
         [DataMember]
         public string Description { get; set; }
+        
         [DataMember]
         public bool IsActive { get; set; }
+        
+        ///<summary>
+        /// Group the discount applies to such as Reseller or Customer.
+        ///</summary>
         [DataMember]
         public string Category { get; set; }
     }

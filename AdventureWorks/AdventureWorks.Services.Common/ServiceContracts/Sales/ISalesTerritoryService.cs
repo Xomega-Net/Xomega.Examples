@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
@@ -25,7 +26,7 @@ namespace AdventureWorks.Services
         ///</summary>
         [OperationContract]
         [FaultContract(typeof(ErrorList))]
-        IEnumerable<SalesTerritory_ReadListOutput> ReadList();
+        Output<ICollection<SalesTerritory_ReadListOutput>> ReadList();
 
     }
     #endregion
@@ -38,12 +39,25 @@ namespace AdventureWorks.Services
     [DataContract]
     public class SalesTerritory_ReadListOutput
     {
+        
         [DataMember]
         public int TerritoryId { get; set; }
+        
+        ///<summary>
+        /// Sales territory description
+        ///</summary>
         [DataMember]
         public string Name { get; set; }
+        
+        ///<summary>
+        /// ISO standard country or region code. Foreign key to CountryRegion.CountryRegionCode. 
+        ///</summary>
         [DataMember]
         public string CountryRegionCode { get; set; }
+        
+        ///<summary>
+        /// Geographic area to which the sales territory belong.
+        ///</summary>
         [DataMember]
         public string Group { get; set; }
     }

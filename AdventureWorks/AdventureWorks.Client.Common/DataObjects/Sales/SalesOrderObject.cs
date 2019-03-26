@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Client.Objects
 {
@@ -98,7 +99,6 @@ namespace AdventureWorks.Client.Objects
             ShipDateProperty = new DateProperty(this, ShipDate);
             StatusProperty = new EnumByteProperty(this, Status);
             StatusProperty.Required = true;
-            StatusProperty.Size = 10;
             StatusProperty.EnumType = "sales order status";
             DataObject objCustomer = ServiceProvider.GetService<SalesOrderCustomerObject>();
             AddChildObject(Customer, objCustomer);
@@ -114,69 +114,81 @@ namespace AdventureWorks.Client.Objects
 
         #region CRUD Operations
 
-        protected override void DoRead(object options)
+        protected override ErrorList DoRead(object options)
         {
-            SalesOrder_Read(options);
+            var output = SalesOrder_Read(options);
+            return output.Messages;
         }
 
-        protected override void DoSave(object options)
+        protected override ErrorList DoSave(object options)
         {
             if (IsNew)
             {
-                SalesOrder_Create(options);
+                var output = SalesOrder_Create(options);
+                return output.Messages;
             }
             else
             {
-                SalesOrder_Update(options);
+                var output = SalesOrder_Update(options);
+                return output.Messages;
             }
         }
 
-        protected override void DoDelete(object options)
+        protected override ErrorList DoDelete(object options)
         {
-            SalesOrder_Delete(options);
+            var output = SalesOrder_Delete(options);
+            return output.Messages;
         }
 
         #endregion
 
         #region Service Operations
 
-        protected virtual void SalesOrder_Read(object options)
+        protected virtual Output<SalesOrder_ReadOutput> SalesOrder_Read(object options)
         {
             int _salesOrderId = (int)SalesOrderIdProperty.TransportValue;
             using (var s = ServiceProvider.CreateScope())
             {
-                SalesOrder_ReadOutput output = s.ServiceProvider.GetService<ISalesOrderService>().Read(_salesOrderId);
-                FromDataContract(output, options);
+                var output = s.ServiceProvider.GetService<ISalesOrderService>().Read(_salesOrderId);
+
+                FromDataContract(output?.Result, options);
+                return output;
             }
         }
 
-        protected virtual void SalesOrder_Create(object options)
+        protected virtual Output<SalesOrder_CreateOutput> SalesOrder_Create(object options)
         {
             SalesOrder_CreateInput _data = ToDataContract<SalesOrder_CreateInput>(options);
             using (var s = ServiceProvider.CreateScope())
             {
-                SalesOrder_CreateOutput output = s.ServiceProvider.GetService<ISalesOrderService>().Create(_data);
-                FromDataContract(output, options);
+                var output = s.ServiceProvider.GetService<ISalesOrderService>().Create(_data);
+
+                FromDataContract(output?.Result, options);
+                return output;
             }
         }
 
-        protected virtual void SalesOrder_Update(object options)
+        protected virtual Output<SalesOrder_UpdateOutput> SalesOrder_Update(object options)
         {
             int _salesOrderId = (int)SalesOrderIdProperty.TransportValue;
             SalesOrder_UpdateInput_Data _data = ToDataContract<SalesOrder_UpdateInput_Data>(options);
             using (var s = ServiceProvider.CreateScope())
             {
-                SalesOrder_UpdateOutput output = s.ServiceProvider.GetService<ISalesOrderService>().Update(_salesOrderId, _data);
-                FromDataContract(output, options);
+                var output = s.ServiceProvider.GetService<ISalesOrderService>().Update(_salesOrderId, _data);
+
+                FromDataContract(output?.Result, options);
+                return output;
             }
         }
 
-        protected virtual void SalesOrder_Delete(object options)
+        protected virtual Output SalesOrder_Delete(object options)
         {
             int _salesOrderId = (int)SalesOrderIdProperty.TransportValue;
             using (var s = ServiceProvider.CreateScope())
             {
-                s.ServiceProvider.GetService<ISalesOrderService>().Delete(_salesOrderId);
+                var output = s.ServiceProvider.GetService<ISalesOrderService>().Delete(_salesOrderId);
+
+                return output;
             }
         }
 

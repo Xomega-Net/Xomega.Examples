@@ -19,10 +19,8 @@ export class SalesOrderSalesObject extends DataObject {
         this.SalesPersonId.EnumType = "sales person";
         this.SalesReason = new EnumProperty();
         this.SalesReason.IsMultiValued = true;
-        this.SalesReason.Size = 10;
         this.SalesReason.EnumType = "sales reason";
         this.TerritoryId = new EnumProperty();
-        this.TerritoryId.Size = 10;
         this.TerritoryId.EnumType = "sales territory";
     }
 }

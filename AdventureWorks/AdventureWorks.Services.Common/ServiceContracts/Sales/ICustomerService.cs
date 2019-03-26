@@ -4,10 +4,12 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
+using AdventureWorks.Enumerations;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
@@ -25,7 +27,7 @@ namespace AdventureWorks.Services
         ///</summary>
         [OperationContract]
         [FaultContract(typeof(ErrorList))]
-        IEnumerable<Customer_ReadListOutput> ReadList(Customer_ReadListInput_Criteria _criteria);
+        Output<ICollection<Customer_ReadListOutput>> ReadList(Customer_ReadListInput_Criteria _criteria);
 
     }
     #endregion
@@ -38,19 +40,40 @@ namespace AdventureWorks.Services
     [DataContract]
     public class Customer_ReadListInput_Criteria
     {
+        
+        ///<summary>
+        /// ID of the territory in which the customer is located. Foreign key to SalesTerritory.SalesTerritoryID.
+        ///</summary>
         [DataMember]
+        [XLookupValue(SalesTerritory.EnumName)]
         public int? TerritoryId { get; set; }
+        
         [DataMember]
+        [XMaxLength(25)]
+        [XLookupValue(Operators.EnumName)]
         public string PersonNameOperator { get; set; }
+        
         [DataMember]
         public string PersonName { get; set; }
+        
         [DataMember]
+        [XMaxLength(25)]
+        [XLookupValue(Operators.EnumName)]
         public string StoreNameOperator { get; set; }
+        
         [DataMember]
         public string StoreName { get; set; }
+        
         [DataMember]
+        [XMaxLength(25)]
+        [XLookupValue(Operators.EnumName)]
         public string AccountNumberOperator { get; set; }
+        
+        ///<summary>
+        /// Unique number identifying the customer assigned by the accounting system.
+        ///</summary>
         [DataMember]
+        [XMaxLength(10)]
         public string AccountNumber { get; set; }
     }
     #endregion
@@ -63,18 +86,37 @@ namespace AdventureWorks.Services
     [DataContract]
     public class Customer_ReadListOutput
     {
+        
         [DataMember]
         public int CustomerId { get; set; }
+        
+        ///<summary>
+        /// Foreign key to Store.BusinessEntityID
+        ///</summary>
         [DataMember]
         public int? StoreId { get; set; }
+        
         [DataMember]
         public string StoreName { get; set; }
+        
+        ///<summary>
+        /// Foreign key to Person.BusinessEntityID
+        ///</summary>
         [DataMember]
         public int? PersonId { get; set; }
+        
         [DataMember]
         public string PersonName { get; set; }
+        
+        ///<summary>
+        /// Unique number identifying the customer assigned by the accounting system.
+        ///</summary>
         [DataMember]
         public string AccountNumber { get; set; }
+        
+        ///<summary>
+        /// ID of the territory in which the customer is located. Foreign key to SalesTerritory.SalesTerritoryID.
+        ///</summary>
         [DataMember]
         public int? TerritoryId { get; set; }
     }

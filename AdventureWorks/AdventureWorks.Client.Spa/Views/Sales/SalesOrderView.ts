@@ -30,9 +30,9 @@ class SalesOrderView extends DetailsViewModel {
         let params: any = {};
         params[ViewParams.Action] = ViewParams.ActionSelect;
         params[ViewParams.SelectionMode] = ViewParams.SelectionModeSingle;
-        params["StoreNameOperator"] = "CONT";
+        params["StoreNameOperator"] = "CN";
         params["StoreName"] = vm.obj.CustomerObject.LookupObject.StoreName.EditStringValue();
-        params["PersonNameOperator"] = "CONT";
+        params["PersonNameOperator"] = "CN";
         params["PersonName"] = vm.obj.CustomerObject.LookupObject.PersonName.EditStringValue();
         params[ViewParams.Mode] = ViewParams.ModePopup;
         params[ViewParams.Source] = "lnkCustomerLookupLookUp";

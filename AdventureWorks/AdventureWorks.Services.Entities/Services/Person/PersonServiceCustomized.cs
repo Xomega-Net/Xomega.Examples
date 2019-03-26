@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services.Entities
 {
@@ -10,7 +11,7 @@ namespace AdventureWorks.Services.Entities
         {
         }
 
-        public override void Authenticate(Credentials _credentials)
+        public override Output Authenticate(Credentials _credentials)
         {
             // lookup password
             var pwdQry = from em in ctx.EmailAddress
@@ -27,10 +28,11 @@ namespace AdventureWorks.Services.Entities
                 // TODO: hash _credentials.Password using pwd.PasswordSalt,
                 //       and compare it with pwd.PasswordHash instead
             }
-            if (!valid) currentErrors.CriticalError(ErrorType.Security, "Invalid credentials");
+            if (!valid) currentErrors.CriticalError(ErrorType.Security, Messages.InvalidCredentials);
+            return new Output(currentErrors);
         }
 
-        public override PersonInfo Read(string _email)
+        public override Output<PersonInfo> Read(string _email)
         {
             // lookup and return person info
             var qry = from em in ctx.EmailAddress
@@ -53,9 +55,9 @@ namespace AdventureWorks.Services.Entities
                           Vendor = vn.BusinessEntityId
                       };
             var person = qry.FirstOrDefault();
-            if (person == null) currentErrors.CriticalError(ErrorType.Data, "Person info not found");
+            if (person == null) currentErrors.CriticalError(ErrorType.Data, Messages.EmailPersonNotFound, _email);
 
-            return person;
+            return new Output<PersonInfo>(currentErrors, person);
         }
     }
 }

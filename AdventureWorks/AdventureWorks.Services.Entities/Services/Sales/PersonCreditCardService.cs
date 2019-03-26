@@ -8,6 +8,7 @@
 // To prevent this and preserve manual custom changes please remove the line above.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -25,63 +26,55 @@ namespace AdventureWorks.Services.Entities
         public PersonCreditCardService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
-            if (ctx == null) ctx = new AdventureWorksEntities();
         }
 
-        public virtual IEnumerable<PersonCreditCard_ReadListOutput> ReadList(int _businessEntityId)
+        public virtual Output<ICollection<PersonCreditCard_ReadListOutput>> ReadList(int _businessEntityId)
         {
             // CUSTOM_CODE_START: add custom security checks for ReadList operation below
             // CUSTOM_CODE_END
-            IEnumerable<PersonCreditCard_ReadListOutput> res = null;
+            ICollection<PersonCreditCard_ReadListOutput> res = null;
             try
             {
                 var src = from obj in ctx.PersonCreditCard select obj;
-                #region Source filter
-                if (true)
-                {
-                    // CUSTOM_CODE_START: add code for BusinessEntityId criteria of ReadList operation below
-                    src = src.Where(o => o.BusinessEntityId == _businessEntityId);// CUSTOM_CODE_END
-                }
+
+                // Source filter
+                src = AddClause(src, "BusinessEntityId", o => o.BusinessEntityId, _businessEntityId);
+
                 // CUSTOM_CODE_START: add custom filter criteria to the source query for ReadList operation below
                 // src = src.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 var qry = from obj in src
                           select new PersonCreditCard_ReadListOutput() {
-                              // CUSTOM_CODE_START: set the CreditCardId output parameter of ReadList operation below
-                              CreditCardId = obj.CreditCardId, // CUSTOM_CODE_END
+                              CreditCardId = obj.CreditCardId,
                               // CUSTOM_CODE_START: set the CreditCardName output parameter of ReadList operation below
-                              CreditCardName = obj.CreditCardIdObject.CardType + "-*" +
-                                               obj.CreditCardIdObject.CardNumber.Substring(
-                                                   obj.CreditCardIdObject.CardNumber.Length - 4), // CUSTOM_CODE_END
+                              CreditCardName = obj.CreditCardObject.CardType + "-*" +
+                                               obj.CreditCardObject.CardNumber.Substring(
+                                                   obj.CreditCardObject.CardNumber.Length - 4), // CUSTOM_CODE_END
                               // CUSTOM_CODE_START: set the PersonName output parameter of ReadList operation below
-                              PersonName = obj.BusinessEntityIdObject.LastName + "," +
-                                           obj.BusinessEntityIdObject.FirstName, // CUSTOM_CODE_END
+                              PersonName = obj.BusinessEntityObject.FullName, // CUSTOM_CODE_END
                               // CUSTOM_CODE_START: set the CardType output parameter of ReadList operation below
-                              CardType = obj.CreditCardIdObject.CardType, // CUSTOM_CODE_END
+                              CardType = obj.CreditCardObject.CardType, // CUSTOM_CODE_END
                               // CUSTOM_CODE_START: set the CardNumber output parameter of ReadList operation below
-                              CardNumber = obj.CreditCardIdObject.CardNumber, // CUSTOM_CODE_END
+                              CardNumber = obj.CreditCardObject.CardNumber, // CUSTOM_CODE_END
                               // CUSTOM_CODE_START: set the ExpMonth output parameter of ReadList operation below
-                              ExpMonth = obj.CreditCardIdObject.ExpMonth, // CUSTOM_CODE_END
+                              ExpMonth = obj.CreditCardObject.ExpMonth, // CUSTOM_CODE_END
                               // CUSTOM_CODE_START: set the ExpYear output parameter of ReadList operation below
-                              ExpYear = obj.CreditCardIdObject.ExpYear, // CUSTOM_CODE_END
+                              ExpYear = obj.CreditCardObject.ExpYear, // CUSTOM_CODE_END
                           };
-                #region Result filter
-                if (true)
-                {
-                }
+
                 // CUSTOM_CODE_START: add custom filter criteria to the result query for ReadList operation below
                 // qry = qry.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 currentErrors.AbortIfHasErrors();
                 res = qry.ToList();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return res;
+            return new Output<ICollection<PersonCreditCard_ReadListOutput>>(currentErrors, res);
         }
     }
 }

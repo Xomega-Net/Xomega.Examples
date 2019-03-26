@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
+        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:rest="http://www.xomega.net/rest"
+        xmlns:ui="http://www.xomega.net/ui"
+        xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
+        xmlns:sql="http://www.xomega.net/sql"
+        xmlns:clr="http://www.xomega.net/clr"
+        xmlns:edm="http://www.xomega.net/edm"
+        name="demo">
+  <types>
+    <type name="demo sales order header seed" base="integer key"/>
+  </types>
+  <objects>
+    <object name="demo sales order header seed">
+      <fields>
+        <field name="local id" type="demo sales order header seed" key="serial"
+               required="true">
+          <config>
+            <sql:column name="LocalID"/>
+          </config>
+        </field>
+        <field name="due date" type="extended date time" required="true">
+          <config>
+            <sql:column name="DueDate"/>
+          </config>
+        </field>
+        <field name="customer id" type="integer" required="true">
+          <config>
+            <sql:column name="CustomerID"/>
+          </config>
+        </field>
+        <field name="sales person id" type="integer" required="true">
+          <config>
+            <sql:column name="SalesPersonID"/>
+          </config>
+        </field>
+        <field name="bill to address id" type="integer" required="true">
+          <config>
+            <sql:column name="BillToAddressID"/>
+          </config>
+        </field>
+        <field name="ship to address id" type="integer" required="true">
+          <config>
+            <sql:column name="ShipToAddressID"/>
+          </config>
+        </field>
+        <field name="ship method id" type="integer" required="true">
+          <config>
+            <sql:column name="ShipMethodID"/>
+          </config>
+        </field>
+      </fields>
+      <config>
+        <sql:table name="Demo.DemoSalesOrderHeaderSeed"/>
+      </config>
+    </object>
+  </objects>
+</module>

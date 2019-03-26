@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
+        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:rest="http://www.xomega.net/rest"
+        xmlns:ui="http://www.xomega.net/ui"
+        xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
+        xmlns:sql="http://www.xomega.net/sql"
+        xmlns:clr="http://www.xomega.net/clr"
+        xmlns:edm="http://www.xomega.net/edm"
+        name="sales">
+  <fieldsets>
+    <fieldset name="sales order detail inmem">
+      <field name="sales order id" type="sales order header inmem" required="true">
+        <config>
+          <sql:column name="SalesOrderID"/>
+        </config>
+      </field>
+      <field name="sales order detail id" type="big int" required="true">
+        <config>
+          <sql:column name="SalesOrderDetailID" serial="true"/>
+        </config>
+      </field>
+    </fieldset>
+  </fieldsets>
+  <objects>
+    <object name="sales order detail inmem">
+      <fields>
+        <fieldset ref="sales order detail inmem" key="supplied" required="true"/>
+        <field name="carrier tracking number" type="string25">
+          <config>
+            <sql:column name="CarrierTrackingNumber"/>
+          </config>
+        </field>
+        <field name="order qty" type="small int" required="true">
+          <config>
+            <sql:column name="OrderQty"/>
+          </config>
+        </field>
+        <fieldset ref="special offer product inmem"/>
+        <field name="unit price" type="money" required="true">
+          <config>
+            <sql:column name="UnitPrice"/>
+          </config>
+        </field>
+        <field name="unit price discount" type="money" required="true">
+          <config>
+            <sql:column name="UnitPriceDiscount" default="((0.0))"/>
+          </config>
+        </field>
+        <field name="modified date" type="extended date time" required="true">
+          <config>
+            <sql:column name="ModifiedDate"/>
+          </config>
+        </field>
+      </fields>
+      <config>
+        <sql:table name="Sales.SalesOrderDetail_inmem"/>
+      </config>
+    </object>
+  </objects>
+</module>

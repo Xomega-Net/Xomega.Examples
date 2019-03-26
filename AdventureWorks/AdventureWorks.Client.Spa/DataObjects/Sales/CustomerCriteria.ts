@@ -22,20 +22,19 @@ export class CustomerCriteria extends CriteriaObject {
         this.AccountNumber = new TextProperty();
         this.AccountNumber.Size = 10;
         this.AccountNumberOperator = new OperatorProperty();
-        this.AccountNumberOperator.Size = 10;
+        this.AccountNumberOperator.Size = 25;
         this.AccountNumberOperator.EnumType = "operators";
         this.PersonName = new TextProperty();
         this.PersonNameOperator = new OperatorProperty();
-        this.PersonNameOperator.Size = 10;
+        this.PersonNameOperator.Size = 25;
         this.PersonNameOperator.EnumType = "operators";
         this.PersonNameOperator.HasNullCheck = true;
         this.StoreName = new TextProperty();
         this.StoreNameOperator = new OperatorProperty();
-        this.StoreNameOperator.Size = 10;
+        this.StoreNameOperator.Size = 25;
         this.StoreNameOperator.EnumType = "operators";
         this.StoreNameOperator.HasNullCheck = true;
         this.TerritoryId = new EnumProperty();
-        this.TerritoryId.Size = 10;
         this.TerritoryId.EnumType = "sales territory";
     }
 }

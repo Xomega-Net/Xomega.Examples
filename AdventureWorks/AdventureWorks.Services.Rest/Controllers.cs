@@ -6,7 +6,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Rest
 {
     public static class Controllers
     {

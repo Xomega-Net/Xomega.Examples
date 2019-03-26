@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdventureWorks.Client.Wpf"
         mc:Ignorable="d"
-        Title="AdventureWorks" Height="400" Width="600">
+        Title="SolutionName" Height="400" Width="600">
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>

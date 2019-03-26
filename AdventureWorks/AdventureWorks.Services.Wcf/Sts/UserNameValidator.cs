@@ -22,15 +22,12 @@ namespace AdventureWorks.Services.Wcf
 
             try
             {
-                // TODO: validate UserName and Password from userNameToken here. 
-                // Use DI.DefaultServiceProvider to access any services for that.
                 IPersonService svc = DI.DefaultServiceProvider.GetService<IPersonService>();
                 svc.Authenticate(new Credentials()
                 {
                     Email = userNameToken.UserName,
                     Password = userNameToken.Password
                 });
-
                 ClaimsIdentity identity = new ClaimsIdentity(AuthenticationTypes.Password);
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, userNameToken.UserName));
                 identity.AddClaim(new Claim(ClaimTypes.Name, userNameToken.UserName));

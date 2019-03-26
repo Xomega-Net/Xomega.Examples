@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
@@ -25,7 +26,7 @@ namespace AdventureWorks.Services
         ///</summary>
         [OperationContract]
         [FaultContract(typeof(ErrorList))]
-        IEnumerable<ShipMethod_ReadListOutput> ReadList();
+        Output<ICollection<ShipMethod_ReadListOutput>> ReadList();
 
     }
     #endregion
@@ -38,8 +39,13 @@ namespace AdventureWorks.Services
     [DataContract]
     public class ShipMethod_ReadListOutput
     {
+        
         [DataMember]
         public int ShipMethodId { get; set; }
+        
+        ///<summary>
+        /// Shipping company name.
+        ///</summary>
         [DataMember]
         public string Name { get; set; }
     }

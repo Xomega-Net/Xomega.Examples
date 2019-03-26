@@ -43,7 +43,7 @@ export class ISalesOrderService {
     public static getReadListRequest(_criteria: SalesOrder_ReadListInput_Criteria): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
-        req.url += `sales-order?${ $.param(_criteria) }`;
+        req.url += `sales-order?${ $.param(_criteria, true) }`;
         return req;
     }
 

@@ -4,29 +4,28 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Web.Http;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Rest
 {
     ///<summary>
     /// Products sold or used in the manfacturing of sold products.
     ///</summary>
-    public partial class ProductController : ApiController
+    public partial class ProductController : ControllerBase
     {
-        private ErrorParser errorParser;
+        private ErrorList currentErrors;
+        private ErrorParser errorsParser;
         private IProductService svc;
 
-        public ProductController(IServiceProvider serviceProvider)
+        public ProductController(ErrorList errorList, ErrorParser errorParser, IProductService service)
         {
-            errorParser = serviceProvider.GetService<ErrorParser>();
-            svc = serviceProvider.GetService<IProductService>();
-            if (svc is IPrincipalProvider)
-                ((IPrincipalProvider)svc).CurrentPrincipal = RequestContext.Principal;
+            currentErrors = errorList;
+            errorsParser = errorParser;
+            svc = service;
         }
 
         ///<summary>
@@ -34,20 +33,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("product")]
         [HttpGet]
-        public HttpResponseMessage ReadList()
+        public ActionResult ReadList()
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                IEnumerable<Product_ReadListOutput> output = svc.ReadList();
-                response = Request.CreateResponse(output);
+                if (ModelState.IsValid)
+                {
+                    Output<ICollection<Product_ReadListOutput>> output = svc.ReadList();
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
     }

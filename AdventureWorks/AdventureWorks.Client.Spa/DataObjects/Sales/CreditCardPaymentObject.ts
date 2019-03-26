@@ -24,7 +24,6 @@ export class CreditCardPaymentObject extends DataObject {
         this.CreditCardApprovalCode.Size = 15;
         this.CreditCardId = new EnumProperty();
         this.CreditCardId.Required(true);
-        this.CreditCardId.Size = 10;
         this.Expiration = new TextProperty();
         this.Expiration.Editable(false);
     }

@@ -12,9 +12,9 @@ namespace AdventureWorks.Client.Web
 {
     public partial class SalesOrderDetailViewPage : Page
     {
-        protected override void OnLoad(EventArgs e)
+        protected override void OnLoadComplete(EventArgs e)
         {
-            base.OnLoad(e);
+            base.OnLoadComplete(e);
             if (!IsPostBack) uclSalesOrderDetailView.Model.Activate(Request.QueryString);
         }
     }

@@ -1,6 +1,5 @@
 using System;
 using Xomega.Framework;
-using Xomega.Framework.Properties;
 
 namespace AdventureWorks.Client.Objects
 {
@@ -30,17 +29,17 @@ namespace AdventureWorks.Client.Objects
 
         private void OnAddressChanged(object sender, PropertyChangeEventArgs e)
         {
-            if (e.Change.IncludesValue() && !DataProperty.Equals(e.OldValue, e.NewValue))
-            {
-                Header addr = AddressIdProperty.Value;
-                AddressLine1Property.SetValue(addr == null ? null : addr[Enumerations.BusinessEntityAddress.Attributes.AddressLine1]);
-                AddressLine2Property.SetValue(addr == null ? null : addr[Enumerations.BusinessEntityAddress.Attributes.AddressLine2]);
-                CityStateProperty.SetValue(addr == null ? null : addr[Enumerations.BusinessEntityAddress.Attributes.City]
-                                                        + ", " + addr[Enumerations.BusinessEntityAddress.Attributes.State]);
-                PostalCodeProperty.SetValue(addr == null ? null : addr[Enumerations.BusinessEntityAddress.Attributes.PostalCode]);
-                CountryProperty.SetValue(addr == null ? null : addr[Enumerations.BusinessEntityAddress.Attributes.Country]);
-            }
+            if (!e.Change.IncludesValue() || DataProperty.Equals(e.OldValue, e.NewValue)) return;
+
+            Header addr = AddressIdProperty.Value;
+            AddressLine1Property.SetValue(addr?[Enumerations.BusinessEntityAddress.Attributes.AddressLine1]);
+            AddressLine2Property.SetValue(addr?[Enumerations.BusinessEntityAddress.Attributes.AddressLine2]);
+            CityStateProperty.SetValue(addr == null ? null : addr[Enumerations.BusinessEntityAddress.Attributes.City]
+                                                    + ", " + addr[Enumerations.BusinessEntityAddress.Attributes.State]);
+            PostalCodeProperty.SetValue(addr?[Enumerations.BusinessEntityAddress.Attributes.PostalCode]);
+            CountryProperty.SetValue(addr?[Enumerations.BusinessEntityAddress.Attributes.Country]);
         }
 
+        // add custom code here
     }
 }

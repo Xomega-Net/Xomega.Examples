@@ -8,6 +8,7 @@
 // To prevent this and preserve manual custom changes please remove the line above.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -25,22 +26,21 @@ namespace AdventureWorks.Services.Entities
         public SpecialOfferService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
-            if (ctx == null) ctx = new AdventureWorksEntities();
         }
 
-        public virtual IEnumerable<SpecialOffer_ReadListOutput> ReadList()
+        public virtual Output<ICollection<SpecialOffer_ReadListOutput>> ReadList()
         {
             // CUSTOM_CODE_START: add custom security checks for ReadList operation below
             // CUSTOM_CODE_END
-            IEnumerable<SpecialOffer_ReadListOutput> res = null;
+            ICollection<SpecialOffer_ReadListOutput> res = null;
             try
             {
                 var src = from obj in ctx.SpecialOffer select obj;
-                #region Source filter
+
                 // CUSTOM_CODE_START: add custom filter criteria to the source query for ReadList operation below
                 // src = src.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 var qry = from obj in src
                           select new SpecialOffer_ReadListOutput() {
                               SpecialOfferId = obj.SpecialOfferId,
@@ -50,19 +50,19 @@ namespace AdventureWorks.Services.Entities
                                          (obj.EndDate == null || obj.EndDate > DateTime.Today), // CUSTOM_CODE_END
                               Category = obj.Category,
                           };
-                #region Result filter
+
                 // CUSTOM_CODE_START: add custom filter criteria to the result query for ReadList operation below
                 // qry = qry.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 currentErrors.AbortIfHasErrors();
                 res = qry.ToList();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return res;
+            return new Output<ICollection<SpecialOffer_ReadListOutput>>(currentErrors, res);
         }
     }
 }

@@ -27,7 +27,7 @@ export class PersonCreditCardReadListCacheLoader extends BaseLookupCacheLoader {
         let cl = this;
         req.success = function (data) {
             let lkpData: { [key: string]: Header } = {};
-            let rows: PersonCreditCard_ReadListOutput[] = data || [];
+            let rows: PersonCreditCard_ReadListOutput[] = data.Result || [];
             for (let row of rows) {
                 let h: Header = lkpData[row.CreditCardId] || new Header(tableType, row.CreditCardId, row.CreditCardName);
                 h.addToAttribute('person name', row.PersonName);

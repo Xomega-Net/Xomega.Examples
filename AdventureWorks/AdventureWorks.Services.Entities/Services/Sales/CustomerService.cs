@@ -8,7 +8,7 @@
 // To prevent this and preserve manual custom changes please remove the line above.
 //---------------------------------------------------------------------------------------------
 
-using AdventureWorks.Enumerations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -26,120 +26,55 @@ namespace AdventureWorks.Services.Entities
         public CustomerService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
-            if (ctx == null) ctx = new AdventureWorksEntities();
         }
 
-        public virtual IEnumerable<Customer_ReadListOutput> ReadList(Customer_ReadListInput_Criteria _criteria)
+        public virtual Output<ICollection<Customer_ReadListOutput>> ReadList(Customer_ReadListInput_Criteria _criteria)
         {
             // CUSTOM_CODE_START: add custom security checks for ReadList operation below
             // CUSTOM_CODE_END
-            IEnumerable<Customer_ReadListOutput> res = null;
+            ICollection<Customer_ReadListOutput> res = null;
             try
             {
                 var src = from obj in ctx.Customer select obj;
-                #region Source filter
-                if (_criteria != null)
-                {
-                }
+
                 // CUSTOM_CODE_START: add custom filter criteria to the source query for ReadList operation below
                 // src = src.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 var qry = from obj in src
                           select new Customer_ReadListOutput() {
                               CustomerId = obj.CustomerId,
-                              StoreId = obj.StoreIdObject.BusinessEntityId,
+                              StoreId = obj.StoreId,
                               // CUSTOM_CODE_START: set the StoreName output parameter of ReadList operation below
-                              StoreName = obj.StoreIdObject.Name, // CUSTOM_CODE_END
-                              PersonId = obj.PersonIdObject.BusinessEntityId,
+                              StoreName = obj.StoreObject.Name, // CUSTOM_CODE_END
+                              PersonId = obj.PersonId,
                               // CUSTOM_CODE_START: set the PersonName output parameter of ReadList operation below
-                              PersonName = obj.PersonIdObject.LastName + ", " + obj.PersonIdObject.FirstName, // CUSTOM_CODE_END
+                              PersonName = obj.PersonObject.FullName, // CUSTOM_CODE_END
                               AccountNumber = obj.AccountNumber,
-                              TerritoryId = obj.TerritoryIdObject.TerritoryId,
+                              TerritoryId = obj.TerritoryId,
                           };
-                #region Result filter
+
+                // Result filter
                 if (_criteria != null)
                 {
-                    if (_criteria.TerritoryId != null)
-                        qry = qry.Where(o => o.TerritoryId == _criteria.TerritoryId);
-
-                    #region PersonName
-                    if (_criteria.PersonNameOperator != null)
-                    {
-                        switch (_criteria.PersonNameOperator)
-                        {
-                            case Operators.IsNull:
-                                qry = qry.Where(o => o.PersonName == null); break;
-                            case Operators.IsNotNull:
-                                qry = qry.Where(o => o.PersonName != null); break;
-                            case Operators.IsEqualTo:
-                                qry = qry.Where(o => o.PersonName == _criteria.PersonName); break;
-                            case Operators.IsNotEqualTo:
-                                qry = qry.Where(o => o.PersonName != _criteria.PersonName); break;
-                            case Operators.Contains:
-                                qry = qry.Where(o => o.PersonName.Contains(_criteria.PersonName)); break;
-                            case Operators.DoesNotContain:
-                                qry = qry.Where(o => !o.PersonName.Contains(_criteria.PersonName)); break;
-                            default:
-                                currentErrors.AddValidationError("Unsupported operator {0} for the Person Name.", _criteria.PersonNameOperator); break;
-                        }
-                    }
-                    #endregion
-
-                    #region StoreName
-                    if (_criteria.StoreNameOperator != null)
-                    {
-                        switch (_criteria.StoreNameOperator)
-                        {
-                            case Operators.IsNull:
-                                qry = qry.Where(o => o.StoreName == null); break;
-                            case Operators.IsNotNull:
-                                qry = qry.Where(o => o.StoreName != null); break;
-                            case Operators.IsEqualTo:
-                                qry = qry.Where(o => o.StoreName == _criteria.StoreName); break;
-                            case Operators.IsNotEqualTo:
-                                qry = qry.Where(o => o.StoreName != _criteria.StoreName); break;
-                            case Operators.Contains:
-                                qry = qry.Where(o => o.StoreName.Contains(_criteria.StoreName)); break;
-                            case Operators.DoesNotContain:
-                                qry = qry.Where(o => !o.StoreName.Contains(_criteria.StoreName)); break;
-                            default:
-                                currentErrors.AddValidationError("Unsupported operator {0} for the Store Name.", _criteria.StoreNameOperator); break;
-                        }
-                    }
-                    #endregion
-
-                    #region AccountNumber
-                    if (_criteria.AccountNumberOperator != null)
-                    {
-                        switch (_criteria.AccountNumberOperator)
-                        {
-                            case Operators.IsEqualTo:
-                                qry = qry.Where(o => o.AccountNumber == _criteria.AccountNumber); break;
-                            case Operators.IsNotEqualTo:
-                                qry = qry.Where(o => o.AccountNumber != _criteria.AccountNumber); break;
-                            case Operators.Contains:
-                                qry = qry.Where(o => o.AccountNumber.Contains(_criteria.AccountNumber)); break;
-                            case Operators.DoesNotContain:
-                                qry = qry.Where(o => !o.AccountNumber.Contains(_criteria.AccountNumber)); break;
-                            default:
-                                currentErrors.AddValidationError("Unsupported operator {0} for the Account Number.", _criteria.AccountNumberOperator); break;
-                        }
-                    }
-                    #endregion
+                    qry = AddClause(qry, "TerritoryId", o => o.TerritoryId, _criteria.TerritoryId);
+                    qry = AddClause(qry, "PersonName", o => o.PersonName, _criteria.PersonNameOperator, _criteria.PersonName);
+                    qry = AddClause(qry, "StoreName", o => o.StoreName, _criteria.StoreNameOperator, _criteria.StoreName);
+                    qry = AddClause(qry, "AccountNumber", o => o.AccountNumber, _criteria.AccountNumberOperator, _criteria.AccountNumber);
                 }
+
                 // CUSTOM_CODE_START: add custom filter criteria to the result query for ReadList operation below
                 // qry = qry.Where(o => o.FieldName == VALUE);
                 // CUSTOM_CODE_END
-                #endregion
+
                 currentErrors.AbortIfHasErrors();
                 res = qry.ToList();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return res;
+            return new Output<ICollection<Customer_ReadListOutput>>(currentErrors, res);
         }
     }
 }

@@ -4,29 +4,28 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Web.Http;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Rest
 {
     ///<summary>
     /// General sales order information.
     ///</summary>
-    public partial class SalesOrderController : ApiController
+    public partial class SalesOrderController : ControllerBase
     {
-        private ErrorParser errorParser;
+        private ErrorList currentErrors;
+        private ErrorParser errorsParser;
         private ISalesOrderService svc;
 
-        public SalesOrderController(IServiceProvider serviceProvider)
+        public SalesOrderController(ErrorList errorList, ErrorParser errorParser, ISalesOrderService service)
         {
-            errorParser = serviceProvider.GetService<ErrorParser>();
-            svc = serviceProvider.GetService<ISalesOrderService>();
-            if (svc is IPrincipalProvider)
-                ((IPrincipalProvider)svc).CurrentPrincipal = RequestContext.Principal;
+            currentErrors = errorList;
+            errorsParser = errorParser;
+            svc = service;
         }
 
         ///<summary>
@@ -34,20 +33,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("sales-order/{_salesOrderId}")]
         [HttpGet]
-        public HttpResponseMessage Read([FromUri] int _salesOrderId)
+        public ActionResult Read([FromRoute] int _salesOrderId)
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                SalesOrder_ReadOutput output = svc.Read(_salesOrderId);
-                response = Request.CreateResponse(output);
+                if (ModelState.IsValid)
+                {
+                    Output<SalesOrder_ReadOutput> output = svc.Read(_salesOrderId);
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
 
@@ -56,20 +62,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("sales-order")]
         [HttpPost]
-        public HttpResponseMessage Create([FromBody] SalesOrder_CreateInput _data)
+        public ActionResult Create([FromBody] SalesOrder_CreateInput _data)
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                SalesOrder_CreateOutput output = svc.Create(_data);
-                response = Request.CreateResponse(output);
+                if (ModelState.IsValid)
+                {
+                    Output<SalesOrder_CreateOutput> output = svc.Create(_data);
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
 
@@ -78,20 +91,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("sales-order/{_salesOrderId}")]
         [HttpPut]
-        public HttpResponseMessage Update([FromUri] int _salesOrderId, [FromBody] SalesOrder_UpdateInput_Data _data)
+        public ActionResult Update([FromRoute] int _salesOrderId, [FromBody] SalesOrder_UpdateInput_Data _data)
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                SalesOrder_UpdateOutput output = svc.Update(_salesOrderId, _data);
-                response = Request.CreateResponse(output);
+                if (ModelState.IsValid)
+                {
+                    Output<SalesOrder_UpdateOutput> output = svc.Update(_salesOrderId, _data);
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
 
@@ -100,19 +120,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("sales-order/{_salesOrderId}")]
         [HttpDelete]
-        public HttpResponseMessage Delete([FromUri] int _salesOrderId)
+        public ActionResult Delete([FromRoute] int _salesOrderId)
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                svc.Delete(_salesOrderId);
+                if (ModelState.IsValid)
+                {
+                    Output output = svc.Delete(_salesOrderId);
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
 
@@ -121,20 +149,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("sales-order")]
         [HttpGet]
-        public HttpResponseMessage ReadList([FromUri] SalesOrder_ReadListInput_Criteria _criteria)
+        public ActionResult ReadList([FromQuery] SalesOrder_ReadListInput_Criteria _criteria)
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                IEnumerable<SalesOrder_ReadListOutput> output = svc.ReadList(_criteria);
-                response = Request.CreateResponse(output);
+                if (ModelState.IsValid)
+                {
+                    Output<ICollection<SalesOrder_ReadListOutput>> output = svc.ReadList(_criteria);
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
 
@@ -143,20 +178,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("sales-order/detail/{_salesOrderDetailId}")]
         [HttpGet]
-        public HttpResponseMessage Detail_Read([FromUri] int _salesOrderDetailId)
+        public ActionResult Detail_Read([FromRoute] int _salesOrderDetailId)
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                SalesOrderDetail_ReadOutput output = svc.Detail_Read(_salesOrderDetailId);
-                response = Request.CreateResponse(output);
+                if (ModelState.IsValid)
+                {
+                    Output<SalesOrderDetail_ReadOutput> output = svc.Detail_Read(_salesOrderDetailId);
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
 
@@ -165,20 +207,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("sales-order/{_salesOrderId}/detail")]
         [HttpPost]
-        public HttpResponseMessage Detail_Create([FromUri] int _salesOrderId, [FromBody] SalesOrderDetail_CreateInput_Data _data)
+        public ActionResult Detail_Create([FromRoute] int _salesOrderId, [FromBody] SalesOrderDetail_CreateInput_Data _data)
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                SalesOrderDetail_CreateOutput output = svc.Detail_Create(_salesOrderId, _data);
-                response = Request.CreateResponse(output);
+                if (ModelState.IsValid)
+                {
+                    Output<SalesOrderDetail_CreateOutput> output = svc.Detail_Create(_salesOrderId, _data);
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
 
@@ -187,19 +236,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("sales-order/detail/{_salesOrderDetailId}")]
         [HttpPut]
-        public HttpResponseMessage Detail_Update([FromUri] int _salesOrderDetailId, [FromBody] SalesOrderDetail_UpdateInput_Data _data)
+        public ActionResult Detail_Update([FromRoute] int _salesOrderDetailId, [FromBody] SalesOrderDetail_UpdateInput_Data _data)
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                svc.Detail_Update(_salesOrderDetailId, _data);
+                if (ModelState.IsValid)
+                {
+                    Output output = svc.Detail_Update(_salesOrderDetailId, _data);
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
 
@@ -208,19 +265,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("sales-order/detail/{_salesOrderDetailId}")]
         [HttpDelete]
-        public HttpResponseMessage Detail_Delete([FromUri] int _salesOrderDetailId)
+        public ActionResult Detail_Delete([FromRoute] int _salesOrderDetailId)
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                svc.Detail_Delete(_salesOrderDetailId);
+                if (ModelState.IsValid)
+                {
+                    Output output = svc.Detail_Delete(_salesOrderDetailId);
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
 
@@ -229,20 +294,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("sales-order/{_salesOrderId}/detail")]
         [HttpGet]
-        public HttpResponseMessage Detail_ReadList([FromUri] int _salesOrderId)
+        public ActionResult Detail_ReadList([FromRoute] int _salesOrderId)
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                IEnumerable<SalesOrderDetail_ReadListOutput> output = svc.Detail_ReadList(_salesOrderId);
-                response = Request.CreateResponse(output);
+                if (ModelState.IsValid)
+                {
+                    Output<ICollection<SalesOrderDetail_ReadListOutput>> output = svc.Detail_ReadList(_salesOrderId);
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
     }

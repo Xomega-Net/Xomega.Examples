@@ -61,7 +61,6 @@ export class SalesOrderObject extends DataObject {
         this.ShipDate = new DateProperty();
         this.Status = new EnumProperty();
         this.Status.Required(true);
-        this.Status.Size = 10;
         this.Status.EnumType = "sales order status";
 
         // create child objects
@@ -108,27 +107,36 @@ export class SalesOrderObject extends DataObject {
         let obj = this;
         let _salesOrderId: any = obj.SalesOrderId.TransportValue();
         let req = ISalesOrderService.getReadRequest(_salesOrderId);
-        req.success = data => obj.fromJSON(data, options);
-        req.error = (xhr, status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
+        req.success = (_data, _status, xhr) => {
+            obj.fromJSON(_data.Result, options);
+            obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
+        }
+        req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 
     protected getSalesOrder_CreateRequest(options?): JQueryAjaxSettings {
         let obj = this;
-        let _data: SalesOrder_CreateInput = obj.toStruct(SalesOrder_CreateInput);
+        let _data: SalesOrder_CreateInput = obj.toStruct(SalesOrder_CreateInput, options);
         let req = ISalesOrderService.getCreateRequest(_data);
-        req.success = data => obj.fromJSON(data, options);
-        req.error = (xhr, status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
+        req.success = (_data, _status, xhr) => {
+            obj.fromJSON(_data.Result, options);
+            obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
+        }
+        req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 
     protected getSalesOrder_UpdateRequest(options?): JQueryAjaxSettings {
         let obj = this;
         let _salesOrderId: any = obj.SalesOrderId.TransportValue();
-        let _data: SalesOrder_UpdateInput_Data = obj.toStruct(SalesOrder_UpdateInput_Data);
+        let _data: SalesOrder_UpdateInput_Data = obj.toStruct(SalesOrder_UpdateInput_Data, options);
         let req = ISalesOrderService.getUpdateRequest(_salesOrderId, _data);
-        req.success = data => obj.fromJSON(data, options);
-        req.error = (xhr, status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
+        req.success = (_data, _status, xhr) => {
+            obj.fromJSON(_data.Result, options);
+            obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
+        }
+        req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 
@@ -136,7 +144,10 @@ export class SalesOrderObject extends DataObject {
         let obj = this;
         let _salesOrderId: any = obj.SalesOrderId.TransportValue();
         let req = ISalesOrderService.getDeleteRequest(_salesOrderId);
-        req.error = (xhr, status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
+        req.success = (_data, _status, xhr) => {
+            obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
+        }
+        req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 }

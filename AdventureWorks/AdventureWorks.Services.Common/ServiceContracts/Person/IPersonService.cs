@@ -6,6 +6,7 @@
 
 using System.ServiceModel;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
@@ -23,14 +24,14 @@ namespace AdventureWorks.Services
         ///</summary>
         [OperationContract]
         [FaultContract(typeof(ErrorList))]
-        void Authenticate(Credentials _credentials);
+        Output Authenticate(Credentials _credentials);
 
         ///<summary>
         /// Reads person info by email as the key.
         ///</summary>
         [OperationContract]
         [FaultContract(typeof(ErrorList))]
-        PersonInfo Read(string _email);
+        Output<PersonInfo> Read(string _email);
 
     }
     #endregion

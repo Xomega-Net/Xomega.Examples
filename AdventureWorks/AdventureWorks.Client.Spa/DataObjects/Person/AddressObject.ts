@@ -20,7 +20,6 @@ export class AddressObject extends DataObject {
     init() {
         this.AddressId = new EnumProperty();
         this.AddressId.Required(true);
-        this.AddressId.Size = 10;
         this.AddressLine1 = new TextProperty();
         this.AddressLine1.Required(true);
         this.AddressLine1.Size = 60;

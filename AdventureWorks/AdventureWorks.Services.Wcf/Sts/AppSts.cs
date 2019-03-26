@@ -24,15 +24,10 @@ namespace AdventureWorks.Services.Wcf
 
             try
             {
-                // TODO: construct user identity here. Use cfg.ServiceProvider to access any services
-                //ClaimsIdentity ci = new ClaimsIdentity(principal.Identity.AuthenticationType);
-                //ci.AddClaim(new Claim(ClaimTypes.NameIdentifier, principal.Identity.Name));
-                //ci.AddClaim(new Claim(ClaimTypes.Name, principal.Identity.Name));
-                //return ci;
                 IPersonService svc = cfg.ServiceProvider.GetService<IPersonService>();
-                PersonInfo info = svc.Read(principal.Identity.Name);
+                PersonInfo info = svc.Read(principal.Identity.Name).Result;
                 return SecurityManager.CreateIdentity(principal.Identity.AuthenticationType, info);
-            }
+        }
             catch (Exception ex)
             {
                 ErrorParser errorParser = cfg.ServiceProvider.GetService<ErrorParser>();

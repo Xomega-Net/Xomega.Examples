@@ -9,25 +9,9 @@
              ToolTip="{Binding Mode=OneWay, Converter={v:AppliedCriteriaConverter}}"
              BorderThickness="1,1,1,0" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
              Padding="2">
-  <UserControl.Resources>
-    <x:Array Type="sys:String" x:Key="testVal">
-      <sys:String>Val1</sys:String>
-    </x:Array>
-    <x:Array Type="sys:String" x:Key="testVal2">
-      <sys:String>Val1</sys:String>
-      <sys:String>Val2</sys:String>
-    </x:Array>
-  </UserControl.Resources>
   <WrapPanel>
     <TextBlock Text="Search Criteria - " VerticalAlignment="Center" FontWeight="Medium" Margin="3,0,0,0"/>
     <ListView x:Name="listView" Background="{DynamicResource {x:Static SystemColors.ControlLightLightColor}}" BorderThickness="0" ItemsSource="{Binding Mode=OneWay}">
-      <!--<ListView.DataContext>
-        <x:Array Type="xom:FieldCriteriaSetting">
-          <xom:FieldCriteriaSetting Label="Test" Operator="Equals" Value="{StaticResource ResourceKey=testVal}"/>
-          <xom:FieldCriteriaSetting Label="Tost" Operator="Between" Value="{StaticResource ResourceKey=testVal2}"/>
-          <xom:FieldCriteriaSetting Label="Taste" Operator="Less Than" Value="{StaticResource ResourceKey=testVal}"/>
-        </x:Array>
-      </ListView.DataContext>-->
       <!--No data template-->
       <ListView.Style>
         <Style TargetType="ListView">

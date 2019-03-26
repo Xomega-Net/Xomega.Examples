@@ -1,10 +1,6 @@
-
 using AdventureWorks.Client.Objects;
-using AdventureWorks.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Security.Claims;
-using System.Threading;
 using Xomega.Framework;
 using Xomega.Framework.Views;
 
@@ -25,12 +21,6 @@ namespace AdventureWorks.Client.Wpf
 
             try
             {
-                //dvm.Save(sender, e);
-                //if (dvm.Errors != null && dvm.Errors.HasErrors()) return;
-                //PersonInfo userInfo = dvm.ServiceProvider.GetService<IPersonService>().Read(authObj.EmailProperty.Value);
-                //ClaimsIdentity ci = SecurityManager.CreateIdentity(AuthenticationTypes.Password, userInfo);
-                //Thread.CurrentPrincipal = new ClaimsPrincipal(ci);
-
                 authObj.Validate(true);
                 authObj.GetValidationErrors().AbortIfHasErrors();
                 WcfServices.Authenticate(authObj.EmailProperty.Value, authObj.PasswordProperty.Value);

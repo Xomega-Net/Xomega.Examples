@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
@@ -25,7 +26,7 @@ namespace AdventureWorks.Services
         ///</summary>
         [OperationContract]
         [FaultContract(typeof(ErrorList))]
-        IEnumerable<SalesPerson_ReadListOutput> ReadList();
+        Output<ICollection<SalesPerson_ReadListOutput>> ReadList();
 
     }
     #endregion
@@ -38,12 +39,19 @@ namespace AdventureWorks.Services
     [DataContract]
     public class SalesPerson_ReadListOutput
     {
+        
         [DataMember]
         public int BusinessEntityId { get; set; }
+        
+        ///<summary>
+        /// Territory currently assigned to. Foreign key to SalesTerritory.SalesTerritoryID.
+        ///</summary>
         [DataMember]
         public int? TerritoryId { get; set; }
+        
         [DataMember]
         public string Name { get; set; }
+        
         [DataMember]
         public bool IsCurrent { get; set; }
     }

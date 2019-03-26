@@ -41,7 +41,7 @@ The name should be in synch with the constant AttributeSortOrder defined in the 
 The name should be in synch with the constant AttributeAddlProps defined in the OperatorProperty class.
           </doc>
         </property>
-        <property name="multival">
+        <property name="multival" default="0">
           <doc>
             <summary>1 if the additional property can be multi-valued, 0 otherwise.</summary>
 The name should be in synch with the constant AttributeMultival defined in the OperatorProperty class.
@@ -69,144 +69,196 @@ The name should be in synch with the constant AttributeNullCheck defined in the 
           </doc>
         </property>
       </properties>
-      <item name="Is Null" value="NULL">
+      <item name="Is Null" value="NL">
         <doc>
           <summary>Checks if the target value is blank.</summary>
         </doc>
         <prop ref="sort order" value="00"/>
         <prop ref="null check" value="1"/>
       </item>
-      <item name="Is Not Null" value="NOTNULL">
+      <item name="Is Not Null" value="NNL">
         <doc>
           <summary>Checks if the target value is not blank.</summary>
         </doc>
         <prop ref="sort order" value="01"/>
         <prop ref="null check" value="1"/>
       </item>
-      <item name="Is Equal To" value="IS">
+      <item name="Is Equal To" value="EQ">
         <doc>
           <summary>Checks if the target value is equal to the specified value.</summary>
         </doc>
-        <prop ref="sort order" value="02"/>
+        <prop ref="sort order" value="10"/>
         <prop ref="addl props" value="1"/>
-        <prop ref="multival" value="0"/>
       </item>
-      <item name="Is Not Equal To" value="ISNOT">
+      <item name="Is Not Equal To" value="NEQ">
         <doc>
           <summary>Checks if the target value is not equal to the specified value.</summary>
         </doc>
-        <prop ref="sort order" value="03"/>
+        <prop ref="sort order" value="11"/>
         <prop ref="addl props" value="1"/>
-        <prop ref="multival" value="0"/>
       </item>
-      <item name="Is One Of" value="ONEOF">
+      <item name="Is One Of" value="In">
         <doc>
           <summary>Checks if the target value is one of the values listed.</summary>
         </doc>
-        <prop ref="sort order" value="04"/>
+        <prop ref="sort order" value="10"/>
         <prop ref="addl props" value="1"/>
         <prop ref="multival" value="1"/>
       </item>
-      <item name="Is None Of" value="NONEOF">
+      <item name="Is None Of" value="NIn">
         <doc>
           <summary>Checks if the target value is none of the values listed.</summary>
         </doc>
-        <prop ref="sort order" value="05"/>
+        <prop ref="sort order" value="12"/>
         <prop ref="addl props" value="1"/>
         <prop ref="multival" value="1"/>
       </item>
-      <item name="Is Less Than" value="LESS">
+      <item name="Is Less Than" value="LT">
         <doc>
           <summary>Checks if the target value is less than the specified values.</summary>
         </doc>
-        <prop ref="sort order" value="06"/>
-        <prop ref="addl props" value="1"/>
-        <prop ref="multival" value="0"/>
-        <prop ref="type" value="IntegerProperty"/>
-        <prop ref="type" value="DecimalProperty"/>
-        <prop ref="exclude type" value="IntegerKeyProperty"/>
-      </item>
-      <item name="Is Not Less Than" value="NOTLESS">
-        <doc>
-          <summary>Checks if the target value is not less than the specified values.</summary>
-        </doc>
-        <prop ref="sort order" value="07"/>
-        <prop ref="addl props" value="1"/>
-        <prop ref="multival" value="0"/>
-        <prop ref="type" value="IntegerProperty"/>
-        <prop ref="type" value="DecimalProperty"/>
-        <prop ref="exclude type" value="IntegerKeyProperty"/>
-      </item>
-      <item name="Is Greater Than" value="GREATER">
-        <doc>
-          <summary>Checks if the target value is greater than the specified values.</summary>
-        </doc>
-        <prop ref="sort order" value="08"/>
-        <prop ref="addl props" value="1"/>
-        <prop ref="multival" value="0"/>
-        <prop ref="type" value="IntegerProperty"/>
-        <prop ref="type" value="DecimalProperty"/>
-        <prop ref="exclude type" value="IntegerKeyProperty"/>
-      </item>
-      <item name="Is Not Greater Than" value="NOTGREATER">
-        <doc>
-          <summary>Checks if the target value is not greater than the specified values.</summary>
-        </doc>
-        <prop ref="sort order" value="09"/>
-        <prop ref="addl props" value="1"/>
-        <prop ref="multival" value="0"/>
-        <prop ref="type" value="IntegerProperty"/>
-        <prop ref="type" value="DecimalProperty"/>
-        <prop ref="exclude type" value="IntegerKeyProperty"/>
-      </item>
-      <item name="Is Earlier Than" value="EARLIER">
-        <doc>
-          <summary>Checks if the target date/time is earlier than the specified date/time.</summary>
-        </doc>
-        <prop ref="sort order" value="10"/>
-        <prop ref="addl props" value="1"/>
-        <prop ref="multival" value="0"/>
-        <prop ref="type" value="DateTimeProperty"/>
-      </item>
-      <item name="Is Later Than" value="LATER">
-        <doc>
-          <summary>Checks if the target date/time is later than the specified date/time.</summary>
-        </doc>
-        <prop ref="sort order" value="11"/>
-        <prop ref="addl props" value="1"/>
-        <prop ref="multival" value="0"/>
-        <prop ref="type" value="DateTimeProperty"/>
-      </item>
-      <item name="Is Between" value="BETWEEN">
-        <doc>
-          <summary>Checks if the target value is between the specified values.</summary>
-        </doc>
-        <prop ref="sort order" value="12"/>
-        <prop ref="addl props" value="2"/>
-        <prop ref="multival" value="0"/>
-        <prop ref="type" value="IntegerProperty"/>
-        <prop ref="type" value="DecimalProperty"/>
-        <prop ref="type" value="DateTimeProperty"/>
-      </item>
-      <item name="Contains" value="CONT">
-        <doc>
-          <summary>Checks if the target value contains the specified string.</summary>
-        </doc>
         <prop ref="sort order" value="13"/>
         <prop ref="addl props" value="1"/>
-        <prop ref="multival" value="0"/>
-        <prop ref="type" value="TextProperty"/>
-        <prop ref="exclude type" value="EnumProperty"/>
+        <prop ref="type" value="IntegerProperty"/>
+        <prop ref="type" value="DecimalProperty"/>
+        <prop ref="exclude type" value="IntegerKeyProperty"/>
       </item>
-      <item name="Does Not Contain" value="NOTCONT">
+      <item name="Is Less Than Or Equal To" value="LE">
         <doc>
-          <summary>Checks if the target value does not contain the specified string.</summary>
+          <summary>Checks if the target value is less than or equal to the specified values.</summary>
         </doc>
         <prop ref="sort order" value="14"/>
         <prop ref="addl props" value="1"/>
-        <prop ref="multival" value="0"/>
+        <prop ref="type" value="IntegerProperty"/>
+        <prop ref="type" value="DecimalProperty"/>
+        <prop ref="exclude type" value="IntegerKeyProperty"/>
+      </item>
+      <item name="Is Greater Than" value="GT">
+        <doc>
+          <summary>Checks if the target value is greater than the specified values.</summary>
+        </doc>
+        <prop ref="sort order" value="15"/>
+        <prop ref="addl props" value="1"/>
+        <prop ref="type" value="IntegerProperty"/>
+        <prop ref="type" value="DecimalProperty"/>
+        <prop ref="exclude type" value="IntegerKeyProperty"/>
+      </item>
+      <item name="Is Greater Than Or Equal To" value="GE">
+        <doc>
+          <summary>Checks if the target value is greater than or equal to the specified values.</summary>
+        </doc>
+        <prop ref="sort order" value="16"/>
+        <prop ref="addl props" value="1"/>
+        <prop ref="type" value="IntegerProperty"/>
+        <prop ref="type" value="DecimalProperty"/>
+        <prop ref="exclude type" value="IntegerKeyProperty"/>
+      </item>
+      <item name="Today" value="[bod,eod)">
+        <doc>
+          <summary>Checks if the target date/time is today.</summary>
+        </doc>
+        <prop ref="sort order" value="03"/>
+        <prop ref="type" value="DateTimeProperty"/>
+      </item>
+      <item name="This Week" value="[bow,eow)">
+        <doc>
+          <summary>Checks if the target date/time is this week.</summary>
+        </doc>
+        <prop ref="sort order" value="04"/>
+        <prop ref="type" value="DateTimeProperty"/>
+      </item>
+      <item name="This Month" value="[boM,eoM)">
+        <doc>
+          <summary>Checks if the target date/time is this month.</summary>
+        </doc>
+        <prop ref="sort order" value="05"/>
+        <prop ref="type" value="DateTimeProperty"/>
+      </item>
+      <item name="This Year" value="[boy,eoy)">
+        <doc>
+          <summary>Checks if the target date/time is this year.</summary>
+        </doc>
+        <prop ref="sort order" value="06"/>
+        <prop ref="type" value="DateTimeProperty"/>
+      </item>
+      <item name="Last 30 Days" value="[bod-30d,ct]">
+        <doc>
+          <summary>Checks if the target date/time is within the last 30 days from today.</summary>
+        </doc>
+        <prop ref="sort order" value="07"/>
+        <prop ref="type" value="DateTimeProperty"/>
+      </item>
+      <item name="Is Earlier Than" value="Earlier">
+        <doc>
+          <summary>Checks if the target date/time is earlier than the specified date/time.</summary>
+        </doc>
+        <prop ref="sort order" value="12"/>
+        <prop ref="addl props" value="1"/>
+        <prop ref="type" value="DateTimeProperty"/>
+      </item>
+      <item name="Is Later Than" value="Later">
+        <doc>
+          <summary>Checks if the target date/time is later than the specified date/time.</summary>
+        </doc>
+        <prop ref="sort order" value="14"/>
+        <prop ref="addl props" value="1"/>
+        <prop ref="type" value="DateTimeProperty"/>
+      </item>
+      <item name="Contains" value="CN">
+        <doc>
+          <summary>Checks if the target value contains the specified string.</summary>
+        </doc>
+        <prop ref="sort order" value="12"/>
+        <prop ref="addl props" value="1"/>
         <prop ref="type" value="TextProperty"/>
         <prop ref="exclude type" value="EnumProperty"/>
+      </item>
+      <item name="Does Not Contain" value="NCN">
+        <doc>
+          <summary>Checks if the target value does not contain the specified string.</summary>
+        </doc>
+        <prop ref="sort order" value="13"/>
+        <prop ref="addl props" value="1"/>
+        <prop ref="type" value="TextProperty"/>
+        <prop ref="exclude type" value="EnumProperty"/>
+      </item>
+      <item name="Starts With" value="SW">
+        <doc>
+          <summary>Checks if the target value starts with the specified string.</summary>
+        </doc>
+        <prop ref="sort order" value="14"/>
+        <prop ref="addl props" value="1"/>
+        <prop ref="type" value="TextProperty"/>
+        <prop ref="exclude type" value="EnumProperty"/>
+      </item>
+      <item name="Does Not Start With" value="NSW">
+        <doc>
+          <summary>Checks if the target value does not starts with the specified string.</summary>
+        </doc>
+        <prop ref="sort order" value="15"/>
+        <prop ref="addl props" value="1"/>
+        <prop ref="type" value="TextProperty"/>
+        <prop ref="exclude type" value="EnumProperty"/>
+      </item>
+      <item name="Is Between" value="BW">
+        <doc>
+          <summary>Checks if the target value is between the specified values.</summary>
+        </doc>
+        <prop ref="sort order" value="20"/>
+        <prop ref="addl props" value="2"/>
+        <prop ref="type" value="IntegerProperty"/>
+        <prop ref="type" value="DecimalProperty"/>
+        <prop ref="type" value="DateTimeProperty"/>
+      </item>
+      <item name="Is Not Between" value="NBW">
+        <doc>
+          <summary>Checks if the target value is not between the specified values.</summary>
+        </doc>
+        <prop ref="sort order" value="21"/>
+        <prop ref="addl props" value="2"/>
+        <prop ref="type" value="IntegerProperty"/>
+        <prop ref="type" value="DecimalProperty"/>
+        <prop ref="type" value="DateTimeProperty"/>
       </item>
       <doc>
         <summary>A list of operators to be used with filter criteria.</summary>

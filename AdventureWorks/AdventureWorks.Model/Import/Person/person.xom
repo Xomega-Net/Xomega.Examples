@@ -167,6 +167,7 @@
       </operations>
       <config>
         <sql:table name="Person.Person"/>
+        <edm:customize extend="true"/>
         <wcf:customize subclass="true"/>
       </config>
       <doc>
@@ -184,7 +185,7 @@
         <ui:details>
           <ui:fields columns="1"/>
         </ui:details>
-        <ui:size width="300" height="180"/>
+        <ui:size width="300" height="240"/>
       </ui:layout>
     </ui:view>
   </ui:views>

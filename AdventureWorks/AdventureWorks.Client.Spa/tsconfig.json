@@ -4,12 +4,13 @@
     "target": "es5",
     "module": "amd",
     "declaration": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "traceResolution": true,
     "typeRoots": [ "Scripts/typings" ],
-    "types": [ ],
+    "types": [],
     "baseUrl": ".",
-    "paths": { }
+    "paths": {}
   },
   "exclude": [ "**/durandal-1*" ]
 }

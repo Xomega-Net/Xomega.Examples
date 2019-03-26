@@ -295,3 +295,5 @@ $RECYCLE.BIN/
 **/*.d.ts
 !**/Scripts/typings/**/*.d.ts
 *.map
+/AdventureWorks/AdventureWorks.Client.Spa/Scripts
+/AdventureWorks/AdventureWorks.Client.Web/Scripts

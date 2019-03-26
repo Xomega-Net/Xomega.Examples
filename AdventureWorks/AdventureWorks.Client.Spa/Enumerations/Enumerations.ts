@@ -27,21 +27,29 @@ export module BusinessEntityAddress {
 export class Operators {
     public static EnumName: string = "operators";
 
-    public static IsNull: string = "NULL";
-    public static IsNotNull: string = "NOTNULL";
-    public static IsEqualTo: string = "IS";
-    public static IsNotEqualTo: string = "ISNOT";
-    public static IsOneOf: string = "ONEOF";
-    public static IsNoneOf: string = "NONEOF";
-    public static IsLessThan: string = "LESS";
-    public static IsNotLessThan: string = "NOTLESS";
-    public static IsGreaterThan: string = "GREATER";
-    public static IsNotGreaterThan: string = "NOTGREATER";
-    public static IsEarlierThan: string = "EARLIER";
-    public static IsLaterThan: string = "LATER";
-    public static IsBetween: string = "BETWEEN";
-    public static Contains: string = "CONT";
-    public static DoesNotContain: string = "NOTCONT";
+    public static IsNull: string = "NL";
+    public static IsNotNull: string = "NNL";
+    public static IsEqualTo: string = "EQ";
+    public static IsNotEqualTo: string = "NEQ";
+    public static IsOneOf: string = "In";
+    public static IsNoneOf: string = "NIn";
+    public static IsLessThan: string = "LT";
+    public static IsLessThanOrEqualTo: string = "LE";
+    public static IsGreaterThan: string = "GT";
+    public static IsGreaterThanOrEqualTo: string = "GE";
+    public static Today: string = "[bod,eod)";
+    public static ThisWeek: string = "[bow,eow)";
+    public static ThisMonth: string = "[boM,eoM)";
+    public static ThisYear: string = "[boy,eoy)";
+    public static Last30Days: string = "[bod-30d,ct]";
+    public static IsEarlierThan: string = "Earlier";
+    public static IsLaterThan: string = "Later";
+    public static Contains: string = "CN";
+    public static DoesNotContain: string = "NCN";
+    public static StartsWith: string = "SW";
+    public static DoesNotStartWith: string = "NSW";
+    public static IsBetween: string = "BW";
+    public static IsNotBetween: string = "NBW";
 }
 export module Operators {
     export class Attributes

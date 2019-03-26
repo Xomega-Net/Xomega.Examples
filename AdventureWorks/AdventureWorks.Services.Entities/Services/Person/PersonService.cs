@@ -8,6 +8,7 @@
 // To prevent this and preserve manual custom changes please remove the line above.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Xomega.Framework.Services;
@@ -23,23 +24,23 @@ namespace AdventureWorks.Services.Entities
         public PersonService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
-            if (ctx == null) ctx = new AdventureWorksEntities();
         }
 
-        public virtual void Authenticate(Credentials _credentials)
+        public virtual Output Authenticate(Credentials _credentials)
         {
             // CUSTOM_CODE_START: add custom security checks for Authenticate operation below
             // CUSTOM_CODE_END
             try
             {
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                currentErrors.MergeWith(errorParser.FromException(ex));
             }
+            return new Output(currentErrors);
         }
 
-        public virtual PersonInfo Read(string _email)
+        public virtual Output<PersonInfo> Read(string _email)
         {
             // CUSTOM_CODE_START: add custom security checks for Read operation below
             // CUSTOM_CODE_END
@@ -47,11 +48,11 @@ namespace AdventureWorks.Services.Entities
             try
             {
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return res;
+            return new Output<PersonInfo>(currentErrors, res);
         }
     }
 }

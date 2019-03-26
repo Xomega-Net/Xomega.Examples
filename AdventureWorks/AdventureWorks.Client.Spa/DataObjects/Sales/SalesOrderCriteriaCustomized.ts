@@ -1,5 +1,6 @@
+
 import { SalesOrderCriteria as GeneratedDataObject } from 'DataObjects/Sales/SalesOrderCriteria';
-import { PersonType, SalesTerritory } from 'Enumerations/Enumerations'
+import { SalesPerson, PersonType, SalesTerritory } from 'Enumerations/Enumerations';
 import { AuthManager, AccessLevel, Header } from 'xomega'
 
 export class SalesOrderCriteria extends GeneratedDataObject {
@@ -9,10 +10,11 @@ export class SalesOrderCriteria extends GeneratedDataObject {
         super.onInitialized();
         this.Status.DisplayFormat = Header.fieldId + ' - ' + Header.fieldText;
         this.TerritoryId.setCascadingProperty(SalesTerritory.Attributes.Group, this.GlobalRegion);
+        this.SalesPersonId.setCascadingProperty(SalesPerson.Attributes.TerritoryId, this.TerritoryId);
 
         let claims = AuthManager.Current.Claims;
         if (claims && (claims.role == PersonType.StoreContact
-                    || claims.role == PersonType.IndividualCustomer)) {
+            || claims.role == PersonType.IndividualCustomer)) {
             this.CustomerStoreOperator.AccessLevel(AccessLevel.None);
             this.CustomerNameOperator.AccessLevel(AccessLevel.None);
         }

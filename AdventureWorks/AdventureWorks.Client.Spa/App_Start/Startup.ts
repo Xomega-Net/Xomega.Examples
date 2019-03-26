@@ -24,11 +24,16 @@ DateProperty.DefaultEditFormat = 'M/D/YYYY';
 TimeProperty.DefaultEditFormat = 'HH:mm';
 
 // configure Xomega API access and authentication behavior
-AuthManager.ApiRoot = 'http://localhost:58395/'; // set root URL for web api
+AuthManager.ApiRoot = 'http://localhost:61621/'; // set root URL for web api
 AuthManager.Current.handleUnauthorizedResponse(); // sign out on 401 (Unauthorized)
 AuthManager.Current.LoggedIn.subscribe(function (val) { // redirect to login on sign out
     if (val) return;
     router.navigate('#' + AuthManager.Current.getLoginUrl(router.activeInstruction()));
+});
+
+// disable cache during AJAX calls in JQuery to fix IE issues
+$.ajaxSetup({
+    cache: false
 });
 
 // start the app, and load the main view

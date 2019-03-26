@@ -83,63 +83,95 @@ namespace AdventureWorks.Enumerations
         ///<summary>
         /// Checks if the target value is blank.
         ///</summary>
-        public const string IsNull = "NULL";
+        public const string IsNull = "NL";
         ///<summary>
         /// Checks if the target value is not blank.
         ///</summary>
-        public const string IsNotNull = "NOTNULL";
+        public const string IsNotNull = "NNL";
         ///<summary>
         /// Checks if the target value is equal to the specified value.
         ///</summary>
-        public const string IsEqualTo = "IS";
+        public const string IsEqualTo = "EQ";
         ///<summary>
         /// Checks if the target value is not equal to the specified value.
         ///</summary>
-        public const string IsNotEqualTo = "ISNOT";
+        public const string IsNotEqualTo = "NEQ";
         ///<summary>
         /// Checks if the target value is one of the values listed.
         ///</summary>
-        public const string IsOneOf = "ONEOF";
+        public const string IsOneOf = "In";
         ///<summary>
         /// Checks if the target value is none of the values listed.
         ///</summary>
-        public const string IsNoneOf = "NONEOF";
+        public const string IsNoneOf = "NIn";
         ///<summary>
         /// Checks if the target value is less than the specified values.
         ///</summary>
-        public const string IsLessThan = "LESS";
+        public const string IsLessThan = "LT";
         ///<summary>
-        /// Checks if the target value is not less than the specified values.
+        /// Checks if the target value is less than or equal to the specified values.
         ///</summary>
-        public const string IsNotLessThan = "NOTLESS";
+        public const string IsLessThanOrEqualTo = "LE";
         ///<summary>
         /// Checks if the target value is greater than the specified values.
         ///</summary>
-        public const string IsGreaterThan = "GREATER";
+        public const string IsGreaterThan = "GT";
         ///<summary>
-        /// Checks if the target value is not greater than the specified values.
+        /// Checks if the target value is greater than or equal to the specified values.
         ///</summary>
-        public const string IsNotGreaterThan = "NOTGREATER";
+        public const string IsGreaterThanOrEqualTo = "GE";
+        ///<summary>
+        /// Checks if the target date/time is today.
+        ///</summary>
+        public const string Today = "[bod,eod)";
+        ///<summary>
+        /// Checks if the target date/time is this week.
+        ///</summary>
+        public const string ThisWeek = "[bow,eow)";
+        ///<summary>
+        /// Checks if the target date/time is this month.
+        ///</summary>
+        public const string ThisMonth = "[boM,eoM)";
+        ///<summary>
+        /// Checks if the target date/time is this year.
+        ///</summary>
+        public const string ThisYear = "[boy,eoy)";
+        ///<summary>
+        /// Checks if the target date/time is within the last 30 days from today.
+        ///</summary>
+        public const string Last30Days = "[bod-30d,ct]";
         ///<summary>
         /// Checks if the target date/time is earlier than the specified date/time.
         ///</summary>
-        public const string IsEarlierThan = "EARLIER";
+        public const string IsEarlierThan = "Earlier";
         ///<summary>
         /// Checks if the target date/time is later than the specified date/time.
         ///</summary>
-        public const string IsLaterThan = "LATER";
-        ///<summary>
-        /// Checks if the target value is between the specified values.
-        ///</summary>
-        public const string IsBetween = "BETWEEN";
+        public const string IsLaterThan = "Later";
         ///<summary>
         /// Checks if the target value contains the specified string.
         ///</summary>
-        public const string Contains = "CONT";
+        public const string Contains = "CN";
         ///<summary>
         /// Checks if the target value does not contain the specified string.
         ///</summary>
-        public const string DoesNotContain = "NOTCONT";
+        public const string DoesNotContain = "NCN";
+        ///<summary>
+        /// Checks if the target value starts with the specified string.
+        ///</summary>
+        public const string StartsWith = "SW";
+        ///<summary>
+        /// Checks if the target value does not starts with the specified string.
+        ///</summary>
+        public const string DoesNotStartWith = "NSW";
+        ///<summary>
+        /// Checks if the target value is between the specified values.
+        ///</summary>
+        public const string IsBetween = "BW";
+        ///<summary>
+        /// Checks if the target value is not between the specified values.
+        ///</summary>
+        public const string IsNotBetween = "NBW";
     }
     #endregion
 

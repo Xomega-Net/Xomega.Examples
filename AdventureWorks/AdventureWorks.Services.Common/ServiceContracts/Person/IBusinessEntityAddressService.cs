@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
@@ -22,7 +23,7 @@ namespace AdventureWorks.Services
 
         [OperationContract]
         [FaultContract(typeof(ErrorList))]
-        IEnumerable<BusinessEntityAddress_ReadListOutput> ReadList(int _businessEntityId);
+        Output<ICollection<BusinessEntityAddress_ReadListOutput>> ReadList(int _businessEntityId);
 
     }
     #endregion
@@ -35,20 +36,28 @@ namespace AdventureWorks.Services
     [DataContract]
     public class BusinessEntityAddress_ReadListOutput
     {
+        
         [DataMember]
         public int AddressId { get; set; }
+        
         [DataMember]
         public string AddressType { get; set; }
+        
         [DataMember]
         public string AddressLine1 { get; set; }
+        
         [DataMember]
         public string AddressLine2 { get; set; }
+        
         [DataMember]
         public string City { get; set; }
+        
         [DataMember]
         public string State { get; set; }
+        
         [DataMember]
         public string PostalCode { get; set; }
+        
         [DataMember]
         public string Country { get; set; }
     }

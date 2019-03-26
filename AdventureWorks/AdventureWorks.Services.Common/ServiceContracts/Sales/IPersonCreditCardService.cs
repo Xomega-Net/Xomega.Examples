@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
@@ -25,7 +26,7 @@ namespace AdventureWorks.Services
         ///</summary>
         [OperationContract]
         [FaultContract(typeof(ErrorList))]
-        IEnumerable<PersonCreditCard_ReadListOutput> ReadList(int _businessEntityId);
+        Output<ICollection<PersonCreditCard_ReadListOutput>> ReadList(int _businessEntityId);
 
     }
     #endregion
@@ -38,18 +39,25 @@ namespace AdventureWorks.Services
     [DataContract]
     public class PersonCreditCard_ReadListOutput
     {
+        
         [DataMember]
         public int CreditCardId { get; set; }
+        
         [DataMember]
         public string CreditCardName { get; set; }
+        
         [DataMember]
         public string PersonName { get; set; }
+        
         [DataMember]
         public string CardType { get; set; }
+        
         [DataMember]
         public string CardNumber { get; set; }
+        
         [DataMember]
         public byte ExpMonth { get; set; }
+        
         [DataMember]
         public short ExpYear { get; set; }
     }

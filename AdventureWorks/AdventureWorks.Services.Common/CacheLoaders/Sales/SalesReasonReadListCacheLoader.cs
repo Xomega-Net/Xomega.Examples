@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using Xomega.Framework;
 using Xomega.Framework.Lookup;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
@@ -19,26 +20,30 @@ namespace AdventureWorks.Services
         {
         }
 
-        protected virtual IEnumerable<SalesReason_ReadListOutput> ReadList()
+        protected virtual Output<ICollection<SalesReason_ReadListOutput>> ReadList()
         {
             using (var s = serviceProvider.CreateScope())
             {
-                return s.ServiceProvider.GetService<ISalesReasonService>().ReadList();
+                var svc = s.ServiceProvider.GetService<ISalesReasonService>();
+                return svc.ReadList();
             }
         }
 
         protected override void LoadCache(string tableType, CacheUpdater updateCache)
         {
             Dictionary<string, Dictionary<string, Header>> data = new Dictionary<string, Dictionary<string, Header>>();
-            foreach (SalesReason_ReadListOutput row in ReadList())
+            var output = ReadList();
+
+            foreach (var row in output.Result)
             {
                 string type = "sales reason";
-                Dictionary<string, Header> tbl;
-                if (!data.TryGetValue(type, out tbl)) data[type] = tbl = new Dictionary<string, Header>();
 
+                if (!data.TryGetValue(type, out Dictionary<string, Header> tbl))
+                {
+                    data[type] = tbl = new Dictionary<string, Header>();
+                }
                 string id = "" + row.SalesReasonId;
-                Header h;
-                if (!tbl.TryGetValue(id, out h))
+                if (!tbl.TryGetValue(id, out Header h))
                 {
                     tbl[id] = h = new Header(type, id, row.Name);
                 }

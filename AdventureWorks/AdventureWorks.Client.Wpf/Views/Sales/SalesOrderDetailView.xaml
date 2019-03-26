@@ -9,18 +9,18 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:xov="clr-namespace:Xomega.Framework.Views;assembly=Xomega.Framework.Wpf"
                     xmlns:o="clr-namespace:AdventureWorks.Client.Objects;assembly=AdventureWorks.Client.Common"
+                    xmlns:v="clr-namespace:AdventureWorks.Client.Wpf"
                     xmlns:xom="clr-namespace:Xomega.Framework;assembly=Xomega.Framework.Wpf"
                     x:Class="AdventureWorks.Client.Wpf.SalesOrderDetailView"
                     ViewTitle="Detail">
-  <DockPanel Margin="10">
-    <DockPanel DockPanel.Dock="Bottom">
-      <Button x:Name="btnDelete" Width="75" Margin="0,10,0,0" Content="_Delete"/>
-      <Button x:Name="btnClose" Width="75" Margin="0,10,0,0" Content="_Close"
-              DockPanel.Dock="Right"/>
-      <Button x:Name="btnSave" Width="75" Margin="10,10,10,0" Content="_Save"
-              HorizontalAlignment="Right"/>
-    </DockPanel>
-    <GroupBox Header="Detail" DockPanel.Dock="Top">
+  <Grid Margin="10">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <v:Errors Grid.Row="0" x:Name="pnlErrors"/>
+    <GroupBox Grid.Row="1" Header="Detail">
       <StackPanel>
         <Grid>
           <Grid.RowDefinitions>
@@ -109,5 +109,16 @@
         </Grid>
       </StackPanel>
     </GroupBox>
-  </DockPanel>
+    <DockPanel Grid.Row="2">
+      <DockPanel DockPanel.Dock="Bottom">
+        <Button x:Name="btnDelete" Width="75" Margin="0,10,0,0" Content="_Delete"
+                DockPanel.Dock="Left"/>
+        <Button x:Name="btnClose" Width="75" Margin="0,10,0,0" Content="_Close"
+                DockPanel.Dock="Right"/>
+        <Button x:Name="btnSave" Width="75" Margin="10,10,10,0" Content="_Save"
+                HorizontalAlignment="Right"/>
+      </DockPanel>
+      <StackPanel/>
+    </DockPanel>
+  </Grid>
 </xov:WPFDetailsView>

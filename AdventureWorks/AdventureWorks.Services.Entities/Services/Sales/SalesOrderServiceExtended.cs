@@ -1,12 +1,10 @@
 using System;
 using System.Linq;
-using Xomega.Framework;
 
 namespace AdventureWorks.Services.Entities
 {
     public partial class SalesOrderService
     {
-        // add methods that can be used in the inline custom code of the generated service
 
         protected PaymentInfo GetPaymentInfo(SalesOrder obj)
         {
@@ -14,6 +12,7 @@ namespace AdventureWorks.Services.Entities
             {
                 CreditCard = new PaymentInfo_CreditCard
                 {
+                    CreditCardId = obj.CreditCardObject?.CreditCardId ?? 0,
                     CreditCardApprovalCode = obj.CreditCardApprovalCode
                 },
                 DueDate = obj.DueDate,
@@ -21,14 +20,9 @@ namespace AdventureWorks.Services.Entities
                 Freight = obj.Freight,
                 TaxAmt = obj.TaxAmt,
                 TotalDue = obj.TotalDue,
+                ShipMethodId = obj.ShipMethodObject?.ShipMethodId ?? 0,
+                CurrencyRate = obj.CurrencyRateObject?.RateString
             };
-            if (obj.CreditCardIdObject != null)
-                res.CreditCard.CreditCardId = obj.CreditCardIdObject.CreditCardId;
-            if (obj.ShipMethodIdObject != null)
-                res.ShipMethodId = obj.ShipMethodIdObject.ShipMethodId;
-            if (obj.CurrencyRateIdObject != null)
-                res.CurrencyRate = "$1 = " + obj.CurrencyRateIdObject.EndOfDayRate
-                                     + " " + obj.CurrencyRateIdObject.ToCurrencyCodeObject.Name;
             return res;
         }
 
@@ -36,31 +30,27 @@ namespace AdventureWorks.Services.Entities
         {
             if (_data == null)
             {
-                currentErrors.AddValidationError("Payment information is required.");
+                currentErrors.AddValidationError(Messages.PaymentRequired, obj.SalesOrderId);
                 return;
             }
             obj.DueDate = _data.DueDate;
-            obj.ShipMethodIdObject = ctx.ShipMethod.Find(_data.ShipMethodId);
-            if (obj.ShipMethodIdObject == null)
-                currentErrors.AddError(ErrorType.Data, "Cannot find ShipMethod with ID {0}.", _data.ShipMethodId);
+            obj.ShipMethodObject = ctx.FindEntity<ShipMethod>(currentErrors, _data.ShipMethodId);
             if (_data.CreditCard != null)
             {
                 obj.CreditCardApprovalCode = _data.CreditCard.CreditCardApprovalCode;
-                obj.CreditCardIdObject = ctx.CreditCard.Find(_data.CreditCard.CreditCardId);
-                if (obj.CreditCardIdObject == null)
-                    currentErrors.AddError(ErrorType.Data, "Cannot find CreditCard with ID {0}.", _data.CreditCard.CreditCardId);
+                obj.CreditCardObject = ctx.FindEntity<CreditCard>(currentErrors, _data.CreditCard.CreditCardId);
             }
         }
 
         protected SalesInfo GetSalesInfo(SalesOrder obj)
         {
-            SalesInfo res = new SalesInfo();
-            if (obj.SalesPersonIdObject != null)
-                res.SalesPersonId = obj.SalesPersonIdObject.BusinessEntityId;
-            if (obj.TerritoryIdObject != null)
-                res.TerritoryId = obj.TerritoryIdObject.TerritoryId;
-            // select a list of sales reason IDs from the child list
-            res.SalesReason = obj.ReasonObjectList.Select(r => r.SalesReasonId).ToList();
+            SalesInfo res = new SalesInfo()
+            {
+                SalesPersonId = obj.SalesPersonObject?.BusinessEntityId,
+                TerritoryId = obj.TerritoryObject?.TerritoryId,
+                // select a list of sales reason IDs from the child list
+                SalesReason = obj.ReasonObjectList?.Select(r => r.SalesReasonId).ToList()
+            };
             return res;
         }
 
@@ -68,15 +58,11 @@ namespace AdventureWorks.Services.Entities
         {
             if (_data == null)
             {
-                currentErrors.AddValidationError("Sales information is required.");
+                currentErrors.AddValidationError(Messages.SalesRequired, obj.SalesOrderId);
                 return;
             }
-            obj.TerritoryIdObject = ctx.SalesTerritory.Find(_data.TerritoryId);
-            if (_data.TerritoryId != null && obj.TerritoryIdObject == null)
-                currentErrors.AddError(ErrorType.Data, "Cannot find Sales Territory with ID {0}.", _data.TerritoryId);
-            obj.SalesPersonIdObject = ctx.SalesPerson.Find(_data.SalesPersonId);
-            if (_data.SalesPersonId != null && obj.SalesPersonIdObject == null)
-                currentErrors.AddError(ErrorType.Data, "Cannot find Sales Person with ID {0}.", _data.SalesPersonId);
+            obj.TerritoryObject = ctx.FindEntity<SalesTerritory>(currentErrors, _data.TerritoryId);
+            obj.SalesPersonObject = ctx.Find<SalesPerson>(currentErrors, _data.SalesPersonId);
             // remove sales reason that are not in the provided list
             obj.ReasonObjectList.Where(r => _data.SalesReason == null || !_data.SalesReason.Contains(r.SalesReasonId))
                 .ToList().ForEach(r => obj.ReasonObjectList.Remove(r));
@@ -92,30 +78,23 @@ namespace AdventureWorks.Services.Entities
                     }));
             }
         }
-
         protected CustomerInfo GetCustomerInfo(SalesOrder obj)
         {
             CustomerInfo res = new CustomerInfo();
-            if (obj.CustomerIdObject != null)
+            if (obj.CustomerObject != null)
             {
-                res.CustomerId = obj.CustomerIdObject.CustomerId;
-                res.AccountNumber = obj.CustomerIdObject.AccountNumber;
-                res.PersonId = obj.CustomerIdObject.PersonIdObject == null ? null :
-                         (int?)obj.CustomerIdObject.PersonIdObject.BusinessEntityId;
-                res.PersonName = obj.CustomerIdObject.PersonIdObject == null ? null :
-                                 obj.CustomerIdObject.PersonIdObject.LastName + ", " +
-                                 obj.CustomerIdObject.PersonIdObject.FirstName;
-                res.StoreId = obj.CustomerIdObject.StoreIdObject == null ? null :
-                        (int?)obj.CustomerIdObject.StoreIdObject.BusinessEntityId;
-                res.StoreName = obj.CustomerIdObject.StoreIdObject == null ? null :
-                                obj.CustomerIdObject.StoreIdObject.Name;
-                res.TerritoryId = obj.CustomerIdObject.TerritoryIdObject == null ? null :
-                            (int?)obj.CustomerIdObject.TerritoryIdObject.TerritoryId;
+                res.CustomerId = obj.CustomerObject.CustomerId;
+                res.AccountNumber = obj.CustomerObject.AccountNumber;
+                res.PersonId = obj.CustomerObject.PersonObject?.BusinessEntityId;
+                res.PersonName = obj.CustomerObject.PersonObject?.FullName;
+                res.StoreId = obj.CustomerObject.StoreObject?.BusinessEntityId;
+                res.StoreName = obj.CustomerObject.StoreObject?.Name;
+                res.TerritoryId = obj.CustomerObject.TerritoryObject?.TerritoryId;
             };
-            if (obj.BillToAddressIdObject != null)
-                res.BillingAddress = new AddressKey { AddressId = obj.BillToAddressIdObject.AddressId };
-            if (obj.ShipToAddressIdObject != null)
-                res.ShippingAddress = new AddressKey { AddressId = obj.ShipToAddressIdObject.AddressId };
+            if (obj.BillToAddressObject != null)
+                res.BillingAddress = new AddressKey { AddressId = obj.BillToAddressObject.AddressId };
+            if (obj.ShipToAddressObject != null)
+                res.ShippingAddress = new AddressKey { AddressId = obj.ShipToAddressObject.AddressId };
             return res;
         }
 
@@ -123,27 +102,12 @@ namespace AdventureWorks.Services.Entities
         {
             if (_data == null)
             {
-                currentErrors.AddValidationError("Customer information is required.");
+                currentErrors.AddValidationError(Messages.CustomerRequired, obj.SalesOrderId);
                 return;
             }
-            obj.CustomerIdObject = ctx.Customer.Find(_data.CustomerId);
-            if (obj.CustomerIdObject == null)
-                currentErrors.AddError(ErrorType.Data,
-                    "Invalid value {0} for parameter CustomerId. Cannot find the corresponding Customer object.", _data.CustomerId);
-            if (_data.BillingAddress != null)
-            {
-                obj.BillToAddressIdObject = ctx.Address.Find(_data.BillingAddress.AddressId);
-                if (_data.BillingAddress.AddressId != 0 && obj.BillToAddressIdObject == null)
-                    currentErrors.AddError(ErrorType.Data,
-                        "Invalid value {0} for Bill-To AddressId. Cannot find the corresponding Address object.", _data.BillingAddress.AddressId);
-            }
-            if (_data.ShippingAddress != null)
-            {
-                obj.ShipToAddressIdObject = ctx.Address.Find(_data.ShippingAddress.AddressId);
-                if (_data.ShippingAddress.AddressId != 0 && obj.ShipToAddressIdObject == null)
-                    currentErrors.AddError(ErrorType.Data,
-                        "Invalid value {0} for Ship-To AddressId. Cannot find the corresponding Address object.", _data.ShippingAddress.AddressId);
-            }
+            obj.CustomerObject = ctx.FindEntity<Customer>(currentErrors, _data.CustomerId);
+            obj.BillToAddressObject = ctx.FindEntity<Address>(currentErrors, _data.BillingAddress?.AddressId);
+            obj.ShipToAddressObject = ctx.FindEntity<Address>(currentErrors, _data.ShippingAddress?.AddressId);
         }
     }
 }

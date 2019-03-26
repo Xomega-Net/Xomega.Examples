@@ -1,13 +1,14 @@
-import { BusinessEntityAddress } from 'Enumerations/Enumerations';
-import { Header } from 'xomega';
 
 import { AddressObject as GeneratedDataObject } from 'DataObjects/Person/AddressObject';
+import { Header } from 'xomega';
+import { BusinessEntityAddress } from 'Enumerations/Enumerations';
 
 export class AddressObject extends GeneratedDataObject {
 
     // perform post intialization
     onInitialized() {
         super.onInitialized();
+
         let obj = this;
         this.AddressId.InternalValue.subscribe(function (h: Header) {
             obj.AddressLine1.InternalValue(h ? h.attr[BusinessEntityAddress.Attributes.AddressLine1] : null);
@@ -20,4 +21,3 @@ export class AddressObject extends GeneratedDataObject {
         });
     }
 }
-

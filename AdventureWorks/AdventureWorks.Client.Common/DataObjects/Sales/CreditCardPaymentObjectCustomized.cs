@@ -33,7 +33,7 @@ namespace AdventureWorks.Client.Objects
             if (e.Change.IncludesValue() && !DataProperty.Equals(e.OldValue, e.NewValue))
             {
                 Header cc = CreditCardIdProperty.Value;
-                CardNumberProperty.SetValue(cc == null ? null : cc[Enumerations.PersonCreditCard.Attributes.CardNumber]);
+                CardNumberProperty.SetValue(cc?[Enumerations.PersonCreditCard.Attributes.CardNumber]);
                 ExpirationProperty.SetValue(cc == null ? null : cc[Enumerations.PersonCreditCard.Attributes.ExpMonth]
                                                         + "/" + cc[Enumerations.PersonCreditCard.Attributes.ExpYear]);
             }

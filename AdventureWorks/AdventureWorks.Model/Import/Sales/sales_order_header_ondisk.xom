@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
+        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:rest="http://www.xomega.net/rest"
+        xmlns:ui="http://www.xomega.net/ui"
+        xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
+        xmlns:sql="http://www.xomega.net/sql"
+        xmlns:clr="http://www.xomega.net/clr"
+        xmlns:edm="http://www.xomega.net/edm"
+        name="sales">
+  <types>
+    <type name="sales order header ondisk" base="integer key"/>
+  </types>
+  <objects>
+    <object name="sales order header ondisk">
+      <fields>
+        <field name="sales order id" type="sales order header ondisk" key="serial"
+               required="true">
+          <config>
+            <sql:column name="SalesOrderID"/>
+          </config>
+        </field>
+        <field name="revision number" type="tiny int" required="true">
+          <config>
+            <sql:column name="RevisionNumber" default="((0))"/>
+          </config>
+        </field>
+        <field name="order date" type="extended date time" required="true">
+          <config>
+            <sql:column name="OrderDate"/>
+          </config>
+        </field>
+        <field name="due date" type="extended date time" required="true">
+          <config>
+            <sql:column name="DueDate"/>
+          </config>
+        </field>
+        <field name="ship date" type="extended date time">
+          <config>
+            <sql:column name="ShipDate"/>
+          </config>
+        </field>
+        <field name="status" type="tiny int" required="true">
+          <config>
+            <sql:column name="Status" default="((1))"/>
+          </config>
+        </field>
+        <field name="online order flag" type="boolean" required="true">
+          <config>
+            <sql:column name="OnlineOrderFlag" default="((1))"/>
+          </config>
+        </field>
+        <field name="purchase order number" type="string25">
+          <config>
+            <sql:column name="PurchaseOrderNumber"/>
+          </config>
+        </field>
+        <field name="account number" type="string15">
+          <config>
+            <sql:column name="AccountNumber"/>
+          </config>
+        </field>
+        <field name="customer id" type="integer" required="true">
+          <config>
+            <sql:column name="CustomerID"/>
+          </config>
+        </field>
+        <field name="sales person id" type="integer" required="true">
+          <config>
+            <sql:column name="SalesPersonID" default="((-1))"/>
+          </config>
+        </field>
+        <field name="territory id" type="integer">
+          <config>
+            <sql:column name="TerritoryID"/>
+          </config>
+        </field>
+        <field name="bill to address id" type="integer" required="true">
+          <config>
+            <sql:column name="BillToAddressID"/>
+          </config>
+        </field>
+        <field name="ship to address id" type="integer" required="true">
+          <config>
+            <sql:column name="ShipToAddressID"/>
+          </config>
+        </field>
+        <field name="ship method id" type="integer" required="true">
+          <config>
+            <sql:column name="ShipMethodID"/>
+          </config>
+        </field>
+        <field name="credit card id" type="integer">
+          <config>
+            <sql:column name="CreditCardID"/>
+          </config>
+        </field>
+        <field name="credit card approval code" type="char string15">
+          <config>
+            <sql:column name="CreditCardApprovalCode"/>
+          </config>
+        </field>
+        <field name="currency rate id" type="integer">
+          <config>
+            <sql:column name="CurrencyRateID"/>
+          </config>
+        </field>
+        <field name="sub total" type="money" required="true">
+          <config>
+            <sql:column name="SubTotal" default="((0.00))"/>
+          </config>
+        </field>
+        <field name="tax amt" type="money" required="true">
+          <config>
+            <sql:column name="TaxAmt" default="((0.00))"/>
+          </config>
+        </field>
+        <field name="freight" type="money" required="true">
+          <config>
+            <sql:column name="Freight" default="((0.00))"/>
+          </config>
+        </field>
+        <field name="comment" type="string128">
+          <config>
+            <sql:column name="Comment"/>
+          </config>
+        </field>
+        <field name="modified date" type="extended date time" required="true">
+          <config>
+            <sql:column name="ModifiedDate"/>
+          </config>
+        </field>
+      </fields>
+      <config>
+        <sql:table name="Sales.SalesOrderHeader_ondisk"/>
+      </config>
+    </object>
+  </objects>
+</module>

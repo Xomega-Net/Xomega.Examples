@@ -12,7 +12,7 @@ export class ICustomerService {
     public static getReadListRequest(_criteria: Customer_ReadListInput_Criteria): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
-        req.url += `customer?${ $.param(_criteria) }`;
+        req.url += `customer?${ $.param(_criteria, true) }`;
         return req;
     }
 }

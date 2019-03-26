@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Client.Objects
 {
@@ -67,7 +68,6 @@ namespace AdventureWorks.Client.Objects
             StoreNameProperty = new TextProperty(this, StoreName);
             StoreNameProperty.Editable = false;
             TerritoryIdProperty = new EnumIntProperty(this, TerritoryId);
-            TerritoryIdProperty.Size = 10;
             TerritoryIdProperty.EnumType = "sales territory";
             TerritoryIdProperty.Editable = false;
         }
@@ -76,22 +76,25 @@ namespace AdventureWorks.Client.Objects
 
         #region CRUD Operations
 
-        protected override void DoRead(object options)
+        protected override ErrorList DoRead(object options)
         {
-            Customer_ReadList(
+            var output = Customer_ReadList(
                 CriteriaObject == null ? null : CriteriaObject.ToDataContract<Customer_ReadListInput_Criteria>(options), options);
+            return output.Messages;
         }
 
         #endregion
 
         #region Service Operations
 
-        protected virtual void Customer_ReadList(Customer_ReadListInput_Criteria _criteria, object options)
+        protected virtual Output<ICollection<Customer_ReadListOutput>> Customer_ReadList(Customer_ReadListInput_Criteria _criteria, object options)
         {
             using (var s = ServiceProvider.CreateScope())
             {
-                IEnumerable<Customer_ReadListOutput> output = s.ServiceProvider.GetService<ICustomerService>().ReadList(_criteria);
-                FromDataContract(output, options);
+                var output = s.ServiceProvider.GetService<ICustomerService>().ReadList(_criteria);
+
+                FromDataContract(output?.Result, options);
+                return output;
             }
         }
 

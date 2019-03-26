@@ -50,7 +50,6 @@ namespace AdventureWorks.Client.Objects
             CreditCardApprovalCodeProperty.Size = 15;
             CreditCardIdProperty = new EnumIntProperty(this, CreditCardId);
             CreditCardIdProperty.Required = true;
-            CreditCardIdProperty.Size = 10;
             ExpirationProperty = new TextProperty(this, Expiration);
             ExpirationProperty.Editable = false;
         }

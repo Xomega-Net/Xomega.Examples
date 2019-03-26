@@ -35,9 +35,9 @@ namespace AdventureWorks.Client.ViewModels
             NameValueCollection query = new NameValueCollection();
             query.Add(ViewParams.Action.Param, ViewParams.Action.Select);
             query.Add(ViewParams.SelectionMode.Param, ViewParams.SelectionMode.Single);
-            query.Add("StoreNameOperator", "CONT");
+            query.Add("StoreNameOperator", "CN");
             query.Add("StoreName", this.obj.CustomerObject.LookupObject.StoreNameProperty.EditStringValue);
-            query.Add("PersonNameOperator", "CONT");
+            query.Add("PersonNameOperator", "CN");
             query.Add("PersonName", this.obj.CustomerObject.LookupObject.PersonNameProperty.EditStringValue);
             query.Add(ViewParams.Mode.Param, ViewParams.Mode.Popup);
             query.Add(ViewParams.QuerySource, "lnkCustomerLookupLookUp");

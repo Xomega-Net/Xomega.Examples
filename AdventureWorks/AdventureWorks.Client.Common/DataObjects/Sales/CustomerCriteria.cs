@@ -51,20 +51,19 @@ namespace AdventureWorks.Client.Objects
             AccountNumberProperty = new TextProperty(this, AccountNumber);
             AccountNumberProperty.Size = 10;
             AccountNumberOperatorProperty = new OperatorProperty(this, AccountNumberOperator);
-            AccountNumberOperatorProperty.Size = 10;
+            AccountNumberOperatorProperty.Size = 25;
             AccountNumberOperatorProperty.EnumType = "operators";
             PersonNameProperty = new TextProperty(this, PersonName);
             PersonNameOperatorProperty = new OperatorProperty(this, PersonNameOperator);
-            PersonNameOperatorProperty.Size = 10;
+            PersonNameOperatorProperty.Size = 25;
             PersonNameOperatorProperty.EnumType = "operators";
             PersonNameOperatorProperty.HasNullCheck = true;
             StoreNameProperty = new TextProperty(this, StoreName);
             StoreNameOperatorProperty = new OperatorProperty(this, StoreNameOperator);
-            StoreNameOperatorProperty.Size = 10;
+            StoreNameOperatorProperty.Size = 25;
             StoreNameOperatorProperty.EnumType = "operators";
             StoreNameOperatorProperty.HasNullCheck = true;
             TerritoryIdProperty = new EnumIntProperty(this, TerritoryId);
-            TerritoryIdProperty.Size = 10;
             TerritoryIdProperty.EnumType = "sales territory";
         }
 

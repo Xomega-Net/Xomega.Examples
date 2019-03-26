@@ -4,12 +4,8 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Xomega.Framework.Views;
-using AdventureWorks.Client.ViewModels;
 
 namespace AdventureWorks.Client.Wpf
 {
@@ -21,7 +17,7 @@ namespace AdventureWorks.Client.Wpf
         }
 
         protected override Button CloseButton { get { return btnClose; } }
-
+        protected override IErrorPresenter ErrorsPanel { get { return pnlErrors; } }
         protected override Button DeleteButton { get { return btnDelete; } }
         protected override Button SaveButton { get { return btnSave; } }
     }

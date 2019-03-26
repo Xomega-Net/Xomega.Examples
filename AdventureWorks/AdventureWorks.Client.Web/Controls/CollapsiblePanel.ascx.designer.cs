@@ -19,7 +19,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Header;
-
+        
         /// <summary>
         /// lblIcon control.
         /// </summary>
@@ -28,7 +28,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIcon;
-
+        
         /// <summary>
         /// lblTitle control.
         /// </summary>
@@ -37,7 +37,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTitle;
-
+        
         /// <summary>
         /// Body control.
         /// </summary>
@@ -46,7 +46,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Body;
-
+        
         /// <summary>
         /// Content control.
         /// </summary>
@@ -55,7 +55,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder Content;
-
+        
         /// <summary>
         /// cpe control.
         /// </summary>

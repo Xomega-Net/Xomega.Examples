@@ -48,7 +48,7 @@
         <sql:table name="AWBuildVersion"/>
       </config>
       <doc>
-        <summary>Current version number of the AdventureWorks 2012 sample database. </summary>
+        <summary>Current version number of the AdventureWorks 2014 sample database. </summary>
       </doc>
     </object>
   </objects>

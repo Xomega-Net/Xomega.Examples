@@ -1,7 +1,19 @@
-<div class="msglist widget">
-  <ul data-part="list" class="fa-ul" data-bind="visible: settings.items().length > 0, foreach: settings.items">
-    <li data-bind="css: xomega.ErrorSeverity[Severity]">
-      <i class="fa-li fa" data-bind="css: $parent.iconClass(Severity)"></i><span data-bind="text: Message"></span>
-    </li>
-  </ul>
+<div>
+  <div class="cpanel widget errors" data-bind="visible: settings.items().length > 0">
+    <div class="widget-header">
+      <span class="widget-caption">
+        <span class="widget-title" data-bind="text: title()"></span>
+      </span>
+      <div class="widget-toolbar">
+        <div class="widget-toolbar-icon">
+          <input type="button" value="X" class="close-button" data-bind="click: close" />
+        </div>
+      </div>
+    </div>
+    <div data-bind="foreach: settings.items">
+      <div data-bind="css: xomega.ErrorSeverity[Severity]">
+        <i class="severity-icon fa" data-bind="css: $parent.iconClass(Severity)"></i><span data-bind="text: Message"></span>
+      </div>
+    </div>
+  </div>
 </div>

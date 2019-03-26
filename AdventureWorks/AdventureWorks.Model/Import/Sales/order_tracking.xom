@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
+        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:rest="http://www.xomega.net/rest"
+        xmlns:ui="http://www.xomega.net/ui"
+        xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
+        xmlns:sql="http://www.xomega.net/sql"
+        xmlns:clr="http://www.xomega.net/clr"
+        xmlns:edm="http://www.xomega.net/edm"
+        name="sales">
+  <types>
+    <type name="order tracking" base="integer key"/>
+  </types>
+  <objects>
+    <object name="order tracking">
+      <fields>
+        <field name="order tracking id" type="order tracking" key="serial" required="true">
+          <config>
+            <sql:column name="OrderTrackingID"/>
+          </config>
+        </field>
+        <field name="sales order id" type="integer" required="true">
+          <config>
+            <sql:column name="SalesOrderID"/>
+          </config>
+          <doc>
+            <summary>Sales order identification number.  Foreign key to SalesOrderHeader.SalesOrderID.</summary>
+          </doc>
+        </field>
+        <field name="carrier tracking number" type="string25">
+          <config>
+            <sql:column name="CarrierTrackingNumber"/>
+          </config>
+          <doc>
+            <summary>Shipment tracking number supplied by the shipper.</summary>
+          </doc>
+        </field>
+        <field name="tracking event id" type="integer" required="true">
+          <config>
+            <sql:column name="TrackingEventID"/>
+          </config>
+          <doc>
+            <summary>Tracking delivery event for Order shipped to customer. Foreign key to TrackingEvent.TrackingEventID.</summary>
+          </doc>
+        </field>
+        <field name="event details" type="string2000" required="true">
+          <config>
+            <sql:column name="EventDetails"/>
+          </config>
+          <doc>
+            <summary>Details for a delivery tracking event.</summary>
+          </doc>
+        </field>
+        <field name="event date time" type="extended date time" required="true">
+          <config>
+            <sql:column name="EventDateTime"/>
+          </config>
+          <doc>
+            <summary>The date and time that a tracking event has occurred.</summary>
+          </doc>
+        </field>
+      </fields>
+      <config>
+        <sql:table name="Sales.OrderTracking"/>
+      </config>
+      <doc>
+        <summary>Individual tracking events associated with a specific sales order.</summary>
+      </doc>
+    </object>
+  </objects>
+</module>

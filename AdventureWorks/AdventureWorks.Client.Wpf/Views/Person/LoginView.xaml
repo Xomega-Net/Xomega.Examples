@@ -9,19 +9,20 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:xov="clr-namespace:Xomega.Framework.Views;assembly=Xomega.Framework.Wpf"
                     xmlns:o="clr-namespace:AdventureWorks.Client.Objects;assembly=AdventureWorks.Client.Common"
+                    xmlns:v="clr-namespace:AdventureWorks.Client.Wpf"
                     xmlns:xom="clr-namespace:Xomega.Framework;assembly=Xomega.Framework.Wpf"
                     x:Class="AdventureWorks.Client.Wpf.LoginView"
                     ViewTitle="Login"
                     ViewWidth="300"
-                    ViewHeight="180">
-  <DockPanel Margin="10">
-    <DockPanel DockPanel.Dock="Bottom">
-      <Button x:Name="btnClose" Width="75" Margin="0,10,0,0" Content="_Close"
-              DockPanel.Dock="Right"/>
-      <Button x:Name="btnSave" Width="75" Margin="10,10,10,0" Content="_Save"
-              HorizontalAlignment="Right"/>
-    </DockPanel>
-    <GroupBox Header="Login" DockPanel.Dock="Top">
+                    ViewHeight="240">
+  <Grid Margin="10">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <v:Errors Grid.Row="0" x:Name="pnlErrors"/>
+    <GroupBox Grid.Row="1" Header="Login">
       <StackPanel>
         <Grid>
           <Grid.RowDefinitions>
@@ -49,5 +50,14 @@
         </Grid>
       </StackPanel>
     </GroupBox>
-  </DockPanel>
+    <DockPanel Grid.Row="2">
+      <DockPanel DockPanel.Dock="Bottom">
+        <Button x:Name="btnClose" Width="75" Margin="0,10,0,0" Content="_Close"
+                DockPanel.Dock="Right"/>
+        <Button x:Name="btnSave" Width="75" Margin="10,10,10,0" Content="_Save"
+                HorizontalAlignment="Right"/>
+      </DockPanel>
+      <StackPanel/>
+    </DockPanel>
+  </Grid>
 </xov:WPFDetailsView>

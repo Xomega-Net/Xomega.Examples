@@ -75,7 +75,6 @@ namespace AdventureWorks.Client.Objects
             StoreNameProperty = new TextProperty(this, StoreName);
             StoreNameProperty.Editable = false;
             TerritoryIdProperty = new EnumIntProperty(this, TerritoryId);
-            TerritoryIdProperty.Size = 10;
             TerritoryIdProperty.EnumType = "sales territory";
             TerritoryIdProperty.Editable = false;
             DataObject objLookup = ServiceProvider.GetService<SalesCustomerLookupObject>();

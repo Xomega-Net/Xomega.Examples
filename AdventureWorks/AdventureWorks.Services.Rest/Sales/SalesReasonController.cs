@@ -4,29 +4,28 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Web.Http;
 using Xomega.Framework;
+using Xomega.Framework.Services;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Rest
 {
     ///<summary>
     /// Lookup table of customer purchase reasons.
     ///</summary>
-    public partial class SalesReasonController : ApiController
+    public partial class SalesReasonController : ControllerBase
     {
-        private ErrorParser errorParser;
+        private ErrorList currentErrors;
+        private ErrorParser errorsParser;
         private ISalesReasonService svc;
 
-        public SalesReasonController(IServiceProvider serviceProvider)
+        public SalesReasonController(ErrorList errorList, ErrorParser errorParser, ISalesReasonService service)
         {
-            errorParser = serviceProvider.GetService<ErrorParser>();
-            svc = serviceProvider.GetService<ISalesReasonService>();
-            if (svc is IPrincipalProvider)
-                ((IPrincipalProvider)svc).CurrentPrincipal = RequestContext.Principal;
+            currentErrors = errorList;
+            errorsParser = errorParser;
+            svc = service;
         }
 
         ///<summary>
@@ -34,20 +33,27 @@ namespace AdventureWorks.Services
         ///</summary>
         [Route("sales-reason")]
         [HttpGet]
-        public HttpResponseMessage ReadList()
+        public ActionResult ReadList()
         {
-            HttpResponseMessage response = Request.CreateResponse();
+            ActionResult response = null;
             try
             {
-                IEnumerable<SalesReason_ReadListOutput> output = svc.ReadList();
-                response = Request.CreateResponse(output);
+                if (ModelState.IsValid)
+                {
+                    Output<ICollection<SalesReason_ReadListOutput>> output = svc.ReadList();
+                    response = StatusCode((int)output.HttpStatus, output);
+                    return response;
+                }
+                else
+                {
+                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                }
             }
             catch (Exception ex)
             {
-                ErrorList errors = errorParser.FromException(ex);
-                response = Request.CreateResponse(errors);
-                response.StatusCode = errors.HttpStatus;
+                currentErrors.MergeWith(errorsParser.FromException(ex));
             }
+            response = StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
             return response;
         }
     }

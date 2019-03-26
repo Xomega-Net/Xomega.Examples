@@ -35,7 +35,6 @@ export class SalesOrderList extends DataListObject {
         this.DueDate.Editable(false);
         this.OnlineOrderFlag = new EnumProperty();
         this.OnlineOrderFlag.Required(true);
-        this.OnlineOrderFlag.Size = 10;
         this.OnlineOrderFlag.EnumType = "yesno";
         this.OnlineOrderFlag.Editable(false);
         this.OrderDate = new DateProperty();
@@ -55,11 +54,9 @@ export class SalesOrderList extends DataListObject {
         this.ShipDate.Editable(false);
         this.Status = new EnumProperty();
         this.Status.Required(true);
-        this.Status.Size = 10;
         this.Status.EnumType = "sales order status";
         this.Status.Editable(false);
         this.TerritoryId = new EnumProperty();
-        this.TerritoryId.Size = 10;
         this.TerritoryId.EnumType = "sales territory";
         this.TerritoryId.Editable(false);
         this.TotalDue = new MoneyProperty();
@@ -77,8 +74,11 @@ export class SalesOrderList extends DataListObject {
     protected getSalesOrder_ReadListRequest(_criteria: SalesOrder_ReadListInput_Criteria, options?): JQueryAjaxSettings {
         let obj = this;
         let req = ISalesOrderService.getReadListRequest(_criteria);
-        req.success = data => obj.fromJSON(data, options);
-        req.error = (xhr, status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
+        req.success = (_data, _status, xhr) => {
+            obj.fromJSON(_data.Result, options);
+            obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
+        }
+        req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 }

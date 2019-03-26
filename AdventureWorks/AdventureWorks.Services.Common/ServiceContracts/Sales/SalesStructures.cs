@@ -15,10 +15,16 @@ namespace AdventureWorks.Services
     [DataContract]
     public class CreditCardInfo
     {
+        
         [DataMember]
         public int CreditCardId { get; set; }
+        
+        ///<summary>
+        /// Credit card number.
+        ///</summary>
         [DataMember]
         public string CardNumber { get; set; }
+        
         [DataMember]
         public string Expiration { get; set; }
     }
@@ -29,8 +35,10 @@ namespace AdventureWorks.Services
     [DataContract]
     public class CustomerLookup
     {
+        
         [DataMember]
         public string StoreName { get; set; }
+        
         [DataMember]
         public string PersonName { get; set; }
     }
@@ -41,22 +49,43 @@ namespace AdventureWorks.Services
     [DataContract]
     public class CustomerInfo
     {
+        
         [DataMember]
         public int CustomerId { get; set; }
+        
+        ///<summary>
+        /// Foreign key to Store.BusinessEntityID
+        ///</summary>
         [DataMember]
         public int? StoreId { get; set; }
+        
         [DataMember]
         public string StoreName { get; set; }
+        
+        ///<summary>
+        /// Foreign key to Person.BusinessEntityID
+        ///</summary>
         [DataMember]
         public int? PersonId { get; set; }
+        
         [DataMember]
         public string PersonName { get; set; }
+        
+        ///<summary>
+        /// Unique number identifying the customer assigned by the accounting system.
+        ///</summary>
         [DataMember]
         public string AccountNumber { get; set; }
+        
+        ///<summary>
+        /// ID of the territory in which the customer is located. Foreign key to SalesTerritory.SalesTerritoryID.
+        ///</summary>
         [DataMember]
         public int? TerritoryId { get; set; }
+        
         [DataMember]
         public AddressKey BillingAddress { get; set; }
+        
         [DataMember]
         public AddressKey ShippingAddress { get; set; }
     }
@@ -67,10 +96,13 @@ namespace AdventureWorks.Services
     [DataContract]
     public class CustomerUpdate
     {
+        
         [DataMember]
         public int CustomerId { get; set; }
+        
         [DataMember]
         public AddressKey BillingAddress { get; set; }
+        
         [DataMember]
         public AddressKey ShippingAddress { get; set; }
     }
@@ -81,20 +113,46 @@ namespace AdventureWorks.Services
     [DataContract]
     public class PaymentInfo
     {
+        
+        ///<summary>
+        /// Sales subtotal. Computed as SUM(SalesOrderDetail.LineTotal)for the appropriate SalesOrderID.
+        ///</summary>
         [DataMember]
         public decimal SubTotal { get; set; }
+        
+        ///<summary>
+        /// Shipping method. Foreign key to ShipMethod.ShipMethodID.
+        ///</summary>
         [DataMember]
         public int ShipMethodId { get; set; }
+        
+        ///<summary>
+        /// Tax amount.
+        ///</summary>
         [DataMember]
         public decimal TaxAmt { get; set; }
+        
+        ///<summary>
+        /// Shipping cost.
+        ///</summary>
         [DataMember]
         public decimal Freight { get; set; }
+        
+        ///<summary>
+        /// Total due from customer. Computed as Subtotal + TaxAmt + Freight.
+        ///</summary>
         [DataMember]
         public decimal TotalDue { get; set; }
+        
+        ///<summary>
+        /// Date the order is due to the customer.
+        ///</summary>
         [DataMember]
         public DateTime DueDate { get; set; }
+        
         [DataMember]
         public string CurrencyRate { get; set; }
+        
         [DataMember]
         public PaymentInfo_CreditCard CreditCard { get; set; }
     }
@@ -108,8 +166,16 @@ namespace AdventureWorks.Services
     [DataContract]
     public class PaymentInfo_CreditCard
     {
+        
+        ///<summary>
+        /// Credit card identification number. Foreign key to CreditCard.CreditCardID.
+        ///</summary>
         [DataMember]
         public int CreditCardId { get; set; }
+        
+        ///<summary>
+        /// Approval code provided by the credit card company.
+        ///</summary>
         [DataMember]
         public string CreditCardApprovalCode { get; set; }
     }
@@ -120,10 +186,19 @@ namespace AdventureWorks.Services
     [DataContract]
     public class PaymentUpdate
     {
+        
+        ///<summary>
+        /// Shipping method. Foreign key to ShipMethod.ShipMethodID.
+        ///</summary>
         [DataMember]
         public int ShipMethodId { get; set; }
+        
+        ///<summary>
+        /// Date the order is due to the customer.
+        ///</summary>
         [DataMember]
         public DateTime DueDate { get; set; }
+        
         [DataMember]
         public PaymentUpdate_CreditCard CreditCard { get; set; }
     }
@@ -137,8 +212,16 @@ namespace AdventureWorks.Services
     [DataContract]
     public class PaymentUpdate_CreditCard
     {
+        
+        ///<summary>
+        /// Credit card identification number. Foreign key to CreditCard.CreditCardID.
+        ///</summary>
         [DataMember]
         public int CreditCardId { get; set; }
+        
+        ///<summary>
+        /// Approval code provided by the credit card company.
+        ///</summary>
         [DataMember]
         public string CreditCardApprovalCode { get; set; }
     }
@@ -149,12 +232,21 @@ namespace AdventureWorks.Services
     [DataContract]
     public class SalesInfo
     {
+        
+        ///<summary>
+        /// Territory in which the sale was made. Foreign key to SalesTerritory.SalesTerritoryID.
+        ///</summary>
         [DataMember]
         public int? TerritoryId { get; set; }
+        
+        ///<summary>
+        /// Sales person who created the sales order. Foreign key to SalesPerson.BusinessEntityID.
+        ///</summary>
         [DataMember]
         public int? SalesPersonId { get; set; }
+        
         [DataMember]
-        public IEnumerable<int> SalesReason { get; set; }
+        public ICollection<int> SalesReason { get; set; }
     }
     #endregion
 

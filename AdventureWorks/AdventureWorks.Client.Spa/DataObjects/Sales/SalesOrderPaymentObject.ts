@@ -32,7 +32,6 @@ export class SalesOrderPaymentObject extends DataObject {
         this.Freight.Editable(false);
         this.ShipMethodId = new EnumProperty();
         this.ShipMethodId.Required(true);
-        this.ShipMethodId.Size = 10;
         this.ShipMethodId.EnumType = "ship method";
         this.SubTotal = new MoneyProperty();
         this.SubTotal.Required(true);

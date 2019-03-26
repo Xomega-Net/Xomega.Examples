@@ -48,7 +48,6 @@ namespace AdventureWorks.Client.Objects
         {
             AddressIdProperty = new EnumIntProperty(this, AddressId);
             AddressIdProperty.Required = true;
-            AddressIdProperty.Size = 10;
             AddressLine1Property = new TextProperty(this, AddressLine1);
             AddressLine1Property.Required = true;
             AddressLine1Property.Size = 60;

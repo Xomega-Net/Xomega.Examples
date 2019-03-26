@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using Xomega.Framework;
 using Xomega.Framework.Lookup;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
@@ -19,26 +20,30 @@ namespace AdventureWorks.Services
         {
         }
 
-        protected virtual IEnumerable<SalesPerson_ReadListOutput> ReadList()
+        protected virtual Output<ICollection<SalesPerson_ReadListOutput>> ReadList()
         {
             using (var s = serviceProvider.CreateScope())
             {
-                return s.ServiceProvider.GetService<ISalesPersonService>().ReadList();
+                var svc = s.ServiceProvider.GetService<ISalesPersonService>();
+                return svc.ReadList();
             }
         }
 
         protected override void LoadCache(string tableType, CacheUpdater updateCache)
         {
             Dictionary<string, Dictionary<string, Header>> data = new Dictionary<string, Dictionary<string, Header>>();
-            foreach (SalesPerson_ReadListOutput row in ReadList())
+            var output = ReadList();
+
+            foreach (var row in output.Result)
             {
                 string type = "sales person";
-                Dictionary<string, Header> tbl;
-                if (!data.TryGetValue(type, out tbl)) data[type] = tbl = new Dictionary<string, Header>();
 
+                if (!data.TryGetValue(type, out Dictionary<string, Header> tbl))
+                {
+                    data[type] = tbl = new Dictionary<string, Header>();
+                }
                 string id = "" + row.BusinessEntityId;
-                Header h;
-                if (!tbl.TryGetValue(id, out h))
+                if (!tbl.TryGetValue(id, out Header h))
                 {
                     tbl[id] = h = new Header(type, id, row.Name);
                     h.IsActive = row.IsCurrent;

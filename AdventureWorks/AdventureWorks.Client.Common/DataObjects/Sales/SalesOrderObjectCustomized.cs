@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Xomega.Framework;
 using Xomega.Framework.Lookup;
-using Xomega.Framework.Properties;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Client.Objects
 {
@@ -47,7 +47,7 @@ namespace AdventureWorks.Client.Objects
             this.salesOrder.CustomerObject.PersonIdProperty.Change += OnCustomerPersonChanged;
         }
 
-        protected override IEnumerable<PersonCreditCard_ReadListOutput> ReadList(int _businessEntityId)
+        protected override Output<ICollection<PersonCreditCard_ReadListOutput>> ReadList(int _businessEntityId)
         {
             return base.ReadList(salesOrder.CustomerObject.PersonIdProperty.Value.Value);
         }

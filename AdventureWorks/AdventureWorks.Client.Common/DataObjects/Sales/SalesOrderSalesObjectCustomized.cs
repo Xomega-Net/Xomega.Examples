@@ -26,7 +26,6 @@ namespace AdventureWorks.Client.Objects
         {
             base.OnInitialized();
             SalesPersonIdProperty.SetCascadingProperty(Enumerations.SalesPerson.Attributes.TerritoryId, TerritoryIdProperty);
-            // add custom intialization code here
         }
 
         // add custom code here

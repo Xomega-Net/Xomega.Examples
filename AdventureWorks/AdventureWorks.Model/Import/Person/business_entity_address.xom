@@ -73,9 +73,8 @@
             <param name="country" type="country region"/>
           </output>
           <config>
-            <xfk:enum-cache enum-name="business entity address" skip-registration="true"
-                            id-param="address id" desc-param="address type"/>
-            <rest:method verb="GET" uri-template="business-entity/{business entity id}/address"/>
+            <xfk:enum-cache enum-name="business entity address" id-param="address id" desc-param="address type"/>
+            <rest:method verb="GET" uri-template="business entity/{business entity id}/address"/>
           </config>
         </operation>
       </operations>

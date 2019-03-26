@@ -2,6 +2,7 @@ using AdventureWorks.Services;
 using System;
 using System.Threading;
 using Xomega.Framework;
+using Messages = AdventureWorks.Client.Common.Messages;
 
 namespace AdventureWorks.Client.Objects
 {
@@ -43,7 +44,7 @@ namespace AdventureWorks.Client.Objects
             DateTime? orderDateFrom = OrderDateProperty.Value;
             DateTime? orderDateTo = OrderDate2Property.Value;
             if (orderDateFrom != null && orderDateTo != null && orderDateTo < orderDateFrom)
-                validationErrorList.AddError(ErrorType.Validation, "From Order Date should be earlier than To Order Date");
+                validationErrorList.AddValidationError(Messages.OrderFromToDate);
         }
     }
 }

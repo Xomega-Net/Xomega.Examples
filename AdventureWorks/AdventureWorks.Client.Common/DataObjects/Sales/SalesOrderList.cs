@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Client.Objects
 {
@@ -70,7 +71,6 @@ namespace AdventureWorks.Client.Objects
             DueDateProperty.Editable = false;
             OnlineOrderFlagProperty = new EnumBoolProperty(this, OnlineOrderFlag);
             OnlineOrderFlagProperty.Required = true;
-            OnlineOrderFlagProperty.Size = 10;
             OnlineOrderFlagProperty.EnumType = "yesno";
             OnlineOrderFlagProperty.Editable = false;
             OrderDateProperty = new DateProperty(this, OrderDate);
@@ -90,11 +90,9 @@ namespace AdventureWorks.Client.Objects
             ShipDateProperty.Editable = false;
             StatusProperty = new EnumByteProperty(this, Status);
             StatusProperty.Required = true;
-            StatusProperty.Size = 10;
             StatusProperty.EnumType = "sales order status";
             StatusProperty.Editable = false;
             TerritoryIdProperty = new EnumIntProperty(this, TerritoryId);
-            TerritoryIdProperty.Size = 10;
             TerritoryIdProperty.EnumType = "sales territory";
             TerritoryIdProperty.Editable = false;
             TotalDueProperty = new MoneyProperty(this, TotalDue);
@@ -106,22 +104,25 @@ namespace AdventureWorks.Client.Objects
 
         #region CRUD Operations
 
-        protected override void DoRead(object options)
+        protected override ErrorList DoRead(object options)
         {
-            SalesOrder_ReadList(
+            var output = SalesOrder_ReadList(
                 CriteriaObject == null ? null : CriteriaObject.ToDataContract<SalesOrder_ReadListInput_Criteria>(options), options);
+            return output.Messages;
         }
 
         #endregion
 
         #region Service Operations
 
-        protected virtual void SalesOrder_ReadList(SalesOrder_ReadListInput_Criteria _criteria, object options)
+        protected virtual Output<ICollection<SalesOrder_ReadListOutput>> SalesOrder_ReadList(SalesOrder_ReadListInput_Criteria _criteria, object options)
         {
             using (var s = ServiceProvider.CreateScope())
             {
-                IEnumerable<SalesOrder_ReadListOutput> output = s.ServiceProvider.GetService<ISalesOrderService>().ReadList(_criteria);
-                FromDataContract(output, options);
+                var output = s.ServiceProvider.GetService<ISalesOrderService>().ReadList(_criteria);
+
+                FromDataContract(output?.Result, options);
+                return output;
             }
         }
 

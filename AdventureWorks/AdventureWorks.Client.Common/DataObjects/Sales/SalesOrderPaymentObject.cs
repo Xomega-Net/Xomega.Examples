@@ -65,7 +65,6 @@ namespace AdventureWorks.Client.Objects
             FreightProperty.Editable = false;
             ShipMethodIdProperty = new EnumIntProperty(this, ShipMethodId);
             ShipMethodIdProperty.Required = true;
-            ShipMethodIdProperty.Size = 10;
             ShipMethodIdProperty.EnumType = "ship method";
             SubTotalProperty = new MoneyProperty(this, SubTotal);
             SubTotalProperty.Required = true;

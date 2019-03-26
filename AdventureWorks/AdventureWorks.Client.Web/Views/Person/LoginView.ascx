@@ -12,7 +12,7 @@
 <asp:Panel ID="pnlComposition" CssClass="view-composition" runat="server">
   <asp:UpdatePanel ID="upl_Main" UpdateMode="Conditional" runat="server">
     <ContentTemplate>
-      <asp:Panel ID="pnl_View" CssClass="view with-footer" runat="server" data-width="300" data-height="180">
+      <asp:Panel ID="pnl_View" CssClass="view with-footer" runat="server" data-width="300" data-height="240">
         <div class="view-header">
           <asp:Label ID="lblLoginViewTitle" CssClass="view-title" Text="Login" runat="server"></asp:Label>
         </div>

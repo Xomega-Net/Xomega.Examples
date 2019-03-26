@@ -16,6 +16,7 @@ namespace AdventureWorks.Services
     [DataContract]
     public class AddressKey
     {
+        
         [DataMember]
         public int AddressId { get; set; }
     }
@@ -29,14 +30,28 @@ namespace AdventureWorks.Services
     [DataContract]
     public class AddressInfo
     {
+        
+        ///<summary>
+        /// First street address line.
+        ///</summary>
         [DataMember]
         public string AddressLine1 { get; set; }
+        
+        ///<summary>
+        /// Second street address line.
+        ///</summary>
         [DataMember]
         public string AddressLine2 { get; set; }
+        
         [DataMember]
         public string CityState { get; set; }
+        
+        ///<summary>
+        /// Postal code for the street address.
+        ///</summary>
         [DataMember]
         public string PostalCode { get; set; }
+        
         [DataMember]
         public string Country { get; set; }
     }
@@ -47,8 +62,10 @@ namespace AdventureWorks.Services
     [DataContract]
     public class Credentials
     {
+        
         [DataMember]
         public string Email { get; set; }
+        
         [DataMember]
         public string Password { get; set; }
     }
@@ -59,18 +76,35 @@ namespace AdventureWorks.Services
     [DataContract]
     public class PersonInfo
     {
+        
         [DataMember]
         public int BusinessEntityId { get; set; }
+        
+        ///<summary>
+        /// Primary type of person: SC = Store Contact, IN = Individual (retail) customer,
+        /// SP = Sales person, EM = Employee (non-sales), VC = Vendor contact, GC = General contact
+        ///</summary>
         [DataMember]
         public string PersonType { get; set; }
+        
+        ///<summary>
+        /// First name of the person.
+        ///</summary>
         [DataMember]
         public string FirstName { get; set; }
+        
+        ///<summary>
+        /// Last name of the person.
+        ///</summary>
         [DataMember]
         public string LastName { get; set; }
+        
         [DataMember]
         public string Email { get; set; }
+        
         [DataMember]
         public int? Store { get; set; }
+        
         [DataMember]
         public int? Vendor { get; set; }
     }

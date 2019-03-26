@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
+using Xomega.Framework.Services;
 
 namespace AdventureWorks.Client.Objects
 {
@@ -64,7 +65,6 @@ namespace AdventureWorks.Client.Objects
             OrderQtyProperty.Editable = false;
             ProductProperty = new EnumIntProperty(this, Product);
             ProductProperty.Required = true;
-            ProductProperty.Size = 10;
             ProductProperty.EnumType = "product";
             ProductProperty.Editable = false;
             SalesOrderDetailIdProperty = new IntegerKeyProperty(this, SalesOrderDetailId);
@@ -72,7 +72,6 @@ namespace AdventureWorks.Client.Objects
             SalesOrderDetailIdProperty.Editable = false;
             SpecialOfferProperty = new EnumIntProperty(this, SpecialOffer);
             SpecialOfferProperty.Required = true;
-            SpecialOfferProperty.Size = 10;
             SpecialOfferProperty.EnumType = "special offer";
             SpecialOfferProperty.Editable = false;
             UnitPriceProperty = new MoneyProperty(this, UnitPrice);
@@ -87,22 +86,25 @@ namespace AdventureWorks.Client.Objects
 
         #region CRUD Operations
 
-        protected override void DoRead(object options)
+        protected override ErrorList DoRead(object options)
         {
-            SalesOrder_Detail_ReadList(
+            var output = SalesOrder_Detail_ReadList(
                 Parent == null ? default(int) : (int)(Parent as SalesOrderObject).SalesOrderIdProperty.TransportValue, options);
+            return output.Messages;
         }
 
         #endregion
 
         #region Service Operations
 
-        protected virtual void SalesOrder_Detail_ReadList(int _salesOrderId, object options)
+        protected virtual Output<ICollection<SalesOrderDetail_ReadListOutput>> SalesOrder_Detail_ReadList(int _salesOrderId, object options)
         {
             using (var s = ServiceProvider.CreateScope())
             {
-                IEnumerable<SalesOrderDetail_ReadListOutput> output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_ReadList(_salesOrderId);
-                FromDataContract(output, options);
+                var output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_ReadList(_salesOrderId);
+
+                FromDataContract(output?.Result, options);
+                return output;
             }
         }
 

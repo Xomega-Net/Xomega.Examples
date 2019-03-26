@@ -19,7 +19,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlWidget;
-
+        
         /// <summary>
         /// rptSettings control.
         /// </summary>
@@ -28,7 +28,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptSettings;
-
+        
         /// <summary>
         /// lblNoData control.
         /// </summary>

@@ -41,7 +41,6 @@ export class SalesOrderCustomerObject extends DataObject {
         this.StoreName = new TextProperty();
         this.StoreName.Editable(false);
         this.TerritoryId = new EnumProperty();
-        this.TerritoryId.Size = 10;
         this.TerritoryId.EnumType = "sales territory";
         this.TerritoryId.Editable(false);
 
