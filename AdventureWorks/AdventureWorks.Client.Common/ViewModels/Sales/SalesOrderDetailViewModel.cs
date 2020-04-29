@@ -13,7 +13,7 @@ namespace AdventureWorks.Client.ViewModels
 {
     public partial class SalesOrderDetailViewModel : DetailsViewModel
     {
-        protected SalesOrderDetailObject obj { get { return DetailsObject as SalesOrderDetailObject; } }
+        public SalesOrderDetailObject MainObj => DetailsObject as SalesOrderDetailObject;
 
         public SalesOrderDetailViewModel(IServiceProvider sp) : base(sp)
         {
@@ -24,5 +24,7 @@ namespace AdventureWorks.Client.ViewModels
             base.Initialize();
             DetailsObject = ServiceProvider.GetService<SalesOrderDetailObject>();
         }
+        
+        public override string BaseTitle => GetString("Detail");
     }
 }

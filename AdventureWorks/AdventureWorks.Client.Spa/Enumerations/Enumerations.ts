@@ -13,6 +13,12 @@ export class BusinessEntityAddress {
 
 }
 export module BusinessEntityAddress {
+    export class Parameters
+    {
+        public static BusinessEntityId: string = "business entity id";
+    }
+}
+export module BusinessEntityAddress {
     export class Attributes
     {
         public static AddressLine1: string = "address line 1";
@@ -68,6 +74,12 @@ export class PersonCreditCard {
 
 }
 export module PersonCreditCard {
+    export class Parameters
+    {
+        public static BusinessEntityId: string = "business entity id";
+    }
+}
+export module PersonCreditCard {
     export class Attributes
     {
         public static PersonName: string = "person name";
@@ -97,6 +109,18 @@ export module Product {
     {
         public static ProductSubcategoryId: string = "product subcategory id";
         public static ProductModelId: string = "product model id";
+        public static ListPrice: string = "list price";
+    }
+}
+
+export class ProductSubcategory {
+    public static EnumName: string = "product subcategory";
+
+}
+export module ProductSubcategory {
+    export class Attributes
+    {
+        public static ProductCategoryId: string = "product category id";
     }
 }
 
@@ -137,13 +161,6 @@ export module SalesTerritory {
     }
 }
 
-export class SalesTerritoryGroup {
-    public static EnumName: string = "sales territory group";
-
-    public static NorthAmerica: string = "North America";
-    public static Europe: string = "Europe";
-    public static Pacific: string = "Pacific";
-}
 export class ShipMethod {
     public static EnumName: string = "ship method";
 
@@ -152,10 +169,22 @@ export class SpecialOffer {
     public static EnumName: string = "special offer";
 
 }
-export module SpecialOffer {
+export class SpecialOfferProduct {
+    public static EnumName: string = "special offer product";
+
+}
+export module SpecialOfferProduct {
+    export class Parameters
+    {
+        public static ProductId: string = "product id";
+    }
+}
+export module SpecialOfferProduct {
     export class Attributes
     {
-        public static Category: string = "category";
+        public static Discount: string = "discount";
+        public static MinQty: string = "min qty";
+        public static MaxQty: string = "max qty";
     }
 }
 

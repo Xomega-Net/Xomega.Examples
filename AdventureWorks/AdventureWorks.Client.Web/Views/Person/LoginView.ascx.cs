@@ -4,18 +4,17 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
+using AdventureWorks.Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Web.UI.WebControls;
-using AdventureWorks.Client.ViewModels;
 using Xomega.Framework.Web;
 
 namespace AdventureWorks.Client.Web
 {
     public partial class LoginView : WebDetailsView
     {
-
-        protected LoginViewModel viewModel { get { return Model as LoginViewModel; } }
+        protected LoginViewModel VM => Model as LoginViewModel;
 
         public LoginView()
         {
@@ -30,7 +29,7 @@ namespace AdventureWorks.Client.Web
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
-            if (viewModel == null) return;
+            if (VM == null) return;
         }
     }
 }

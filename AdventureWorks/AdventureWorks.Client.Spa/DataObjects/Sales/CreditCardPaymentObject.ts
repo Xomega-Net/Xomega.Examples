@@ -4,14 +4,14 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-import { DataObject, TextProperty, EnumProperty } from 'xomega';
+import { DataObject, TextProperty, EnumIntProperty } from 'xomega';
 
 export class CreditCardPaymentObject extends DataObject {
 
     // Properties
     public CardNumber: TextProperty;
     public CreditCardApprovalCode: TextProperty;
-    public CreditCardId: EnumProperty;
+    public CreditCardId: EnumIntProperty;
     public Expiration: TextProperty;
 
     // Construction and initialization
@@ -22,8 +22,9 @@ export class CreditCardPaymentObject extends DataObject {
         this.CardNumber.Editable(false);
         this.CreditCardApprovalCode = new TextProperty();
         this.CreditCardApprovalCode.Size = 15;
-        this.CreditCardId = new EnumProperty();
+        this.CreditCardId = new EnumIntProperty();
         this.CreditCardId.Required(true);
+        this.CreditCardId.IsKey = true;
         this.Expiration = new TextProperty();
         this.Expiration.Editable(false);
     }

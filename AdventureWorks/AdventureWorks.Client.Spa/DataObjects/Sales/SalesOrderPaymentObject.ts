@@ -5,7 +5,7 @@
 //---------------------------------------------------------------------------------------------
 
 import { CreditCardPaymentObject } from 'DataObjects/Sales/CreditCardPaymentObjectCustomized';
-import { DataObject, TextProperty, DateProperty, MoneyProperty, EnumProperty } from 'xomega';
+import { DataObject, TextProperty, DateProperty, MoneyProperty, EnumIntProperty } from 'xomega';
 
 export class SalesOrderPaymentObject extends DataObject {
 
@@ -13,7 +13,7 @@ export class SalesOrderPaymentObject extends DataObject {
     public CurrencyRate: TextProperty;
     public DueDate: DateProperty;
     public Freight: MoneyProperty;
-    public ShipMethodId: EnumProperty;
+    public ShipMethodId: EnumIntProperty;
     public SubTotal: MoneyProperty;
     public TaxAmt: MoneyProperty;
     public TotalDue: MoneyProperty;
@@ -30,7 +30,7 @@ export class SalesOrderPaymentObject extends DataObject {
         this.Freight = new MoneyProperty();
         this.Freight.Required(true);
         this.Freight.Editable(false);
-        this.ShipMethodId = new EnumProperty();
+        this.ShipMethodId = new EnumIntProperty();
         this.ShipMethodId.Required(true);
         this.ShipMethodId.EnumType = "ship method";
         this.SubTotal = new MoneyProperty();

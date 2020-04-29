@@ -7,8 +7,9 @@
 -->
 <div xmlns="http://www.w3.org/1999/xhtml" class="view-composition">
   <div>
-    <div class="view with-footer" data-bind="with: $root">
-      <div class="view-header"><span class="view-title">Sales Order List</span></div>
+    <div class="view with-footer" data-bind="with: $root" data-width="1760"
+         data-height="860">
+      <div class="view-header"><span class="view-title" data-bind="text: ViewTitle"></span></div>
       <div class="view-body">
         <div class="content indented">
           <div data-bind="panel: { title: 'Criteria', collapsed: CriteriaCollapsed }">
@@ -59,9 +60,6 @@
                               class="operator"></select>
                       <input data-bind="id: $root.id('ctlCustomerName'), property: CustomerName" /></div>
                     <div class="field">
-                      <label data-bind="attr: { for: $root.id('ctlGlobalRegion') }" class="label">Global Region:</label>
-                      <select data-bind="id: $root.id('ctlGlobalRegion'), property: GlobalRegion"></select></div>
-                    <div class="field">
                       <label data-bind="attr: { for: $root.id('ctlTerritoryIdOperator') }" class="label">Sales Territory:</label>
                       <select data-bind="id: $root.id('ctlTerritoryIdOperator'), property: TerritoryIdOperator"
                               class="operator"></select>
@@ -93,9 +91,9 @@
                     <th data-bind="sortby: SalesOrderNumber">Sales Order Number</th>
                     <th data-bind="sortby: Status">Status</th>
                     <th data-bind="sortby: OrderDate">Order Date</th>
-                    <th data-bind="sortby: ShipDate">Ship Date</th>
                     <th data-bind="sortby: DueDate">Due Date</th>
                     <th data-bind="sortby: TotalDue">Total Due</th>
+                    <th data-bind="sortby: ShipDate">Ship Date</th>
                     <th data-bind="sortby: OnlineOrderFlag">Online</th>
                     <th data-bind="sortby: CustomerStore">Customer Store</th>
                     <th data-bind="sortby: CustomerName">Customer Name</th>
@@ -105,14 +103,14 @@
                 </thead>
                 <tbody data-bind="foreach: pagedItems">
                   <tr data-bind="css: { selected: _selected }, click: toggleSelection">
-                    <td><a data-bind="click: $root.lnkDetails_Click.bind($root), css: {disabled: !$root.lnkDetails_Enabled($data)}"
+                    <td><a data-bind="click: $root.LinkDetails_Click.bind($root), css: {disabled: !$root.LinkDetails_Enabled($data)}"
                          href="#">
                         <span data-bind="property: List.SalesOrderNumber"></span></a></td>
                     <td><span data-bind="property: List.Status"></span></td>
                     <td><span data-bind="property: List.OrderDate"></span></td>
-                    <td><span data-bind="property: List.ShipDate"></span></td>
                     <td><span data-bind="property: List.DueDate"></span></td>
                     <td><span data-bind="property: List.TotalDue"></span></td>
+                    <td><span data-bind="property: List.ShipDate"></span></td>
                     <td><span data-bind="property: List.OnlineOrderFlag"></span></td>
                     <td><span data-bind="property: List.CustomerStore"></span></td>
                     <td><span data-bind="property: List.CustomerName"></span></td>
@@ -124,7 +122,7 @@
             </div>
           </div>
           <div class="action-bar">
-            <a data-bind="click: $root.lnkNew_Click.bind($root), css: {disabled: !$root.lnkNew_Enabled($data)}"
+            <a data-bind="click: $root.LinkNew_Click.bind($root), css: {disabled: !$root.LinkNew_Enabled($data)}"
                href="#">New</a></div>
         </div>
       </div>

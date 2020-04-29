@@ -1,199 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0" DefaultTargets="Build">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{387EFFDD-CED7-4B0B-B26A-AC420995520F}</ProjectGuid>
+    <TargetFrameworks>
+      net461;
+      netcoreapp3.1;
+    </TargetFrameworks>
+    <RuntimeIdentifiers>win</RuntimeIdentifiers>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon />
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <StartupObject />
     <RootNamespace>AdventureWorks.Client.Wpf</RootNamespace>
     <AssemblyName>AdventureWorks.Client.Wpf</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net461'">
+    <DefineConstants>TRACE;WCF;_REST;_TWO_TIER;_EF6</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
+    <DefineConstants>TRACE;TWO_TIER</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.2.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Activation" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="Xomega.Framework, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xomega.Framework.2.1.1\lib\net461\Xomega.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Xomega.Framework.Wcf, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xomega.Framework.Wcf.2.1.0\lib\net461\Xomega.Framework.Wcf.dll</HintPath>
-    </Reference>
-    <Reference Include="Xomega.Framework.Wpf, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xomega.Framework.Wpf.2.1.0\lib\net461\Xomega.Framework.Wpf.dll</HintPath>
-    </Reference>
+    <ProjectCapability Include="DynamicDependentFile" />
+    <ProjectCapability Include="DynamicFileNesting" />
   </ItemGroup>
   <ItemGroup>
-    <AppDesigner Include="Properties\" />
-    <Compile Include="Messages.cs">
-      <DependentUpon>Messages.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Xml" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0" />
+    <PackageReference Include="Xomega.Framework.Wcf" Version="3.0.0" Condition="'$(TargetFramework)'=='net461'" />
+    <PackageReference Include="Xomega.Framework.Wpf" Version="3.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../AdventureWorks.Client.Common/AdventureWorks.Client.Common.csproj" />
+    <ProjectReference Include="../AdventureWorks.Services.Common/AdventureWorks.Services.Common.csproj" />
+    <ProjectReference Include="../AdventureWorks.Services.Entities/AdventureWorks.Services.Entities.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
+    <Compile Remove="App_Start\WcfServices.cs" />
+    <None Remove="App.config" />
+    <None Remove="serviceModel.bindings.config" />
+    <None Remove="serviceModel.client.config" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net461'">
+    <None Update="serviceModel.bindings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
-    <None Include="serviceModel.client.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="serviceModel.client.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="serviceModel.bindings.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Compile Include="App_Start\WcfServices.cs">
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="App_Start\WpfAppInit.cs" />
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Controls\AppliedCriteria.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Compile Include="Controls\AppliedCriteria.xaml.cs">
-      <DependentUpon>AppliedCriteria.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Controls\Errors.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="Controls\Errors.xaml.cs">
-      <DependentUpon>Errors.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="MainView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Compile Include="MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\Person\LoginView.xaml">
-      <AutoGen>True</AutoGen>
-    </Page>
-    <Compile Include="Views\Person\LoginView.xaml.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Person\LoginViewCustomized.cs">
-      <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\Sales\CustomerListView.xaml">
-      <AutoGen>True</AutoGen>
-    </Page>
-    <Compile Include="Views\Sales\CustomerListView.xaml.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>CustomerListView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\Sales\SalesOrderView.xaml">
-      <AutoGen>True</AutoGen>
-    </Page>
-    <Compile Include="Views\Sales\SalesOrderView.xaml.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SalesOrderView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\Sales\SalesOrderListView.xaml">
-      <AutoGen>True</AutoGen>
-    </Page>
-    <Compile Include="Views\Sales\SalesOrderListView.xaml.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SalesOrderListView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\Sales\SalesOrderDetailView.xaml">
-      <AutoGen>True</AutoGen>
-    </Page>
-    <Compile Include="Views\Sales\SalesOrderDetailView.xaml.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SalesOrderDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Views.cs">
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Page Include="Controls\MainMenu.xaml">
-      <AutoGen>True</AutoGen>
-    </Page>
-    <Compile Include="Controls\MainMenu.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MainMenu.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="../AdventureWorks.Client.Common/AdventureWorks.Client.Common.csproj">
-      <Name>AdventureWorks.Client.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="../AdventureWorks.Services.Common/AdventureWorks.Services.Common.csproj">
-      <Name>AdventureWorks.Services.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Messages.tt">
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="db.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Messages.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Resources.resx</DependentUpon>
       <LastGenOutput>Messages.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources.resx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="copy &quot;$(SolutionDir)AdventureWorks.Services.Entities\db.config&quot; &quot;$(ProjectDir)&quot;" />
+  </Target>
 </Project>

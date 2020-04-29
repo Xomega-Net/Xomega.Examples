@@ -4,7 +4,7 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-import { AuthenticationObject } from 'DataObjects/Person/AuthenticationObject';
+import { AuthenticationObject } from 'DataObjects/Person/AuthenticationObjectCustomized';
 import { DetailsViewModel, ViewParams } from 'xomega';
 import * as controls from 'xomega-controls';
 
@@ -15,6 +15,10 @@ class LoginView extends DetailsViewModel {
     public constructor() {
         super();
         this.DetailsObject = this.obj = new AuthenticationObject();
+    }
+
+    protected getBaseTitle(): string {
+        return 'Login';
     }
 
     public attached(view, parent) {

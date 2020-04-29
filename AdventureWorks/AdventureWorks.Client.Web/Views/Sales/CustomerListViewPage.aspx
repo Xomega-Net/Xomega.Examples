@@ -5,7 +5,7 @@
 ----------------------------------------------------------------------------------------------%>
 
 <%@ Page Title="Customer List" Language="C#" MasterPageFile="~/Site.Master"
-         Inherits="AdventureWorks.Client.Web.CustomerListViewPage" %>
+         Inherits="AdventureWorks.Client.Web.CustomerListViewPage" Async="true" %>
 
 <%@ Register src="~/Views/Sales/CustomerListView.ascx" tagname="CustomerListView" tagprefix="uc" %>
 

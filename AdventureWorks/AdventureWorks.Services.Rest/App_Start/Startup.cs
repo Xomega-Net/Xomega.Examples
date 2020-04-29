@@ -1,21 +1,15 @@
 ﻿using AdventureWorks.Services.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+#if !EF6
 using Microsoft.EntityFrameworkCore;
+#endif
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
-using System;
-using System.Net;
+using Microsoft.Extensions.Hosting;
 using System.Resources;
-using System.Security.Principal;
-using System.Text;
 using Xomega.Framework;
 using Xomega.Framework.Services;
 
@@ -24,57 +18,60 @@ namespace AdventureWorks.Services.Rest
     public class Startup
     {
         public const string ConfigConnectionString = "add:AdventureWorksEntities:connectionString";
-        public const string ConfigJwtKey = "AppSettings:JwtKey";
 
-        private IConfiguration Configuration { get; }
+        private readonly IConfiguration configuration;
+        private readonly IWebHostEnvironment env;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            this.configuration = configuration;
+            this.env = env;
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseAuthentication();
             // configure global exception handling using Xomega Framework
-            app.UseExceptionHandler(err => err.Run(async ctx =>
+            app.UseExceptionHandler(ErrorController.DefaultPath);
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
             {
-                ctx.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                ctx.Response.ContentType = "application/json";
-                Exception ex = ctx.Features.Get<IExceptionHandlerFeature>()?.Error;
-
-                // use environment-aware error parser to hide exception details in non-Dev environments
-                ErrorList errorList = new ErrorParser().FromException(ex);
-                Output output = new Output(errorList);
-                await ctx.Response.WriteAsync(JsonConvert.SerializeObject(output));
-            }));
-            app.UseMvc();
+                endpoints.MapControllers();
+            });
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // ASP.NET configuration
             services.AddCors();
+            services.AddHttpContextAccessor();
             ConfigureAuth(services);
-            ConfigureWebApi(services);
+            services.AddControllers(o => o.Filters.Add(new AuthorizeFilter()));
 
             // framework services configuration
-            services.AddErrors();
+            services.AddErrors(env.IsDevelopment());
             services.AddSingletonLookupCacheProvider();
             services.AddOperators();
+            services.AddTransient<IPrincipalProvider, ContextPrincipalProvider>();
 
             // app services configuration
             services.AddSingleton<ResourceManager>(sp => new CompositeResourceManager(
                 Messages.ResourceManager,
                 Entities.Messages.ResourceManager,
+                Xomega.Framework.AspNetCore.Messages.ResourceManager,
                 Xomega.Framework.Messages.ResourceManager));
-            string connStr = Configuration.GetValue<string>(ConfigConnectionString);
+            string connStr = configuration.GetValue<string>(ConfigConnectionString);
+#if EF6
+            services.AddScoped(sp => new AdventureWorksEntities(connStr));
+#else
             services.AddDbContext<AdventureWorksEntities>(opt => opt
                 .UseLazyLoadingProxies()
-                .UseSqlServer(connStr, x => x.UseNetTopologySuite()));
-            services.AddServices();
-            services.AddControllers();
-            services.AddScoped<LookupTableController>();
+                .UseSqlServer(connStr));
+#endif
+            services.AddServiceImplementations();
+            services.AddServiceControllers();
             services.AddLookupCacheLoaders();
             services.AddXmlResourceCacheLoader(typeof(Enumerations.Operators).Assembly, ".enumerations.xres", true);
 
@@ -84,7 +81,8 @@ namespace AdventureWorks.Services.Rest
         public void ConfigureAuth(IServiceCollection services)
         {
             // configure jwt authentication
-            var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>(ConfigJwtKey));
+            var jwtOptions = services.AddAuthConfig(configuration);
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -94,23 +92,8 @@ namespace AdventureWorks.Services.Rest
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
+                x.TokenValidationParameters = jwtOptions.ValidationParameters;
             });
-            services.AddHttpContextAccessor();
-            services.AddTransient<IPrincipal>(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.User);
-        }
-
-        public void ConfigureWebApi(IServiceCollection services)
-        {
-            services.AddMvc(o => o.Filters.Add(new AuthorizeFilter()))
-                .AddJsonOptions(o => o.UseMemberCasing())
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
     }
 }

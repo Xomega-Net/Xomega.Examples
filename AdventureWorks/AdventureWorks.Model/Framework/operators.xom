@@ -17,6 +17,9 @@
         <ui:html-control>
           <select xmlns="http://www.w3.org/1999/xhtml" class="operator"/>
         </ui:html-control>
+        <ui:blazor-control>
+          <XSelect class="operator" />
+        </ui:blazor-control>
       </config>
       <enum ref="operators"/>
       <usage generic="true"/>

@@ -17,11 +17,11 @@
       <ContentTemplate>
         <asp:Panel ID="pnl_View" CssClass="view vw-customer-list-view" runat="server">
           <div class="view-header">
-            <asp:Label ID="lblCustomerListViewTitle" CssClass="view-title" Text="Customer List" runat="server"></asp:Label>
+            <asp:Label ID="lbl_ViewTitle" CssClass="view-title" runat="server"></asp:Label>
           </div>
           <div class="view-body">
             <div class="content indented">
-              <uc:CollapsiblePanel ID="ucl_Criteria" runat="server">
+              <uc:CollapsiblePanel ID="ucl_Criteria" Title="Criteria" runat="server">
                 <ContentTemplate>
                   <asp:Panel ID="pnlCriteria" CssClass="xw-obj" runat="server">
                     <table class="xw-fieldset-layout">
@@ -58,7 +58,7 @@
               <div class="action-bar">
                 <asp:Button ID="btn_Search" Text="Search" CssClass="btn-search" runat="server"></asp:Button>
                 <asp:Button ID="btn_Reset" Text="Reset" CssClass="btn-reset" runat="server"></asp:Button>
-                <asp:LinkButton ID="lnkPermaLink" CssClass="permalink" Text="PermaLink" OnClick="lnkPermaLink_Click" runat="server"></asp:LinkButton>
+                <asp:LinkButton ID="lnkPermaLink" CssClass="permalink" Text="PermaLink" OnClick="PermaLink_Click" runat="server"></asp:LinkButton>
               </div>
               <asp:Panel ID="pnlResults" CssClass="xw-obj" runat="server">
                 <uc:AppliedCriteria ID="ucl_AppliedCriteria" runat="server"></uc:AppliedCriteria>

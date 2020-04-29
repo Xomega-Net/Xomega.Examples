@@ -13,8 +13,8 @@ namespace AdventureWorks.Client.ViewModels
 {
     public partial class CustomerListViewModel : SearchViewModel
     {
-        protected CustomerList list { get { return List as CustomerList; } }
-        protected CustomerCriteria criteria { get { return List.CriteriaObject as CustomerCriteria; } }
+        public CustomerList ListObj => List as CustomerList;
+        public CustomerCriteria CritObj => List.CriteriaObject as CustomerCriteria;
 
         public CustomerListViewModel(IServiceProvider sp) : base(sp)
         {
@@ -26,5 +26,7 @@ namespace AdventureWorks.Client.ViewModels
             List = ServiceProvider.GetService<CustomerList>();
             List.CriteriaObject = ServiceProvider.GetService<CustomerCriteria>();
         }
+
+        public override string BaseTitle => GetString("Customer List");
     }
 }

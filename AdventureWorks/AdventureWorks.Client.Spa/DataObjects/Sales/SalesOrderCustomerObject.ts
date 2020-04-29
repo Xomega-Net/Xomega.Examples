@@ -6,7 +6,7 @@
 
 import { AddressObject } from 'DataObjects/Person/AddressObjectCustomized';
 import { SalesCustomerLookupObject } from 'DataObjects/Sales/SalesCustomerLookupObject';
-import { DataObject, TextProperty, IntegerProperty, EnumProperty } from 'xomega';
+import { DataObject, TextProperty, IntegerProperty, EnumIntProperty } from 'xomega';
 
 export class SalesOrderCustomerObject extends DataObject {
 
@@ -17,7 +17,7 @@ export class SalesOrderCustomerObject extends DataObject {
     public PersonName: TextProperty;
     public StoreId: IntegerProperty;
     public StoreName: TextProperty;
-    public TerritoryId: EnumProperty;
+    public TerritoryId: EnumIntProperty;
 
     // Child Objects
     public BillingAddressObject: AddressObject;
@@ -32,6 +32,7 @@ export class SalesOrderCustomerObject extends DataObject {
         this.AccountNumber.Editable(false);
         this.CustomerId = new IntegerProperty();
         this.CustomerId.Required(true);
+        this.CustomerId.IsKey = true;
         this.PersonId = new IntegerProperty();
         this.PersonId.Editable(false);
         this.PersonName = new TextProperty();
@@ -40,7 +41,7 @@ export class SalesOrderCustomerObject extends DataObject {
         this.StoreId.Editable(false);
         this.StoreName = new TextProperty();
         this.StoreName.Editable(false);
-        this.TerritoryId = new EnumProperty();
+        this.TerritoryId = new EnumIntProperty();
         this.TerritoryId.EnumType = "sales territory";
         this.TerritoryId.Editable(false);
 

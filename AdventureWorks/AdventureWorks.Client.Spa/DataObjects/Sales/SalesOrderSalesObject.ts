@@ -4,23 +4,23 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-import { DataObject, EnumProperty } from 'xomega';
+import { DataObject, EnumIntProperty } from 'xomega';
 
 export class SalesOrderSalesObject extends DataObject {
 
     // Properties
-    public SalesPersonId: EnumProperty;
-    public SalesReason: EnumProperty;
-    public TerritoryId: EnumProperty;
+    public SalesPersonId: EnumIntProperty;
+    public SalesReason: EnumIntProperty;
+    public TerritoryId: EnumIntProperty;
 
     // Construction and initialization
     init() {
-        this.SalesPersonId = new EnumProperty();
+        this.SalesPersonId = new EnumIntProperty();
         this.SalesPersonId.EnumType = "sales person";
-        this.SalesReason = new EnumProperty();
+        this.SalesReason = new EnumIntProperty();
         this.SalesReason.IsMultiValued = true;
         this.SalesReason.EnumType = "sales reason";
-        this.TerritoryId = new EnumProperty();
+        this.TerritoryId = new EnumIntProperty();
         this.TerritoryId.EnumType = "sales territory";
     }
 }

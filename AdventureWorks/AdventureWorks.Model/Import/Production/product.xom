@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
-        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:svc="http://www.xomega.net/svc"
         xmlns:rest="http://www.xomega.net/rest"
         xmlns:ui="http://www.xomega.net/ui"
         xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
@@ -219,13 +219,13 @@
           <output list="true">
             <param name="product id"/>
             <param name="name"/>
-            <param name="is active" type="boolean" required="true"/>
             <param name="product subcategory id"/>
             <param name="product model id"/>
+            <param name="list price"/>
+            <param name="current" type="boolean" required="true"/>
           </output>
           <config>
-            <xfk:enum-cache enum-name="product" id-param="product id" desc-param="name"
-                            is-active-param="is active"/>
+            <xfk:enum-cache enum-name="product" id-param="product id" desc-param="name" is-active-param="current"/>
             <rest:method verb="GET" uri-template="product"/>
           </config>
           <doc>

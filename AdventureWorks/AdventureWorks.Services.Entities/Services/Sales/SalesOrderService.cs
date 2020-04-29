@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 // CUSTOM_CODE_START: add namespaces for custom code below
 using Xomega.Framework;
@@ -26,14 +27,16 @@ namespace AdventureWorks.Services.Entities
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
         }
 
-        public virtual Output<SalesOrder_ReadOutput> Read(int _salesOrderId)
+        public virtual async Task<Output<SalesOrder_ReadOutput>> ReadAsync(int _salesOrderId)
         {
-            // CUSTOM_CODE_START: add custom security checks for Read operation below
-            // CUSTOM_CODE_END
             SalesOrder_ReadOutput res = new SalesOrder_ReadOutput();
             try
             {
-                SalesOrder obj = ctx.FindEntity<SalesOrder>(currentErrors, _salesOrderId);
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for Read operation below
+                // CUSTOM_CODE_END
+                SalesOrder obj = await ctx.FindEntityAsync<SalesOrder>(currentErrors, _salesOrderId);
                 ServiceUtil.CopyProperties(obj, res);
                 // CUSTOM_CODE_START: populate the Customer output structure of Read operation below
                 res.Customer = GetCustomerInfo(obj); // CUSTOM_CODE_END
@@ -48,116 +51,116 @@ namespace AdventureWorks.Services.Entities
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<SalesOrder_ReadOutput>(currentErrors, res);
+            return await Task.FromResult(new Output<SalesOrder_ReadOutput>(currentErrors, res));
         }
 
-        public virtual Output<SalesOrder_CreateOutput> Create(SalesOrder_CreateInput _data)
+        public virtual async Task<Output<SalesOrder_CreateOutput>> CreateAsync(SalesOrder_CreateInput _data)
         {
-            // CUSTOM_CODE_START: add custom security checks for Create operation below
-            // CUSTOM_CODE_END
             SalesOrder_CreateOutput res = new SalesOrder_CreateOutput();
             try
             {
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for Create operation below
+                // CUSTOM_CODE_END
                 EntityState state = EntityState.Added;
                 SalesOrder obj = new SalesOrder();
                 var entry = ctx.Entry(obj);
                 entry.State = state;
                 entry.CurrentValues.SetValues(_data);
                 // CUSTOM_CODE_START: use the Customer input parameter of Create operation below
-                UpdateCustomer(obj, _data.Customer); // CUSTOM_CODE_END
+                await UpdateCustomer(obj, _data.Customer); // CUSTOM_CODE_END
                 // CUSTOM_CODE_START: use the Payment input parameter of Create operation below
-                UpdatePayment(obj, _data.Payment); // CUSTOM_CODE_END
+                await UpdatePayment(obj, _data.Payment); // CUSTOM_CODE_END
                 // CUSTOM_CODE_START: use the Sales input parameter of Create operation below
-                UpdateSalesInfo(obj, _data.Sales); // CUSTOM_CODE_END
+                await UpdateSalesInfo(obj, _data.Sales); // CUSTOM_CODE_END
                 // CUSTOM_CODE_START: add custom code for Create operation below
-                obj.OrderDate = DateTime.Now;
+                obj.OrderDate = DateTime.Today;
                 obj.ModifiedDate = DateTime.Now;
                 obj.Rowguid = Guid.NewGuid();
                 // CUSTOM_CODE_END
                 currentErrors.AbortIfHasErrors();
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
                 ServiceUtil.CopyProperties(obj, res);
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<SalesOrder_CreateOutput>(currentErrors, res);
+            return await Task.FromResult(new Output<SalesOrder_CreateOutput>(currentErrors, res));
         }
 
-        public virtual Output<SalesOrder_UpdateOutput> Update(int _salesOrderId, SalesOrder_UpdateInput_Data _data)
+        public virtual async Task<Output<SalesOrder_UpdateOutput>> UpdateAsync(int _salesOrderId, SalesOrder_UpdateInput_Data _data)
         {
-            // CUSTOM_CODE_START: add custom security checks for Update operation below
-            // CUSTOM_CODE_END
             SalesOrder_UpdateOutput res = new SalesOrder_UpdateOutput();
             try
             {
-                SalesOrder obj = ctx.FindEntity<SalesOrder>(currentErrors, _salesOrderId);
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for Update operation below
+                // CUSTOM_CODE_END
+                SalesOrder obj = await ctx.FindEntityAsync<SalesOrder>(currentErrors, _salesOrderId);
                 var entry = ctx.Entry(obj);
                 entry.CurrentValues.SetValues(_data);
                 // CUSTOM_CODE_START: use the Customer input parameter of Update operation below
-                UpdateCustomer(obj, _data.Customer); // CUSTOM_CODE_END
+                await UpdateCustomer(obj, _data.Customer); // CUSTOM_CODE_END
                 // CUSTOM_CODE_START: use the Payment input parameter of Update operation below
-                UpdatePayment(obj, _data.Payment); // CUSTOM_CODE_END
+                await UpdatePayment(obj, _data.Payment); // CUSTOM_CODE_END
                 // CUSTOM_CODE_START: use the Sales input parameter of Update operation below
-                UpdateSalesInfo(obj, _data.Sales); // CUSTOM_CODE_END
+                await UpdateSalesInfo(obj, _data.Sales); // CUSTOM_CODE_END
                 // CUSTOM_CODE_START: add custom code for Update operation below
                 obj.ModifiedDate = DateTime.Now;
                 // CUSTOM_CODE_END
                 currentErrors.AbortIfHasErrors();
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
                 ServiceUtil.CopyProperties(obj, res);
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<SalesOrder_UpdateOutput>(currentErrors, res);
+            return await Task.FromResult(new Output<SalesOrder_UpdateOutput>(currentErrors, res));
         }
 
-        public virtual Output Delete(int _salesOrderId)
+        public virtual async Task<Output> DeleteAsync(int _salesOrderId)
         {
-            // CUSTOM_CODE_START: add custom security checks for Delete operation below
-            // CUSTOM_CODE_END
             try
             {
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for Delete operation below
+                // CUSTOM_CODE_END
                 EntityState state = EntityState.Deleted;
-                SalesOrder obj = ctx.FindEntity<SalesOrder>(currentErrors, _salesOrderId);
+                SalesOrder obj = await ctx.FindEntityAsync<SalesOrder>(currentErrors, _salesOrderId);
                 var entry = ctx.Entry(obj);
                 entry.State = state;
                 // CUSTOM_CODE_START: add custom code for Delete operation below
                 // CUSTOM_CODE_END
                 currentErrors.AbortIfHasErrors();
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output(currentErrors);
+            return await Task.FromResult(new Output(currentErrors));
         }
 
-        public virtual Output<ICollection<SalesOrder_ReadListOutput>> ReadList(SalesOrder_ReadListInput_Criteria _criteria)
+        public virtual async Task<Output<ICollection<SalesOrder_ReadListOutput>>> ReadListAsync(SalesOrder_ReadListInput_Criteria _criteria)
         {
-            // CUSTOM_CODE_START: add custom security checks for ReadList operation below
-            if (!CurrentPrincipal.IsEmployee() && !CurrentPrincipal.IsIndividualCustomer() &&
-                !CurrentPrincipal.IsStoreContact())
-            {
-                currentErrors.CriticalError(ErrorType.Security, Messages.OperationNotAllowed);
-            }
-            // CUSTOM_CODE_END
             ICollection<SalesOrder_ReadListOutput> res = null;
             try
             {
-                var src = from obj in ctx.SalesOrder select obj;
+                currentErrors.AbortIfHasErrors();
 
-                // Source filter
-                if (_criteria != null)
+                // CUSTOM_CODE_START: add custom security checks for ReadList operation below
+                if (!CurrentPrincipal.IsEmployee() && !CurrentPrincipal.IsIndividualCustomer() &&
+                    !CurrentPrincipal.IsStoreContact())
                 {
-                    // CUSTOM_CODE_START: add code for GlobalRegion criteria of ReadList operation below
-                    src = AddClause(src, "GlobalRegion", o => o.TerritoryObject.Group, EqualToOperator.DefaultName, _criteria.GlobalRegion);
-                    // CUSTOM_CODE_END
+                    currentErrors.CriticalError(ErrorType.Security, "Operation is not allowed");
                 }
+                // CUSTOM_CODE_END
+                var src = from obj in ctx.SalesOrder select obj;
 
                 // CUSTOM_CODE_START: add custom filter criteria to the source query for ReadList operation below
                 if (CurrentPrincipal.IsStoreContact())
@@ -178,14 +181,15 @@ namespace AdventureWorks.Services.Entities
                               SalesOrderNumber = obj.SalesOrderNumber,
                               Status = obj.Status,
                               OrderDate = obj.OrderDate,
-                              ShipDate = obj.ShipDate,
                               DueDate = obj.DueDate,
                               TotalDue = obj.TotalDue,
+                              ShipDate = obj.ShipDate,
                               OnlineOrderFlag = obj.OnlineOrderFlag,
                               // CUSTOM_CODE_START: set the CustomerStore output parameter of ReadList operation below
                               CustomerStore = obj.CustomerObject.StoreObject.Name, // CUSTOM_CODE_END
                               // CUSTOM_CODE_START: set the CustomerName output parameter of ReadList operation below
-                              CustomerName = obj.CustomerObject.PersonObject.FullName, // CUSTOM_CODE_END
+                              CustomerName = obj.CustomerObject.PersonObject.LastName + ", " +
+                                             obj.CustomerObject.PersonObject.FirstName, // CUSTOM_CODE_END
                               SalesPersonId = obj.SalesPersonId,
                               TerritoryId = obj.TerritoryId,
                           };
@@ -209,24 +213,28 @@ namespace AdventureWorks.Services.Entities
                 // CUSTOM_CODE_END
 
                 currentErrors.AbortIfHasErrors();
-                res = qry.ToList();
+                res = await qry.ToListAsync();
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<ICollection<SalesOrder_ReadListOutput>>(currentErrors, res);
+            return await Task.FromResult(new Output<ICollection<SalesOrder_ReadListOutput>>(currentErrors, res));
         }
 
-        public virtual Output<SalesOrderDetail_ReadOutput> Detail_Read(int _salesOrderDetailId)
+        public virtual async Task<Output<SalesOrderDetail_ReadOutput>> Detail_ReadAsync(int _salesOrderDetailId)
         {
-            // CUSTOM_CODE_START: add custom security checks for Detail_Read operation below
-            // CUSTOM_CODE_END
             SalesOrderDetail_ReadOutput res = new SalesOrderDetail_ReadOutput();
             try
             {
-                SalesOrderDetail obj = ctx.FindEntity<SalesOrderDetail>(currentErrors, _salesOrderDetailId);
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for Detail_Read operation below
+                // CUSTOM_CODE_END
+                SalesOrderDetail obj = await ctx.FindEntityAsync<SalesOrderDetail>(currentErrors, _salesOrderDetailId);
                 ServiceUtil.CopyProperties(obj, res);
+                // CUSTOM_CODE_START: set the Subcategory output field of Detail_Read operation below
+                res.Subcategory = obj.SpecialOfferProductObject.ProductObject.ProductSubcategoryId; // CUSTOM_CODE_END
                 // CUSTOM_CODE_START: add custom code for Detail_Read operation below
                 // CUSTOM_CODE_END
             }
@@ -234,88 +242,98 @@ namespace AdventureWorks.Services.Entities
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<SalesOrderDetail_ReadOutput>(currentErrors, res);
+            return await Task.FromResult(new Output<SalesOrderDetail_ReadOutput>(currentErrors, res));
         }
 
-        public virtual Output<SalesOrderDetail_CreateOutput> Detail_Create(int _salesOrderId, SalesOrderDetail_CreateInput_Data _data)
+        public virtual async Task<Output<SalesOrderDetail_CreateOutput>> Detail_CreateAsync(int _salesOrderId, SalesOrderDetail_CreateInput_Data _data)
         {
-            // CUSTOM_CODE_START: add custom security checks for Detail_Create operation below
-            // CUSTOM_CODE_END
             SalesOrderDetail_CreateOutput res = new SalesOrderDetail_CreateOutput();
             try
             {
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for Detail_Create operation below
+                // CUSTOM_CODE_END
                 EntityState state = EntityState.Added;
                 SalesOrderDetail obj = new SalesOrderDetail();
                 var entry = ctx.Entry(obj);
                 entry.State = state;
                 obj.SalesOrderId = _salesOrderId;
                 entry.CurrentValues.SetValues(_data);
-                ctx.ValidateKey<SalesOrder>(currentErrors, "SalesOrderId", _salesOrderId);
-                ctx.ValidateKey<SpecialOfferProduct>(currentErrors, "SpecialOfferId, ProductId", _data.SpecialOfferId, _data.ProductId);
+                await ctx.ValidateKeyAsync<SalesOrder>(currentErrors, "SalesOrderId", _salesOrderId);
+                await ctx.ValidateKeyAsync<SpecialOfferProduct>(currentErrors, "SpecialOfferId, ProductId", _data.SpecialOfferId, _data.ProductId);
                 // CUSTOM_CODE_START: add custom code for Detail_Create operation below
+                UpdateOrderDetail(obj);
                 // CUSTOM_CODE_END
                 currentErrors.AbortIfHasErrors();
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
                 ServiceUtil.CopyProperties(obj, res);
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<SalesOrderDetail_CreateOutput>(currentErrors, res);
+            return await Task.FromResult(new Output<SalesOrderDetail_CreateOutput>(currentErrors, res));
         }
 
-        public virtual Output Detail_Update(int _salesOrderDetailId, SalesOrderDetail_UpdateInput_Data _data)
+        public virtual async Task<Output> Detail_UpdateAsync(int _salesOrderDetailId, SalesOrderDetail_UpdateInput_Data _data)
         {
-            // CUSTOM_CODE_START: add custom security checks for Detail_Update operation below
-            // CUSTOM_CODE_END
             try
             {
-                SalesOrderDetail obj = ctx.FindEntity<SalesOrderDetail>(currentErrors, _salesOrderDetailId);
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for Detail_Update operation below
+                // CUSTOM_CODE_END
+                SalesOrderDetail obj = await ctx.FindEntityAsync<SalesOrderDetail>(currentErrors, _salesOrderDetailId);
                 var entry = ctx.Entry(obj);
                 entry.CurrentValues.SetValues(_data);
-                ctx.ValidateKey<SpecialOfferProduct>(currentErrors, "SpecialOfferId, ProductId", _data.SpecialOfferId, _data.ProductId);
+                await ctx.ValidateKeyAsync<SpecialOfferProduct>(currentErrors, "SpecialOfferId, ProductId", _data.SpecialOfferId, _data.ProductId);
                 // CUSTOM_CODE_START: add custom code for Detail_Update operation below
+                UpdateOrderDetail(obj);
                 // CUSTOM_CODE_END
                 currentErrors.AbortIfHasErrors();
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output(currentErrors);
+            return await Task.FromResult(new Output(currentErrors));
         }
 
-        public virtual Output Detail_Delete(int _salesOrderDetailId)
+        public virtual async Task<Output> Detail_DeleteAsync(int _salesOrderDetailId)
         {
-            // CUSTOM_CODE_START: add custom security checks for Detail_Delete operation below
-            // CUSTOM_CODE_END
             try
             {
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for Detail_Delete operation below
+                // CUSTOM_CODE_END
                 EntityState state = EntityState.Deleted;
-                SalesOrderDetail obj = ctx.FindEntity<SalesOrderDetail>(currentErrors, _salesOrderDetailId);
+                SalesOrderDetail obj = await ctx.FindEntityAsync<SalesOrderDetail>(currentErrors, _salesOrderDetailId);
                 var entry = ctx.Entry(obj);
                 entry.State = state;
                 // CUSTOM_CODE_START: add custom code for Detail_Delete operation below
                 // CUSTOM_CODE_END
                 currentErrors.AbortIfHasErrors();
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output(currentErrors);
+            return await Task.FromResult(new Output(currentErrors));
         }
 
-        public virtual Output<ICollection<SalesOrderDetail_ReadListOutput>> Detail_ReadList(int _salesOrderId)
+        public virtual async Task<Output<ICollection<SalesOrderDetail_ReadListOutput>>> Detail_ReadListAsync(int _salesOrderId)
         {
-            // CUSTOM_CODE_START: add custom security checks for Detail_ReadList operation below
-            // CUSTOM_CODE_END
             ICollection<SalesOrderDetail_ReadListOutput> res = null;
             try
             {
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for Detail_ReadList operation below
+                // CUSTOM_CODE_END
                 var src = from obj in ctx.SalesOrderDetail select obj;
 
                 // Source filter
@@ -327,14 +345,14 @@ namespace AdventureWorks.Services.Entities
 
                 var qry = from obj in src
                           select new SalesOrderDetail_ReadListOutput() {
-                              SalesOrderDetailId = obj.SalesOrderDetailId,
                               // CUSTOM_CODE_START: set the Product output parameter of Detail_ReadList operation below
                               Product = obj.SpecialOfferProductObject.ProductId, // CUSTOM_CODE_END
+                              SalesOrderDetailId = obj.SalesOrderDetailId,
                               OrderQty = obj.OrderQty,
-                              UnitPrice = obj.UnitPrice,
-                              UnitPriceDiscount = obj.UnitPriceDiscount,
                               // CUSTOM_CODE_START: set the SpecialOffer output parameter of Detail_ReadList operation below
                               SpecialOffer = obj.SpecialOfferProductObject.SpecialOfferId, // CUSTOM_CODE_END
+                              UnitPrice = obj.UnitPrice,
+                              UnitPriceDiscount = obj.UnitPriceDiscount,
                               LineTotal = obj.LineTotal,
                               CarrierTrackingNumber = obj.CarrierTrackingNumber,
                           };
@@ -344,13 +362,13 @@ namespace AdventureWorks.Services.Entities
                 // CUSTOM_CODE_END
 
                 currentErrors.AbortIfHasErrors();
-                res = qry.ToList();
+                res = await qry.ToListAsync();
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<ICollection<SalesOrderDetail_ReadListOutput>>(currentErrors, res);
+            return await Task.FromResult(new Output<ICollection<SalesOrderDetail_ReadListOutput>>(currentErrors, res));
         }
     }
 }

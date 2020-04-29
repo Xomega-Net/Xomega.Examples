@@ -9,69 +9,70 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Xomega.Framework;
 using Xomega.Framework.Views;
 
 namespace AdventureWorks.Client.Wpf
 {
     public partial class SalesOrderListView
     {
+        protected SalesOrderListViewModel VM => Model as SalesOrderListViewModel;
+
         public SalesOrderListView()
         {
-            lnkDetails_Command = new RelayCommand<int?>(lnkDetails_Execute, lnkDetails_Enabled);
-            lnkNew_Command = new RelayCommand<object>(lnkNew_Execute, lnkNew_Enabled);
+            LinkDetails_Command = new RelayCommand<DataRow>(LinkDetails_Execute, LinkDetails_Enabled);
+            LinkNew_Command = new RelayCommand<object>(LinkNew_Execute, LinkNew_Enabled);
             InitializeComponent();
+            IsAsync = true;
         }
 
-        #region lnkDetails_Command
+        #region LinkDetails_Command
 
-        public ICommand lnkDetails_Command { get; set; }
+        public ICommand LinkDetails_Command { get; set; }
 
-        public virtual void lnkDetails_Execute(int? row)
+        public virtual async void LinkDetails_Execute(DataRow row)
         {
-            SalesOrderListViewModel vm = Model as SalesOrderListViewModel;
-            if (vm == null) return;
+            if (VM == null) return;
             WPFView cur = pnlDetails.Content as SalesOrderView;
-            WPFView tgt = cur ?? vm.ServiceProvider.GetService<SalesOrderView>();
+            WPFView tgt = cur ?? VM.ServiceProvider.GetService<SalesOrderView>();
             tgt.Owner = this;
-            vm.lnkDetails_Command(tgt, cur, row.Value);
+            await VM.LinkDetails_CommandAsync(tgt, cur, row);
         }
-        public virtual bool lnkDetails_Enabled(int? row)
-        {
-            SalesOrderListViewModel c = Model as SalesOrderListViewModel;
-            return c == null ? false : c.lnkDetails_Enabled(row.Value);
-        }
+
+        public virtual bool LinkDetails_Enabled(DataRow row)
+            => VM != null && VM.LinkDetails_Enabled(row);
+
         #endregion
 
-        #region lnkNew_Command
+        #region LinkNew_Command
 
-        public ICommand lnkNew_Command { get; set; }
+        public ICommand LinkNew_Command { get; set; }
 
-        public virtual void lnkNew_Execute(object arg)
+        public virtual async void LinkNew_Execute(object arg)
         {
-            SalesOrderListViewModel vm = Model as SalesOrderListViewModel;
-            if (vm == null) return;
+            if (VM == null) return;
             WPFView cur = pnlDetails.Content as SalesOrderView;
-            WPFView tgt = cur ?? vm.ServiceProvider.GetService<SalesOrderView>();
+            WPFView tgt = cur ?? VM.ServiceProvider.GetService<SalesOrderView>();
             tgt.Owner = this;
-            vm.lnkNew_Command(tgt, cur);
+            await VM.LinkNew_CommandAsync(tgt, cur);
         }
-        public virtual bool lnkNew_Enabled(object arg)
-        {
-            SalesOrderListViewModel c = Model as SalesOrderListViewModel;
-            return c == null ? false : c.lnkNew_Enabled();
-        }
+
+        public virtual bool LinkNew_Enabled(object arg)
+            => VM != null && VM.LinkNew_Enabled();
+
         #endregion
 
-        protected override Button CloseButton { get { return btnClose; } }
-        protected override IErrorPresenter ErrorsPanel { get { return pnlErrors; } }
-        protected override Button SearchButton { get { return btnSearch; } }
-        protected override Button SelectButton { get { return btnSelect; } }
+        protected override TextBlock TitleControl => viewTitle;
+        protected override Button CloseButton => btnClose;
+        protected override IErrorPresenter ErrorsPanel => pnlErrors;
+        protected override Button SearchButton => btnSearch;
+        protected override Button SelectButton => btnSelect;
 
-        protected override ItemsControl ResultsGrid { get { return gridResults; } }
-        protected override Button ResetButton { get { return btnReset; } }
-        protected override IAppliedCriteriaPanel AppliedCriteriaPanel { get { return pnlAppliedCriteria; } }
-        protected override ICollapsiblePanel CriteriaExpander { get { return new ExpanderCollapsiblePanel(pnlCriteria); } }
-        protected override FrameworkElement CriteriaPanel { get { return pnlCriteria; } }
-        protected override ContentControl ChildPanel { get { return pnlDetails; } }
+        protected override ItemsControl ResultsGrid => gridResults;
+        protected override Button ResetButton => btnReset;
+        protected override IAppliedCriteriaPanel AppliedCriteriaPanel => pnlAppliedCriteria;
+        protected override ICollapsiblePanel CriteriaExpander => new ExpanderCollapsiblePanel(pnlCriteria);
+        protected override FrameworkElement CriteriaPanel => pnlCriteria;
+        protected override ContentControl ChildPanel => pnlDetails;
     }
 }

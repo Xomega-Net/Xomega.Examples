@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IdentityModel.Tokens;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Xomega.Framework;
 
 namespace AdventureWorks.Services.Wcf
@@ -13,8 +14,7 @@ namespace AdventureWorks.Services.Wcf
 
         public override ReadOnlyCollection<ClaimsIdentity> ValidateToken(SecurityToken token)
         {
-            var userNameToken = token as UserNameSecurityToken;
-            if (userNameToken == null)
+            if (!(token is UserNameSecurityToken userNameToken))
                 throw new SecurityTokenException("The security token is not a valid username security token.");
 
             if (DI.DefaultServiceProvider == null)
@@ -23,11 +23,12 @@ namespace AdventureWorks.Services.Wcf
             try
             {
                 IPersonService svc = DI.DefaultServiceProvider.GetService<IPersonService>();
-                svc.Authenticate(new Credentials()
+                var credentials = new Credentials()
                 {
                     Email = userNameToken.UserName,
                     Password = userNameToken.Password
-                });
+                };
+                Task.Run(async () => await svc.AuthenticateAsync(credentials)).Wait();
                 ClaimsIdentity identity = new ClaimsIdentity(AuthenticationTypes.Password);
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, userNameToken.UserName));
                 identity.AddClaim(new Claim(ClaimTypes.Name, userNameToken.UserName));

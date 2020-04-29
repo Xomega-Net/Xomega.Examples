@@ -5,7 +5,7 @@
 ----------------------------------------------------------------------------------------------%>
 
 <%@ Page Title="Sales Order List" Language="C#" MasterPageFile="~/Site.Master"
-         Inherits="AdventureWorks.Client.Web.SalesOrderListViewPage" %>
+         Inherits="AdventureWorks.Client.Web.SalesOrderListViewPage" Async="true" %>
 
 <%@ Register src="~/Views/Sales/SalesOrderListView.ascx" tagname="SalesOrderListView" tagprefix="uc" %>
 

@@ -7,6 +7,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Services;
 
@@ -15,16 +16,13 @@ namespace AdventureWorks.Services.Rest
     ///<summary>
     /// Sales territory lookup table.
     ///</summary>
-    public partial class SalesTerritoryController : ControllerBase
+    public partial class SalesTerritoryController : BaseController
     {
-        private ErrorList currentErrors;
-        private ErrorParser errorsParser;
-        private ISalesTerritoryService svc;
+        private readonly ISalesTerritoryService svc;
 
         public SalesTerritoryController(ErrorList errorList, ErrorParser errorParser, ISalesTerritoryService service)
+            : base(errorList, errorParser)
         {
-            currentErrors = errorList;
-            errorsParser = errorParser;
             svc = service;
         }
 
@@ -33,20 +31,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("sales-territory")]
         [HttpGet]
-        public ActionResult ReadList()
+        public async Task<ActionResult> ReadListAsync()
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<ICollection<SalesTerritory_ReadListOutput>> output = svc.ReadList();
+                    Output<ICollection<SalesTerritory_ReadListOutput>> output = await svc.ReadListAsync();
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)

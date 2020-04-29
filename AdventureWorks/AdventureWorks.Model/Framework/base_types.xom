@@ -24,6 +24,9 @@
         <ui:html-control>
           <input class="boolean" type="checkbox" xmlns="http://www.w3.org/1999/xhtml"/>
         </ui:html-control>
+        <ui:blazor-control>
+          <XCheckBox />
+        </ui:blazor-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -45,6 +48,9 @@
         <ui:html-control>
           <input class="integer" xmlns="http://www.w3.org/1999/xhtml"/>
         </ui:html-control>
+        <ui:blazor-control>
+          <XInputText />
+        </ui:blazor-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -128,6 +134,9 @@
         <ui:html-control>
           <input class="datetime" xmlns="http://www.w3.org/1999/xhtml"/>
         </ui:html-control>
+        <ui:blazor-control>
+          <XInputText class="datetime"/>
+        </ui:blazor-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -147,6 +156,9 @@
         <ui:html-control>
           <input class="date" xmlns="http://www.w3.org/1999/xhtml"/>
         </ui:html-control>
+        <ui:blazor-control>
+          <XInputText class="date"/>
+        </ui:blazor-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -208,6 +220,9 @@
         <ui:html-control>
           <input class="decimal" xmlns="http://www.w3.org/1999/xhtml"/>
         </ui:html-control>
+        <ui:blazor-control>
+          <XInputText class="decimal"/>
+        </ui:blazor-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -230,6 +245,15 @@
       <usage generic="true" replaced-by="decimal"/>
       <doc>
         <summary>Same as decimal. Defined to allow default mapping for the corresponding SQL Server type.</summary>
+      </doc>
+    </type>
+    <type name="percent" base="decimal">
+      <config>
+        <xfk:property class="PercentProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
+      </config>
+      <usage generic="true"/>
+      <doc>
+        <summary>A decimal number represented as percent.</summary>
       </doc>
     </type>
     <type name="money" base="decimal">
@@ -297,6 +321,9 @@
         <ui:html-control>
           <input xmlns="http://www.w3.org/1999/xhtml"/>
         </ui:html-control>
+        <ui:blazor-control>
+          <XInputText />
+        </ui:blazor-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -336,6 +363,13 @@
           <div data-control="options" xmlns="http://www.w3.org/1999/xhtml"/>
           -->
         </ui:html-control>
+        <ui:blazor-control>
+          <XSelect />
+        </ui:blazor-control>
+        <ui:blazor-control multi-value="true">
+          <XSelect />
+          <!--<XOptions />-->
+        </ui:blazor-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -356,8 +390,7 @@
     </type>
     <type name="integer enumeration" base="selection">
       <config>
-        <xfk:property class="EnumIntProperty" namespace="Xomega.Framework.Properties"
-                      tsClass="EnumProperty" tsModule="xomega"/>
+        <xfk:property class="EnumIntProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
         <edm:type Type="Int32"/>
         <clr:type name="int" valuetype="true"/>
         <sql:type name="int"/>
@@ -372,7 +405,8 @@
     </type>
     <type name="tiny int enumeration" base="integer enumeration">
       <config>
-        <xfk:property class="EnumByteProperty" namespace="Xomega.Framework.Properties"/>
+        <xfk:property class="EnumByteProperty" namespace="Xomega.Framework.Properties"
+                      tsClass="EnumIntProperty" tsModule="xomega"/>
         <sql:type name="tinyint" db="sqlsrv"/>
         <edm:type Type="Byte"/>
         <clr:type name="byte" valuetype="true"/>
@@ -384,7 +418,8 @@
     </type>
     <type name="small int enumeration" base="integer enumeration">
       <config>
-        <xfk:property class="EnumShortProperty" namespace="Xomega.Framework.Properties"/>
+        <xfk:property class="EnumShortProperty" namespace="Xomega.Framework.Properties"
+                      tsClass="EnumIntProperty" tsModule="xomega"/>
         <sql:type name="smallint" db="sqlsrv"/>
         <edm:type Type="Int16"/>
         <clr:type name="short" valuetype="true"/>
@@ -396,7 +431,8 @@
     </type>
     <type name="big int enumeration" base="integer enumeration">
       <config>
-        <xfk:property class="EnumLongProperty" namespace="Xomega.Framework.Properties"/>
+        <xfk:property class="EnumLongProperty" namespace="Xomega.Framework.Properties"
+                      tsClass="EnumIntProperty" tsModule="xomega"/>
         <sql:type name="bigint" db="sqlsrv"/>
         <edm:type Type="Int64"/>
         <clr:type name="long" valuetype="true"/>
@@ -408,8 +444,7 @@
     </type>
     <type name="boolean enumeration" base="selection">
       <config>
-        <xfk:property class="EnumBoolProperty" namespace="Xomega.Framework.Properties"
-                      tsClass="EnumProperty" tsModule="xomega"/>
+        <xfk:property class="EnumBoolProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
         <edm:type Type="Boolean"/>
         <clr:type name="bool" valuetype="true"/>
         <sql:type name="bit"/>
@@ -433,6 +468,12 @@
         <ui:web-control multi-value="true">
           <asp:TextBox runat="server"/>
         </ui:web-control>
+        <ui:blazor-control>
+          <XInputText />
+        </ui:blazor-control>
+        <ui:blazor-control multi-value="true">
+          <XInputText />
+        </ui:blazor-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -508,6 +549,9 @@
         <ui:html-control>
           <input class="guid" xmlns="http://www.w3.org/1999/xhtml"/>
         </ui:html-control>
+        <ui:blazor-control>
+          <XInputText class="guid"/>
+        </ui:blazor-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -597,7 +641,12 @@
       <config>
         <sql:type name="geometry" db="sqlsrv" minver="10"/>
         <edm:type Type="Geometry" minFwkVer="4"/>
-        <clr:type name="IGeometry" namespace="GeoAPI.Geometries"/>
+        <!--
+  Add the Spatial types package to your projects and uncomment the appropriate CLR type
+  below for your version of the EF6.x or EF Core respectively.
+-->
+        <!--<clr:type name="DbGeometry" namespace="System.Data.Entity.Spatial"/>-->
+        <!--<clr:type name="Geometry" namespace="NetTopologySuite.Geometries"/>-->
       </config>
       <usage generic="true"/>
       <doc>
@@ -608,7 +657,12 @@
       <config>
         <sql:type name="geography" db="sqlsrv" minver="10"/>
         <edm:type Type="Geography" minFwkVer="4"/>
-        <clr:type name="IPoint" namespace="GeoAPI.Geometries"/>
+        <!--
+  Add the Spatial types package to your projects and uncomment the appropriate CLR type
+  below for your version of the EF6.x or EF Core respectively.
+-->
+        <!--<clr:type name="DbGeography" namespace="System.Data.Entity.Spatial"/>-->
+        <!--<clr:type name="Geometry" namespace="NetTopologySuite.Geometries"/>-->
       </config>
       <usage generic="true"/>
       <doc>
@@ -639,6 +693,9 @@
         <ui:html-control>
           <input type="password" xmlns="http://www.w3.org/1999/xhtml"/>
         </ui:html-control>
+        <ui:blazor-control>
+          <XInputText type="password"/>
+        </ui:blazor-control>
       </config>
       <usage generic="true"/>
     </type>

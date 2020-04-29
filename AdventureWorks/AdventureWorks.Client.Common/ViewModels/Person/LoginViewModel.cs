@@ -13,7 +13,7 @@ namespace AdventureWorks.Client.ViewModels
 {
     public partial class LoginViewModel : DetailsViewModel
     {
-        protected AuthenticationObject obj { get { return DetailsObject as AuthenticationObject; } }
+        public AuthenticationObject MainObj => DetailsObject as AuthenticationObject;
 
         public LoginViewModel(IServiceProvider sp) : base(sp)
         {
@@ -24,5 +24,7 @@ namespace AdventureWorks.Client.ViewModels
             base.Initialize();
             DetailsObject = ServiceProvider.GetService<AuthenticationObject>();
         }
+        
+        public override string BaseTitle => GetString("Login");
     }
 }

@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using Xomega.Framework;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
@@ -25,8 +25,7 @@ namespace AdventureWorks.Services
         /// Reads a list of Person Credit Card objects based on the person ID.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<ICollection<PersonCreditCard_ReadListOutput>> ReadList(int _businessEntityId);
+        Task<Output<ICollection<PersonCreditCard_ReadListOutput>>> ReadListAsync(int _businessEntityId);
 
     }
     #endregion
@@ -34,7 +33,7 @@ namespace AdventureWorks.Services
     #region PersonCreditCard_ReadListOutput structure
 
     ///<summary>
-    /// The output structure of operation IPersonCreditCardService.ReadList.
+    /// The output structure of operation IPersonCreditCardService.ReadListAsync.
     ///</summary>
     [DataContract]
     public class PersonCreditCard_ReadListOutput

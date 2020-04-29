@@ -18,6 +18,10 @@ class SalesOrderView extends DetailsViewModel {
         this.DetailsObject = this.obj = new SalesOrderObject();
     }
 
+    protected getBaseTitle(): string {
+        return 'Sales Order';
+    }
+
     public attached(view, parent) {
         if (this.Params[ViewParams.Mode] == ViewParams.ModePopup)
             controls.modalViewPopup(this, view);
@@ -25,7 +29,7 @@ class SalesOrderView extends DetailsViewModel {
             controls.vSplitViewPopup(this, view);
     }
 
-    protected lnkCustomerLookupLookUp_Params(): any {
+    protected LinkCustomerLookupLookUp_Params(): any {
         let vm = this;
         let params: any = {};
         params[ViewParams.Action] = ViewParams.ActionSelect;
@@ -35,22 +39,22 @@ class SalesOrderView extends DetailsViewModel {
         params["PersonNameOperator"] = "CN";
         params["PersonName"] = vm.obj.CustomerObject.LookupObject.PersonName.EditStringValue();
         params[ViewParams.Mode] = ViewParams.ModePopup;
-        params[ViewParams.Source] = "lnkCustomerLookupLookUp";
+        params[ViewParams.Source] = "LinkCustomerLookupLookUp";
         return params;
     }
 
-    public lnkCustomerLookupLookUp_Click() {
-        if (!this.lnkCustomerLookupLookUp_Enabled()) return;
-        let params = this.lnkCustomerLookupLookUp_Params();
+    public LinkCustomerLookupLookUp_Click() {
+        if (!this.LinkCustomerLookupLookUp_Enabled()) return;
+        let params = this.LinkCustomerLookupLookUp_Params();
         let vm = this;
         this.navigateTo('CustomerListView', params);
     }
 
-    public lnkCustomerLookupLookUp_Enabled() {
+    public LinkCustomerLookupLookUp_Enabled() {
         return true;
     }
 
-    protected lnkCustomerLookupLookUp_HandleResult(selectedRows: Array<DataRow>) {
+    protected LinkCustomerLookupLookUp_HandleResult(selectedRows: Array<DataRow>) {
         if (!selectedRows == null || selectedRows.length != 1) return;
         let vm = this;
         let row: any = selectedRows[0];
@@ -63,57 +67,52 @@ class SalesOrderView extends DetailsViewModel {
         vm.obj.CustomerObject.TerritoryId.InternalValue(row.TerritoryId);
     }
 
-    protected lnkDetailDetails_Params(data): any {
+    protected LinkDetailDetails_Params(data): any {
         let vm = this;
         let params: any = {};
         params["SalesOrderDetailId"] = data.SalesOrderDetailId;
         params[ViewParams.Mode] = ViewParams.ModePopup;
-        params[ViewParams.Source] = "lnkDetailDetails";
+        params[ViewParams.Source] = "LinkDetailDetails";
         return params;
     }
 
-    public lnkDetailDetails_Click(data) {
-        if (!this.lnkDetailDetails_Enabled(data)) return;
-        let params = this.lnkDetailDetails_Params(data);
+    public LinkDetailDetails_Click(data) {
+        if (!this.LinkDetailDetails_Enabled(data)) return;
+        let params = this.LinkDetailDetails_Params(data);
         let vm = this;
-        this.navigateTo('SalesOrderDetailView', params).then(function (success) {
-            if (success) {
-                let list = vm.obj.DetailList;
-                list.toggleSelection(data);
-            }
-        });
+        this.navigateTo('SalesOrderDetailView', params);
     }
 
-    public lnkDetailDetails_Enabled(data) {
+    public LinkDetailDetails_Enabled(data) {
         return true;
     }
 
-    protected lnkDetailNew_Params(): any {
+    protected LinkDetailNew_Params(): any {
         let vm = this;
         let params: any = {};
         params[ViewParams.Action] = ViewParams.ActionCreate;
         params["SalesOrderId"] = vm.obj.SalesOrderId.EditStringValue();
         params[ViewParams.Mode] = ViewParams.ModePopup;
-        params[ViewParams.Source] = "lnkDetailNew";
+        params[ViewParams.Source] = "LinkDetailNew";
         return params;
     }
 
-    public lnkDetailNew_Click() {
-        if (!this.lnkDetailNew_Enabled()) return;
-        let params = this.lnkDetailNew_Params();
+    public LinkDetailNew_Click() {
+        if (!this.LinkDetailNew_Enabled()) return;
+        let params = this.LinkDetailNew_Params();
         let vm = this;
         this.navigateTo('SalesOrderDetailView', params);
     }
 
-    public lnkDetailNew_Enabled() {
+    public LinkDetailNew_Enabled() {
         return !this.obj.IsNew();
     }
 
     protected onChildEvent(child: ViewModel, e: ViewEvent) {
         let vm = this;
-        if (e instanceof ViewSelectionEvent && child.Params && child.Params[ViewParams.Source] === 'lnkCustomerLookupLookUp')
-            vm.lnkCustomerLookupLookUp_HandleResult(e.SelectedRows);
-        if (e.isClosed() && child.Params && child.Params[ViewParams.Source] === 'lnkDetailDetails')
+        if (e instanceof ViewSelectionEvent && child.Params && child.Params[ViewParams.Source] === 'LinkCustomerLookupLookUp')
+            vm.LinkCustomerLookupLookUp_HandleResult(e.SelectedRows);
+        if (e.isClosed() && child.Params && child.Params[ViewParams.Source] === 'LinkDetailDetails')
             vm.obj.DetailList.clearSelectedRows();
         super.onChildEvent(child, e);
     }

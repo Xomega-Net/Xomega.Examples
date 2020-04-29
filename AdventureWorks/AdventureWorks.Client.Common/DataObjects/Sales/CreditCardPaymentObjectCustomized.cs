@@ -25,12 +25,13 @@ namespace AdventureWorks.Client.Objects
         protected override void OnInitialized()
         {
             base.OnInitialized();
+            // add custom intialization code here
             CreditCardIdProperty.Change += OnCreditCardChanged;
         }
 
         private void OnCreditCardChanged(object sender, PropertyChangeEventArgs e)
         {
-            if (e.Change.IncludesValue() && !DataProperty.Equals(e.OldValue, e.NewValue))
+            if (e.Change.IncludesValue() && !Equals(e.OldValue, e.NewValue))
             {
                 Header cc = CreditCardIdProperty.Value;
                 CardNumberProperty.SetValue(cc?[Enumerations.PersonCreditCard.Attributes.CardNumber]);

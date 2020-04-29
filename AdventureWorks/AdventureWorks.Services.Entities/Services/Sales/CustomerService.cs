@@ -3,9 +3,6 @@
 //
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated
 // unless they are placed between corresponding CUSTOM_CODE_START/CUSTOM_CODE_END lines.
-//
-// This file can be DELETED DURING REGENERATION IF NO LONGER NEEDED, e.g. if it gets renamed.
-// To prevent this and preserve manual custom changes please remove the line above.
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 // CUSTOM_CODE_START: add namespaces for custom code below
 // CUSTOM_CODE_END
@@ -28,13 +26,15 @@ namespace AdventureWorks.Services.Entities
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
         }
 
-        public virtual Output<ICollection<Customer_ReadListOutput>> ReadList(Customer_ReadListInput_Criteria _criteria)
+        public virtual async Task<Output<ICollection<Customer_ReadListOutput>>> ReadListAsync(Customer_ReadListInput_Criteria _criteria)
         {
-            // CUSTOM_CODE_START: add custom security checks for ReadList operation below
-            // CUSTOM_CODE_END
             ICollection<Customer_ReadListOutput> res = null;
             try
             {
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for ReadList operation below
+                // CUSTOM_CODE_END
                 var src = from obj in ctx.Customer select obj;
 
                 // CUSTOM_CODE_START: add custom filter criteria to the source query for ReadList operation below
@@ -49,7 +49,7 @@ namespace AdventureWorks.Services.Entities
                               StoreName = obj.StoreObject.Name, // CUSTOM_CODE_END
                               PersonId = obj.PersonId,
                               // CUSTOM_CODE_START: set the PersonName output parameter of ReadList operation below
-                              PersonName = obj.PersonObject.FullName, // CUSTOM_CODE_END
+                              PersonName = obj.PersonObject.LastName + ", " + obj.PersonObject.FirstName, // CUSTOM_CODE_END
                               AccountNumber = obj.AccountNumber,
                               TerritoryId = obj.TerritoryId,
                           };
@@ -68,13 +68,13 @@ namespace AdventureWorks.Services.Entities
                 // CUSTOM_CODE_END
 
                 currentErrors.AbortIfHasErrors();
-                res = qry.ToList();
+                res = await qry.ToListAsync();
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<ICollection<Customer_ReadListOutput>>(currentErrors, res);
+            return await Task.FromResult(new Output<ICollection<Customer_ReadListOutput>>(currentErrors, res));
         }
     }
 }

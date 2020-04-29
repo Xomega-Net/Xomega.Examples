@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using Xomega.Framework;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
@@ -25,8 +25,7 @@ namespace AdventureWorks.Services
         /// Reads a list of Sales Territory objects based on the specified criteria.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<ICollection<SalesTerritory_ReadListOutput>> ReadList();
+        Task<Output<ICollection<SalesTerritory_ReadListOutput>>> ReadListAsync();
 
     }
     #endregion
@@ -34,7 +33,7 @@ namespace AdventureWorks.Services
     #region SalesTerritory_ReadListOutput structure
 
     ///<summary>
-    /// The output structure of operation ISalesTerritoryService.ReadList.
+    /// The output structure of operation ISalesTerritoryService.ReadListAsync.
     ///</summary>
     [DataContract]
     public class SalesTerritory_ReadListOutput

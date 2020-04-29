@@ -1,0 +1,22 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+  <div class="page-header">
+    <div class="site-caption">
+      <h1 class="site-title"><a href="/">AdventureWorks</a></h1>
+      <LoginDisplay />
+    </div>
+    <div class="site-nav">
+      <div class="menu">
+        <NavMenu Items="MainMenu.Items"/>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    @Body
+  </div>
+  <div class="page-footer">
+    <div class="copyright">Copyright © @DateTime.Now.Year MyCompany. All rights reserved.</div>
+    <div class="attribution">Powered by <a href="http://xomega.net">Xomega.Net</a></div>
+  </div>
+</div>

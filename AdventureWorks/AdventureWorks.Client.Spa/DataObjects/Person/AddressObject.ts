@@ -4,12 +4,12 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-import { DataObject, EnumProperty, TextProperty } from 'xomega';
+import { DataObject, EnumIntProperty, TextProperty } from 'xomega';
 
 export class AddressObject extends DataObject {
 
     // Properties
-    public AddressId: EnumProperty;
+    public AddressId: EnumIntProperty;
     public AddressLine1: TextProperty;
     public AddressLine2: TextProperty;
     public CityState: TextProperty;
@@ -18,8 +18,9 @@ export class AddressObject extends DataObject {
 
     // Construction and initialization
     init() {
-        this.AddressId = new EnumProperty();
+        this.AddressId = new EnumIntProperty();
         this.AddressId.Required(true);
+        this.AddressId.IsKey = true;
         this.AddressLine1 = new TextProperty();
         this.AddressLine1.Required(true);
         this.AddressLine1.Size = 60;

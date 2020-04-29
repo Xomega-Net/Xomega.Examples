@@ -12,18 +12,26 @@
                     xmlns:v="clr-namespace:AdventureWorks.Client.Wpf"
                     xmlns:xom="clr-namespace:Xomega.Framework;assembly=Xomega.Framework.Wpf"
                     x:Class="AdventureWorks.Client.Wpf.SalesOrderDetailView"
-                    ViewTitle="Detail">
+                    ViewWidth="450"
+                    ViewHeight="450">
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-    <v:Errors Grid.Row="0" x:Name="pnlErrors"/>
-    <GroupBox Grid.Row="1" Header="Detail">
+    <TextBlock Grid.Row="0" Name="viewTitle" Text="View Title"
+               Style="{StaticResource ViewTitleStyle}"
+               Margin="10,0,0,5"/>
+    <v:Errors Grid.Row="1" x:Name="pnlErrors"/>
+    <GroupBox Grid.Row="2" Header="Detail">
       <StackPanel>
-        <Grid>
+        <Grid xmlns:clr="http://www.xomega.net/clr">
           <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -33,23 +41,21 @@
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
-          <Label Grid.Row="0" Grid.Column="0" Name="lblSalesOrderId"
-                 Style="{StaticResource LabelStyle}">_Sales Order Id:</Label>
-          <TextBlock Grid.Row="0" Grid.Column="1"
-                     xom:Property.Label="{Binding ElementName=lblSalesOrderId}"
-                     x:Name="ctlSalesOrderId"
-                     xom:Property.Name="{x:Static o:SalesOrderDetailObject.SalesOrderId}"
-                     Style="{StaticResource DataLabelStyle}"/>
-          <Label Grid.Row="1" Grid.Column="0" Name="lblCarrierTrackingNumber"
-                 Style="{StaticResource LabelStyle}">_Carrier Tracking Number:</Label>
-          <TextBox Grid.Row="1" Grid.Column="1"
-                   xom:Property.Label="{Binding ElementName=lblCarrierTrackingNumber}"
-                   x:Name="ctlCarrierTrackingNumber"
-                   xom:Property.Name="{x:Static o:SalesOrderDetailObject.CarrierTrackingNumber}"
-                   Style="{StaticResource ControlStyle}"/>
+          <Label Grid.Row="0" Grid.Column="0" Name="lblSubcategory"
+                 Style="{StaticResource LabelStyle}">_Subcategory:</Label>
+          <ComboBox Grid.Row="0" Grid.Column="1"
+                    xom:Property.Label="{Binding ElementName=lblSubcategory}"
+                    x:Name="ctlSubcategory"
+                    xom:Property.Name="{x:Static o:SalesOrderDetailObject.Subcategory}"
+                    Style="{StaticResource ControlStyle}"/>
+          <Label Grid.Row="1" Grid.Column="0" Name="lblProductId"
+                 Style="{StaticResource LabelStyle}">_Product:</Label>
+          <ComboBox Grid.Row="1" Grid.Column="1"
+                    xom:Property.Label="{Binding ElementName=lblProductId}"
+                    x:Name="ctlProductId"
+                    xom:Property.Name="{x:Static o:SalesOrderDetailObject.ProductId}"
+                    Style="{StaticResource ControlStyle}"/>
           <Label Grid.Row="2" Grid.Column="0" Name="lblOrderQty"
                  Style="{StaticResource LabelStyle}">_Order Qty:</Label>
           <TextBox Grid.Row="2" Grid.Column="1"
@@ -58,58 +64,44 @@
                    xom:Property.Name="{x:Static o:SalesOrderDetailObject.OrderQty}"
                    Style="{StaticResource ControlStyle}"/>
           <Label Grid.Row="3" Grid.Column="0" Name="lblSpecialOfferId"
-                 Style="{StaticResource LabelStyle}">_Special Offer Id:</Label>
+                 Style="{StaticResource LabelStyle}">_Special Offer:</Label>
           <ComboBox Grid.Row="3" Grid.Column="1"
                     xom:Property.Label="{Binding ElementName=lblSpecialOfferId}"
                     x:Name="ctlSpecialOfferId"
                     xom:Property.Name="{x:Static o:SalesOrderDetailObject.SpecialOfferId}"
                     Style="{StaticResource ControlStyle}"/>
-          <Label Grid.Row="4" Grid.Column="0" Name="lblProductId"
-                 Style="{StaticResource LabelStyle}">_Product Id:</Label>
-          <ComboBox Grid.Row="4" Grid.Column="1"
-                    xom:Property.Label="{Binding ElementName=lblProductId}"
-                    x:Name="ctlProductId"
-                    xom:Property.Name="{x:Static o:SalesOrderDetailObject.ProductId}"
-                    Style="{StaticResource ControlStyle}"/>
-          <Label Grid.Row="0" Grid.Column="2" Name="lblUnitPrice"
+          <Label Grid.Row="4" Grid.Column="0" Name="lblUnitPrice"
                  Style="{StaticResource LabelStyle}">_Unit Price:</Label>
-          <TextBox Grid.Row="0" Grid.Column="3"
-                   xom:Property.Label="{Binding ElementName=lblUnitPrice}"
-                   x:Name="ctlUnitPrice"
-                   xom:Property.Name="{x:Static o:SalesOrderDetailObject.UnitPrice}"
-                   Style="{StaticResource ControlStyle}"/>
-          <Label Grid.Row="1" Grid.Column="2" Name="lblUnitPriceDiscount"
+          <TextBlock Grid.Row="4" Grid.Column="1"
+                     xom:Property.Label="{Binding ElementName=lblUnitPrice}"
+                     x:Name="ctlUnitPrice"
+                     xom:Property.Name="{x:Static o:SalesOrderDetailObject.UnitPrice}"
+                     Style="{StaticResource DataLabelStyle}"/>
+          <Label Grid.Row="5" Grid.Column="0" Name="lblUnitPriceDiscount"
                  Style="{StaticResource LabelStyle}">_Unit Price Discount:</Label>
-          <TextBox Grid.Row="1" Grid.Column="3"
-                   xom:Property.Label="{Binding ElementName=lblUnitPriceDiscount}"
-                   x:Name="ctlUnitPriceDiscount"
-                   xom:Property.Name="{x:Static o:SalesOrderDetailObject.UnitPriceDiscount}"
-                   Style="{StaticResource ControlStyle}"/>
-          <Label Grid.Row="2" Grid.Column="2" Name="lblLineTotal"
+          <TextBlock Grid.Row="5" Grid.Column="1"
+                     xom:Property.Label="{Binding ElementName=lblUnitPriceDiscount}"
+                     x:Name="ctlUnitPriceDiscount"
+                     xom:Property.Name="{x:Static o:SalesOrderDetailObject.UnitPriceDiscount}"
+                     Style="{StaticResource DataLabelStyle}"/>
+          <Label Grid.Row="6" Grid.Column="0" Name="lblLineTotal"
                  Style="{StaticResource LabelStyle}">_Line Total:</Label>
-          <TextBox Grid.Row="2" Grid.Column="3"
-                   xom:Property.Label="{Binding ElementName=lblLineTotal}"
-                   x:Name="ctlLineTotal"
-                   xom:Property.Name="{x:Static o:SalesOrderDetailObject.LineTotal}"
-                   Style="{StaticResource ControlStyle}"/>
-          <Label Grid.Row="3" Grid.Column="2" Name="lblRowguid"
-                 Style="{StaticResource LabelStyle}">_Rowguid:</Label>
-          <TextBox Grid.Row="3" Grid.Column="3"
-                   xom:Property.Label="{Binding ElementName=lblRowguid}"
-                   x:Name="ctlRowguid"
-                   xom:Property.Name="{x:Static o:SalesOrderDetailObject.Rowguid}"
-                   Style="{StaticResource ControlStyle}"/>
-          <Label Grid.Row="4" Grid.Column="2" Name="lblModifiedDate"
-                 Style="{StaticResource LabelStyle}">_Modified Date:</Label>
-          <TextBox Grid.Row="4" Grid.Column="3"
-                   xom:Property.Label="{Binding ElementName=lblModifiedDate}"
-                   x:Name="ctlModifiedDate"
-                   xom:Property.Name="{x:Static o:SalesOrderDetailObject.ModifiedDate}"
+          <TextBlock Grid.Row="6" Grid.Column="1"
+                     xom:Property.Label="{Binding ElementName=lblLineTotal}"
+                     x:Name="ctlLineTotal"
+                     xom:Property.Name="{x:Static o:SalesOrderDetailObject.LineTotal}"
+                     Style="{StaticResource DataLabelStyle}"/>
+          <Label Grid.Row="7" Grid.Column="0" Name="lblCarrierTrackingNumber"
+                 Style="{StaticResource LabelStyle}">_Carrier Tracking Number:</Label>
+          <TextBox Grid.Row="7" Grid.Column="1"
+                   xom:Property.Label="{Binding ElementName=lblCarrierTrackingNumber}"
+                   x:Name="ctlCarrierTrackingNumber"
+                   xom:Property.Name="{x:Static o:SalesOrderDetailObject.CarrierTrackingNumber}"
                    Style="{StaticResource ControlStyle}"/>
         </Grid>
       </StackPanel>
     </GroupBox>
-    <DockPanel Grid.Row="2">
+    <DockPanel Grid.Row="3">
       <DockPanel DockPanel.Dock="Bottom">
         <Button x:Name="btnDelete" Width="75" Margin="0,10,0,0" Content="_Delete"
                 DockPanel.Dock="Left"/>

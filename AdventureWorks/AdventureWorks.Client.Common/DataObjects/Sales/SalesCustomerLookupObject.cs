@@ -38,8 +38,12 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            PersonNameProperty = new TextProperty(this, PersonName);
-            StoreNameProperty = new TextProperty(this, StoreName);
+            PersonNameProperty = new TextProperty(this, PersonName)
+            {
+            };
+            StoreNameProperty = new TextProperty(this, StoreName)
+            {
+            };
         }
 
         #endregion

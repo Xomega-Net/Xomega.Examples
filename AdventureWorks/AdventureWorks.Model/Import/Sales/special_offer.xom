@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
-        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:svc="http://www.xomega.net/svc"
         xmlns:rest="http://www.xomega.net/rest"
         xmlns:ui="http://www.xomega.net/ui"
         xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
@@ -107,12 +107,9 @@
           <output list="true">
             <param name="special offer id"/>
             <param name="description"/>
-            <param name="is active" type="boolean" required="true"/>
-            <param name="category"/>
           </output>
           <config>
-            <xfk:enum-cache enum-name="special offer" id-param="special offer id" desc-param="description"
-                            is-active-param="is active"/>
+            <xfk:enum-cache enum-name="special offer" id-param="special offer id" desc-param="description"/>
             <rest:method verb="GET" uri-template="special-offer"/>
           </config>
           <doc>

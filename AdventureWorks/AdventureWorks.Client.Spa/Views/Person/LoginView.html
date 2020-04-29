@@ -8,7 +8,7 @@
 <div xmlns="http://www.w3.org/1999/xhtml" class="view-composition">
   <div class="view with-footer" data-bind="with: $root" data-width="300"
        data-height="240">
-    <div class="view-header"><span class="view-title">Login</span><span data-bind="visible: obj.Modified">*</span></div>
+    <div class="view-header"><span class="view-title" data-bind="text: ViewTitle"></span></div>
     <div class="view-body">
       <div class="content indented">
         <div data-bind="msglist: { items: getErrorList().Errors }"></div>

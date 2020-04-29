@@ -3,9 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AdventureWorks.Client.Wpf"
         mc:Ignorable="d"
-        Title="SolutionName" Height="400" Width="600">
+        Title="AdventureWorks" Height="400" Width="600">
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -13,13 +12,13 @@
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Window.Resources>
-  <StackPanel>
-    <Menu x:Name="menu" VerticalAlignment="Top">
-      <Menu.ItemsSource>
-        <StaticResource ResourceKey="generatedMenus"/>
-      </Menu.ItemsSource>
-    </Menu>
-    <TextBlock x:Name="title" Text="Welcome to Xomega.Net!" FontWeight="Bold" FontSize="16" Margin="5"/>
-    <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="To learn more about Xomega.Net visit www.xomega.net." Margin="5"/>
-  </StackPanel>
+  <DockPanel>
+    <Menu x:Name="menu" ItemsSource="{StaticResource generatedMenus}" DockPanel.Dock="Top"/>
+    <ContentControl x:Name="body">
+      <StackPanel Orientation="Vertical">
+        <TextBlock x:Name="title" Text="Welcome to Xomega.Net!" FontWeight="Bold" FontSize="16" Margin="5"/>
+        <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="To learn more about Xomega.Net visit www.xomega.net." Margin="5"/>
+      </StackPanel>
+    </ContentControl>
+  </DockPanel>
 </Window>

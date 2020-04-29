@@ -9,7 +9,7 @@ import { AuthManager } from 'xomega';
 
 export class ISpecialOfferService {
 
-    public static getReadListRequest(): JQueryAjaxSettings {
+    public static getReadListAsyncRequest(): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
         req.url += `special-offer`;
@@ -18,8 +18,6 @@ export class ISpecialOfferService {
 }
 
 export class SpecialOffer_ReadListOutput {
-    public SpecialOfferId: any;
-    public Description: any;
-    public IsActive: any;
-    public Category: any;
+    public SpecialOfferId: any = null;
+    public Description: any = null;
 }

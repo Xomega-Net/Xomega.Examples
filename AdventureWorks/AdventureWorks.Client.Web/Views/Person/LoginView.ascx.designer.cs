@@ -9,7 +9,6 @@ namespace AdventureWorks.Client.Web
     public partial class LoginView
     {
         protected global::System.Web.UI.WebControls.Panel pnlComposition;
-        protected global::System.Web.UI.WebControls.Label lblLoginViewTitle;
         protected global::System.Web.UI.WebControls.Panel pnlMain;
         protected global::System.Web.UI.WebControls.Label lblEmail;
         protected global::System.Web.UI.WebControls.TextBox ctlEmail;

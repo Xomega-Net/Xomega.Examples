@@ -7,6 +7,8 @@
 using AdventureWorks.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
 using Xomega.Framework.Services;
@@ -72,34 +74,57 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            AccountNumberProperty = new TextProperty(this, AccountNumber);
-            AccountNumberProperty.Size = 15;
-            CommentProperty = new TextProperty(this, Comment);
-            CommentProperty.Size = 128;
-            ModifiedDateProperty = new DateTimeProperty(this, ModifiedDate);
-            ModifiedDateProperty.Required = true;
-            ModifiedDateProperty.Editable = false;
-            OnlineOrderFlagProperty = new BooleanProperty(this, OnlineOrderFlag);
-            OnlineOrderFlagProperty.Required = true;
-            OrderDateProperty = new DateProperty(this, OrderDate);
-            OrderDateProperty.Required = true;
-            OrderDateProperty.Editable = false;
-            PurchaseOrderNumberProperty = new TextProperty(this, PurchaseOrderNumber);
-            PurchaseOrderNumberProperty.Size = 25;
-            RevisionNumberProperty = new TinyIntegerProperty(this, RevisionNumber);
-            RevisionNumberProperty.Required = true;
-            RevisionNumberProperty.Editable = false;
-            SalesOrderIdProperty = new IntegerKeyProperty(this, SalesOrderId);
-            SalesOrderIdProperty.Required = true;
-            SalesOrderIdProperty.Editable = false;
-            SalesOrderNumberProperty = new TextProperty(this, SalesOrderNumber);
-            SalesOrderNumberProperty.Required = true;
-            SalesOrderNumberProperty.Size = 25;
-            SalesOrderNumberProperty.Editable = false;
-            ShipDateProperty = new DateProperty(this, ShipDate);
-            StatusProperty = new EnumByteProperty(this, Status);
-            StatusProperty.Required = true;
-            StatusProperty.EnumType = "sales order status";
+            AccountNumberProperty = new TextProperty(this, AccountNumber)
+            {
+                Size = 15,
+            };
+            CommentProperty = new TextProperty(this, Comment)
+            {
+                Size = 128,
+            };
+            ModifiedDateProperty = new DateTimeProperty(this, ModifiedDate)
+            {
+                Required = true,
+                Editable = false,
+            };
+            OnlineOrderFlagProperty = new BooleanProperty(this, OnlineOrderFlag)
+            {
+                Required = true,
+            };
+            OrderDateProperty = new DateProperty(this, OrderDate)
+            {
+                Required = true,
+                Editable = false,
+            };
+            PurchaseOrderNumberProperty = new TextProperty(this, PurchaseOrderNumber)
+            {
+                Size = 25,
+            };
+            RevisionNumberProperty = new TinyIntegerProperty(this, RevisionNumber)
+            {
+                Required = true,
+                Editable = false,
+            };
+            SalesOrderIdProperty = new IntegerKeyProperty(this, SalesOrderId)
+            {
+                Required = true,
+                Editable = false,
+                IsKey = true,
+            };
+            SalesOrderNumberProperty = new TextProperty(this, SalesOrderNumber)
+            {
+                Required = true,
+                Size = 25,
+                Editable = false,
+            };
+            ShipDateProperty = new DateProperty(this, ShipDate)
+            {
+            };
+            StatusProperty = new EnumByteProperty(this, Status)
+            {
+                Required = true,
+                EnumType = "sales order status",
+            };
             DataObject objCustomer = ServiceProvider.GetService<SalesOrderCustomerObject>();
             AddChildObject(Customer, objCustomer);
             DataObject objDetail = ServiceProvider.GetService<SalesOrderDetailList>();
@@ -114,29 +139,29 @@ namespace AdventureWorks.Client.Objects
 
         #region CRUD Operations
 
-        protected override ErrorList DoRead(object options)
+        protected override async Task<ErrorList> DoReadAsync(object options, CancellationToken token = default)
         {
-            var output = SalesOrder_Read(options);
+            var output = await SalesOrder_ReadAsync(options);
             return output.Messages;
         }
 
-        protected override ErrorList DoSave(object options)
+        protected override async Task<ErrorList> DoSaveAsync(object options, CancellationToken token = default)
         {
             if (IsNew)
             {
-                var output = SalesOrder_Create(options);
+                var output = await SalesOrder_CreateAsync(options);
                 return output.Messages;
             }
             else
             {
-                var output = SalesOrder_Update(options);
+                var output = await SalesOrder_UpdateAsync(options);
                 return output.Messages;
             }
         }
 
-        protected override ErrorList DoDelete(object options)
+        protected override async Task<ErrorList> DoDeleteAsync(object options, CancellationToken token = default)
         {
-            var output = SalesOrder_Delete(options);
+            var output = await SalesOrder_DeleteAsync(options);
             return output.Messages;
         }
 
@@ -144,49 +169,49 @@ namespace AdventureWorks.Client.Objects
 
         #region Service Operations
 
-        protected virtual Output<SalesOrder_ReadOutput> SalesOrder_Read(object options)
+        protected virtual async Task<Output<SalesOrder_ReadOutput>> SalesOrder_ReadAsync(object options)
         {
             int _salesOrderId = (int)SalesOrderIdProperty.TransportValue;
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<ISalesOrderService>().Read(_salesOrderId);
+                var output = await s.ServiceProvider.GetService<ISalesOrderService>().ReadAsync(_salesOrderId);
 
                 FromDataContract(output?.Result, options);
                 return output;
             }
         }
 
-        protected virtual Output<SalesOrder_CreateOutput> SalesOrder_Create(object options)
+        protected virtual async Task<Output<SalesOrder_CreateOutput>> SalesOrder_CreateAsync(object options)
         {
             SalesOrder_CreateInput _data = ToDataContract<SalesOrder_CreateInput>(options);
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<ISalesOrderService>().Create(_data);
+                var output = await s.ServiceProvider.GetService<ISalesOrderService>().CreateAsync(_data);
 
                 FromDataContract(output?.Result, options);
                 return output;
             }
         }
 
-        protected virtual Output<SalesOrder_UpdateOutput> SalesOrder_Update(object options)
+        protected virtual async Task<Output<SalesOrder_UpdateOutput>> SalesOrder_UpdateAsync(object options)
         {
             int _salesOrderId = (int)SalesOrderIdProperty.TransportValue;
             SalesOrder_UpdateInput_Data _data = ToDataContract<SalesOrder_UpdateInput_Data>(options);
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<ISalesOrderService>().Update(_salesOrderId, _data);
+                var output = await s.ServiceProvider.GetService<ISalesOrderService>().UpdateAsync(_salesOrderId, _data);
 
                 FromDataContract(output?.Result, options);
                 return output;
             }
         }
 
-        protected virtual Output SalesOrder_Delete(object options)
+        protected virtual async Task<Output> SalesOrder_DeleteAsync(object options)
         {
             int _salesOrderId = (int)SalesOrderIdProperty.TransportValue;
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<ISalesOrderService>().Delete(_salesOrderId);
+                var output = await s.ServiceProvider.GetService<ISalesOrderService>().DeleteAsync(_salesOrderId);
 
                 return output;
             }

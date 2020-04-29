@@ -1,50 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
-   <PropertyGroup>
-      <TargetFramework>net461</TargetFramework>
-      <RootNamespace>AdventureWorks.Client.Common</RootNamespace>
-      <AssemblyName>AdventureWorks.Client.Common</AssemblyName>
-      <XomegaProjectType>objects</XomegaProjectType>
-   </PropertyGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
+    <RootNamespace>AdventureWorks.Client.Common</RootNamespace>
+    <AssemblyName>AdventureWorks.Client.Common</AssemblyName>
+    <XomegaProjectType>objects</XomegaProjectType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectCapability Include="DynamicDependentFile" />
+    <ProjectCapability Include="DynamicFileNesting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../AdventureWorks.Services.Common/AdventureWorks.Services.Common.csproj" />
+  </ItemGroup>
+
    <ItemGroup>
-      <ProjectReference Include="../AdventureWorks.Services.Common/AdventureWorks.Services.Common.csproj" />
+      <None Update="Messages.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <DependentUpon>Resources.resx</DependentUpon>
+         <LastGenOutput>Messages.cs</LastGenOutput>
+      </None>
    </ItemGroup>
-   <ItemGroup>
-      <Compile Update="DataObjects\Person\AddressObjectCustomized.cs">
-         <DependentUpon>AddressObject.cs</DependentUpon>
-      </Compile>
-      <Compile Update="DataObjects\Sales\SalesOrderCriteriaCustomized.cs">
-         <DependentUpon>SalesOrderCriteria.cs</DependentUpon>
-      </Compile>
-      <Compile Update="DataObjects\Sales\SalesOrderCustomerObjectCustomized.cs">
-         <DependentUpon>SalesOrderCustomerObject.cs</DependentUpon>
-      </Compile>
-      <Compile Update="DataObjects\Sales\SalesOrderSalesObjectCustomized.cs">
-         <DependentUpon>SalesOrderSalesObject.cs</DependentUpon>
-      </Compile>
-      <Compile Update="DataObjects\Sales\CreditCardPaymentObjectCustomized.cs">
-         <DependentUpon>CreditCardPaymentObject.cs</DependentUpon>
-      </Compile>
-      <Compile Update="DataObjects\Sales\SalesOrderObjectCustomized.cs">
-         <DependentUpon>SalesOrderObject.cs</DependentUpon>
-      </Compile>
-      <Compile Update="DataObjects\Sales\SalesOrderListCustomized.cs">
-         <DependentUpon>SalesOrderList.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Messages.cs">
-        <DependentUpon>Messages.tt</DependentUpon>
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-      </Compile>
-   </ItemGroup>
-   <ItemGroup>
-     <None Update="Messages.tt">
-       <DependentUpon>Resources.resx</DependentUpon>
-       <LastGenOutput>Messages.cs</LastGenOutput>
-       <Generator>TextTemplatingFileGenerator</Generator>
-     </None>
-   </ItemGroup>
-   <ItemGroup>
-     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-   </ItemGroup>
+
 </Project>

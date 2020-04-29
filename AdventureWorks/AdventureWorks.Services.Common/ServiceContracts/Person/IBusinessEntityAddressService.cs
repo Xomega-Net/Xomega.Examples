@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using Xomega.Framework;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
@@ -22,8 +22,7 @@ namespace AdventureWorks.Services
     {
 
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<ICollection<BusinessEntityAddress_ReadListOutput>> ReadList(int _businessEntityId);
+        Task<Output<ICollection<BusinessEntityAddress_ReadListOutput>>> ReadListAsync(int _businessEntityId);
 
     }
     #endregion
@@ -31,7 +30,7 @@ namespace AdventureWorks.Services
     #region BusinessEntityAddress_ReadListOutput structure
 
     ///<summary>
-    /// The output structure of operation IBusinessEntityAddressService.ReadList.
+    /// The output structure of operation IBusinessEntityAddressService.ReadListAsync.
     ///</summary>
     [DataContract]
     public class BusinessEntityAddress_ReadListOutput

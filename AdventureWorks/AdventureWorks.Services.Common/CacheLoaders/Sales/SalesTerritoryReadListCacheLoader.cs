@@ -7,6 +7,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Lookup;
 using Xomega.Framework.Services;
@@ -20,19 +22,22 @@ namespace AdventureWorks.Services
         {
         }
 
-        protected virtual Output<ICollection<SalesTerritory_ReadListOutput>> ReadList()
+        protected virtual async Task<Output<ICollection<SalesTerritory_ReadListOutput>>> ReadListAsync()
         {
             using (var s = serviceProvider.CreateScope())
             {
                 var svc = s.ServiceProvider.GetService<ISalesTerritoryService>();
-                return svc.ReadList();
+                return await svc.ReadListAsync();
             }
         }
 
-        protected override void LoadCache(string tableType, CacheUpdater updateCache)
+        protected override async Task LoadCacheAsync(string tableType, CacheUpdater updateCache, CancellationToken token = default)
         {
             Dictionary<string, Dictionary<string, Header>> data = new Dictionary<string, Dictionary<string, Header>>();
-            var output = ReadList();
+            var output = await ReadListAsync();
+            if (output?.Messages != null)
+                output.Messages.AbortIfHasErrors();
+            else if (output?.Result == null) return;
 
             foreach (var row in output.Result)
             {
@@ -50,7 +55,7 @@ namespace AdventureWorks.Services
                 h.AddToAttribute("country region code", row.CountryRegionCode);
                 h.AddToAttribute("group", row.Group);
             }
-            // if no data is returned we still need to update cache to get the notify listener removed
+            // if no data is returned we still need to update cache to mark it as loaded
             if (data.Count == 0) updateCache(new LookupTable(tableType, new List<Header>(), true));
             foreach (string type in data.Keys)
                 updateCache(new LookupTable(type, data[type].Values, true));

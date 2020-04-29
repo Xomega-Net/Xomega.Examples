@@ -4,6 +4,7 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
+using AdventureWorks.Client.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using Xomega.Framework.Views;
@@ -12,21 +13,25 @@ namespace AdventureWorks.Client.Wpf
 {
     public partial class CustomerListView
     {
+        protected CustomerListViewModel VM => Model as CustomerListViewModel;
+
         public CustomerListView()
         {
             InitializeComponent();
+            IsAsync = true;
         }
 
-        protected override Button CloseButton { get { return btnClose; } }
-        protected override IErrorPresenter ErrorsPanel { get { return pnlErrors; } }
-        protected override Button SearchButton { get { return btnSearch; } }
-        protected override Button SelectButton { get { return btnSelect; } }
+        protected override TextBlock TitleControl => viewTitle;
+        protected override Button CloseButton => btnClose;
+        protected override IErrorPresenter ErrorsPanel => pnlErrors;
+        protected override Button SearchButton => btnSearch;
+        protected override Button SelectButton => btnSelect;
 
-        protected override ItemsControl ResultsGrid { get { return gridResults; } }
-        protected override Button ResetButton { get { return btnReset; } }
-        protected override IAppliedCriteriaPanel AppliedCriteriaPanel { get { return pnlAppliedCriteria; } }
-        protected override ICollapsiblePanel CriteriaExpander { get { return new ExpanderCollapsiblePanel(pnlCriteria); } }
-        protected override FrameworkElement CriteriaPanel { get { return pnlCriteria; } }
-        protected override ContentControl ChildPanel { get { return pnlDetails; } }
+        protected override ItemsControl ResultsGrid => gridResults;
+        protected override Button ResetButton => btnReset;
+        protected override IAppliedCriteriaPanel AppliedCriteriaPanel => pnlAppliedCriteria;
+        protected override ICollapsiblePanel CriteriaExpander => new ExpanderCollapsiblePanel(pnlCriteria);
+        protected override FrameworkElement CriteriaPanel => pnlCriteria;
+        protected override ContentControl ChildPanel => pnlDetails;
     }
 }

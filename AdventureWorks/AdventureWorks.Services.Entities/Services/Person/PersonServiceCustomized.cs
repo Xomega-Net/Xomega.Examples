@@ -1,5 +1,12 @@
+#if EF6
+using System.Data.Entity;
+#else
+using Microsoft.EntityFrameworkCore;
+#endif
 using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Services;
 
@@ -11,14 +18,18 @@ namespace AdventureWorks.Services.Entities
         {
         }
 
-        public override Output Authenticate(Credentials _credentials)
+        public override async Task<Output> AuthenticateAsync(Credentials _credentials
+#if !WCF
+            , CancellationToken token = default
+#endif
+        )
         {
             // lookup password
             var pwdQry = from em in ctx.EmailAddress
                          join pw in ctx.Password on em.BusinessEntityId equals pw.BusinessEntityId
                          where em.EmailAddress1 == _credentials.Email
                          select pw;
-            var pwd = pwdQry.FirstOrDefault();
+            var pwd = await pwdQry.FirstOrDefaultAsync();
 
             // validate credentials
             bool valid = false;
@@ -28,11 +39,15 @@ namespace AdventureWorks.Services.Entities
                 // TODO: hash _credentials.Password using pwd.PasswordSalt,
                 //       and compare it with pwd.PasswordHash instead
             }
-            if (!valid) currentErrors.CriticalError(ErrorType.Security, Messages.InvalidCredentials);
+            if (!valid) currentErrors.CriticalError(ErrorType.Security, "Invalid credentials");
             return new Output(currentErrors);
         }
 
-        public override Output<PersonInfo> Read(string _email)
+        public override async Task<Output<PersonInfo>> ReadAsync(string _email
+#if !WCF
+            , CancellationToken token = default
+#endif
+        )
         {
             // lookup and return person info
             var qry = from em in ctx.EmailAddress
@@ -40,8 +55,8 @@ namespace AdventureWorks.Services.Entities
                       join bc in ctx.BusinessEntityContact on ps.BusinessEntityId equals bc.PersonId into bec
                       from bc in bec.DefaultIfEmpty()
                       join st in ctx.Store on bc.BusinessEntityId equals st.BusinessEntityId into store
-                      join vn in ctx.Vendor on bc.BusinessEntityId equals vn.BusinessEntityId into vendor
                       from st in store.DefaultIfEmpty()
+                      join vn in ctx.Vendor on bc.BusinessEntityId equals vn.BusinessEntityId into vendor
                       from vn in vendor.DefaultIfEmpty()
                       where em.EmailAddress1 == _email
                       select new PersonInfo
@@ -54,8 +69,8 @@ namespace AdventureWorks.Services.Entities
                           Store = st.BusinessEntityId,
                           Vendor = vn.BusinessEntityId
                       };
-            var person = qry.FirstOrDefault();
-            if (person == null) currentErrors.CriticalError(ErrorType.Data, Messages.EmailPersonNotFound, _email);
+            var person = await qry.FirstOrDefaultAsync();
+            if (person == null) currentErrors.CriticalError(ErrorType.Data, "Person info not found");
 
             return new Output<PersonInfo>(currentErrors, person);
         }

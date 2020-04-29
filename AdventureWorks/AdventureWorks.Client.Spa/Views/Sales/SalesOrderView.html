@@ -6,9 +6,9 @@
  =============================================================================================
 -->
 <div xmlns="http://www.w3.org/1999/xhtml" class="view-composition">
-  <div class="view with-footer" data-bind="with: $root" data-width="840"
-       data-height="640">
-    <div class="view-header"><span class="view-title">Sales Order</span><span data-bind="visible: obj.Modified">*</span></div>
+  <div class="view with-footer" data-bind="with: $root" data-width="800"
+       data-height="680">
+    <div class="view-header"><span class="view-title" data-bind="text: ViewTitle"></span></div>
     <div class="view-body">
       <div class="content indented">
         <div data-bind="msglist: { items: getErrorList().Errors }"></div>
@@ -65,10 +65,10 @@
                 <li data-bind="css: {active: activeTab() == 'Sales'}"><a data-bind="click: function() { activeTab('Sales') }">Sales</a></li>
               </ul>
             </div>
-            <div class="tabs-content ">
+            <div class="tabs-content">
               <div data-bind="visible: activeTab() == 'Customer'">
-                <div class="xw-obj borderless">
-                  <fieldset data-bind="with: obj.CustomerObject">
+                <div class="xw-obj borderless" data-bind="with: obj.CustomerObject">
+                  <fieldset>
                     <table class="xw-fieldset-layout">
                       <tr>
                         <td class="fieldColumn" style="width: 50%">
@@ -92,102 +92,96 @@
                   </fieldset>
                 </div>
                 <div class="xw-obj-children">
-                  <div>
-                    <div class="xw-obj ">
-                      <fieldset data-bind="with: obj.CustomerObject.LookupObject">
-                        <legend>Lookup</legend>
-                        <table class="xw-fieldset-layout">
-                          <tr>
-                            <td class="fieldColumn" style="width: 50%">
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlLookupStoreName') }" class="label">Store Name:</label>
-                                <input data-bind="id: $root.id('ctlLookupStoreName'), property: StoreName" /></div>
-                            </td>
-                            <td class="fieldColumn" style="width: 50%">
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlLookupPersonName') }" class="label">Person Name:</label>
-                                <input data-bind="id: $root.id('ctlLookupPersonName'), property: PersonName" /></div>
-                            </td>
-                          </tr>
-                        </table>
-                        <div class="action-bar"><a data-bind="click: $root.lnkCustomerLookupLookUp_Click.bind($root), css: {disabled: !$root.lnkCustomerLookupLookUp_Enabled($data)}"
-                             href="#">Look Up</a></div>
-                      </fieldset>
-                    </div>
+                  <div class="xw-obj" data-bind="with: obj.CustomerObject.LookupObject">
+                    <fieldset>
+                      <legend>Lookup</legend>
+                      <table class="xw-fieldset-layout">
+                        <tr>
+                          <td class="fieldColumn" style="width: 50%">
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlLookupStoreName') }" class="label">Store Name:</label>
+                              <input data-bind="id: $root.id('ctlLookupStoreName'), property: StoreName" /></div>
+                          </td>
+                          <td class="fieldColumn" style="width: 50%">
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlLookupPersonName') }" class="label">Person Name:</label>
+                              <input data-bind="id: $root.id('ctlLookupPersonName'), property: PersonName" /></div>
+                          </td>
+                        </tr>
+                      </table>
+                      <div class="action-bar"><a data-bind="click: $root.LinkCustomerLookupLookUp_Click.bind($root), css: {disabled: !$root.LinkCustomerLookupLookUp_Enabled($data)}"
+                           href="#">Look Up</a></div>
+                    </fieldset>
                   </div>
-                  <div>
-                    <div class="xw-obj ">
-                      <fieldset data-bind="with: obj.CustomerObject.BillingAddressObject">
-                        <legend>Billing Address</legend>
-                        <table class="xw-fieldset-layout">
-                          <tr>
-                            <td class="fieldColumn" style="width: 50%">
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlBillingAddressAddressId') }" class="label">Address Type:</label>
-                                <select data-bind="id: $root.id('ctlBillingAddressAddressId'), property: AddressId"></select></div>
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlBillingAddressAddressLine1') }"
-                                       class="label">Address Line1:</label>
-                                <span data-bind="id: $root.id('ctlBillingAddressAddressLine1'), property: AddressLine1"></span></div>
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlBillingAddressAddressLine2') }"
-                                       class="label">Address Line2:</label>
-                                <span data-bind="id: $root.id('ctlBillingAddressAddressLine2'), property: AddressLine2"></span></div>
-                            </td>
-                            <td class="fieldColumn" style="width: 50%">
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlBillingAddressCityState') }" class="label">City/State:</label>
-                                <span data-bind="id: $root.id('ctlBillingAddressCityState'), property: CityState"></span></div>
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlBillingAddressPostalCode') }"
-                                       class="label">Postal Code:</label>
-                                <span data-bind="id: $root.id('ctlBillingAddressPostalCode'), property: PostalCode"></span></div>
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlBillingAddressCountry') }" class="label">Country:</label>
-                                <span data-bind="id: $root.id('ctlBillingAddressCountry'), property: Country"></span></div>
-                            </td>
-                          </tr>
-                        </table>
-                      </fieldset>
-                    </div>
+                  <div class="xw-obj" data-bind="with: obj.CustomerObject.BillingAddressObject">
+                    <fieldset>
+                      <legend>Billing Address</legend>
+                      <table class="xw-fieldset-layout">
+                        <tr>
+                          <td class="fieldColumn" style="width: 50%">
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlBillingAddressAddressId') }" class="label">Address Type:</label>
+                              <select data-bind="id: $root.id('ctlBillingAddressAddressId'), property: AddressId"></select></div>
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlBillingAddressAddressLine1') }"
+                                     class="label">Address Line1:</label>
+                              <span data-bind="id: $root.id('ctlBillingAddressAddressLine1'), property: AddressLine1"></span></div>
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlBillingAddressAddressLine2') }"
+                                     class="label">Address Line2:</label>
+                              <span data-bind="id: $root.id('ctlBillingAddressAddressLine2'), property: AddressLine2"></span></div>
+                          </td>
+                          <td class="fieldColumn" style="width: 50%">
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlBillingAddressCityState') }" class="label">City/State:</label>
+                              <span data-bind="id: $root.id('ctlBillingAddressCityState'), property: CityState"></span></div>
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlBillingAddressPostalCode') }"
+                                     class="label">Postal Code:</label>
+                              <span data-bind="id: $root.id('ctlBillingAddressPostalCode'), property: PostalCode"></span></div>
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlBillingAddressCountry') }" class="label">Country:</label>
+                              <span data-bind="id: $root.id('ctlBillingAddressCountry'), property: Country"></span></div>
+                          </td>
+                        </tr>
+                      </table>
+                    </fieldset>
                   </div>
-                  <div>
-                    <div class="xw-obj ">
-                      <fieldset data-bind="with: obj.CustomerObject.ShippingAddressObject">
-                        <legend>Shipping Address</legend>
-                        <table class="xw-fieldset-layout">
-                          <tr>
-                            <td class="fieldColumn" style="width: 50%">
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlShippingAddressAddressId') }"
-                                       class="label">Address Type:</label>
-                                <select data-bind="id: $root.id('ctlShippingAddressAddressId'), property: AddressId"></select></div>
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlShippingAddressAddressLine1') }"
-                                       class="label">Address Line1:</label>
-                                <span data-bind="id: $root.id('ctlShippingAddressAddressLine1'), property: AddressLine1"></span></div>
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlShippingAddressAddressLine2') }"
-                                       class="label">Address Line2:</label>
-                                <span data-bind="id: $root.id('ctlShippingAddressAddressLine2'), property: AddressLine2"></span></div>
-                            </td>
-                            <td class="fieldColumn" style="width: 50%">
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlShippingAddressCityState') }"
-                                       class="label">City/State:</label>
-                                <span data-bind="id: $root.id('ctlShippingAddressCityState'), property: CityState"></span></div>
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlShippingAddressPostalCode') }"
-                                       class="label">Postal Code:</label>
-                                <span data-bind="id: $root.id('ctlShippingAddressPostalCode'), property: PostalCode"></span></div>
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlShippingAddressCountry') }" class="label">Country:</label>
-                                <span data-bind="id: $root.id('ctlShippingAddressCountry'), property: Country"></span></div>
-                            </td>
-                          </tr>
-                        </table>
-                      </fieldset>
-                    </div>
+                  <div class="xw-obj" data-bind="with: obj.CustomerObject.ShippingAddressObject">
+                    <fieldset>
+                      <legend>Shipping Address</legend>
+                      <table class="xw-fieldset-layout">
+                        <tr>
+                          <td class="fieldColumn" style="width: 50%">
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlShippingAddressAddressId') }"
+                                     class="label">Address Type:</label>
+                              <select data-bind="id: $root.id('ctlShippingAddressAddressId'), property: AddressId"></select></div>
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlShippingAddressAddressLine1') }"
+                                     class="label">Address Line1:</label>
+                              <span data-bind="id: $root.id('ctlShippingAddressAddressLine1'), property: AddressLine1"></span></div>
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlShippingAddressAddressLine2') }"
+                                     class="label">Address Line2:</label>
+                              <span data-bind="id: $root.id('ctlShippingAddressAddressLine2'), property: AddressLine2"></span></div>
+                          </td>
+                          <td class="fieldColumn" style="width: 50%">
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlShippingAddressCityState') }"
+                                     class="label">City/State:</label>
+                              <span data-bind="id: $root.id('ctlShippingAddressCityState'), property: CityState"></span></div>
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlShippingAddressPostalCode') }"
+                                     class="label">Postal Code:</label>
+                              <span data-bind="id: $root.id('ctlShippingAddressPostalCode'), property: PostalCode"></span></div>
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlShippingAddressCountry') }" class="label">Country:</label>
+                              <span data-bind="id: $root.id('ctlShippingAddressCountry'), property: Country"></span></div>
+                          </td>
+                        </tr>
+                      </table>
+                    </fieldset>
                   </div>
                 </div>
               </div>
@@ -198,27 +192,26 @@
                       <table class="grid"
                              data-bind="css: { selectable: $root.obj.DetailList.RowSelectionMode }"
                              id="gridDetail">
-                        <caption></caption>
                         <thead>
                           <tr data-bind="with: $root.obj.DetailList">
                             <th data-bind="sortby: Product">Product</th>
                             <th data-bind="sortby: OrderQty">Qty</th>
+                            <th data-bind="sortby: SpecialOffer">Special Offer</th>
                             <th data-bind="sortby: UnitPrice">Price</th>
                             <th data-bind="sortby: UnitPriceDiscount">Discount</th>
-                            <th data-bind="sortby: SpecialOffer">Special Offer</th>
                             <th data-bind="sortby: LineTotal">Total</th>
                             <th data-bind="sortby: CarrierTrackingNumber">Tracking #</th>
                           </tr>
                         </thead>
                         <tbody data-bind="foreach: pagedItems">
                           <tr data-bind="css: { selected: _selected }, click: toggleSelection">
-                            <td><a data-bind="click: $root.lnkDetailDetails_Click.bind($root), css: {disabled: !$root.lnkDetailDetails_Enabled($data)}"
+                            <td><a data-bind="click: $root.LinkDetailDetails_Click.bind($root), css: {disabled: !$root.LinkDetailDetails_Enabled($data)}"
                                  href="#">
                                 <span data-bind="property: List.Product"></span></a></td>
                             <td><span data-bind="property: List.OrderQty"></span></td>
+                            <td><span data-bind="property: List.SpecialOffer"></span></td>
                             <td><span data-bind="property: List.UnitPrice"></span></td>
                             <td><span data-bind="property: List.UnitPriceDiscount"></span></td>
-                            <td><span data-bind="property: List.SpecialOffer"></span></td>
                             <td><span data-bind="property: List.LineTotal"></span></td>
                             <td><span data-bind="property: List.CarrierTrackingNumber"></span></td>
                           </tr>
@@ -226,13 +219,13 @@
                       </table>
                     </div>
                   </div>
-                  <div><a data-bind="click: $root.lnkDetailNew_Click.bind($root), css: {disabled: !$root.lnkDetailNew_Enabled($data)}"
+                  <div><a data-bind="click: $root.LinkDetailNew_Click.bind($root), css: {disabled: !$root.LinkDetailNew_Enabled($data)}"
                        href="#">New</a></div>
                 </div>
               </div>
               <div data-bind="visible: activeTab() == 'Payment'">
-                <div class="xw-obj borderless">
-                  <fieldset data-bind="with: obj.PaymentObject">
+                <div class="xw-obj borderless" data-bind="with: obj.PaymentObject">
+                  <fieldset>
                     <table class="xw-fieldset-layout">
                       <tr>
                         <td class="fieldColumn" style="width: 50%">
@@ -265,58 +258,54 @@
                   </fieldset>
                 </div>
                 <div class="xw-obj-children">
-                  <div>
-                    <div class="xw-obj ">
-                      <fieldset data-bind="with: obj.PaymentObject.CreditCardObject">
-                        <legend>Credit Card</legend>
-                        <table class="xw-fieldset-layout">
-                          <tr>
-                            <td class="fieldColumn" style="width: 50%">
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlCreditCardCreditCardId') }" class="label">Credit Card:</label>
-                                <select data-bind="id: $root.id('ctlCreditCardCreditCardId'), property: CreditCardId"></select></div>
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlCreditCardCardNumber') }" class="label">Card Number:</label>
-                                <span data-bind="id: $root.id('ctlCreditCardCardNumber'), property: CardNumber"></span></div>
-                            </td>
-                            <td class="fieldColumn" style="width: 50%">
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlCreditCardExpiration') }" class="label">Expiration:</label>
-                                <span data-bind="id: $root.id('ctlCreditCardExpiration'), property: Expiration"></span></div>
-                              <div class="field">
-                                <label data-bind="attr: { for: $root.id('ctlCreditCardCreditCardApprovalCode') }"
-                                       class="label">Credit Card Approval Code:</label>
-                                <input data-bind="id: $root.id('ctlCreditCardCreditCardApprovalCode'), property: CreditCardApprovalCode" /></div>
-                            </td>
-                          </tr>
-                        </table>
-                      </fieldset>
-                    </div>
+                  <div class="xw-obj" data-bind="with: obj.PaymentObject.CreditCardObject">
+                    <fieldset>
+                      <legend>Credit Card</legend>
+                      <table class="xw-fieldset-layout">
+                        <tr>
+                          <td class="fieldColumn" style="width: 50%">
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlCreditCardCreditCardId') }" class="label">Credit Card:</label>
+                              <select data-bind="id: $root.id('ctlCreditCardCreditCardId'), property: CreditCardId"></select></div>
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlCreditCardCardNumber') }" class="label">Card Number:</label>
+                              <span data-bind="id: $root.id('ctlCreditCardCardNumber'), property: CardNumber"></span></div>
+                          </td>
+                          <td class="fieldColumn" style="width: 50%">
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlCreditCardExpiration') }" class="label">Expiration:</label>
+                              <span data-bind="id: $root.id('ctlCreditCardExpiration'), property: Expiration"></span></div>
+                            <div class="field">
+                              <label data-bind="attr: { for: $root.id('ctlCreditCardCreditCardApprovalCode') }"
+                                     class="label">Credit Card Approval Code:</label>
+                              <input data-bind="id: $root.id('ctlCreditCardCreditCardApprovalCode'), property: CreditCardApprovalCode" /></div>
+                          </td>
+                        </tr>
+                      </table>
+                    </fieldset>
                   </div>
                 </div>
               </div>
               <div data-bind="visible: activeTab() == 'Sales'">
-                <div class="xw-obj borderless">
-                  <fieldset data-bind="with: obj.SalesObject">
-                    <table class="xw-fieldset-layout">
-                      <tr>
-                        <td class="fieldColumn" style="width: 50%">
-                          <div class="field">
-                            <label data-bind="attr: { for: $root.id('ctlSalesTerritoryId') }" class="label">Territory:</label>
-                            <select data-bind="id: $root.id('ctlSalesTerritoryId'), property: TerritoryId"></select></div>
-                          <div class="field">
-                            <label data-bind="attr: { for: $root.id('ctlSalesSalesPersonId') }" class="label">Sales Person:</label>
-                            <select data-bind="id: $root.id('ctlSalesSalesPersonId'), property: SalesPersonId"></select></div>
-                        </td>
-                        <td class="fieldColumn" style="width: 50%">
-                          <div class="field">
-                            <label data-bind="attr: { for: $root.id('ctlSalesSalesReason') }" class="label">Sales Reason:</label>
-                            <select data-bind="id: $root.id('ctlSalesSalesReason'), property: SalesReason"
-                                    multiple="multiple"></select></div>
-                        </td>
-                      </tr>
-                    </table>
-                  </fieldset>
+                <div class="xw-obj borderless" data-bind="with: obj.SalesObject">
+                  <table class="xw-fieldset-layout">
+                    <tr>
+                      <td class="fieldColumn" style="width: 50%">
+                        <div class="field">
+                          <label data-bind="attr: { for: $root.id('ctlSalesTerritoryId') }" class="label">Territory:</label>
+                          <select data-bind="id: $root.id('ctlSalesTerritoryId'), property: TerritoryId"></select></div>
+                        <div class="field">
+                          <label data-bind="attr: { for: $root.id('ctlSalesSalesPersonId') }" class="label">Sales Person:</label>
+                          <select data-bind="id: $root.id('ctlSalesSalesPersonId'), property: SalesPersonId"></select></div>
+                      </td>
+                      <td class="fieldColumn" style="width: 50%">
+                        <div class="field">
+                          <label data-bind="attr: { for: $root.id('ctlSalesSalesReason') }" class="label">Sales Reason:</label>
+                          <select data-bind="id: $root.id('ctlSalesSalesReason'), property: SalesReason"
+                                  multiple="multiple"></select></div>
+                      </td>
+                    </tr>
+                  </table>
                 </div>
               </div>
             </div>

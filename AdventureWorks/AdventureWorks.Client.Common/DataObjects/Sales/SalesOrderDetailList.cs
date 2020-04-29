@@ -8,6 +8,8 @@ using AdventureWorks.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
 using Xomega.Framework.Services;
@@ -38,7 +40,7 @@ namespace AdventureWorks.Client.Objects
         public IntegerKeyProperty SalesOrderDetailIdProperty { get; private set; }
         public EnumIntProperty SpecialOfferProperty { get; private set; }
         public MoneyProperty UnitPriceProperty { get; private set; }
-        public MoneyProperty UnitPriceDiscountProperty { get; private set; }
+        public PercentFractionProperty UnitPriceDiscountProperty { get; private set; }
 
         #endregion
 
@@ -54,42 +56,59 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            CarrierTrackingNumberProperty = new TextProperty(this, CarrierTrackingNumber);
-            CarrierTrackingNumberProperty.Size = 25;
-            CarrierTrackingNumberProperty.Editable = false;
-            LineTotalProperty = new MoneyProperty(this, LineTotal);
-            LineTotalProperty.Required = true;
-            LineTotalProperty.Editable = false;
-            OrderQtyProperty = new SmallIntegerProperty(this, OrderQty);
-            OrderQtyProperty.Required = true;
-            OrderQtyProperty.Editable = false;
-            ProductProperty = new EnumIntProperty(this, Product);
-            ProductProperty.Required = true;
-            ProductProperty.EnumType = "product";
-            ProductProperty.Editable = false;
-            SalesOrderDetailIdProperty = new IntegerKeyProperty(this, SalesOrderDetailId);
-            SalesOrderDetailIdProperty.Required = true;
-            SalesOrderDetailIdProperty.Editable = false;
-            SpecialOfferProperty = new EnumIntProperty(this, SpecialOffer);
-            SpecialOfferProperty.Required = true;
-            SpecialOfferProperty.EnumType = "special offer";
-            SpecialOfferProperty.Editable = false;
-            UnitPriceProperty = new MoneyProperty(this, UnitPrice);
-            UnitPriceProperty.Required = true;
-            UnitPriceProperty.Editable = false;
-            UnitPriceDiscountProperty = new MoneyProperty(this, UnitPriceDiscount);
-            UnitPriceDiscountProperty.Required = true;
-            UnitPriceDiscountProperty.Editable = false;
+            CarrierTrackingNumberProperty = new TextProperty(this, CarrierTrackingNumber)
+            {
+                Size = 25,
+                Editable = false,
+            };
+            LineTotalProperty = new MoneyProperty(this, LineTotal)
+            {
+                Required = true,
+                Editable = false,
+            };
+            OrderQtyProperty = new SmallIntegerProperty(this, OrderQty)
+            {
+                Required = true,
+                Editable = false,
+            };
+            ProductProperty = new EnumIntProperty(this, Product)
+            {
+                Required = true,
+                EnumType = "product",
+                Editable = false,
+            };
+            SalesOrderDetailIdProperty = new IntegerKeyProperty(this, SalesOrderDetailId)
+            {
+                Required = true,
+                Editable = false,
+                IsKey = true,
+            };
+            SpecialOfferProperty = new EnumIntProperty(this, SpecialOffer)
+            {
+                Required = true,
+                EnumType = "special offer",
+                Editable = false,
+            };
+            UnitPriceProperty = new MoneyProperty(this, UnitPrice)
+            {
+                Required = true,
+                Editable = false,
+            };
+            UnitPriceDiscountProperty = new PercentFractionProperty(this, UnitPriceDiscount)
+            {
+                Required = true,
+                Editable = false,
+            };
         }
 
         #endregion
 
         #region CRUD Operations
 
-        protected override ErrorList DoRead(object options)
+        protected override async Task<ErrorList> DoReadAsync(object options, CancellationToken token = default)
         {
-            var output = SalesOrder_Detail_ReadList(
-                Parent == null ? default(int) : (int)(Parent as SalesOrderObject).SalesOrderIdProperty.TransportValue, options);
+            var output = await SalesOrder_Detail_ReadListAsync(options, 
+                Parent == null ? default : (int)(Parent as SalesOrderObject).SalesOrderIdProperty.TransportValue);
             return output.Messages;
         }
 
@@ -97,11 +116,11 @@ namespace AdventureWorks.Client.Objects
 
         #region Service Operations
 
-        protected virtual Output<ICollection<SalesOrderDetail_ReadListOutput>> SalesOrder_Detail_ReadList(int _salesOrderId, object options)
+        protected virtual async Task<Output<ICollection<SalesOrderDetail_ReadListOutput>>> SalesOrder_Detail_ReadListAsync(object options, int _salesOrderId)
         {
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_ReadList(_salesOrderId);
+                var output = await s.ServiceProvider.GetService<ISalesOrderService>().Detail_ReadListAsync(_salesOrderId);
 
                 FromDataContract(output?.Result, options);
                 return output;

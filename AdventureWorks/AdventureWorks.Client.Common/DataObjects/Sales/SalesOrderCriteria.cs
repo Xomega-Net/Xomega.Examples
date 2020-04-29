@@ -21,7 +21,6 @@ namespace AdventureWorks.Client.Objects
         public const string DueDate = "DueDate";
         public const string DueDate2 = "DueDate2";
         public const string DueDateOperator = "DueDateOperator";
-        public const string GlobalRegion = "GlobalRegion";
         public const string OrderDate = "OrderDate";
         public const string OrderDate2 = "OrderDate2";
         public const string OrderDateOperator = "OrderDateOperator";
@@ -48,7 +47,6 @@ namespace AdventureWorks.Client.Objects
         public DateProperty DueDateProperty { get; private set; }
         public DateProperty DueDate2Property { get; private set; }
         public OperatorProperty DueDateOperatorProperty { get; private set; }
-        public EnumProperty GlobalRegionProperty { get; private set; }
         public DateProperty OrderDateProperty { get; private set; }
         public DateProperty OrderDate2Property { get; private set; }
         public OperatorProperty OrderDateOperatorProperty { get; private set; }
@@ -78,58 +76,97 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            CustomerNameProperty = new TextProperty(this, CustomerName);
-            CustomerNameOperatorProperty = new OperatorProperty(this, CustomerNameOperator);
-            CustomerNameOperatorProperty.Size = 25;
-            CustomerNameOperatorProperty.EnumType = "operators";
-            CustomerNameOperatorProperty.HasNullCheck = true;
-            CustomerStoreProperty = new TextProperty(this, CustomerStore);
-            CustomerStoreOperatorProperty = new OperatorProperty(this, CustomerStoreOperator);
-            CustomerStoreOperatorProperty.Size = 25;
-            CustomerStoreOperatorProperty.EnumType = "operators";
-            CustomerStoreOperatorProperty.HasNullCheck = true;
-            DueDateProperty = new DateProperty(this, DueDate);
-            DueDate2Property = new DateProperty(this, DueDate2);
-            DueDateOperatorProperty = new OperatorProperty(this, DueDateOperator);
-            DueDateOperatorProperty.Size = 25;
-            DueDateOperatorProperty.EnumType = "operators";
-            GlobalRegionProperty = new EnumProperty(this, GlobalRegion);
-            GlobalRegionProperty.Size = 50;
-            GlobalRegionProperty.EnumType = "sales territory group";
-            OrderDateProperty = new DateProperty(this, OrderDate);
-            OrderDate2Property = new DateProperty(this, OrderDate2);
-            OrderDateOperatorProperty = new OperatorProperty(this, OrderDateOperator);
-            OrderDateOperatorProperty.Size = 25;
-            OrderDateOperatorProperty.EnumType = "operators";
-            SalesOrderNumberProperty = new TextProperty(this, SalesOrderNumber);
-            SalesOrderNumberProperty.Size = 25;
-            SalesOrderNumberOperatorProperty = new OperatorProperty(this, SalesOrderNumberOperator);
-            SalesOrderNumberOperatorProperty.Size = 25;
-            SalesOrderNumberOperatorProperty.EnumType = "operators";
-            SalesPersonIdProperty = new EnumIntProperty(this, SalesPersonId);
-            SalesPersonIdProperty.IsMultiValued = true;
-            SalesPersonIdProperty.EnumType = "sales person";
-            SalesPersonIdOperatorProperty = new OperatorProperty(this, SalesPersonIdOperator);
-            SalesPersonIdOperatorProperty.Size = 25;
-            SalesPersonIdOperatorProperty.EnumType = "operators";
-            SalesPersonIdOperatorProperty.HasNullCheck = true;
-            StatusProperty = new EnumByteProperty(this, Status);
-            StatusProperty.IsMultiValued = true;
-            StatusProperty.EnumType = "sales order status";
-            StatusOperatorProperty = new OperatorProperty(this, StatusOperator);
-            StatusOperatorProperty.Size = 25;
-            StatusOperatorProperty.EnumType = "operators";
-            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId);
-            TerritoryIdProperty.EnumType = "sales territory";
-            TerritoryIdOperatorProperty = new OperatorProperty(this, TerritoryIdOperator);
-            TerritoryIdOperatorProperty.Size = 25;
-            TerritoryIdOperatorProperty.EnumType = "operators";
-            TerritoryIdOperatorProperty.HasNullCheck = true;
-            TotalDueProperty = new MoneyProperty(this, TotalDue);
-            TotalDue2Property = new MoneyProperty(this, TotalDue2);
-            TotalDueOperatorProperty = new OperatorProperty(this, TotalDueOperator);
-            TotalDueOperatorProperty.Size = 25;
-            TotalDueOperatorProperty.EnumType = "operators";
+            CustomerNameProperty = new TextProperty(this, CustomerName)
+            {
+            };
+            CustomerNameOperatorProperty = new OperatorProperty(this, CustomerNameOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+                HasNullCheck = true,
+            };
+            CustomerStoreProperty = new TextProperty(this, CustomerStore)
+            {
+            };
+            CustomerStoreOperatorProperty = new OperatorProperty(this, CustomerStoreOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+                HasNullCheck = true,
+            };
+            DueDateProperty = new DateProperty(this, DueDate)
+            {
+            };
+            DueDate2Property = new DateProperty(this, DueDate2)
+            {
+            };
+            DueDateOperatorProperty = new OperatorProperty(this, DueDateOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+            };
+            OrderDateProperty = new DateProperty(this, OrderDate)
+            {
+            };
+            OrderDate2Property = new DateProperty(this, OrderDate2)
+            {
+            };
+            OrderDateOperatorProperty = new OperatorProperty(this, OrderDateOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+            };
+            SalesOrderNumberProperty = new TextProperty(this, SalesOrderNumber)
+            {
+                Size = 25,
+            };
+            SalesOrderNumberOperatorProperty = new OperatorProperty(this, SalesOrderNumberOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+            };
+            SalesPersonIdProperty = new EnumIntProperty(this, SalesPersonId)
+            {
+                IsMultiValued = true,
+                EnumType = "sales person",
+            };
+            SalesPersonIdOperatorProperty = new OperatorProperty(this, SalesPersonIdOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+                HasNullCheck = true,
+            };
+            StatusProperty = new EnumByteProperty(this, Status)
+            {
+                IsMultiValued = true,
+                EnumType = "sales order status",
+            };
+            StatusOperatorProperty = new OperatorProperty(this, StatusOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+            };
+            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            {
+                EnumType = "sales territory",
+            };
+            TerritoryIdOperatorProperty = new OperatorProperty(this, TerritoryIdOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+                HasNullCheck = true,
+            };
+            TotalDueProperty = new MoneyProperty(this, TotalDue)
+            {
+            };
+            TotalDue2Property = new MoneyProperty(this, TotalDue2)
+            {
+            };
+            TotalDueOperatorProperty = new OperatorProperty(this, TotalDueOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+            };
         }
 
         #endregion

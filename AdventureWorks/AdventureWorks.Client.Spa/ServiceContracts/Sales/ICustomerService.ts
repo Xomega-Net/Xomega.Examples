@@ -9,7 +9,7 @@ import { AuthManager } from 'xomega';
 
 export class ICustomerService {
 
-    public static getReadListRequest(_criteria: Customer_ReadListInput_Criteria): JQueryAjaxSettings {
+    public static getReadListAsyncRequest(_criteria: Customer_ReadListInput_Criteria): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
         req.url += `customer?${ $.param(_criteria, true) }`;
@@ -28,11 +28,11 @@ export class Customer_ReadListInput_Criteria {
 }
 
 export class Customer_ReadListOutput {
-    public CustomerId: any;
-    public StoreId: any;
-    public StoreName: any;
-    public PersonId: any;
-    public PersonName: any;
-    public AccountNumber: any;
-    public TerritoryId: any;
+    public CustomerId: any = null;
+    public StoreId: any = null;
+    public StoreName: any = null;
+    public PersonId: any = null;
+    public PersonName: any = null;
+    public AccountNumber: any = null;
+    public TerritoryId: any = null;
 }

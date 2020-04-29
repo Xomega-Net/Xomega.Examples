@@ -3,9 +3,6 @@
 //
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated
 // unless they are placed between corresponding CUSTOM_CODE_START/CUSTOM_CODE_END lines.
-//
-// This file can be DELETED DURING REGENERATION IF NO LONGER NEEDED, e.g. if it gets renamed.
-// To prevent this and preserve manual custom changes please remove the line above.
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 // CUSTOM_CODE_START: add namespaces for custom code below
 // CUSTOM_CODE_END
@@ -28,13 +26,15 @@ namespace AdventureWorks.Services.Entities
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
         }
 
-        public virtual Output<ICollection<BusinessEntityAddress_ReadListOutput>> ReadList(int _businessEntityId)
+        public virtual async Task<Output<ICollection<BusinessEntityAddress_ReadListOutput>>> ReadListAsync(int _businessEntityId)
         {
-            // CUSTOM_CODE_START: add custom security checks for ReadList operation below
-            // CUSTOM_CODE_END
             ICollection<BusinessEntityAddress_ReadListOutput> res = null;
             try
             {
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for ReadList operation below
+                // CUSTOM_CODE_END
                 var src = from obj in ctx.BusinessEntityAddress select obj;
 
                 // Source filter
@@ -68,13 +68,13 @@ namespace AdventureWorks.Services.Entities
                 // CUSTOM_CODE_END
 
                 currentErrors.AbortIfHasErrors();
-                res = qry.ToList();
+                res = await qry.ToListAsync();
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<ICollection<BusinessEntityAddress_ReadListOutput>>(currentErrors, res);
+            return await Task.FromResult(new Output<ICollection<BusinessEntityAddress_ReadListOutput>>(currentErrors, res));
         }
     }
 }

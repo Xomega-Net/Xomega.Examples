@@ -5,30 +5,30 @@
 //---------------------------------------------------------------------------------------------
 
 import { PersonCreditCard_ReadListOutput, IPersonCreditCardService } from 'ServiceContracts/Sales/IPersonCreditCardService';
-import { BaseLookupCacheLoader, Header, LookupTable, ErrorList } from 'xomega';
+import { LocalLookupCacheLoader, fromJSON, Header, LookupTable, ErrorList } from 'xomega';
 
-export class PersonCreditCardReadListCacheLoader extends BaseLookupCacheLoader {
+export class PersonCreditCardReadListCacheLoader extends LocalLookupCacheLoader {
 
-    constructor(caseSensitive: boolean) {
-        super(caseSensitive, 'person credit card');
+    constructor() {
+        super(true, 'person credit card');
     }
 
-    protected loadRequest(): JQueryAjaxSettings {
-        // overrde this method in a subclass and provide proper input value(s)!
-        return this.getLoadRequest(null);
-    }
-
-    protected getLoadRequest(_businessEntityId: any): JQueryAjaxSettings {
-        return IPersonCreditCardService.getReadListRequest(_businessEntityId);
+    protected getLoadRequest(): JQueryAjaxSettings {
+        var _businessEntityId = this.parameters['business entity id'];
+        if (_businessEntityId == null) return null;
+        return IPersonCreditCardService.getReadListAsyncRequest(_businessEntityId);
     }
 
     public loadCache(tableType: string, updateCache: (table: LookupTable) => void) {
-        let req: JQueryAjaxSettings = this.loadRequest();
+        let req: JQueryAjaxSettings = this.getLoadRequest();
+        if (req == null) return;
         let cl = this;
         req.success = function (data) {
             let lkpData: { [key: string]: Header } = {};
-            let rows: PersonCreditCard_ReadListOutput[] = data.Result || [];
-            for (let row of rows) {
+            let rows = data.result || data.Result || [];
+            for (let r of rows) {
+                let row = new PersonCreditCard_ReadListOutput();
+                fromJSON(row, r);
                 let h: Header = lkpData[row.CreditCardId] || new Header(tableType, row.CreditCardId, row.CreditCardName);
                 h.addToAttribute('person name', row.PersonName);
                 h.addToAttribute('card type', row.CardType);

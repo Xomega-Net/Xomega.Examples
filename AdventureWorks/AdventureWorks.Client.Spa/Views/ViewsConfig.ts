@@ -8,7 +8,7 @@ require.config({
     paths: {
         'LoginView': 'Views/Person/LoginViewCustomized',
         'CustomerListView': 'Views/Sales/CustomerListView',
-        'SalesOrderView': 'Views/Sales/SalesOrderView',
+        'SalesOrderView': 'Views/Sales/SalesOrderViewCustomized',
         'SalesOrderListView': 'Views/Sales/SalesOrderListView',
         'SalesOrderDetailView': 'Views/Sales/SalesOrderDetailView',
     }

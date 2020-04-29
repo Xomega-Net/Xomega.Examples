@@ -5,7 +5,7 @@
 //---------------------------------------------------------------------------------------------
 
 import { SalesOrderCriteria } from 'DataObjects/Sales/SalesOrderCriteriaCustomized';
-import { SalesOrderList } from 'DataObjects/Sales/SalesOrderListCustomized';
+import { SalesOrderList } from 'DataObjects/Sales/SalesOrderList';
 import * as router from 'plugins/router';
 import { SearchViewModel, ViewParams } from 'xomega';
 import * as controls from 'xomega-controls';
@@ -16,6 +16,10 @@ class SalesOrderListView extends SearchViewModel {
         super();
         this.ListObject = new SalesOrderList();
         this.ListObject.CriteriaObject = new SalesOrderCriteria();
+    }
+
+    protected getBaseTitle(): string {
+        return 'Sales Order List';
     }
 
     public attached(view, parent) {
@@ -30,48 +34,43 @@ class SalesOrderListView extends SearchViewModel {
         router.navigate('#' + router.activeInstruction().fragment + this.getPermalink());
     }
 
-    protected lnkDetails_Params(data): any {
+    protected LinkDetails_Params(data): any {
         let vm = this;
         let params: any = {};
         params["SalesOrderId"] = data.SalesOrderId;
         params[ViewParams.Mode] = ViewParams.ModeInline;
-        params[ViewParams.Source] = "lnkDetails";
+        params[ViewParams.Source] = "LinkDetails";
         return params;
     }
 
-    public lnkDetails_Click(data) {
-        if (!this.lnkDetails_Enabled(data)) return;
-        let params = this.lnkDetails_Params(data);
-        let vm = this;
-        this.navigateTo('SalesOrderView', params).then(function (success) {
-            if (success) {
-                let list = vm.ListObject;
-                list.toggleSelection(data);
-            }
-        });
-    }
-
-    public lnkDetails_Enabled(data) {
-        return true;
-    }
-
-    protected lnkNew_Params(): any {
-        let vm = this;
-        let params: any = {};
-        params[ViewParams.Action] = ViewParams.ActionCreate;
-        params[ViewParams.Mode] = ViewParams.ModeInline;
-        params[ViewParams.Source] = "lnkNew";
-        return params;
-    }
-
-    public lnkNew_Click() {
-        if (!this.lnkNew_Enabled()) return;
-        let params = this.lnkNew_Params();
+    public LinkDetails_Click(data) {
+        if (!this.LinkDetails_Enabled(data)) return;
+        let params = this.LinkDetails_Params(data);
         let vm = this;
         this.navigateTo('SalesOrderView', params);
     }
 
-    public lnkNew_Enabled() {
+    public LinkDetails_Enabled(data) {
+        return true;
+    }
+
+    protected LinkNew_Params(): any {
+        let vm = this;
+        let params: any = {};
+        params[ViewParams.Action] = ViewParams.ActionCreate;
+        params[ViewParams.Mode] = ViewParams.ModeInline;
+        params[ViewParams.Source] = "LinkNew";
+        return params;
+    }
+
+    public LinkNew_Click() {
+        if (!this.LinkNew_Enabled()) return;
+        let params = this.LinkNew_Params();
+        let vm = this;
+        this.navigateTo('SalesOrderView', params);
+    }
+
+    public LinkNew_Enabled() {
         return true;
     }
 }

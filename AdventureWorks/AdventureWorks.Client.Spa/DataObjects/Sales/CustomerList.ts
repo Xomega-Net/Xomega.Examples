@@ -6,7 +6,7 @@
 
 import { CustomerCriteria } from 'DataObjects/Sales/CustomerCriteria';
 import { Customer_ReadListInput_Criteria, ICustomerService } from 'ServiceContracts/Sales/ICustomerService';
-import { DataListObject, TextProperty, IntegerProperty, EnumProperty, ErrorList } from 'xomega';
+import { DataListObject, TextProperty, IntegerProperty, EnumIntProperty, ErrorList } from 'xomega';
 
 export class CustomerList extends DataListObject {
 
@@ -17,7 +17,7 @@ export class CustomerList extends DataListObject {
     public PersonName: TextProperty;
     public StoreId: IntegerProperty;
     public StoreName: TextProperty;
-    public TerritoryId: EnumProperty;
+    public TerritoryId: EnumIntProperty;
 
     // Construction and initialization
     init() {
@@ -28,6 +28,7 @@ export class CustomerList extends DataListObject {
         this.CustomerId = new IntegerProperty();
         this.CustomerId.Required(true);
         this.CustomerId.Editable(false);
+        this.CustomerId.IsKey = true;
         this.PersonId = new IntegerProperty();
         this.PersonId.Editable(false);
         this.PersonName = new TextProperty();
@@ -36,23 +37,23 @@ export class CustomerList extends DataListObject {
         this.StoreId.Editable(false);
         this.StoreName = new TextProperty();
         this.StoreName.Editable(false);
-        this.TerritoryId = new EnumProperty();
+        this.TerritoryId = new EnumIntProperty();
         this.TerritoryId.EnumType = "sales territory";
         this.TerritoryId.Editable(false);
     }
 
     protected doReadAsync(options?): JQueryPromise<any> {
         return $.when(
-            $.ajax(this.getCustomer_ReadListRequest(
+            $.ajax(this.getCustomer_ReadListAsyncRequest(
                 !this.CriteriaObject ? null : (this.CriteriaObject as CustomerCriteria).toStruct(Customer_ReadListInput_Criteria), options)),
         );
     }
 
-    protected getCustomer_ReadListRequest(_criteria: Customer_ReadListInput_Criteria, options?): JQueryAjaxSettings {
+    protected getCustomer_ReadListAsyncRequest(_criteria: Customer_ReadListInput_Criteria, options?): JQueryAjaxSettings {
         let obj = this;
-        let req = ICustomerService.getReadListRequest(_criteria);
+        let req = ICustomerService.getReadListAsyncRequest(_criteria);
         req.success = (_data, _status, xhr) => {
-            obj.fromJSON(_data.Result, options);
+            obj.fromJSON(_data.result || _data.Result, options);
             obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
         }
         req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));

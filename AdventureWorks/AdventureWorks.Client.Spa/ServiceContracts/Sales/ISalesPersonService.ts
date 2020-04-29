@@ -9,7 +9,7 @@ import { AuthManager } from 'xomega';
 
 export class ISalesPersonService {
 
-    public static getReadListRequest(): JQueryAjaxSettings {
+    public static getReadListAsyncRequest(): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
         req.url += `sales-person`;
@@ -18,8 +18,8 @@ export class ISalesPersonService {
 }
 
 export class SalesPerson_ReadListOutput {
-    public BusinessEntityId: any;
-    public TerritoryId: any;
-    public Name: any;
-    public IsCurrent: any;
+    public BusinessEntityId: any = null;
+    public TerritoryId: any = null;
+    public Name: any = null;
+    public IsCurrent: any = null;
 }

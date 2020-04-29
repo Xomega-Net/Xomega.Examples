@@ -9,8 +9,11 @@
 
 namespace AdventureWorks.Client.Web
 {
+
+
     public partial class CollapsiblePanel
     {
+
         /// <summary>
         /// Header control.
         /// </summary>
@@ -19,16 +22,16 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Header;
-        
+
         /// <summary>
-        /// lblIcon control.
+        /// twister control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIcon;
-        
+        protected global::System.Web.UI.WebControls.Label twister;
+
         /// <summary>
         /// lblTitle control.
         /// </summary>
@@ -37,7 +40,16 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTitle;
-        
+
+        /// <summary>
+        /// pnlCollapsible control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCollapsible;
+
         /// <summary>
         /// Body control.
         /// </summary>
@@ -46,7 +58,7 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Body;
-        
+
         /// <summary>
         /// Content control.
         /// </summary>
@@ -55,14 +67,5 @@ namespace AdventureWorks.Client.Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder Content;
-        
-        /// <summary>
-        /// cpe control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CollapsiblePanelExtender cpe;
     }
 }

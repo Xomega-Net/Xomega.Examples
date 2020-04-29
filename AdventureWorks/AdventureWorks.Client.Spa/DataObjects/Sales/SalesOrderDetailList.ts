@@ -6,7 +6,7 @@
 
 import { SalesOrderObject } from 'DataObjects/Sales/SalesOrderObjectCustomized';
 import { ISalesOrderService } from 'ServiceContracts/Sales/ISalesOrderService';
-import { DataListObject, TextProperty, MoneyProperty, IntegerProperty, EnumProperty, ErrorList } from 'xomega';
+import { DataListObject, TextProperty, MoneyProperty, IntegerProperty, EnumIntProperty, PercentFractionProperty, ErrorList } from 'xomega';
 
 export class SalesOrderDetailList extends DataListObject {
 
@@ -14,11 +14,11 @@ export class SalesOrderDetailList extends DataListObject {
     public CarrierTrackingNumber: TextProperty;
     public LineTotal: MoneyProperty;
     public OrderQty: IntegerProperty;
-    public Product: EnumProperty;
+    public Product: EnumIntProperty;
     public SalesOrderDetailId: IntegerProperty;
-    public SpecialOffer: EnumProperty;
+    public SpecialOffer: EnumIntProperty;
     public UnitPrice: MoneyProperty;
-    public UnitPriceDiscount: MoneyProperty;
+    public UnitPriceDiscount: PercentFractionProperty;
 
     // Construction and initialization
     init() {
@@ -31,37 +31,38 @@ export class SalesOrderDetailList extends DataListObject {
         this.OrderQty = new IntegerProperty();
         this.OrderQty.Required(true);
         this.OrderQty.Editable(false);
-        this.Product = new EnumProperty();
+        this.Product = new EnumIntProperty();
         this.Product.Required(true);
         this.Product.EnumType = "product";
         this.Product.Editable(false);
         this.SalesOrderDetailId = new IntegerProperty();
         this.SalesOrderDetailId.Required(true);
         this.SalesOrderDetailId.Editable(false);
-        this.SpecialOffer = new EnumProperty();
+        this.SalesOrderDetailId.IsKey = true;
+        this.SpecialOffer = new EnumIntProperty();
         this.SpecialOffer.Required(true);
         this.SpecialOffer.EnumType = "special offer";
         this.SpecialOffer.Editable(false);
         this.UnitPrice = new MoneyProperty();
         this.UnitPrice.Required(true);
         this.UnitPrice.Editable(false);
-        this.UnitPriceDiscount = new MoneyProperty();
+        this.UnitPriceDiscount = new PercentFractionProperty();
         this.UnitPriceDiscount.Required(true);
         this.UnitPriceDiscount.Editable(false);
     }
 
     protected doReadAsync(options?): JQueryPromise<any> {
         return $.when(
-            $.ajax(this.getSalesOrder_Detail_ReadListRequest(
+            $.ajax(this.getSalesOrder_Detail_ReadListAsyncRequest(
                 !this.Parent() ? null : (this.Parent() as SalesOrderObject).SalesOrderId.TransportValue(), options)),
         );
     }
 
-    protected getSalesOrder_Detail_ReadListRequest(_salesOrderId: any, options?): JQueryAjaxSettings {
+    protected getSalesOrder_Detail_ReadListAsyncRequest(_salesOrderId: any, options?): JQueryAjaxSettings {
         let obj = this;
-        let req = ISalesOrderService.getDetail_ReadListRequest(_salesOrderId);
+        let req = ISalesOrderService.getDetail_ReadListAsyncRequest(_salesOrderId);
         req.success = (_data, _status, xhr) => {
-            obj.fromJSON(_data.Result, options);
+            obj.fromJSON(_data.result || _data.Result, options);
             obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
         }
         req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));

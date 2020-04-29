@@ -1,0 +1,20 @@
+{
+  "help": "https://go.microsoft.com/fwlink/?linkid=866610",
+  "root": false,
+
+  "dependentFileProviders": {
+    "add": {
+      "extensionToExtension": {
+        "add": {
+          ".cs" : [ ".tt" ]
+        }
+      },
+      "fileSuffixToExtension": {
+        "add": {
+          "Customized.cs": [ ".xaml", ".cs" ],
+          ".Development.json": [".json"]
+        }
+      }
+    }
+  }
+}

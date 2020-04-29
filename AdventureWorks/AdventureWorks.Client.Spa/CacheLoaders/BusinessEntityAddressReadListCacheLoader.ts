@@ -5,30 +5,30 @@
 //---------------------------------------------------------------------------------------------
 
 import { BusinessEntityAddress_ReadListOutput, IBusinessEntityAddressService } from 'ServiceContracts/Person/IBusinessEntityAddressService';
-import { BaseLookupCacheLoader, Header, LookupTable, ErrorList } from 'xomega';
+import { LocalLookupCacheLoader, fromJSON, Header, LookupTable, ErrorList } from 'xomega';
 
-export class BusinessEntityAddressReadListCacheLoader extends BaseLookupCacheLoader {
+export class BusinessEntityAddressReadListCacheLoader extends LocalLookupCacheLoader {
 
-    constructor(caseSensitive: boolean) {
-        super(caseSensitive, 'business entity address');
+    constructor() {
+        super(true, 'business entity address');
     }
 
-    protected loadRequest(): JQueryAjaxSettings {
-        // overrde this method in a subclass and provide proper input value(s)!
-        return this.getLoadRequest(null);
-    }
-
-    protected getLoadRequest(_businessEntityId: any): JQueryAjaxSettings {
-        return IBusinessEntityAddressService.getReadListRequest(_businessEntityId);
+    protected getLoadRequest(): JQueryAjaxSettings {
+        var _businessEntityId = this.parameters['business entity id'];
+        if (_businessEntityId == null) return null;
+        return IBusinessEntityAddressService.getReadListAsyncRequest(_businessEntityId);
     }
 
     public loadCache(tableType: string, updateCache: (table: LookupTable) => void) {
-        let req: JQueryAjaxSettings = this.loadRequest();
+        let req: JQueryAjaxSettings = this.getLoadRequest();
+        if (req == null) return;
         let cl = this;
         req.success = function (data) {
             let lkpData: { [key: string]: Header } = {};
-            let rows: BusinessEntityAddress_ReadListOutput[] = data.Result || [];
-            for (let row of rows) {
+            let rows = data.result || data.Result || [];
+            for (let r of rows) {
+                let row = new BusinessEntityAddress_ReadListOutput();
+                fromJSON(row, r);
                 let h: Header = lkpData[row.AddressId] || new Header(tableType, row.AddressId, row.AddressType);
                 h.addToAttribute('address line 1', row.AddressLine1);
                 h.addToAttribute('address line 2', row.AddressLine2);

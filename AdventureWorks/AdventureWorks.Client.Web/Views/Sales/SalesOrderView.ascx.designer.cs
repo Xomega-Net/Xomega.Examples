@@ -9,7 +9,6 @@ namespace AdventureWorks.Client.Web
     public partial class SalesOrderView
     {
         protected global::System.Web.UI.WebControls.Panel pnlComposition;
-        protected global::System.Web.UI.WebControls.Label lblSalesOrderViewTitle;
         protected global::System.Web.UI.WebControls.Panel pnlMain;
         protected global::System.Web.UI.WebControls.Label lblSalesOrderNumber;
         protected global::System.Web.UI.WebControls.Label ctlSalesOrderNumber;
@@ -48,7 +47,7 @@ namespace AdventureWorks.Client.Web
         protected global::System.Web.UI.WebControls.TextBox ctlLookupStoreName;
         protected global::System.Web.UI.WebControls.Label lblLookupPersonName;
         protected global::System.Web.UI.WebControls.TextBox ctlLookupPersonName;
-        protected global::System.Web.UI.WebControls.LinkButton lnkCustomerLookupLookUp;
+        protected global::System.Web.UI.WebControls.LinkButton LinkCustomerLookupLookUp;
         protected global::System.Web.UI.WebControls.Panel pnlBillingAddress;
         protected global::System.Web.UI.WebControls.Label lblBillingAddressAddressId;
         protected global::System.Web.UI.WebControls.DropDownList ctlBillingAddressAddressId;
@@ -78,7 +77,7 @@ namespace AdventureWorks.Client.Web
         protected global::AjaxControlToolkit.TabPanel tabDetail;
         protected global::System.Web.UI.WebControls.Panel pnlDetail;
         protected global::System.Web.UI.WebControls.GridView gridDetail;
-        protected global::System.Web.UI.WebControls.LinkButton lnkDetailNew;
+        protected global::System.Web.UI.WebControls.LinkButton LinkDetailNew;
         protected global::AjaxControlToolkit.TabPanel tabPayment;
         protected global::System.Web.UI.WebControls.Panel pnlPayment;
         protected global::System.Web.UI.WebControls.Label lblPaymentSubTotal;

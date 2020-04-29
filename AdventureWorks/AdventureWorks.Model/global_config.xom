@@ -4,18 +4,20 @@
         xmlns:edm="http://www.xomega.net/edm"
         xmlns:sql="http://www.xomega.net/sql"
         xmlns:xfk="http://www.xomega.net/framework"
+        xmlns:svc="http://www.xomega.net/svc"
         xmlns:wcf="http://www.xomega.net/wcf"
         xmlns:ui="http://www.xomega.net/ui">
 
-  <wcf:services-config async="false"
+  <svc:services-config async="true"
+                       cancellation="false"
                        namespace="AdventureWorks.Services"
                        implNamespace="AdventureWorks.Services.Entities"
-                       tsOutputPath="../AdventureWorks.Client.Spa/ServiceContracts/{Module/}{File}">
+                       tsOutputPath="../AdventureWorks.Client.Spa/ServiceContracts/{Module/}{File}"/>
 
+  <wcf:config>
     <wcf:endpoint-config binding="ws2007FederationHttpBinding" bindingConfiguration="message" baseLocalAddress=""
                          baseRemoteAddress="http://localhost:61436/{Module/}{File}.svc"/>
-
-  </wcf:services-config>
+  </wcf:config>
 
   <!-- configuration for generation of UI data objects -->
   <xfk:data-objects-config namespace="AdventureWorks.Client.Objects" assembly="AdventureWorks.Client.Common"

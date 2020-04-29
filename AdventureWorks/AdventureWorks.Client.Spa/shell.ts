@@ -2,8 +2,8 @@ import { MainMenu } from 'Views/MainMenu';
 import * as app from 'durandal/app';
 import * as ko from 'knockout';
 import * as router from 'plugins/router';
-import { PersonType } from 'Enumerations/Enumerations';
 import { AuthManager } from 'xomega';
+import { PersonType } from './Enumerations/Enumerations';
 
 // default routes configuration
 let Routes = [
@@ -52,7 +52,7 @@ class Shell {
         // TODO: check item.route and set item.roles array accordingly
         if (item.route != null && item.route.indexOf('Sales') >= 0)
             item.roles = [PersonType.StoreContact, PersonType.IndividualCustomer,
-                          PersonType.Employee, PersonType.SalesPerson];
+            PersonType.Employee, PersonType.SalesPerson];
     }
 }
 

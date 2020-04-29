@@ -4,10 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin.Security.Cookies;
 using System;
 using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI.WebControls;
 using Xomega.Framework;
-using Xomega.Framework.Views;
 
 namespace AdventureWorks.Client.Web
 {
@@ -29,7 +30,7 @@ namespace AdventureWorks.Client.Web
             {
                 // user that is authenticated, but not authorized to view a page will be redirected
                 // to this view, so display an appropriate message (instead of the login form) here
-                lblLoginViewTitle.Text = "Unauthorized";
+                lbl_ViewTitle.Text = "Unauthorized";
                 ErrorList el = new ErrorList();
                 el.AddError(ErrorType.Security, Messages.PageNotAuthorized);
                 Model.Errors = el;
@@ -38,28 +39,29 @@ namespace AdventureWorks.Client.Web
             }
         }
 
-        protected override void OnViewEvents(object sender, ViewEvent e)
+        private async Task SignIn(CancellationToken token = default)
         {
-            base.OnViewEvents(sender, e);
-
-            if (e.IsSaved()) // authenticated successfully
+            AuthenticationObject authObj = VM?.MainObj;
+            ClaimsIdentity ci = null;
+            if (authObj != null && authObj.EmailProperty.Value != null)
             {
-                DetailsViewModel dvm = sender as DetailsViewModel;
-                AuthenticationObject authObj = dvm == null ? null : dvm.DetailsObject as AuthenticationObject;
-                ClaimsIdentity ci = null;
-                if (authObj != null && authObj.EmailProperty.Value != null)
-                {
-                    PersonInfo userInfo = ServiceProvider.GetService<IPersonService>().Read(authObj.EmailProperty.Value).Result;
-                    ci = SecurityManager.CreateIdentity(CookieAuthenticationDefaults.AuthenticationType, userInfo);
-                }
-                if (ci != null)
-                {
-                    HttpContext.Current.GetOwinContext().Authentication.SignIn(ci);
-                    string url = HttpContext.Current.Request.QueryString[CookieAuthenticationDefaults.ReturnUrlParameter];
-                    if (url != null)
-                        Response.Redirect(url);
-                }
+                PersonInfo userInfo = (await ServiceProvider.GetService<IPersonService>().ReadAsync(authObj.EmailProperty.Value)).Result;
+                ci = SecurityManager.CreateIdentity(CookieAuthenticationDefaults.AuthenticationType, userInfo);
             }
+            if (ci != null)
+            {
+                HttpContext.Current.GetOwinContext().Authentication.SignIn(ci);
+                string url = HttpContext.Current.Request.QueryString[CookieAuthenticationDefaults.ReturnUrlParameter];
+                if (url != null)
+                    HttpContext.Current.Response.Redirect(url, false);
+            }
+        }
+
+        protected override async Task OnViewEventsAsync(object sender, ViewEvent e, CancellationToken token = default)
+        {
+            await base.OnViewEventsAsync(sender, e, token);
+            if (e.IsSaved()) // authenticated successfully
+                await SignIn(token);
         }
     }
 }

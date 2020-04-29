@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using Xomega.Framework;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
@@ -25,8 +25,7 @@ namespace AdventureWorks.Services
         /// Reads a list of Special Offer objects based on the specified criteria.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<ICollection<SpecialOffer_ReadListOutput>> ReadList();
+        Task<Output<ICollection<SpecialOffer_ReadListOutput>>> ReadListAsync();
 
     }
     #endregion
@@ -34,7 +33,7 @@ namespace AdventureWorks.Services
     #region SpecialOffer_ReadListOutput structure
 
     ///<summary>
-    /// The output structure of operation ISpecialOfferService.ReadList.
+    /// The output structure of operation ISpecialOfferService.ReadListAsync.
     ///</summary>
     [DataContract]
     public class SpecialOffer_ReadListOutput
@@ -48,15 +47,6 @@ namespace AdventureWorks.Services
         ///</summary>
         [DataMember]
         public string Description { get; set; }
-        
-        [DataMember]
-        public bool IsActive { get; set; }
-        
-        ///<summary>
-        /// Group the discount applies to such as Reseller or Customer.
-        ///</summary>
-        [DataMember]
-        public string Category { get; set; }
     }
     #endregion
 

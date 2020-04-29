@@ -4,7 +4,7 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-import { CriteriaObject, TextProperty, OperatorProperty, EnumProperty } from 'xomega';
+import { CriteriaObject, TextProperty, OperatorProperty, EnumIntProperty } from 'xomega';
 
 export class CustomerCriteria extends CriteriaObject {
 
@@ -15,7 +15,7 @@ export class CustomerCriteria extends CriteriaObject {
     public PersonNameOperator: OperatorProperty;
     public StoreName: TextProperty;
     public StoreNameOperator: OperatorProperty;
-    public TerritoryId: EnumProperty;
+    public TerritoryId: EnumIntProperty;
 
     // Construction and initialization
     init() {
@@ -34,7 +34,7 @@ export class CustomerCriteria extends CriteriaObject {
         this.StoreNameOperator.Size = 25;
         this.StoreNameOperator.EnumType = "operators";
         this.StoreNameOperator.HasNullCheck = true;
-        this.TerritoryId = new EnumProperty();
+        this.TerritoryId = new EnumIntProperty();
         this.TerritoryId.EnumType = "sales territory";
     }
 }

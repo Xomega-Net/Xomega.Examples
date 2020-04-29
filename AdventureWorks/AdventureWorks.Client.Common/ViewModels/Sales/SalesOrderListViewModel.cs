@@ -8,6 +8,8 @@ using AdventureWorks.Client.Objects;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Specialized;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Views;
 
@@ -15,8 +17,8 @@ namespace AdventureWorks.Client.ViewModels
 {
     public partial class SalesOrderListViewModel : SearchViewModel
     {
-        protected SalesOrderList list { get { return List as SalesOrderList; } }
-        protected SalesOrderCriteria criteria { get { return List.CriteriaObject as SalesOrderCriteria; } }
+        public SalesOrderList ListObj => List as SalesOrderList;
+        public SalesOrderCriteria CritObj => List.CriteriaObject as SalesOrderCriteria;
 
         public SalesOrderListViewModel(IServiceProvider sp) : base(sp)
         {
@@ -29,55 +31,69 @@ namespace AdventureWorks.Client.ViewModels
             List.CriteriaObject = ServiceProvider.GetService<SalesOrderCriteria>();
         }
 
-        #region Link lnkDetails
+        public override string BaseTitle => GetString("Sales Order List");
 
-        public virtual NameValueCollection lnkDetails_Params(int row)
+        #region Link LinkDetails
+
+        public virtual NameValueCollection LinkDetails_Params(DataRow row)
         {
-            NameValueCollection query = new NameValueCollection();
-            DataListObject list = this.list;
-            list.CurrentRow = row;
-            query.Add("SalesOrderId", this.list.SalesOrderIdProperty.EditStringValue);
-            query.Add(ViewParams.Mode.Param, ViewParams.Mode.Inline);
-            query.Add(ViewParams.QuerySource, "lnkDetails");
+            NameValueCollection query = new NameValueCollection()
+            {
+                { "SalesOrderId", ListObj.SalesOrderIdProperty.GetStringValue(ValueFormat.EditString, row) },
+                { ViewParams.Mode.Param, ViewParams.Mode.Inline },
+                { ViewParams.QuerySource, "LinkDetails" },
+            };
             return query;
         }
 
-        public virtual void lnkDetails_Command(IView tgtView, IView curView, int row)
+        public virtual void LinkDetails_Command(IView tgtView, IView curView, DataRow row)
         {
-            NameValueCollection query = lnkDetails_Params(row);
+            NameValueCollection query = LinkDetails_Params(row);
             ViewModel tgtModel = ServiceProvider.GetService<SalesOrderViewModel>();
-            if (NavigateTo(tgtModel, tgtView, query, this, curView))
-            {
-                DataListObject list = this.list;
-                if (list != null) list.SelectRow(row);
-            }
+            NavigateTo(tgtModel, tgtView, query, this, curView);
         }
 
-        public virtual bool lnkDetails_Enabled(int row)
+        public virtual async Task LinkDetails_CommandAsync(IAsyncView tgtView, IAsyncView curView, DataRow row, CancellationToken token = default)
+        {
+            NameValueCollection query = LinkDetails_Params(row);
+            ViewModel tgtModel = ServiceProvider.GetService<SalesOrderViewModel>();
+            await NavigateToAsync(tgtModel, tgtView, query, this, curView, token);
+        }
+
+        public virtual bool LinkDetails_Enabled(DataRow row)
         {
             return true;
         }
         #endregion
 
-        #region Link lnkNew
+        #region Link LinkNew
 
-        public virtual NameValueCollection lnkNew_Params()
+        public virtual NameValueCollection LinkNew_Params()
         {
-            NameValueCollection query = new NameValueCollection();
-            query.Add(ViewParams.Action.Param, ViewParams.Action.Create);
-            query.Add(ViewParams.Mode.Param, ViewParams.Mode.Inline);
-            query.Add(ViewParams.QuerySource, "lnkNew");
+            NameValueCollection query = new NameValueCollection()
+            {
+                { ViewParams.Action.Param, ViewParams.Action.Create },
+                { ViewParams.Mode.Param, ViewParams.Mode.Inline },
+                { ViewParams.QuerySource, "LinkNew" },
+            };
             return query;
         }
 
-        public virtual void lnkNew_Command(IView tgtView, IView curView)
+        public virtual void LinkNew_Command(IView tgtView, IView curView)
         {
-            NameValueCollection query = lnkNew_Params();
+            NameValueCollection query = LinkNew_Params();
             ViewModel tgtModel = ServiceProvider.GetService<SalesOrderViewModel>();
             NavigateTo(tgtModel, tgtView, query, this, curView);
         }
 
-        public virtual bool lnkNew_Enabled()
+        public virtual async Task LinkNew_CommandAsync(IAsyncView tgtView, IAsyncView curView, CancellationToken token = default)
+        {
+            NameValueCollection query = LinkNew_Params();
+            ViewModel tgtModel = ServiceProvider.GetService<SalesOrderViewModel>();
+            await NavigateToAsync(tgtModel, tgtView, query, this, curView, token);
+        }
+
+        public virtual bool LinkNew_Enabled()
         {
             return true;
         }

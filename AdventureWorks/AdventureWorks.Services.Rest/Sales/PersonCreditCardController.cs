@@ -7,6 +7,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Services;
 
@@ -15,16 +16,13 @@ namespace AdventureWorks.Services.Rest
     ///<summary>
     /// Cross-reference table mapping people to their credit card information in the CreditCard table. 
     ///</summary>
-    public partial class PersonCreditCardController : ControllerBase
+    public partial class PersonCreditCardController : BaseController
     {
-        private ErrorList currentErrors;
-        private ErrorParser errorsParser;
-        private IPersonCreditCardService svc;
+        private readonly IPersonCreditCardService svc;
 
         public PersonCreditCardController(ErrorList errorList, ErrorParser errorParser, IPersonCreditCardService service)
+            : base(errorList, errorParser)
         {
-            currentErrors = errorList;
-            errorsParser = errorParser;
             svc = service;
         }
 
@@ -33,20 +31,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("person/{_businessEntityId}/credit-card")]
         [HttpGet]
-        public ActionResult ReadList([FromRoute] int _businessEntityId)
+        public async Task<ActionResult> ReadListAsync([FromRoute] int _businessEntityId)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<ICollection<PersonCreditCard_ReadListOutput>> output = svc.ReadList(_businessEntityId);
+                    Output<ICollection<PersonCreditCard_ReadListOutput>> output = await svc.ReadListAsync(_businessEntityId);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)

@@ -62,10 +62,6 @@ namespace AdventureWorks.Services.Entities
              .IsUnicode()
              .IsRequired();
 
-            c.Property(e => e.SpatialLocation)
-             .HasColumnName("SpatialLocation")
-             .HasColumnType("geography");
-
             c.Property(e => e.Rowguid)
              .HasColumnName("rowguid")
              .HasColumnType("uniqueidentifier")

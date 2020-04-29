@@ -1,7 +1,7 @@
 import router = require("plugins/router");
 import jwtDecode = require('jwt_decode');
-import { AuthManager, ViewModel } from 'xomega';
-import LoginViewCustomized = require("Views/Person/LoginViewCustomized");
+import { AuthManager } from 'xomega';
+import LoginViewCustomized = require("./Views/Person/LoginViewCustomized");
 
 class Login extends LoginViewCustomized {
 
@@ -28,7 +28,8 @@ class Login extends LoginViewCustomized {
         req.url += 'authentication';
         let vm = this;
         req.success = function (data, textStatus, jqXHR) {
-            var jwtToken = jqXHR.responseJSON.Result;
+            let json = jqXHR.responseJSON;
+            var jwtToken = json.result || json.Result;
             AuthManager.Current.signIn(jwtToken, jwtDecode(jwtToken));
             router.navigate('#' + vm.Params[xomega.AuthManager.ReturnParam]);
         };

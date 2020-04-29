@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
-        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:svc="http://www.xomega.net/svc"
         xmlns:rest="http://www.xomega.net/rest"
         xmlns:ui="http://www.xomega.net/ui"
         xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
@@ -20,8 +20,17 @@
         <ui:html-control multi-value="true">
           <input xmlns="http://www.w3.org/1999/xhtml"/>
         </ui:html-control>
+        <ui:blazor-control multi-value="true">
+          <XInputText />
+        </ui:blazor-control>
       </config>
       <enum ref="sales order status"/>
+    </type>
+    <type name="discount" base="percent">
+      <config>
+        <sql:type name="money" db="sqlsrv"/>
+        <xfk:property class="PercentFractionProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
+      </config>
     </type>
   </types>
   <enums>
@@ -127,6 +136,7 @@
         <field name="revision number" type="tiny int" required="true">
           <config>
             <sql:column name="RevisionNumber" default="((0))"/>
+            <edm:property ConcurrencyMode="Fixed"/>
           </config>
           <doc>
             <summary>Incremental number to track changes to the sales order over time.</summary>
@@ -161,7 +171,7 @@
             <sql:column name="Status" default="((1))"/>
           </config>
           <doc>
-            <summary>Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled</summary>
+            <summary>Order current status.</summary>
           </doc>
         </field>
         <field name="online order flag" type="boolean" required="true">
@@ -202,7 +212,7 @@
             <sql:column name="CustomerID"/>
           </config>
           <doc>
-            <summary>Customer identification number. Foreign key to Customer.BusinessEntityID.</summary>
+            <summary>Customer identification number.</summary>
           </doc>
         </field>
         <field name="sales person id" type="sales person">
@@ -500,7 +510,6 @@
                 </doc>
               </param>
               <param name="customer name" type="string"/>
-              <param name="global region" type="sales territory group" required="false"/>
               <param name="territory id operator" type="operator">
                 <doc>
                   <summary>Comparison operator for the corresponding Territory Id criteria.</summary>
@@ -523,9 +532,9 @@
             <param name="sales order number"/>
             <param name="status"/>
             <param name="order date" type="date"/>
-            <param name="ship date" type="date"/>
             <param name="due date" type="date"/>
             <param name="total due"/>
+            <param name="ship date" type="date"/>
             <param name="online order flag" type="yesno" required="true"/>
             <param name="customer store" type="string"/>
             <param name="customer name" type="string"/>
@@ -548,10 +557,11 @@
       </operations>
       <config>
         <sql:table name="Sales.SalesOrderHeader"/>
-        <wcf:customize extend="true" preserve-on-clean="true"/>
+        <svc:customize extend="true" preserve-on-clean="true"/>
       </config>
       <doc>
         <summary>General sales order information.</summary>
+        Here you can add a long description of the sales order domain object.
       </doc>
       <subobjects>
         <object name="detail">
@@ -587,7 +597,7 @@
                 <summary>Selling price of a single product.</summary>
               </doc>
             </field>
-            <field name="unit price discount" type="money" required="true">
+            <field name="unit price discount" type="discount" required="true">
               <config>
                 <sql:column name="UnitPriceDiscount" default="((0.0))"/>
               </config>
@@ -631,15 +641,14 @@
               </input>
               <output>
                 <param name="sales order id" type="sales order" required="true"/>
-                <param name="carrier tracking number"/>
+                <param name="subcategory" type="product subcategory"/>
+                <param name="product id" type="product" required="true"/>
                 <param name="order qty"/>
                 <param name="special offer id" type="special offer" required="true"/>
-                <param name="product id" type="product" required="true"/>
                 <param name="unit price"/>
                 <param name="unit price discount"/>
                 <param name="line total"/>
-                <param name="rowguid"/>
-                <param name="modified date"/>
+                <param name="carrier tracking number"/>
                 <config>
                   <xfk:add-to-object class="SalesOrderDetailObject"/>
                 </config>
@@ -655,15 +664,10 @@
               <input>
                 <param name="sales order id" type="sales order" required="true"/>
                 <struct name="data">
-                  <param name="carrier tracking number"/>
+                  <param name="product id" type="product" required="true"/>
                   <param name="order qty"/>
                   <param name="special offer id" type="special offer" required="true"/>
-                  <param name="product id" type="product" required="true"/>
-                  <param name="unit price"/>
-                  <param name="unit price discount"/>
-                  <param name="line total"/>
-                  <param name="rowguid"/>
-                  <param name="modified date"/>
+                  <param name="carrier tracking number"/>
                   <config>
                     <xfk:add-to-object class="SalesOrderDetailObject"/>
                   </config>
@@ -689,15 +693,10 @@
               <input>
                 <param name="sales order detail id"/>
                 <struct name="data">
-                  <param name="carrier tracking number"/>
+                  <param name="product id" type="product" required="true"/>
                   <param name="order qty"/>
                   <param name="special offer id" type="special offer" required="true"/>
-                  <param name="product id" type="product" required="true"/>
-                  <param name="unit price"/>
-                  <param name="unit price discount"/>
-                  <param name="line total"/>
-                  <param name="rowguid"/>
-                  <param name="modified date"/>
+                  <param name="carrier tracking number"/>
                   <config>
                     <xfk:add-to-object class="SalesOrderDetailObject"/>
                   </config>
@@ -735,12 +734,12 @@
                 </config>
               </input>
               <output list="true">
-                <param name="sales order detail id"/>
                 <param name="product" type="product" required="true"/>
+                <param name="sales order detail id"/>
                 <param name="order qty"/>
+                <param name="special offer" type="special offer" required="true"/>
                 <param name="unit price"/>
                 <param name="unit price discount"/>
-                <param name="special offer" type="special offer" required="true"/>
                 <param name="line total"/>
                 <param name="carrier tracking number"/>
                 <config>
@@ -812,8 +811,26 @@
       <ui:display>
         <ui:field param="sales person id" label="Sales Person"/>
         <ui:field param="territory id" label="Sales Territory" is-trigger="true"/>
-        <ui:field param="global region" is-trigger="true"/>
       </ui:display>
+    </xfk:data-object>
+    <xfk:data-object class="SalesOrderList" list="true">
+      <ui:display>
+        <ui:field param="sales order id" hidden="true"/>
+        <ui:field param="online order flag" label="Online"/>
+        <ui:field param="sales person id" label="Sales Person"/>
+        <ui:field param="territory id" label="Sales Territory"/>
+      </ui:display>
+      <ui:link name="details" view="SalesOrderView" child="true">
+        <ui:params>
+          <ui:param name="sales order id" field="sales order id"/>
+        </ui:params>
+        <ui:display on-field="sales order number"/>
+      </ui:link>
+      <ui:link name="new" view="SalesOrderView" child="true">
+        <ui:params>
+          <ui:param name="_action" value="create"/>
+        </ui:params>
+      </ui:link>
     </xfk:data-object>
     <xfk:data-object class="SalesOrderCustomerObject" customize="true">
       <xfk:add-child name="lookup" class="SalesCustomerLookupObject"/>
@@ -847,28 +864,14 @@
         </ui:result>
       </ui:link>
     </xfk:data-object>
-    <xfk:data-object class="SalesOrderList" list="true" customize="true">
-      <ui:display>
-        <ui:field param="sales order id" hidden="true"/>
-        <ui:field param="online order flag" label="Online"/>
-        <ui:field param="sales person id" label="Sales Person"/>
-        <ui:field param="territory id" label="Sales Territory"/>
-      </ui:display>
-      <ui:link name="details" view="SalesOrderView" child="true">
-        <ui:params>
-          <ui:param name="sales order id" field="sales order id"/>
-        </ui:params>
-        <ui:display on-field="sales order number"/>
-      </ui:link>
-      <ui:link name="new" view="SalesOrderView" child="true">
-        <ui:params>
-          <ui:param name="_action" value="create"/>
-        </ui:params>
-      </ui:link>
-    </xfk:data-object>
-    <xfk:data-object class="SalesOrderDetailObject">
+    <xfk:data-object class="SalesOrderDetailObject" customize="true">
       <ui:display>
         <ui:field param="sales order detail id" hidden="true"/>
+        <ui:field param="sales order id" hidden="true"/>
+        <ui:field param="product id" label="Product" is-trigger="true"/>
+        <ui:field param="special offer id" label="Special Offer" is-trigger="true"/>
+        <ui:field param="subcategory" editable="true" is-trigger="true"/>
+        <ui:field param="order qty" is-trigger="true"/>
       </ui:display>
     </xfk:data-object>
     <xfk:data-object class="SalesOrderDetailList" list="true">
@@ -908,20 +911,28 @@
   </xfk:data-objects>
   <ui:views>
     <ui:view name="SalesOrderView" title="Sales Order">
-      <ui:view-model data-object="SalesOrderObject"/>
+      <ui:view-model data-object="SalesOrderObject" customize="true"/>
       <ui:layout base="standard">
         <ui:details>
-          <ui:fields columns="2" flow="vertical"/>
+          <ui:children layout="tabs"/>
         </ui:details>
-        <ui:size width="840" height="640"/>
+        <ui:size width="800" height="680"/>
       </ui:layout>
     </ui:view>
     <ui:view name="SalesOrderListView" title="Sales Order List">
       <ui:view-model data-object="SalesOrderList"/>
-      <ui:layout base="master-details"/>
+      <ui:layout base="master-details">
+        <ui:size width="1760" height="860"/>
+      </ui:layout>
     </ui:view>
     <ui:view name="SalesOrderDetailView" title="Detail" child="true">
       <ui:view-model data-object="SalesOrderDetailObject"/>
+      <ui:layout>
+        <ui:details>
+          <ui:fields columns="1"/>
+        </ui:details>
+        <ui:size width="450" height="450"/>
+      </ui:layout>
     </ui:view>
   </ui:views>
 </module>

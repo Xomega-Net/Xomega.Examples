@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 // CUSTOM_CODE_START: add namespaces for custom code below
 // CUSTOM_CODE_END
@@ -28,13 +29,15 @@ namespace AdventureWorks.Services.Entities
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
         }
 
-        public virtual Output<ICollection<PersonCreditCard_ReadListOutput>> ReadList(int _businessEntityId)
+        public virtual async Task<Output<ICollection<PersonCreditCard_ReadListOutput>>> ReadListAsync(int _businessEntityId)
         {
-            // CUSTOM_CODE_START: add custom security checks for ReadList operation below
-            // CUSTOM_CODE_END
             ICollection<PersonCreditCard_ReadListOutput> res = null;
             try
             {
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for ReadList operation below
+                // CUSTOM_CODE_END
                 var src = from obj in ctx.PersonCreditCard select obj;
 
                 // Source filter
@@ -68,13 +71,13 @@ namespace AdventureWorks.Services.Entities
                 // CUSTOM_CODE_END
 
                 currentErrors.AbortIfHasErrors();
-                res = qry.ToList();
+                res = await qry.ToListAsync();
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<ICollection<PersonCreditCard_ReadListOutput>>(currentErrors, res);
+            return await Task.FromResult(new Output<ICollection<PersonCreditCard_ReadListOutput>>(currentErrors, res));
         }
     }
 }

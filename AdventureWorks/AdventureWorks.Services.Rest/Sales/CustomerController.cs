@@ -7,6 +7,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Services;
 
@@ -15,16 +16,13 @@ namespace AdventureWorks.Services.Rest
     ///<summary>
     /// Current customer information. Also see the Person and Store tables.
     ///</summary>
-    public partial class CustomerController : ControllerBase
+    public partial class CustomerController : BaseController
     {
-        private ErrorList currentErrors;
-        private ErrorParser errorsParser;
-        private ICustomerService svc;
+        private readonly ICustomerService svc;
 
         public CustomerController(ErrorList errorList, ErrorParser errorParser, ICustomerService service)
+            : base(errorList, errorParser)
         {
-            currentErrors = errorList;
-            errorsParser = errorParser;
             svc = service;
         }
 
@@ -33,20 +31,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("customer")]
         [HttpGet]
-        public ActionResult ReadList([FromQuery] Customer_ReadListInput_Criteria _criteria)
+        public async Task<ActionResult> ReadListAsync([FromQuery] Customer_ReadListInput_Criteria _criteria)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<ICollection<Customer_ReadListOutput>> output = svc.ReadList(_criteria);
+                    Output<ICollection<Customer_ReadListOutput>> output = await svc.ReadListAsync(_criteria);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)

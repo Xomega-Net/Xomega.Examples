@@ -5,12 +5,11 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Web;
-using System.Web.UI;
+using Xomega.Framework.Web;
 
 namespace AdventureWorks.Client.Web
 {
-    public partial class LoginViewPage : Page
+    public partial class LoginViewPage : WebPage
     {
         protected override void OnLoadComplete(EventArgs e)
         {

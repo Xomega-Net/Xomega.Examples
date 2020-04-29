@@ -95,10 +95,6 @@ namespace AdventureWorks.Services.Entities
         ///</summary>
         public virtual DbSet<DatabaseLog> DatabaseLog { get; set; }
 
-        public virtual DbSet<DemoSalesOrderDetailSeed> DemoSalesOrderDetailSeed { get; set; }
-
-        public virtual DbSet<DemoSalesOrderHeaderSeed> DemoSalesOrderHeaderSeed { get; set; }
-
         ///<summary>
         /// Lookup table containing the departments within the Adventure Works Cycles company.
         ///</summary>
@@ -123,8 +119,6 @@ namespace AdventureWorks.Services.Entities
         /// Employee pay history.
         ///</summary>
         public virtual DbSet<EmployeePayHistory> EmployeePayHistory { get; set; }
-
-        public virtual DbSet<EmployeeTemporal> EmployeeTemporal { get; set; }
 
         ///<summary>
         /// Audit table tracking errors in the the AdventureWorks database that are caught by the CATCH block of a TRY...CATCH construct.
@@ -167,14 +161,10 @@ namespace AdventureWorks.Services.Entities
         ///</summary>
         public virtual DbSet<PersonCreditCard> PersonCreditCard { get; set; }
 
-        public virtual DbSet<PersonJson> PersonJson { get; set; }
-
         ///<summary>
         /// Telephone number and type of a person.
         ///</summary>
         public virtual DbSet<PersonPhone> PersonPhone { get; set; }
-
-        public virtual DbSet<PersonTemporal> PersonTemporal { get; set; }
 
         ///<summary>
         /// Type of phone number of a person.
@@ -275,14 +265,6 @@ namespace AdventureWorks.Services.Entities
         ///</summary>
         public virtual DbSet<SalesOrderDetail> SalesOrderDetail { get; set; }
 
-        public virtual DbSet<SalesOrderDetailInmem> SalesOrderDetailInmem { get; set; }
-
-        public virtual DbSet<SalesOrderDetailOndisk> SalesOrderDetailOndisk { get; set; }
-
-        public virtual DbSet<SalesOrderHeaderInmem> SalesOrderHeaderInmem { get; set; }
-
-        public virtual DbSet<SalesOrderHeaderOndisk> SalesOrderHeaderOndisk { get; set; }
-
         public virtual DbSet<SalesOrderJson> SalesOrderJson { get; set; }
 
         ///<summary>
@@ -345,18 +327,10 @@ namespace AdventureWorks.Services.Entities
         ///</summary>
         public virtual DbSet<SpecialOffer> SpecialOffer { get; set; }
 
-        public virtual DbSet<SpecialOfferInmem> SpecialOfferInmem { get; set; }
-
-        public virtual DbSet<SpecialOfferOndisk> SpecialOfferOndisk { get; set; }
-
         ///<summary>
         /// Cross-reference table mapping products to special offer discounts.
         ///</summary>
         public virtual DbSet<SpecialOfferProduct> SpecialOfferProduct { get; set; }
-
-        public virtual DbSet<SpecialOfferProductInmem> SpecialOfferProductInmem { get; set; }
-
-        public virtual DbSet<SpecialOfferProductOndisk> SpecialOfferProductOndisk { get; set; }
 
         ///<summary>
         /// State and province lookup table.
@@ -425,14 +399,11 @@ namespace AdventureWorks.Services.Entities
             modelBuilder.ApplyConfiguration(new CurrencyRateConfig());
             modelBuilder.ApplyConfiguration(new CustomerConfig());
             modelBuilder.ApplyConfiguration(new DatabaseLogConfig());
-            modelBuilder.ApplyConfiguration(new DemoSalesOrderDetailSeedConfig());
-            modelBuilder.ApplyConfiguration(new DemoSalesOrderHeaderSeedConfig());
             modelBuilder.ApplyConfiguration(new DepartmentConfig());
             modelBuilder.ApplyConfiguration(new EmailAddressConfig());
             modelBuilder.ApplyConfiguration(new EmployeeConfig());
             modelBuilder.ApplyConfiguration(new EmployeeDepartmentHistoryConfig());
             modelBuilder.ApplyConfiguration(new EmployeePayHistoryConfig());
-            modelBuilder.ApplyConfiguration(new EmployeeTemporalConfig());
             modelBuilder.ApplyConfiguration(new ErrorLogConfig());
             modelBuilder.ApplyConfiguration(new IllustrationConfig());
             modelBuilder.ApplyConfiguration(new JobCandidateConfig());
@@ -441,9 +412,7 @@ namespace AdventureWorks.Services.Entities
             modelBuilder.ApplyConfiguration(new PasswordConfig());
             modelBuilder.ApplyConfiguration(new PersonConfig());
             modelBuilder.ApplyConfiguration(new PersonCreditCardConfig());
-            modelBuilder.ApplyConfiguration(new PersonJsonConfig());
             modelBuilder.ApplyConfiguration(new PersonPhoneConfig());
-            modelBuilder.ApplyConfiguration(new PersonTemporalConfig());
             modelBuilder.ApplyConfiguration(new PhoneNumberTypeConfig());
             modelBuilder.ApplyConfiguration(new ProductConfig());
             modelBuilder.ApplyConfiguration(new ProductCategoryConfig());
@@ -465,10 +434,6 @@ namespace AdventureWorks.Services.Entities
             modelBuilder.ApplyConfiguration(new PurchaseOrderHeaderConfig());
             modelBuilder.ApplyConfiguration(new SalesOrderConfig());
             modelBuilder.ApplyConfiguration(new SalesOrderDetailConfig());
-            modelBuilder.ApplyConfiguration(new SalesOrderDetailInmemConfig());
-            modelBuilder.ApplyConfiguration(new SalesOrderDetailOndiskConfig());
-            modelBuilder.ApplyConfiguration(new SalesOrderHeaderInmemConfig());
-            modelBuilder.ApplyConfiguration(new SalesOrderHeaderOndiskConfig());
             modelBuilder.ApplyConfiguration(new SalesOrderJsonConfig());
             modelBuilder.ApplyConfiguration(new SalesOrderReasonConfig());
             modelBuilder.ApplyConfiguration(new SalesPersonConfig());
@@ -482,11 +447,7 @@ namespace AdventureWorks.Services.Entities
             modelBuilder.ApplyConfiguration(new ShipMethodConfig());
             modelBuilder.ApplyConfiguration(new ShoppingCartItemConfig());
             modelBuilder.ApplyConfiguration(new SpecialOfferConfig());
-            modelBuilder.ApplyConfiguration(new SpecialOfferInmemConfig());
-            modelBuilder.ApplyConfiguration(new SpecialOfferOndiskConfig());
             modelBuilder.ApplyConfiguration(new SpecialOfferProductConfig());
-            modelBuilder.ApplyConfiguration(new SpecialOfferProductInmemConfig());
-            modelBuilder.ApplyConfiguration(new SpecialOfferProductOndiskConfig());
             modelBuilder.ApplyConfiguration(new StateProvinceConfig());
             modelBuilder.ApplyConfiguration(new StoreConfig());
             modelBuilder.ApplyConfiguration(new TrackingEventConfig());

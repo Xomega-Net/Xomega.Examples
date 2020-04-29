@@ -7,6 +7,8 @@
 using AdventureWorks.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
 using Xomega.Framework.Services;
@@ -41,20 +43,24 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            EmailProperty = new TextProperty(this, Email);
-            EmailProperty.Required = true;
-            EmailProperty.Size = 50;
-            PasswordProperty = new TextProperty(this, Password);
-            PasswordProperty.Required = true;
+            EmailProperty = new TextProperty(this, Email)
+            {
+                Required = true,
+                Size = 50,
+            };
+            PasswordProperty = new TextProperty(this, Password)
+            {
+                Required = true,
+            };
         }
 
         #endregion
 
         #region CRUD Operations
 
-        protected override ErrorList DoSave(object options)
+        protected override async Task<ErrorList> DoSaveAsync(object options, CancellationToken token = default)
         {
-            var output = Person_Authenticate(options);
+            var output = await Person_AuthenticateAsync(options);
             return output.Messages;
         }
 
@@ -62,12 +68,12 @@ namespace AdventureWorks.Client.Objects
 
         #region Service Operations
 
-        protected virtual Output Person_Authenticate(object options)
+        protected virtual async Task<Output> Person_AuthenticateAsync(object options)
         {
             Credentials _credentials = ToDataContract<Credentials>(options);
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<IPersonService>().Authenticate(_credentials);
+                var output = await s.ServiceProvider.GetService<IPersonService>().AuthenticateAsync(_credentials);
 
                 return output;
             }

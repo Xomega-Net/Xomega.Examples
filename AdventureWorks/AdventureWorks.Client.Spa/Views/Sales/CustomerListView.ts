@@ -18,6 +18,10 @@ class CustomerListView extends SearchViewModel {
         this.ListObject.CriteriaObject = new CustomerCriteria();
     }
 
+    protected getBaseTitle(): string {
+        return 'Customer List';
+    }
+
     public attached(view, parent) {
         if (this.Params[ViewParams.Mode] == ViewParams.ModePopup)
             controls.modalViewPopup(this, view);

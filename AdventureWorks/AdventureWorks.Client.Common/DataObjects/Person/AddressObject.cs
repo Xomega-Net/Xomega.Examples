@@ -46,24 +46,37 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            AddressIdProperty = new EnumIntProperty(this, AddressId);
-            AddressIdProperty.Required = true;
-            AddressLine1Property = new TextProperty(this, AddressLine1);
-            AddressLine1Property.Required = true;
-            AddressLine1Property.Size = 60;
-            AddressLine1Property.Editable = false;
-            AddressLine2Property = new TextProperty(this, AddressLine2);
-            AddressLine2Property.Size = 60;
-            AddressLine2Property.Editable = false;
-            CityStateProperty = new TextProperty(this, CityState);
-            CityStateProperty.Editable = false;
-            CountryProperty = new TextProperty(this, Country);
-            CountryProperty.Size = 3;
-            CountryProperty.Editable = false;
-            PostalCodeProperty = new TextProperty(this, PostalCode);
-            PostalCodeProperty.Required = true;
-            PostalCodeProperty.Size = 15;
-            PostalCodeProperty.Editable = false;
+            AddressIdProperty = new EnumIntProperty(this, AddressId)
+            {
+                Required = true,
+                IsKey = true,
+            };
+            AddressLine1Property = new TextProperty(this, AddressLine1)
+            {
+                Required = true,
+                Size = 60,
+                Editable = false,
+            };
+            AddressLine2Property = new TextProperty(this, AddressLine2)
+            {
+                Size = 60,
+                Editable = false,
+            };
+            CityStateProperty = new TextProperty(this, CityState)
+            {
+                Editable = false,
+            };
+            CountryProperty = new TextProperty(this, Country)
+            {
+                Size = 3,
+                Editable = false,
+            };
+            PostalCodeProperty = new TextProperty(this, PostalCode)
+            {
+                Required = true,
+                Size = 15,
+                Editable = false,
+            };
         }
 
         #endregion

@@ -10,7 +10,7 @@
       <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
       <ProductVersion/>
       <SchemaVersion>2.0</SchemaVersion>
-      <ProjectGuid>{228666E1-22FF-4856-AE74-CA703A9C90ED}</ProjectGuid>
+      <ProjectGuid>{06CB1C64-FA28-4A5C-9DED-1B1B0D93E109}</ProjectGuid>
       <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
       <OutputType>Library</OutputType>
       <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -114,17 +114,17 @@
       <Content Include="Scripts\durandal\system.js"/>
       <Content Include="Scripts\durandal\viewEngine.js"/>
       <Content Include="Scripts\durandal\viewLocator.js"/>
-      <None Include="Scripts\jquery-3.3.1.intellisense.js"/>
-      <Content Include="Scripts\jquery-3.3.1.js"/>
-      <Content Include="Scripts\jquery-3.3.1.min.js"/>
-      <Content Include="Scripts\jquery-3.3.1.slim.js"/>
-      <Content Include="Scripts\jquery-3.3.1.slim.min.js"/>
+      <None Include="Scripts\jquery-3.5.0.intellisense.js"/>
+      <Content Include="Scripts\jquery-3.5.0.js"/>
+      <Content Include="Scripts\jquery-3.5.0.min.js"/>
+      <Content Include="Scripts\jquery-3.5.0.slim.js"/>
+      <Content Include="Scripts\jquery-3.5.0.slim.min.js"/>
       <Content Include="Scripts\jquery-ui-1.12.1.js"/>
       <Content Include="Scripts\jquery-ui-1.12.1.min.js"/>
       <Content Include="Scripts\jwt-decode-2.2.0.js"/>
       <Content Include="Scripts\jwt-decode-2.2.0.min.js"/>
-      <Content Include="Scripts\knockout-3.5.0.debug.js"/>
-      <Content Include="Scripts\knockout-3.5.0.js"/>
+      <Content Include="Scripts\knockout-3.5.1.debug.js"/>
+      <Content Include="Scripts\knockout-3.5.1.js"/>
       <Content Include="Scripts\moment-with-locales.js"/>
       <Content Include="Scripts\moment-with-locales.min.js"/>
       <Content Include="Scripts\moment.js"/>
@@ -132,8 +132,8 @@
       <Content Include="Scripts\r.js"/>
       <Content Include="Scripts\require.js"/>
       <Content Include="Scripts\text.js"/>
-      <Content Include="Scripts\xomega-2.1.0.js"/>
-      <Content Include="Scripts\xomega-controls-2.0.0.js"/>
+      <Content Include="Scripts\xomega-3.0.0.js"/>
+      <Content Include="Scripts\xomega-controls-3.0.0.js"/>
       <Content Include="Views\home.html"/>
       <Content Include="Widgets\criteria\view.html"/>
       <Content Include="Widgets\msglist\view.html"/>
@@ -142,8 +142,8 @@
       <Content Include="index.html"/>
       <Content Include="shell.html"/>
       <Content Include="tsconfig.json"/>
-      <Content Include="Scripts\jquery-3.3.1.slim.min.map"/>
-      <Content Include="Scripts\jquery-3.3.1.min.map"/>
+      <Content Include="Scripts\jquery-3.5.0.slim.min.map"/>
+      <Content Include="Scripts\jquery-3.5.0.min.map"/>
    </ItemGroup>
    <ItemGroup>
       <TypeScriptCompile Include="App_Start\Startup.ts"/>
@@ -172,6 +172,12 @@
       <TypeScriptCompile Include="Widgets\msglist\viewmodel.ts"/>
       <TypeScriptCompile Include="Widgets\pager\viewmodel.ts"/>
       <TypeScriptCompile Include="Widgets\panel\viewmodel.ts"/>
+      <TypeScriptCompile Include="Enumerations\Enumerations.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="Views\ViewsConfig.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
       <TypeScriptCompile Include="ServiceContracts\Person\PersonStructures.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
@@ -182,6 +188,9 @@
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
       <TypeScriptCompile Include="ServiceContracts\Production\IProductService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Production\IProductSubcategoryService.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
       <TypeScriptCompile Include="ServiceContracts\Purchasing\IShipMethodService.ts">
@@ -205,6 +214,9 @@
       <TypeScriptCompile Include="ServiceContracts\Sales\ISpecialOfferService.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Sales\ISpecialOfferProductService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
       <TypeScriptCompile Include="DataObjects\Person\AddressObject.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
@@ -214,14 +226,26 @@
       <TypeScriptCompile Include="DataObjects\Person\AuthenticationObject.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Person\AuthenticationObjectCustomized.ts">
+         <DependentUpon>AuthenticationObject.ts</DependentUpon>
+      </TypeScriptCompile>
       <TypeScriptCompile Include="DataObjects\Sales\CustomerCriteria.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
       <TypeScriptCompile Include="DataObjects\Sales\CustomerList.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\CreditCardPaymentObject.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\CreditCardPaymentObjectCustomized.ts">
+         <DependentUpon>CreditCardPaymentObject.ts</DependentUpon>
+      </TypeScriptCompile>
       <TypeScriptCompile Include="DataObjects\Sales\SalesOrderObject.ts">
          <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderObjectCustomized.ts">
+         <DependentUpon>SalesOrderObject.ts</DependentUpon>
       </TypeScriptCompile>
       <TypeScriptCompile Include="DataObjects\Sales\SalesOrderCriteria.ts">
          <AutoGen>True</AutoGen>
@@ -244,6 +268,9 @@
       <TypeScriptCompile Include="DataObjects\Sales\SalesOrderDetailObject.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderDetailObjectCustomized.ts">
+         <DependentUpon>SalesOrderDetailObject.ts</DependentUpon>
+      </TypeScriptCompile>
       <TypeScriptCompile Include="DataObjects\Sales\SalesOrderDetailList.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
@@ -259,9 +286,12 @@
       <TypeScriptCompile Include="CacheLoaders\BusinessEntityAddressReadListCacheLoader.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
-      <TypeScriptCompile Include="Enumerations\Enumerations.ts">
+      <TypeScriptCompile Include="CacheLoaders\SpecialOfferProductReadListCacheLoader.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
+      <TypescriptCompile Include="Views\MainMenu.ts">
+         <AutoGen>True</AutoGen>
+      </TypescriptCompile>
       <Content Include="Views\Person\LoginView.html">
          <AutoGen>True</AutoGen>
       </Content>
@@ -286,6 +316,9 @@
          <AutoGen>True</AutoGen>
          <DependentUpon>SalesOrderView.html</DependentUpon>
       </TypeScriptCompile>
+      <TypeScriptCompile Include="Views\Sales\SalesOrderViewCustomized.ts">
+         <DependentUpon>SalesOrderView.html</DependentUpon>
+      </TypeScriptCompile>
       <Content Include="Views\Sales\SalesOrderListView.html">
          <AutoGen>True</AutoGen>
       </Content>
@@ -300,30 +333,12 @@
          <AutoGen>True</AutoGen>
          <DependentUpon>SalesOrderDetailView.html</DependentUpon>
       </TypeScriptCompile>
-      <TypeScriptCompile Include="Views\ViewsConfig.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\CreditCardPaymentObject.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\CreditCardPaymentObjectCustomized.ts">
-         <DependentUpon>CreditCardPaymentObject.ts</DependentUpon>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderObjectCustomized.ts">
-         <DependentUpon>SalesOrderObject.ts</DependentUpon>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderListCustomized.ts">
-         <DependentUpon>SalesOrderList.ts</DependentUpon>
-      </TypeScriptCompile>
       <TypeScriptCompile Include="ServiceContracts\Sales\IPersonCreditCardService.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
       <TypeScriptCompile Include="CacheLoaders\PersonCreditCardReadListCacheLoader.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
-      <TypescriptCompile Include="Views\MainMenu.ts">
-         <AutoGen>True</AutoGen>
-      </TypescriptCompile>
    </ItemGroup>
    <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets"/>
    <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets"/>
@@ -335,9 +350,9 @@
             <WebProjectProperties>
                <UseIIS>True</UseIIS>
                <AutoAssignPort>True</AutoAssignPort>
-               <DevelopmentServerPort>59066</DevelopmentServerPort>
+               <DevelopmentServerPort>57858</DevelopmentServerPort>
                <DevelopmentServerVPath>/</DevelopmentServerVPath>
-               <IISUrl>http://localhost:59066/</IISUrl>
+               <IISUrl>http://localhost:57858/</IISUrl>
                <NTLMAuthentication>False</NTLMAuthentication>
                <UseCustomServer>False</UseCustomServer>
                <CustomServerUrl/>

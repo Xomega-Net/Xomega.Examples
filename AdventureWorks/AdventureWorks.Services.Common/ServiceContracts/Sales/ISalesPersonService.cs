@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using Xomega.Framework;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
@@ -25,8 +25,7 @@ namespace AdventureWorks.Services
         /// Reads a list of Sales Person objects based on the specified criteria.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<ICollection<SalesPerson_ReadListOutput>> ReadList();
+        Task<Output<ICollection<SalesPerson_ReadListOutput>>> ReadListAsync();
 
     }
     #endregion
@@ -34,7 +33,7 @@ namespace AdventureWorks.Services
     #region SalesPerson_ReadListOutput structure
 
     ///<summary>
-    /// The output structure of operation ISalesPersonService.ReadList.
+    /// The output structure of operation ISalesPersonService.ReadListAsync.
     ///</summary>
     [DataContract]
     public class SalesPerson_ReadListOutput

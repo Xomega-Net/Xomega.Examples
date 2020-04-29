@@ -14,7 +14,7 @@ namespace AdventureWorks.Client.ViewModels
         {
             services.AddTransient<LoginViewModel, LoginViewModel>();
             services.AddTransient<CustomerListViewModel, CustomerListViewModel>();
-            services.AddTransient<SalesOrderViewModel, SalesOrderViewModel>();
+            services.AddTransient<SalesOrderViewModel, SalesOrderViewModelCustomized>();
             services.AddTransient<SalesOrderListViewModel, SalesOrderListViewModel>();
             services.AddTransient<SalesOrderDetailViewModel, SalesOrderDetailViewModel>();
             return services;

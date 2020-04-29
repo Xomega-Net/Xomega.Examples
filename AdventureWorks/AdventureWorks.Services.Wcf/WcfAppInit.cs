@@ -1,5 +1,7 @@
 ﻿using AdventureWorks.Services.Entities;
+#if !EF6
 using Microsoft.EntityFrameworkCore;
+#endif
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Configuration;
@@ -12,29 +14,34 @@ namespace AdventureWorks.Services.Wcf
     {
         public override IServiceProvider ConfigureServices()
         {
-            IServiceCollection container = new ServiceCollection();
+            IServiceCollection services = new ServiceCollection();
 
             // framework services configuration
-            container.AddErrors();
-            container.AddSingletonLookupCacheProvider();
+            services.AddErrors(true);
+            services.AddSingletonLookupCacheProvider();
+            services.AddScoped<IPrincipalProvider, DefaultPrincipalProvider>();
 
             // app services configuration
             string connStr = ConfigurationManager.ConnectionStrings["AdventureWorksEntities"].ConnectionString;
-            container.AddDbContext<AdventureWorksEntities>(opt => opt
+#if EF6
+            services.AddScoped(sp => new AdventureWorksEntities(connStr));
+#else
+            services.AddDbContext<AdventureWorksEntities>(opt => opt
                 .UseLazyLoadingProxies()
-                .UseSqlServer(connStr, x => x.UseNetTopologySuite()));
-            container.AddServices();
-            container.AddSingleton<AppStsConfig>();
-            container.AddLookupCacheLoaders();
-            container.AddXmlResourceCacheLoader(typeof(Enumerations.Operators).Assembly, ".enumerations.xres", true);
+                .UseSqlServer(connStr));
+#endif
+            services.AddServiceImplementations();
+            services.AddSingleton<AppStsConfig>();
+            services.AddLookupCacheLoaders();
+            services.AddXmlResourceCacheLoader(typeof(Enumerations.Operators).Assembly, ".enumerations.xres", true);
 
-            container.AddSingleton<ResourceManager>(sp => new CompositeResourceManager(
+            services.AddSingleton<ResourceManager>(sp => new CompositeResourceManager(
                 Entities.Messages.ResourceManager,
                 Xomega.Framework.Messages.ResourceManager));
 
             // TODO: configure container with other services as needed
 
-            return container.BuildServiceProvider();
+            return services.BuildServiceProvider();
         }
     }
 }

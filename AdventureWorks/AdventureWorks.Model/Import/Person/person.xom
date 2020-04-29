@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
+        xmlns:svc="http://www.xomega.net/svc"
         xmlns:wcf="http://www.xomega.net/wcf"
         xmlns:rest="http://www.xomega.net/rest"
         xmlns:ui="http://www.xomega.net/ui"
@@ -12,6 +13,13 @@
     <type name="person" base="business entity"/>
     <type name="person type" base="enumeration" size="2">
       <enum ref="person type"/>
+    </type>
+    <type name="email" base="name">
+      <config>
+        <ui:web-control>
+          <asp:TextBox TextMode="Email" Width="200px" runat="server"/>
+        </ui:web-control>
+      </config>
     </type>
   </types>
   <enums>
@@ -151,6 +159,10 @@
       <operations>
         <operation name="authenticate" type="update">
           <input arg="credentials" struct="credentials"/>
+          <config>
+            <rest:method not-supported="true"/>
+            <wcf:operation not-supported="true"/>
+          </config>
           <doc>
             <summary>Authenticates a Person using email and password.</summary>
           </doc>
@@ -160,6 +172,10 @@
             <param name="email" type="email" required="true"/>
           </input>
           <output struct="person info"/>
+          <config>
+            <rest:method not-supported="true"/>
+            <wcf:operation not-supported="true"/>
+          </config>
           <doc>
             <summary>Reads person info by email as the key.</summary>
           </doc>
@@ -168,7 +184,7 @@
       <config>
         <sql:table name="Person.Person"/>
         <edm:customize extend="true"/>
-        <wcf:customize subclass="true"/>
+        <svc:customize subclass="true"/>
       </config>
       <doc>
         <summary>Human beings involved with AdventureWorks: employees, customer contacts, and vendor contacts.</summary>
@@ -176,7 +192,7 @@
     </object>
   </objects>
   <xfk:data-objects>
-    <xfk:data-object class="AuthenticationObject"/>
+    <xfk:data-object class="AuthenticationObject" customize="true"/>
   </xfk:data-objects>
   <ui:views>
     <ui:view name="LoginView" title="Login" customize="true" child="true">

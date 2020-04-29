@@ -4,6 +4,7 @@ using System.IdentityModel;
 using System.IdentityModel.Configuration;
 using System.IdentityModel.Protocols.WSTrust;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Xomega.Framework;
 
 namespace AdventureWorks.Services.Wcf
@@ -25,9 +26,9 @@ namespace AdventureWorks.Services.Wcf
             try
             {
                 IPersonService svc = cfg.ServiceProvider.GetService<IPersonService>();
-                PersonInfo info = svc.Read(principal.Identity.Name).Result;
-                return SecurityManager.CreateIdentity(principal.Identity.AuthenticationType, info);
-        }
+                var info = Task.Run(async () => await svc.ReadAsync(principal.Identity.Name)).GetAwaiter().GetResult();
+                return SecurityManager.CreateIdentity(principal.Identity.AuthenticationType, info.Result);
+            }
             catch (Exception ex)
             {
                 ErrorParser errorParser = cfg.ServiceProvider.GetService<ErrorParser>();

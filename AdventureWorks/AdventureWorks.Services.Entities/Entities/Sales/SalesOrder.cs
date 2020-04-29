@@ -43,7 +43,7 @@ namespace AdventureWorks.Services.Entities
         public DateTime? ShipDate  { get; set; }
 
         ///<summary>
-        /// Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled
+        /// Order current status.
         ///</summary>
         public byte Status  { get; set; }
 
@@ -68,7 +68,7 @@ namespace AdventureWorks.Services.Entities
         public string AccountNumber  { get; set; }
 
         ///<summary>
-        /// Customer identification number. Foreign key to Customer.BusinessEntityID.
+        /// Customer identification number.
         ///</summary>
         public int CustomerId  { get; set; }
 

@@ -4,18 +4,20 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
+using AdventureWorks.Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Threading.Tasks;
+using System.Web.UI;
 using System.Web.UI.WebControls;
-using AdventureWorks.Client.ViewModels;
+using Xomega.Framework;
 using Xomega.Framework.Web;
 
 namespace AdventureWorks.Client.Web
 {
     public partial class SalesOrderListView : WebSearchView
     {
-
-        protected SalesOrderListViewModel viewModel { get { return Model as SalesOrderListViewModel; } }
+        protected SalesOrderListViewModel VM => Model as SalesOrderListViewModel;
 
         public SalesOrderListView()
         {
@@ -32,26 +34,34 @@ namespace AdventureWorks.Client.Web
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
-            if (viewModel == null) return;
-            lnkNew.Enabled = viewModel.lnkNew_Enabled();
+            if (VM == null) return;
+            Page.RegisterAsyncTask(new PageAsyncTask(async () =>
+            {
+                LinkNew.Enabled = VM.LinkNew_Enabled();
+                await Task.CompletedTask;
+            }));
         }
 
-        protected virtual void lnkDetails_Click(object sender, CommandEventArgs e)
+        protected virtual void LinkDetails_Click(object sender, CommandEventArgs e)
         {
-            if (viewModel != null)
-                viewModel.lnkDetails_Command(uclSalesOrderView, null, int.Parse(e.CommandArgument.ToString()));
+            if (VM == null) return;
+            int index = int.Parse(e.CommandArgument.ToString());
+            DataRow row = VM.ListObj.GetData()[index];
+            Page.RegisterAsyncTask(new PageAsyncTask(async () =>
+                await VM.LinkDetails_CommandAsync(uclSalesOrderView, null, row)));
         }
 
-        protected virtual void lnkNew_Click(object sender, CommandEventArgs e)
+        protected virtual void LinkNew_Click(object sender, CommandEventArgs e)
         {
-            if (viewModel != null)
-                viewModel.lnkNew_Command(uclSalesOrderView, null);
+            if (VM == null) return;
+            Page.RegisterAsyncTask(new PageAsyncTask(async () =>
+                await VM.LinkNew_CommandAsync(uclSalesOrderView, null)));
         }
 
-        public virtual void lnkPermaLink_Click(object sender, EventArgs e)
+        public virtual void PermaLink_Click(object sender, EventArgs e)
         {
-            if (viewModel != null && viewModel.List != null && viewModel.List.CriteriaObject != null)
-                Response.Redirect(WebUtil.AddQueryString(Request.RawUrl, viewModel.List.CriteriaObject.ToNameValueCollection()));
+            if (VM?.List?.CriteriaObject == null) return;
+            Response.Redirect(WebUtil.AddQueryString(Request.RawUrl, VM.List.CriteriaObject.ToNameValueCollection()));
         }
     }
 }

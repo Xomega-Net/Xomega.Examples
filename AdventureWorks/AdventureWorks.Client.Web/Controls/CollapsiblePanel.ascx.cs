@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Web.UI;
 using Xomega.Framework.Views;
+using Xomega.Framework.Web;
 
 namespace AdventureWorks.Client.Web
 {
     public partial class CollapsiblePanel : UserControl, ICollapsiblePanel
     {
+        private const string ExpandedIconText = "&#xf077;";
+        private const string CollapsedIconText = "&#xf078;";
+
         [PersistenceMode(PersistenceMode.InnerProperty)]
         [TemplateInstance(TemplateInstance.Single)]
         public ITemplate ContentTemplate { get; set; }
@@ -16,15 +20,39 @@ namespace AdventureWorks.Client.Web
 
             if (ContentTemplate != null)
                 ContentTemplate.InstantiateIn(Content);
+
+            Header.Attributes.Add("onclick", $"__doPostBack('{Header.ClientID}', 'Click')");
+            twister.Text = ExpandedIconText;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            if (IsPostBack)
+            {
+                var controlName = Request.Params.Get("__EVENTTARGET");
+                var argument = Request.Params.Get("__EVENTARGUMENT");
+                if (controlName == Header.ClientID && argument == "Click")
+                {
+                    Collapsed = !Collapsed;
+                }
+            }
+        }
+
+        public string Title
+        {
+            get => lblTitle.Text;
+            set => lblTitle.Text = value;
         }
 
         public bool Collapsed
         {
-            get { return cpe.ClientState == null ? cpe.Collapsed : cpe.ClientState.ToLower() == "true"; }
+            get => !pnlCollapsible.Visible;
             set
             {
-                cpe.Collapsed = value;
-                cpe.ClientState = value.ToString();
+                WebUtil.SetControlVisible(pnlCollapsible, !value);
+                twister.Text = value ? CollapsedIconText : ExpandedIconText;
             }
         }
     }

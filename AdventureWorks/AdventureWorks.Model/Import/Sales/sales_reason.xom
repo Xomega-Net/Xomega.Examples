@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
-        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:svc="http://www.xomega.net/svc"
         xmlns:rest="http://www.xomega.net/rest"
         xmlns:ui="http://www.xomega.net/ui"
         xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
@@ -15,6 +15,9 @@
         <ui:web-control multi-value="true">
           <uc:PickListControl Rows="6" runat="server"/>
         </ui:web-control>
+        <ui:blazor-control multi-value="true">
+          <XPickList/>
+        </ui:blazor-control>
       </config>
       <enum ref="sales reason"/>
     </type>

@@ -7,6 +7,8 @@
 using AdventureWorks.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
 using Xomega.Framework.Services;
@@ -19,13 +21,12 @@ namespace AdventureWorks.Client.Objects
 
         public const string CarrierTrackingNumber = "CarrierTrackingNumber";
         public const string LineTotal = "LineTotal";
-        public const string ModifiedDate = "ModifiedDate";
         public const string OrderQty = "OrderQty";
         public const string ProductId = "ProductId";
-        public const string Rowguid = "Rowguid";
         public const string SalesOrderDetailId = "SalesOrderDetailId";
         public const string SalesOrderId = "SalesOrderId";
         public const string SpecialOfferId = "SpecialOfferId";
+        public const string Subcategory = "Subcategory";
         public const string UnitPrice = "UnitPrice";
         public const string UnitPriceDiscount = "UnitPriceDiscount";
 
@@ -35,15 +36,14 @@ namespace AdventureWorks.Client.Objects
 
         public TextProperty CarrierTrackingNumberProperty { get; private set; }
         public MoneyProperty LineTotalProperty { get; private set; }
-        public DateTimeProperty ModifiedDateProperty { get; private set; }
         public SmallIntegerProperty OrderQtyProperty { get; private set; }
         public EnumIntProperty ProductIdProperty { get; private set; }
-        public GuidProperty RowguidProperty { get; private set; }
         public IntegerKeyProperty SalesOrderDetailIdProperty { get; private set; }
         public IntegerKeyProperty SalesOrderIdProperty { get; private set; }
         public EnumIntProperty SpecialOfferIdProperty { get; private set; }
+        public EnumIntProperty SubcategoryProperty { get; private set; }
         public MoneyProperty UnitPriceProperty { get; private set; }
-        public MoneyProperty UnitPriceDiscountProperty { get; private set; }
+        public PercentFractionProperty UnitPriceDiscountProperty { get; private set; }
 
         #endregion
 
@@ -59,61 +59,83 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            CarrierTrackingNumberProperty = new TextProperty(this, CarrierTrackingNumber);
-            CarrierTrackingNumberProperty.Size = 25;
-            LineTotalProperty = new MoneyProperty(this, LineTotal);
-            LineTotalProperty.Required = true;
-            ModifiedDateProperty = new DateTimeProperty(this, ModifiedDate);
-            ModifiedDateProperty.Required = true;
-            OrderQtyProperty = new SmallIntegerProperty(this, OrderQty);
-            OrderQtyProperty.Required = true;
-            ProductIdProperty = new EnumIntProperty(this, ProductId);
-            ProductIdProperty.Required = true;
-            ProductIdProperty.EnumType = "product";
-            RowguidProperty = new GuidProperty(this, Rowguid);
-            RowguidProperty.Required = true;
-            SalesOrderDetailIdProperty = new IntegerKeyProperty(this, SalesOrderDetailId);
-            SalesOrderDetailIdProperty.Required = true;
-            SalesOrderDetailIdProperty.Editable = false;
-            SalesOrderIdProperty = new IntegerKeyProperty(this, SalesOrderId);
-            SalesOrderIdProperty.Required = true;
-            SalesOrderIdProperty.Editable = false;
-            SpecialOfferIdProperty = new EnumIntProperty(this, SpecialOfferId);
-            SpecialOfferIdProperty.Required = true;
-            SpecialOfferIdProperty.EnumType = "special offer";
-            UnitPriceProperty = new MoneyProperty(this, UnitPrice);
-            UnitPriceProperty.Required = true;
-            UnitPriceDiscountProperty = new MoneyProperty(this, UnitPriceDiscount);
-            UnitPriceDiscountProperty.Required = true;
+            CarrierTrackingNumberProperty = new TextProperty(this, CarrierTrackingNumber)
+            {
+                Size = 25,
+            };
+            LineTotalProperty = new MoneyProperty(this, LineTotal)
+            {
+                Required = true,
+                Editable = false,
+            };
+            OrderQtyProperty = new SmallIntegerProperty(this, OrderQty)
+            {
+                Required = true,
+            };
+            ProductIdProperty = new EnumIntProperty(this, ProductId)
+            {
+                Required = true,
+                EnumType = "product",
+            };
+            SalesOrderDetailIdProperty = new IntegerKeyProperty(this, SalesOrderDetailId)
+            {
+                Required = true,
+                Editable = false,
+                IsKey = true,
+            };
+            SalesOrderIdProperty = new IntegerKeyProperty(this, SalesOrderId)
+            {
+                Required = true,
+                Editable = false,
+            };
+            SpecialOfferIdProperty = new EnumIntProperty(this, SpecialOfferId)
+            {
+                Required = true,
+                EnumType = "special offer",
+            };
+            SubcategoryProperty = new EnumIntProperty(this, Subcategory)
+            {
+                EnumType = "product subcategory",
+            };
+            UnitPriceProperty = new MoneyProperty(this, UnitPrice)
+            {
+                Required = true,
+                Editable = false,
+            };
+            UnitPriceDiscountProperty = new PercentFractionProperty(this, UnitPriceDiscount)
+            {
+                Required = true,
+                Editable = false,
+            };
         }
 
         #endregion
 
         #region CRUD Operations
 
-        protected override ErrorList DoRead(object options)
+        protected override async Task<ErrorList> DoReadAsync(object options, CancellationToken token = default)
         {
-            var output = SalesOrder_Detail_Read(options);
+            var output = await SalesOrder_Detail_ReadAsync(options);
             return output.Messages;
         }
 
-        protected override ErrorList DoSave(object options)
+        protected override async Task<ErrorList> DoSaveAsync(object options, CancellationToken token = default)
         {
             if (IsNew)
             {
-                var output = SalesOrder_Detail_Create(options);
+                var output = await SalesOrder_Detail_CreateAsync(options);
                 return output.Messages;
             }
             else
             {
-                var output = SalesOrder_Detail_Update(options);
+                var output = await SalesOrder_Detail_UpdateAsync(options);
                 return output.Messages;
             }
         }
 
-        protected override ErrorList DoDelete(object options)
+        protected override async Task<ErrorList> DoDeleteAsync(object options, CancellationToken token = default)
         {
-            var output = SalesOrder_Detail_Delete(options);
+            var output = await SalesOrder_Detail_DeleteAsync(options);
             return output.Messages;
         }
 
@@ -121,49 +143,49 @@ namespace AdventureWorks.Client.Objects
 
         #region Service Operations
 
-        protected virtual Output<SalesOrderDetail_ReadOutput> SalesOrder_Detail_Read(object options)
+        protected virtual async Task<Output<SalesOrderDetail_ReadOutput>> SalesOrder_Detail_ReadAsync(object options)
         {
             int _salesOrderDetailId = (int)SalesOrderDetailIdProperty.TransportValue;
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_Read(_salesOrderDetailId);
+                var output = await s.ServiceProvider.GetService<ISalesOrderService>().Detail_ReadAsync(_salesOrderDetailId);
 
                 FromDataContract(output?.Result, options);
                 return output;
             }
         }
 
-        protected virtual Output<SalesOrderDetail_CreateOutput> SalesOrder_Detail_Create(object options)
+        protected virtual async Task<Output<SalesOrderDetail_CreateOutput>> SalesOrder_Detail_CreateAsync(object options)
         {
             int _salesOrderId = (int)SalesOrderIdProperty.TransportValue;
             SalesOrderDetail_CreateInput_Data _data = ToDataContract<SalesOrderDetail_CreateInput_Data>(options);
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_Create(_salesOrderId, _data);
+                var output = await s.ServiceProvider.GetService<ISalesOrderService>().Detail_CreateAsync(_salesOrderId, _data);
 
                 FromDataContract(output?.Result, options);
                 return output;
             }
         }
 
-        protected virtual Output SalesOrder_Detail_Update(object options)
+        protected virtual async Task<Output> SalesOrder_Detail_UpdateAsync(object options)
         {
             int _salesOrderDetailId = (int)SalesOrderDetailIdProperty.TransportValue;
             SalesOrderDetail_UpdateInput_Data _data = ToDataContract<SalesOrderDetail_UpdateInput_Data>(options);
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_Update(_salesOrderDetailId, _data);
+                var output = await s.ServiceProvider.GetService<ISalesOrderService>().Detail_UpdateAsync(_salesOrderDetailId, _data);
 
                 return output;
             }
         }
 
-        protected virtual Output SalesOrder_Detail_Delete(object options)
+        protected virtual async Task<Output> SalesOrder_Detail_DeleteAsync(object options)
         {
             int _salesOrderDetailId = (int)SalesOrderDetailIdProperty.TransportValue;
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<ISalesOrderService>().Detail_Delete(_salesOrderDetailId);
+                var output = await s.ServiceProvider.GetService<ISalesOrderService>().Detail_DeleteAsync(_salesOrderDetailId);
 
                 return output;
             }

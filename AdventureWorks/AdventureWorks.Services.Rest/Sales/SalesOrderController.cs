@@ -7,6 +7,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Services;
 
@@ -15,16 +16,13 @@ namespace AdventureWorks.Services.Rest
     ///<summary>
     /// General sales order information.
     ///</summary>
-    public partial class SalesOrderController : ControllerBase
+    public partial class SalesOrderController : BaseController
     {
-        private ErrorList currentErrors;
-        private ErrorParser errorsParser;
-        private ISalesOrderService svc;
+        private readonly ISalesOrderService svc;
 
         public SalesOrderController(ErrorList errorList, ErrorParser errorParser, ISalesOrderService service)
+            : base(errorList, errorParser)
         {
-            currentErrors = errorList;
-            errorsParser = errorParser;
             svc = service;
         }
 
@@ -33,20 +31,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("sales-order/{_salesOrderId}")]
         [HttpGet]
-        public ActionResult Read([FromRoute] int _salesOrderId)
+        public async Task<ActionResult> ReadAsync([FromRoute] int _salesOrderId)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<SalesOrder_ReadOutput> output = svc.Read(_salesOrderId);
+                    Output<SalesOrder_ReadOutput> output = await svc.ReadAsync(_salesOrderId);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)
@@ -62,20 +60,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("sales-order")]
         [HttpPost]
-        public ActionResult Create([FromBody] SalesOrder_CreateInput _data)
+        public async Task<ActionResult> CreateAsync([FromBody] SalesOrder_CreateInput _data)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<SalesOrder_CreateOutput> output = svc.Create(_data);
+                    Output<SalesOrder_CreateOutput> output = await svc.CreateAsync(_data);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)
@@ -91,20 +89,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("sales-order/{_salesOrderId}")]
         [HttpPut]
-        public ActionResult Update([FromRoute] int _salesOrderId, [FromBody] SalesOrder_UpdateInput_Data _data)
+        public async Task<ActionResult> UpdateAsync([FromRoute] int _salesOrderId, [FromBody] SalesOrder_UpdateInput_Data _data)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<SalesOrder_UpdateOutput> output = svc.Update(_salesOrderId, _data);
+                    Output<SalesOrder_UpdateOutput> output = await svc.UpdateAsync(_salesOrderId, _data);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)
@@ -120,20 +118,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("sales-order/{_salesOrderId}")]
         [HttpDelete]
-        public ActionResult Delete([FromRoute] int _salesOrderId)
+        public async Task<ActionResult> DeleteAsync([FromRoute] int _salesOrderId)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output output = svc.Delete(_salesOrderId);
+                    Output output = await svc.DeleteAsync(_salesOrderId);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)
@@ -149,20 +147,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("sales-order")]
         [HttpGet]
-        public ActionResult ReadList([FromQuery] SalesOrder_ReadListInput_Criteria _criteria)
+        public async Task<ActionResult> ReadListAsync([FromQuery] SalesOrder_ReadListInput_Criteria _criteria)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<ICollection<SalesOrder_ReadListOutput>> output = svc.ReadList(_criteria);
+                    Output<ICollection<SalesOrder_ReadListOutput>> output = await svc.ReadListAsync(_criteria);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)
@@ -178,20 +176,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("sales-order/detail/{_salesOrderDetailId}")]
         [HttpGet]
-        public ActionResult Detail_Read([FromRoute] int _salesOrderDetailId)
+        public async Task<ActionResult> Detail_ReadAsync([FromRoute] int _salesOrderDetailId)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<SalesOrderDetail_ReadOutput> output = svc.Detail_Read(_salesOrderDetailId);
+                    Output<SalesOrderDetail_ReadOutput> output = await svc.Detail_ReadAsync(_salesOrderDetailId);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)
@@ -207,20 +205,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("sales-order/{_salesOrderId}/detail")]
         [HttpPost]
-        public ActionResult Detail_Create([FromRoute] int _salesOrderId, [FromBody] SalesOrderDetail_CreateInput_Data _data)
+        public async Task<ActionResult> Detail_CreateAsync([FromRoute] int _salesOrderId, [FromBody] SalesOrderDetail_CreateInput_Data _data)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<SalesOrderDetail_CreateOutput> output = svc.Detail_Create(_salesOrderId, _data);
+                    Output<SalesOrderDetail_CreateOutput> output = await svc.Detail_CreateAsync(_salesOrderId, _data);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)
@@ -236,20 +234,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("sales-order/detail/{_salesOrderDetailId}")]
         [HttpPut]
-        public ActionResult Detail_Update([FromRoute] int _salesOrderDetailId, [FromBody] SalesOrderDetail_UpdateInput_Data _data)
+        public async Task<ActionResult> Detail_UpdateAsync([FromRoute] int _salesOrderDetailId, [FromBody] SalesOrderDetail_UpdateInput_Data _data)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output output = svc.Detail_Update(_salesOrderDetailId, _data);
+                    Output output = await svc.Detail_UpdateAsync(_salesOrderDetailId, _data);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)
@@ -265,20 +263,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("sales-order/detail/{_salesOrderDetailId}")]
         [HttpDelete]
-        public ActionResult Detail_Delete([FromRoute] int _salesOrderDetailId)
+        public async Task<ActionResult> Detail_DeleteAsync([FromRoute] int _salesOrderDetailId)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output output = svc.Detail_Delete(_salesOrderDetailId);
+                    Output output = await svc.Detail_DeleteAsync(_salesOrderDetailId);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)
@@ -294,20 +292,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("sales-order/{_salesOrderId}/detail")]
         [HttpGet]
-        public ActionResult Detail_ReadList([FromRoute] int _salesOrderId)
+        public async Task<ActionResult> Detail_ReadListAsync([FromRoute] int _salesOrderId)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<ICollection<SalesOrderDetail_ReadListOutput>> output = svc.Detail_ReadList(_salesOrderId);
+                    Output<ICollection<SalesOrderDetail_ReadListOutput>> output = await svc.Detail_ReadListAsync(_salesOrderId);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)

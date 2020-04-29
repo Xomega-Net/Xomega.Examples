@@ -48,23 +48,37 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            AccountNumberProperty = new TextProperty(this, AccountNumber);
-            AccountNumberProperty.Size = 10;
-            AccountNumberOperatorProperty = new OperatorProperty(this, AccountNumberOperator);
-            AccountNumberOperatorProperty.Size = 25;
-            AccountNumberOperatorProperty.EnumType = "operators";
-            PersonNameProperty = new TextProperty(this, PersonName);
-            PersonNameOperatorProperty = new OperatorProperty(this, PersonNameOperator);
-            PersonNameOperatorProperty.Size = 25;
-            PersonNameOperatorProperty.EnumType = "operators";
-            PersonNameOperatorProperty.HasNullCheck = true;
-            StoreNameProperty = new TextProperty(this, StoreName);
-            StoreNameOperatorProperty = new OperatorProperty(this, StoreNameOperator);
-            StoreNameOperatorProperty.Size = 25;
-            StoreNameOperatorProperty.EnumType = "operators";
-            StoreNameOperatorProperty.HasNullCheck = true;
-            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId);
-            TerritoryIdProperty.EnumType = "sales territory";
+            AccountNumberProperty = new TextProperty(this, AccountNumber)
+            {
+                Size = 10,
+            };
+            AccountNumberOperatorProperty = new OperatorProperty(this, AccountNumberOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+            };
+            PersonNameProperty = new TextProperty(this, PersonName)
+            {
+            };
+            PersonNameOperatorProperty = new OperatorProperty(this, PersonNameOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+                HasNullCheck = true,
+            };
+            StoreNameProperty = new TextProperty(this, StoreName)
+            {
+            };
+            StoreNameOperatorProperty = new OperatorProperty(this, StoreNameOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+                HasNullCheck = true,
+            };
+            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            {
+                EnumType = "sales territory",
+            };
         }
 
         #endregion

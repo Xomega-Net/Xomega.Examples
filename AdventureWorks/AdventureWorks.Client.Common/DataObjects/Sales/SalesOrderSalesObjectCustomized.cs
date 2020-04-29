@@ -1,6 +1,4 @@
 using System;
-using Xomega.Framework;
-using Xomega.Framework.Properties;
 
 namespace AdventureWorks.Client.Objects
 {

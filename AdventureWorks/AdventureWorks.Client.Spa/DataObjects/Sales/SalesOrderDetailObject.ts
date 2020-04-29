@@ -5,22 +5,21 @@
 //---------------------------------------------------------------------------------------------
 
 import { ISalesOrderService, SalesOrderDetail_CreateInput_Data, SalesOrderDetail_UpdateInput_Data } from 'ServiceContracts/Sales/ISalesOrderService';
-import { DataObject, TextProperty, MoneyProperty, DateTimeProperty, IntegerProperty, EnumProperty, GuidProperty, ErrorList } from 'xomega';
+import { DataObject, TextProperty, MoneyProperty, IntegerProperty, EnumIntProperty, PercentFractionProperty, ErrorList } from 'xomega';
 
 export class SalesOrderDetailObject extends DataObject {
 
     // Properties
     public CarrierTrackingNumber: TextProperty;
     public LineTotal: MoneyProperty;
-    public ModifiedDate: DateTimeProperty;
     public OrderQty: IntegerProperty;
-    public ProductId: EnumProperty;
-    public Rowguid: GuidProperty;
+    public ProductId: EnumIntProperty;
     public SalesOrderDetailId: IntegerProperty;
     public SalesOrderId: IntegerProperty;
-    public SpecialOfferId: EnumProperty;
+    public SpecialOfferId: EnumIntProperty;
+    public Subcategory: EnumIntProperty;
     public UnitPrice: MoneyProperty;
-    public UnitPriceDiscount: MoneyProperty;
+    public UnitPriceDiscount: PercentFractionProperty;
 
     // Construction and initialization
     init() {
@@ -28,81 +27,83 @@ export class SalesOrderDetailObject extends DataObject {
         this.CarrierTrackingNumber.Size = 25;
         this.LineTotal = new MoneyProperty();
         this.LineTotal.Required(true);
-        this.ModifiedDate = new DateTimeProperty();
-        this.ModifiedDate.Required(true);
+        this.LineTotal.Editable(false);
         this.OrderQty = new IntegerProperty();
         this.OrderQty.Required(true);
-        this.ProductId = new EnumProperty();
+        this.ProductId = new EnumIntProperty();
         this.ProductId.Required(true);
         this.ProductId.EnumType = "product";
-        this.Rowguid = new GuidProperty();
-        this.Rowguid.Required(true);
         this.SalesOrderDetailId = new IntegerProperty();
         this.SalesOrderDetailId.Required(true);
         this.SalesOrderDetailId.Editable(false);
+        this.SalesOrderDetailId.IsKey = true;
         this.SalesOrderId = new IntegerProperty();
         this.SalesOrderId.Required(true);
         this.SalesOrderId.Editable(false);
-        this.SpecialOfferId = new EnumProperty();
+        this.SpecialOfferId = new EnumIntProperty();
         this.SpecialOfferId.Required(true);
         this.SpecialOfferId.EnumType = "special offer";
+        this.Subcategory = new EnumIntProperty();
+        this.Subcategory.EnumType = "product subcategory";
         this.UnitPrice = new MoneyProperty();
         this.UnitPrice.Required(true);
-        this.UnitPriceDiscount = new MoneyProperty();
+        this.UnitPrice.Editable(false);
+        this.UnitPriceDiscount = new PercentFractionProperty();
         this.UnitPriceDiscount.Required(true);
+        this.UnitPriceDiscount.Editable(false);
     }
 
     protected doReadAsync(options?): JQueryPromise<any> {
         return $.when(
-            $.ajax(this.getSalesOrder_Detail_ReadRequest(options)),
+            $.ajax(this.getSalesOrder_Detail_ReadAsyncRequest(options)),
         );
     }
 
     protected doSaveAsync(options?): JQueryPromise<any> {
         if (this.IsNew()) return $.when(
-            $.ajax(this.getSalesOrder_Detail_CreateRequest(options)),
+            $.ajax(this.getSalesOrder_Detail_CreateAsyncRequest(options)),
         );
         return $.when(
-            $.ajax(this.getSalesOrder_Detail_UpdateRequest(options)),
+            $.ajax(this.getSalesOrder_Detail_UpdateAsyncRequest(options)),
         );
     }
 
     protected doDeleteAsync(options?): JQueryPromise<any> {
         return $.when(
-            $.ajax(this.getSalesOrder_Detail_DeleteRequest(options)),
+            $.ajax(this.getSalesOrder_Detail_DeleteAsyncRequest(options)),
         );
     }
 
-    protected getSalesOrder_Detail_ReadRequest(options?): JQueryAjaxSettings {
+    protected getSalesOrder_Detail_ReadAsyncRequest(options?): JQueryAjaxSettings {
         let obj = this;
         let _salesOrderDetailId: any = obj.SalesOrderDetailId.TransportValue();
-        let req = ISalesOrderService.getDetail_ReadRequest(_salesOrderDetailId);
+        let req = ISalesOrderService.getDetail_ReadAsyncRequest(_salesOrderDetailId);
         req.success = (_data, _status, xhr) => {
-            obj.fromJSON(_data.Result, options);
+            obj.fromJSON(_data.result || _data.Result, options);
             obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
         }
         req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 
-    protected getSalesOrder_Detail_CreateRequest(options?): JQueryAjaxSettings {
+    protected getSalesOrder_Detail_CreateAsyncRequest(options?): JQueryAjaxSettings {
         let obj = this;
         let _salesOrderId: any = obj.SalesOrderId.TransportValue();
         let _data: SalesOrderDetail_CreateInput_Data = obj.toStruct(SalesOrderDetail_CreateInput_Data, options);
-        let req = ISalesOrderService.getDetail_CreateRequest(_salesOrderId, _data);
+        let req = ISalesOrderService.getDetail_CreateAsyncRequest(_salesOrderId, _data);
         req.success = (_data, _status, xhr) => {
-            obj.fromJSON(_data.Result, options);
+            obj.fromJSON(_data.result || _data.Result, options);
             obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
         }
         req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 
-    protected getSalesOrder_Detail_UpdateRequest(options?): JQueryAjaxSettings {
+    protected getSalesOrder_Detail_UpdateAsyncRequest(options?): JQueryAjaxSettings {
         let obj = this;
         let _salesOrderDetailId: any = obj.SalesOrderDetailId.TransportValue();
         let _data: SalesOrderDetail_UpdateInput_Data = obj.toStruct(SalesOrderDetail_UpdateInput_Data, options);
-        let req = ISalesOrderService.getDetail_UpdateRequest(_salesOrderDetailId, _data);
+        let req = ISalesOrderService.getDetail_UpdateAsyncRequest(_salesOrderDetailId, _data);
         req.success = (_data, _status, xhr) => {
             obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
         }
@@ -110,10 +111,10 @@ export class SalesOrderDetailObject extends DataObject {
         return req;
     }
 
-    protected getSalesOrder_Detail_DeleteRequest(options?): JQueryAjaxSettings {
+    protected getSalesOrder_Detail_DeleteAsyncRequest(options?): JQueryAjaxSettings {
         let obj = this;
         let _salesOrderDetailId: any = obj.SalesOrderDetailId.TransportValue();
-        let req = ISalesOrderService.getDetail_DeleteRequest(_salesOrderDetailId);
+        let req = ISalesOrderService.getDetail_DeleteAsyncRequest(_salesOrderDetailId);
         req.success = (_data, _status, xhr) => {
             obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
         }

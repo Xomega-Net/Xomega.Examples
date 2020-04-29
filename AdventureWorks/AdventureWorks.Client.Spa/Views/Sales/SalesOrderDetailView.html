@@ -6,8 +6,9 @@
  =============================================================================================
 -->
 <div xmlns="http://www.w3.org/1999/xhtml" class="view-composition">
-  <div class="view with-footer" data-bind="with: $root">
-    <div class="view-header"><span class="view-title">Detail</span><span data-bind="visible: obj.Modified">*</span></div>
+  <div class="view with-footer" data-bind="with: $root" data-width="450"
+       data-height="450">
+    <div class="view-header"><span class="view-title" data-bind="text: ViewTitle"></span></div>
     <div class="view-body">
       <div class="content indented">
         <div data-bind="msglist: { items: getErrorList().Errors }"></div>
@@ -16,41 +17,31 @@
             <legend>Detail</legend>
             <table class="xw-fieldset-layout">
               <tr>
-                <td class="fieldColumn" style="width: 50%">
+                <td class="fieldColumn" style="width: 100%">
                   <div class="field">
-                    <label data-bind="attr: { for: $root.id('ctlSalesOrderId') }" class="label">Sales Order Id:</label>
-                    <span data-bind="id: $root.id('ctlSalesOrderId'), property: SalesOrderId"></span></div>
+                    <label data-bind="attr: { for: $root.id('ctlSubcategory') }" class="label">Subcategory:</label>
+                    <select data-bind="id: $root.id('ctlSubcategory'), property: Subcategory"></select></div>
                   <div class="field">
-                    <label data-bind="attr: { for: $root.id('ctlCarrierTrackingNumber') }" class="label">Carrier Tracking Number:</label>
-                    <input data-bind="id: $root.id('ctlCarrierTrackingNumber'), property: CarrierTrackingNumber" /></div>
+                    <label data-bind="attr: { for: $root.id('ctlProductId') }" class="label">Product:</label>
+                    <select data-bind="id: $root.id('ctlProductId'), property: ProductId"></select></div>
                   <div class="field">
                     <label data-bind="attr: { for: $root.id('ctlOrderQty') }" class="label">Order Qty:</label>
                     <input data-bind="id: $root.id('ctlOrderQty'), property: OrderQty" class="integer" /></div>
                   <div class="field">
-                    <label data-bind="attr: { for: $root.id('ctlSpecialOfferId') }" class="label">Special Offer Id:</label>
+                    <label data-bind="attr: { for: $root.id('ctlSpecialOfferId') }" class="label">Special Offer:</label>
                     <select data-bind="id: $root.id('ctlSpecialOfferId'), property: SpecialOfferId"></select></div>
                   <div class="field">
-                    <label data-bind="attr: { for: $root.id('ctlProductId') }" class="label">Product Id:</label>
-                    <select data-bind="id: $root.id('ctlProductId'), property: ProductId"></select></div>
-                </td>
-                <td class="fieldColumn" style="width: 50%">
-                  <div class="field">
                     <label data-bind="attr: { for: $root.id('ctlUnitPrice') }" class="label">Unit Price:</label>
-                    <input data-bind="id: $root.id('ctlUnitPrice'), property: UnitPrice" class="decimal" /></div>
+                    <span data-bind="id: $root.id('ctlUnitPrice'), property: UnitPrice"></span></div>
                   <div class="field">
                     <label data-bind="attr: { for: $root.id('ctlUnitPriceDiscount') }" class="label">Unit Price Discount:</label>
-                    <input data-bind="id: $root.id('ctlUnitPriceDiscount'), property: UnitPriceDiscount"
-                           class="decimal" /></div>
+                    <span data-bind="id: $root.id('ctlUnitPriceDiscount'), property: UnitPriceDiscount"></span></div>
                   <div class="field">
                     <label data-bind="attr: { for: $root.id('ctlLineTotal') }" class="label">Line Total:</label>
-                    <input data-bind="id: $root.id('ctlLineTotal'), property: LineTotal" class="decimal" /></div>
+                    <span data-bind="id: $root.id('ctlLineTotal'), property: LineTotal"></span></div>
                   <div class="field">
-                    <label data-bind="attr: { for: $root.id('ctlRowguid') }" class="label">Rowguid:</label>
-                    <input data-bind="id: $root.id('ctlRowguid'), property: Rowguid" class="guid" /></div>
-                  <div class="field">
-                    <label data-bind="attr: { for: $root.id('ctlModifiedDate') }" class="label">Modified Date:</label>
-                    <input data-bind="id: $root.id('ctlModifiedDate'), property: ModifiedDate"
-                           class="datetime" /></div>
+                    <label data-bind="attr: { for: $root.id('ctlCarrierTrackingNumber') }" class="label">Carrier Tracking Number:</label>
+                    <input data-bind="id: $root.id('ctlCarrierTrackingNumber'), property: CarrierTrackingNumber" /></div>
                 </td>
               </tr>
             </table>

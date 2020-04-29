@@ -9,7 +9,7 @@ import { AuthManager } from 'xomega';
 
 export class IPersonCreditCardService {
 
-    public static getReadListRequest(_businessEntityId: any): JQueryAjaxSettings {
+    public static getReadListAsyncRequest(_businessEntityId: any): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
         req.url += `person/${ _businessEntityId }/credit-card`;
@@ -18,11 +18,11 @@ export class IPersonCreditCardService {
 }
 
 export class PersonCreditCard_ReadListOutput {
-    public CreditCardId: any;
-    public CreditCardName: any;
-    public PersonName: any;
-    public CardType: any;
-    public CardNumber: any;
-    public ExpMonth: any;
-    public ExpYear: any;
+    public CreditCardId: any = null;
+    public CreditCardName: any = null;
+    public PersonName: any = null;
+    public CardType: any = null;
+    public CardNumber: any = null;
+    public ExpMonth: any = null;
+    public ExpYear: any = null;
 }

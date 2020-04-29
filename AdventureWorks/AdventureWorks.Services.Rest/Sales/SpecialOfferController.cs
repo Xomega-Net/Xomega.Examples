@@ -7,6 +7,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Services;
 
@@ -15,16 +16,13 @@ namespace AdventureWorks.Services.Rest
     ///<summary>
     /// Sale discounts lookup table.
     ///</summary>
-    public partial class SpecialOfferController : ControllerBase
+    public partial class SpecialOfferController : BaseController
     {
-        private ErrorList currentErrors;
-        private ErrorParser errorsParser;
-        private ISpecialOfferService svc;
+        private readonly ISpecialOfferService svc;
 
         public SpecialOfferController(ErrorList errorList, ErrorParser errorParser, ISpecialOfferService service)
+            : base(errorList, errorParser)
         {
-            currentErrors = errorList;
-            errorsParser = errorParser;
             svc = service;
         }
 
@@ -33,20 +31,20 @@ namespace AdventureWorks.Services.Rest
         ///</summary>
         [Route("special-offer")]
         [HttpGet]
-        public ActionResult ReadList()
+        public async Task<ActionResult> ReadListAsync()
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<ICollection<SpecialOffer_ReadListOutput>> output = svc.ReadList();
+                    Output<ICollection<SpecialOffer_ReadListOutput>> output = await svc.ReadListAsync();
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)

@@ -3,9 +3,6 @@
 //
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated
 // unless they are placed between corresponding CUSTOM_CODE_START/CUSTOM_CODE_END lines.
-//
-// This file can be DELETED DURING REGENERATION IF NO LONGER NEEDED, e.g. if it gets renamed.
-// To prevent this and preserve manual custom changes please remove the line above.
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 // CUSTOM_CODE_START: add namespaces for custom code below
 // CUSTOM_CODE_END
@@ -28,13 +26,15 @@ namespace AdventureWorks.Services.Entities
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
         }
 
-        public virtual Output<ICollection<Product_ReadListOutput>> ReadList()
+        public virtual async Task<Output<ICollection<Product_ReadListOutput>>> ReadListAsync()
         {
-            // CUSTOM_CODE_START: add custom security checks for ReadList operation below
-            // CUSTOM_CODE_END
             ICollection<Product_ReadListOutput> res = null;
             try
             {
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for ReadList operation below
+                // CUSTOM_CODE_END
                 var src = from obj in ctx.Product select obj;
 
                 // CUSTOM_CODE_START: add custom filter criteria to the source query for ReadList operation below
@@ -45,11 +45,11 @@ namespace AdventureWorks.Services.Entities
                           select new Product_ReadListOutput() {
                               ProductId = obj.ProductId,
                               Name = obj.Name,
-                              // CUSTOM_CODE_START: set the IsActive output parameter of ReadList operation below
-                              IsActive = (obj.SellEndDate == null || obj.SellEndDate > DateTime.Today)
-                                         && obj.DiscontinuedDate == null, // CUSTOM_CODE_END
                               ProductSubcategoryId = obj.ProductSubcategoryId,
                               ProductModelId = obj.ProductModelId,
+                              ListPrice = obj.ListPrice,
+                              // CUSTOM_CODE_START: set the Current output parameter of ReadList operation below
+                              Current = obj.DiscontinuedDate == null, // CUSTOM_CODE_END
                           };
 
                 // CUSTOM_CODE_START: add custom filter criteria to the result query for ReadList operation below
@@ -57,13 +57,13 @@ namespace AdventureWorks.Services.Entities
                 // CUSTOM_CODE_END
 
                 currentErrors.AbortIfHasErrors();
-                res = qry.ToList();
+                res = await qry.ToListAsync();
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<ICollection<Product_ReadListOutput>>(currentErrors, res);
+            return await Task.FromResult(new Output<ICollection<Product_ReadListOutput>>(currentErrors, res));
         }
     }
 }

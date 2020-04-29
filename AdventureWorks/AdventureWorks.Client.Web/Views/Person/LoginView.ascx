@@ -14,7 +14,7 @@
     <ContentTemplate>
       <asp:Panel ID="pnl_View" CssClass="view with-footer" runat="server" data-width="300" data-height="240">
         <div class="view-header">
-          <asp:Label ID="lblLoginViewTitle" CssClass="view-title" Text="Login" runat="server"></asp:Label>
+          <asp:Label ID="lbl_ViewTitle" CssClass="view-title" runat="server"></asp:Label>
         </div>
         <div class="view-body">
           <div class="content indented">

@@ -29,7 +29,7 @@ namespace AdventureWorks.Client.Objects
 
         private void OnAddressChanged(object sender, PropertyChangeEventArgs e)
         {
-            if (!e.Change.IncludesValue() || DataProperty.Equals(e.OldValue, e.NewValue)) return;
+            if (!e.Change.IncludesValue() || Equals(e.OldValue, e.NewValue)) return;
 
             Header addr = AddressIdProperty.Value;
             AddressLine1Property.SetValue(addr?[Enumerations.BusinessEntityAddress.Attributes.AddressLine1]);

@@ -117,8 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LookupTableNotFound" xml:space="preserve">
-    <value>Lookup table '{0}' is not found in the global lookup cache.</value>
-    <comment>{0}=Lookup table name</comment>
-  </data>
 </root>

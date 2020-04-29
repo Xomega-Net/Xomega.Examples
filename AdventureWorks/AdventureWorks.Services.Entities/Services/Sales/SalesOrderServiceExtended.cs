@@ -1,5 +1,8 @@
+
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using Xomega.Framework;
 
 namespace AdventureWorks.Services.Entities
 {
@@ -26,7 +29,7 @@ namespace AdventureWorks.Services.Entities
             return res;
         }
 
-        protected void UpdatePayment(SalesOrder obj, PaymentUpdate _data)
+        protected async Task UpdatePayment(SalesOrder obj, PaymentUpdate _data)
         {
             if (_data == null)
             {
@@ -34,11 +37,11 @@ namespace AdventureWorks.Services.Entities
                 return;
             }
             obj.DueDate = _data.DueDate;
-            obj.ShipMethodObject = ctx.FindEntity<ShipMethod>(currentErrors, _data.ShipMethodId);
+            obj.ShipMethodObject = await ctx.FindEntityAsync<ShipMethod>(currentErrors, _data.ShipMethodId);
             if (_data.CreditCard != null)
             {
                 obj.CreditCardApprovalCode = _data.CreditCard.CreditCardApprovalCode;
-                obj.CreditCardObject = ctx.FindEntity<CreditCard>(currentErrors, _data.CreditCard.CreditCardId);
+                obj.CreditCardObject = await ctx.FindEntityAsync<CreditCard>(currentErrors, _data.CreditCard.CreditCardId);
             }
         }
 
@@ -54,15 +57,17 @@ namespace AdventureWorks.Services.Entities
             return res;
         }
 
-        protected void UpdateSalesInfo(SalesOrder obj, SalesInfo _data)
+        protected async Task UpdateSalesInfo(SalesOrder obj, SalesInfo _data)
         {
             if (_data == null)
             {
                 currentErrors.AddValidationError(Messages.SalesRequired, obj.SalesOrderId);
                 return;
             }
-            obj.TerritoryObject = ctx.FindEntity<SalesTerritory>(currentErrors, _data.TerritoryId);
-            obj.SalesPersonObject = ctx.Find<SalesPerson>(currentErrors, _data.SalesPersonId);
+            obj.TerritoryObject = _data.TerritoryId == null ? null :
+                await ctx.FindEntityAsync<SalesTerritory>(currentErrors, _data.TerritoryId);
+            obj.SalesPersonObject = _data.SalesPersonId == null ? null :
+                await ctx.FindEntityAsync<SalesPerson>(currentErrors, _data.SalesPersonId);
             // remove sales reason that are not in the provided list
             obj.ReasonObjectList.Where(r => _data.SalesReason == null || !_data.SalesReason.Contains(r.SalesReasonId))
                 .ToList().ForEach(r => obj.ReasonObjectList.Remove(r));
@@ -98,16 +103,27 @@ namespace AdventureWorks.Services.Entities
             return res;
         }
 
-        protected void UpdateCustomer(SalesOrder obj, CustomerUpdate _data)
+        protected async Task UpdateCustomer(SalesOrder obj, CustomerUpdate _data)
         {
             if (_data == null)
             {
                 currentErrors.AddValidationError(Messages.CustomerRequired, obj.SalesOrderId);
                 return;
             }
-            obj.CustomerObject = ctx.FindEntity<Customer>(currentErrors, _data.CustomerId);
-            obj.BillToAddressObject = ctx.FindEntity<Address>(currentErrors, _data.BillingAddress?.AddressId);
-            obj.ShipToAddressObject = ctx.FindEntity<Address>(currentErrors, _data.ShippingAddress?.AddressId);
+            obj.CustomerObject = await ctx.FindEntityAsync<Customer>(currentErrors, _data.CustomerId);
+            obj.BillToAddressObject = await ctx.FindEntityAsync<Address>(currentErrors, _data.BillingAddress?.AddressId);
+            obj.ShipToAddressObject = await ctx.FindEntityAsync<Address>(currentErrors, _data.ShippingAddress?.AddressId);
+        }
+
+        protected void UpdateOrderDetail(SalesOrderDetail obj)
+        {
+            currentErrors.AbortIfHasErrors(); // prevent invalid data
+            obj.UnitPrice = obj.SpecialOfferProductObject.ProductObject.ListPrice;
+            obj.UnitPriceDiscount = obj.SpecialOfferProductObject.SpecialOfferObject.DiscountPct;
+            obj.LineTotal = obj.OrderQty * obj.UnitPrice * (1 - obj.UnitPriceDiscount);
+            obj.ModifiedDate = DateTime.Now;
+            if (obj.Rowguid == default)
+                obj.Rowguid = Guid.NewGuid();
         }
     }
 }

@@ -9,7 +9,7 @@ import { AuthManager } from 'xomega';
 
 export class IProductService {
 
-    public static getReadListRequest(): JQueryAjaxSettings {
+    public static getReadListAsyncRequest(): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
         req.url += `product`;
@@ -18,9 +18,10 @@ export class IProductService {
 }
 
 export class Product_ReadListOutput {
-    public ProductId: any;
-    public Name: any;
-    public IsActive: any;
-    public ProductSubcategoryId: any;
-    public ProductModelId: any;
+    public ProductId: any = null;
+    public Name: any = null;
+    public ProductSubcategoryId: any = null;
+    public ProductModelId: any = null;
+    public ListPrice: any = null;
+    public Current: any = null;
 }

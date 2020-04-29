@@ -1,9 +1,15 @@
 
 import { AddressObject as GeneratedDataObject } from 'DataObjects/Person/AddressObject';
 import { Header } from 'xomega';
-import { BusinessEntityAddress } from 'Enumerations/Enumerations';
+import { BusinessEntityAddress } from '../../Enumerations/Enumerations';
 
 export class AddressObject extends GeneratedDataObject {
+
+    // construct properties and child objects
+    init() {
+        super.init();
+        // add custom construction code here
+    }
 
     // perform post intialization
     onInitialized() {
@@ -20,4 +26,7 @@ export class AddressObject extends GeneratedDataObject {
             obj.Country.InternalValue(h ? h.attr[BusinessEntityAddress.Attributes.Country] : null);
         });
     }
+
+    // add custom code here
+
 }

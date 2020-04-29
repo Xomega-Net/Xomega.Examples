@@ -40,13 +40,19 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            SalesPersonIdProperty = new EnumIntProperty(this, SalesPersonId);
-            SalesPersonIdProperty.EnumType = "sales person";
-            SalesReasonProperty = new EnumIntProperty(this, SalesReason);
-            SalesReasonProperty.IsMultiValued = true;
-            SalesReasonProperty.EnumType = "sales reason";
-            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId);
-            TerritoryIdProperty.EnumType = "sales territory";
+            SalesPersonIdProperty = new EnumIntProperty(this, SalesPersonId)
+            {
+                EnumType = "sales person",
+            };
+            SalesReasonProperty = new EnumIntProperty(this, SalesReason)
+            {
+                IsMultiValued = true,
+                EnumType = "sales reason",
+            };
+            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            {
+                EnumType = "sales territory",
+            };
         }
 
         #endregion

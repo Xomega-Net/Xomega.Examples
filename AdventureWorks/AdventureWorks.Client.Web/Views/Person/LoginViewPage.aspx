@@ -5,7 +5,7 @@
 ----------------------------------------------------------------------------------------------%>
 
 <%@ Page Title="Login" Language="C#" MasterPageFile="~/Site.Master"
-         Inherits="AdventureWorks.Client.Web.LoginViewPage" %>
+         Inherits="AdventureWorks.Client.Web.LoginViewPage" Async="true" %>
 
 <%@ Register src="~/Views/Person/LoginView.ascx" tagname="LoginView" tagprefix="uc" %>
 

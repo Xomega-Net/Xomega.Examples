@@ -1,9 +1,6 @@
 ﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:v="clr-namespace:AdventureWorks.Client.Wpf"
-             xmlns:xom="clr-namespace:Xomega.Framework;assembly=Xomega.Framework.Wpf"
              x:Class="AdventureWorks.Client.Wpf.AppliedCriteria"
              Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
              ToolTip="{Binding Mode=OneWay, Converter={v:AppliedCriteriaConverter}}"
@@ -69,6 +66,9 @@
           </WrapPanel>
           <!--Hiding the 'and'-->
           <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Value.Length}" Value="0">
+              <Setter Property="Visibility" TargetName="and" Value="Collapsed"/>
+            </DataTrigger>
             <DataTrigger Binding="{Binding Value.Length}" Value="1">
               <Setter Property="Visibility" TargetName="and" Value="Collapsed"/>
             </DataTrigger>

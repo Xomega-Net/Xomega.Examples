@@ -61,7 +61,8 @@ namespace AdventureWorks.Services.Entities
             c.Property(e => e.RevisionNumber)
              .HasColumnName("RevisionNumber")
              .HasColumnType("tinyint")
-             .IsRequired();
+             .IsRequired()
+             .IsConcurrencyToken();
 
             c.Property(e => e.OrderDate)
              .HasColumnName("OrderDate")

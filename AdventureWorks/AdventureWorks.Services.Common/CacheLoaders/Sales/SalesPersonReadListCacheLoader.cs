@@ -7,6 +7,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Lookup;
 using Xomega.Framework.Services;
@@ -20,19 +22,22 @@ namespace AdventureWorks.Services
         {
         }
 
-        protected virtual Output<ICollection<SalesPerson_ReadListOutput>> ReadList()
+        protected virtual async Task<Output<ICollection<SalesPerson_ReadListOutput>>> ReadListAsync()
         {
             using (var s = serviceProvider.CreateScope())
             {
                 var svc = s.ServiceProvider.GetService<ISalesPersonService>();
-                return svc.ReadList();
+                return await svc.ReadListAsync();
             }
         }
 
-        protected override void LoadCache(string tableType, CacheUpdater updateCache)
+        protected override async Task LoadCacheAsync(string tableType, CacheUpdater updateCache, CancellationToken token = default)
         {
             Dictionary<string, Dictionary<string, Header>> data = new Dictionary<string, Dictionary<string, Header>>();
-            var output = ReadList();
+            var output = await ReadListAsync();
+            if (output?.Messages != null)
+                output.Messages.AbortIfHasErrors();
+            else if (output?.Result == null) return;
 
             foreach (var row in output.Result)
             {
@@ -46,11 +51,11 @@ namespace AdventureWorks.Services
                 if (!tbl.TryGetValue(id, out Header h))
                 {
                     tbl[id] = h = new Header(type, id, row.Name);
-                    h.IsActive = row.IsCurrent;
+                    h.IsActive = IsActive(row.IsCurrent);
                 }
                 h.AddToAttribute("territory id", row.TerritoryId);
             }
-            // if no data is returned we still need to update cache to get the notify listener removed
+            // if no data is returned we still need to update cache to mark it as loaded
             if (data.Count == 0) updateCache(new LookupTable(tableType, new List<Header>(), true));
             foreach (string type in data.Keys)
                 updateCache(new LookupTable(type, data[type].Values, true));

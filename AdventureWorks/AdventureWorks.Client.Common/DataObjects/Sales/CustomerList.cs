@@ -8,6 +8,8 @@ using AdventureWorks.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
 using Xomega.Framework.Services;
@@ -52,34 +54,49 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            AccountNumberProperty = new TextProperty(this, AccountNumber);
-            AccountNumberProperty.Required = true;
-            AccountNumberProperty.Size = 10;
-            AccountNumberProperty.Editable = false;
-            CustomerIdProperty = new IntegerKeyProperty(this, CustomerId);
-            CustomerIdProperty.Required = true;
-            CustomerIdProperty.Editable = false;
-            PersonIdProperty = new IntegerKeyProperty(this, PersonId);
-            PersonIdProperty.Editable = false;
-            PersonNameProperty = new TextProperty(this, PersonName);
-            PersonNameProperty.Editable = false;
-            StoreIdProperty = new IntegerKeyProperty(this, StoreId);
-            StoreIdProperty.Editable = false;
-            StoreNameProperty = new TextProperty(this, StoreName);
-            StoreNameProperty.Editable = false;
-            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId);
-            TerritoryIdProperty.EnumType = "sales territory";
-            TerritoryIdProperty.Editable = false;
+            AccountNumberProperty = new TextProperty(this, AccountNumber)
+            {
+                Required = true,
+                Size = 10,
+                Editable = false,
+            };
+            CustomerIdProperty = new IntegerKeyProperty(this, CustomerId)
+            {
+                Required = true,
+                Editable = false,
+                IsKey = true,
+            };
+            PersonIdProperty = new IntegerKeyProperty(this, PersonId)
+            {
+                Editable = false,
+            };
+            PersonNameProperty = new TextProperty(this, PersonName)
+            {
+                Editable = false,
+            };
+            StoreIdProperty = new IntegerKeyProperty(this, StoreId)
+            {
+                Editable = false,
+            };
+            StoreNameProperty = new TextProperty(this, StoreName)
+            {
+                Editable = false,
+            };
+            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            {
+                EnumType = "sales territory",
+                Editable = false,
+            };
         }
 
         #endregion
 
         #region CRUD Operations
 
-        protected override ErrorList DoRead(object options)
+        protected override async Task<ErrorList> DoReadAsync(object options, CancellationToken token = default)
         {
-            var output = Customer_ReadList(
-                CriteriaObject == null ? null : CriteriaObject.ToDataContract<Customer_ReadListInput_Criteria>(options), options);
+            var output = await Customer_ReadListAsync(options, 
+                CriteriaObject?.ToDataContract<Customer_ReadListInput_Criteria>(options));
             return output.Messages;
         }
 
@@ -87,11 +104,11 @@ namespace AdventureWorks.Client.Objects
 
         #region Service Operations
 
-        protected virtual Output<ICollection<Customer_ReadListOutput>> Customer_ReadList(Customer_ReadListInput_Criteria _criteria, object options)
+        protected virtual async Task<Output<ICollection<Customer_ReadListOutput>>> Customer_ReadListAsync(object options, Customer_ReadListInput_Criteria _criteria)
         {
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<ICustomerService>().ReadList(_criteria);
+                var output = await s.ServiceProvider.GetService<ICustomerService>().ReadListAsync(_criteria);
 
                 FromDataContract(output?.Result, options);
                 return output;

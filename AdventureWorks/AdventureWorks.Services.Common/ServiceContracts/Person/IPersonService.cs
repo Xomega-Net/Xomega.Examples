@@ -5,7 +5,7 @@
 //---------------------------------------------------------------------------------------------
 
 using System.ServiceModel;
-using Xomega.Framework;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
@@ -22,16 +22,12 @@ namespace AdventureWorks.Services
         ///<summary>
         /// Authenticates a Person using email and password.
         ///</summary>
-        [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output Authenticate(Credentials _credentials);
+        Task<Output> AuthenticateAsync(Credentials _credentials);
 
         ///<summary>
         /// Reads person info by email as the key.
         ///</summary>
-        [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<PersonInfo> Read(string _email);
+        Task<Output<PersonInfo>> ReadAsync(string _email);
 
     }
     #endregion

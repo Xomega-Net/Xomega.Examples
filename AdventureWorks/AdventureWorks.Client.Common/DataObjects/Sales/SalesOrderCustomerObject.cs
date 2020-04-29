@@ -60,23 +60,38 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            AccountNumberProperty = new TextProperty(this, AccountNumber);
-            AccountNumberProperty.Required = true;
-            AccountNumberProperty.Size = 10;
-            AccountNumberProperty.Editable = false;
-            CustomerIdProperty = new IntegerKeyProperty(this, CustomerId);
-            CustomerIdProperty.Required = true;
-            PersonIdProperty = new IntegerKeyProperty(this, PersonId);
-            PersonIdProperty.Editable = false;
-            PersonNameProperty = new TextProperty(this, PersonName);
-            PersonNameProperty.Editable = false;
-            StoreIdProperty = new IntegerKeyProperty(this, StoreId);
-            StoreIdProperty.Editable = false;
-            StoreNameProperty = new TextProperty(this, StoreName);
-            StoreNameProperty.Editable = false;
-            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId);
-            TerritoryIdProperty.EnumType = "sales territory";
-            TerritoryIdProperty.Editable = false;
+            AccountNumberProperty = new TextProperty(this, AccountNumber)
+            {
+                Required = true,
+                Size = 10,
+                Editable = false,
+            };
+            CustomerIdProperty = new IntegerKeyProperty(this, CustomerId)
+            {
+                Required = true,
+                IsKey = true,
+            };
+            PersonIdProperty = new IntegerKeyProperty(this, PersonId)
+            {
+                Editable = false,
+            };
+            PersonNameProperty = new TextProperty(this, PersonName)
+            {
+                Editable = false,
+            };
+            StoreIdProperty = new IntegerKeyProperty(this, StoreId)
+            {
+                Editable = false,
+            };
+            StoreNameProperty = new TextProperty(this, StoreName)
+            {
+                Editable = false,
+            };
+            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            {
+                EnumType = "sales territory",
+                Editable = false,
+            };
             DataObject objLookup = ServiceProvider.GetService<SalesCustomerLookupObject>();
             AddChildObject(Lookup, objLookup);
             DataObject objBillingAddress = ServiceProvider.GetService<AddressObject>();

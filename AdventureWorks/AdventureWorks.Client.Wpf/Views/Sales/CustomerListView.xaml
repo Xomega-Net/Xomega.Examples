@@ -11,8 +11,7 @@
                    xmlns:o="clr-namespace:AdventureWorks.Client.Objects;assembly=AdventureWorks.Client.Common"
                    xmlns:v="clr-namespace:AdventureWorks.Client.Wpf"
                    xmlns:xom="clr-namespace:Xomega.Framework;assembly=Xomega.Framework.Wpf"
-                   x:Class="AdventureWorks.Client.Wpf.CustomerListView"
-                   ViewTitle="Customer List">
+                   x:Class="AdventureWorks.Client.Wpf.CustomerListView">
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*"/>
@@ -24,13 +23,17 @@
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <Expander Grid.Row="0" Name="pnlCriteria" Header="Criteria" IsExpanded="True"
+    <TextBlock Grid.Row="0" Name="viewTitle" Text="View Title"
+               Style="{StaticResource ViewTitleStyle}"
+               Margin="10,0,0,5"/>
+    <Expander Grid.Row="1" Name="pnlCriteria" Header="Criteria" IsExpanded="True"
               xom:Data.ObjectBinding=""
-              Margin="10,0">
-      <Grid>
+              Margin="10,5,10,0">
+      <Grid xmlns:clr="http://www.xomega.net/clr">
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
@@ -82,52 +85,52 @@
                  Style="{StaticResource ControlStyle}"/>
       </Grid>
     </Expander>
-    <v:Errors Grid.Row="1" x:Name="pnlErrors" Margin="10,0"/>
-    <DockPanel Grid.Row="2" Margin="10">
+    <v:Errors Grid.Row="2" x:Name="pnlErrors" Margin="10,0"/>
+    <DockPanel Grid.Row="3" Margin="10">
       <Button Name="btnSearch" Width="75">_Search</Button>
       <Button HorizontalAlignment="Left" Margin="10,0,0,0" Name="btnReset" Width="75">_Reset</Button>
     </DockPanel>
-    <v:AppliedCriteria Grid.Row="3" x:Name="pnlAppliedCriteria" Margin="10,0"/>
-    <ListView Grid.Row="4" Name="gridResults" xom:Data.ObjectBinding="" Margin="10,0">
+    <v:AppliedCriteria Grid.Row="4" x:Name="pnlAppliedCriteria" Margin="10,0"/>
+    <ListView Grid.Row="5" Name="gridResults" xom:Data.ObjectBinding="" Margin="10,0">
       <ListView.View>
         <GridView>
           <GridView.Columns>
-            <GridViewColumn Header="Store Id">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Store Id">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:CustomerList.StoreId}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Store Name">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Store Name">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:CustomerList.StoreName}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Person Id">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Person Id">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:CustomerList.PersonId}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Person Name">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Person Name">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:CustomerList.PersonName}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Account Number">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Account Number">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:CustomerList.AccountNumber}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Territory Id">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Territory Id">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:CustomerList.TerritoryId}"/>
@@ -138,14 +141,14 @@
         </GridView>
       </ListView.View>
     </ListView>
-    <DockPanel Grid.Row="5" VerticalAlignment="Top" Margin="10">
+    <DockPanel Grid.Row="6" VerticalAlignment="Top" Margin="10">
       <Button Name="btnClose" Width="75" DockPanel.Dock="Right">_Close</Button>
       <Button HorizontalAlignment="Right" Margin="0,0,10,0" Name="btnSelect" Width="75">Se_lect</Button>
     </DockPanel>
-    <GridSplitter Grid.RowSpan="6" Name="splitter" Grid.Column="1" Width="5" Margin="0,5,0,5"
+    <GridSplitter Grid.RowSpan="7" Name="splitter" Grid.Column="1" Width="5" Margin="0,5,0,5"
                   HorizontalAlignment="Center"
                   Visibility="Collapsed"/>
-    <ScrollViewer Grid.RowSpan="6" Name="pnlDetails" Grid.Column="2"
+    <ScrollViewer Grid.RowSpan="7" Name="pnlDetails" Grid.Column="2"
                   VerticalScrollBarVisibility="Disabled"
                   HorizontalScrollBarVisibility="Auto"/>
   </Grid>

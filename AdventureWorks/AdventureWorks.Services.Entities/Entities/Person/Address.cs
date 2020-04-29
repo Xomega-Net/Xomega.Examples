@@ -4,7 +4,6 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-using GeoAPI.Geometries;
 using System;
 
 namespace AdventureWorks.Services.Entities
@@ -46,11 +45,6 @@ namespace AdventureWorks.Services.Entities
         /// Postal code for the street address.
         ///</summary>
         public string PostalCode  { get; set; }
-
-        ///<summary>
-        /// Latitude and longitude of this address.
-        ///</summary>
-        public IPoint SpatialLocation  { get; set; }
 
         ///<summary>
         /// ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.

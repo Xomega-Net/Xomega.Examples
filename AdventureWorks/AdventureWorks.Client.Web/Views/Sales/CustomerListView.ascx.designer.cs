@@ -9,7 +9,6 @@ namespace AdventureWorks.Client.Web
     public partial class CustomerListView
     {
         protected global::System.Web.UI.WebControls.Panel pnlComposition;
-        protected global::System.Web.UI.WebControls.Label lblCustomerListViewTitle;
         protected global::System.Web.UI.WebControls.Panel pnlCriteria;
         protected global::System.Web.UI.WebControls.Label lblTerritoryId;
         protected global::System.Web.UI.WebControls.DropDownList ctlTerritoryId;

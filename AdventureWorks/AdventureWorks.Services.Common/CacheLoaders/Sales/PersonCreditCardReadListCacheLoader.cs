@@ -7,33 +7,42 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Lookup;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
 {
-    public partial class PersonCreditCardReadListCacheLoader : LookupCacheLoader 
+    public partial class PersonCreditCardReadListCacheLoader : LocalLookupCacheLoader 
     {
         public PersonCreditCardReadListCacheLoader(IServiceProvider serviceProvider)
-            : base(serviceProvider, LookupCache.Global, true, "person credit card")
+            : base(serviceProvider, true, "person credit card")
         {
         }
 
-        // !!! override this function, and call the base function with proper arguments !!!
-        protected virtual Output<ICollection<PersonCreditCard_ReadListOutput>> ReadList(int _businessEntityId)
+        protected virtual async Task<Output<ICollection<PersonCreditCard_ReadListOutput>>> ReadListAsync()
         {
             using (var s = serviceProvider.CreateScope())
             {
+                object val;
+                int _businessEntityId;
+                if (Parameters.TryGetValue("business entity id", out val) && val != null)
+                    _businessEntityId = (int)val;
+                else return null;
                 var svc = s.ServiceProvider.GetService<IPersonCreditCardService>();
-                return svc.ReadList(_businessEntityId);
+                return await svc.ReadListAsync(_businessEntityId);
             }
         }
 
-        protected override void LoadCache(string tableType, CacheUpdater updateCache)
+        protected override async Task LoadCacheAsync(string tableType, CacheUpdater updateCache, CancellationToken token = default)
         {
             Dictionary<string, Dictionary<string, Header>> data = new Dictionary<string, Dictionary<string, Header>>();
-            var output = ReadList(default(int));
+            var output = await ReadListAsync();
+            if (output?.Messages != null)
+                output.Messages.AbortIfHasErrors();
+            else if (output?.Result == null) return;
 
             foreach (var row in output.Result)
             {
@@ -54,7 +63,7 @@ namespace AdventureWorks.Services
                 h.AddToAttribute("exp month", row.ExpMonth);
                 h.AddToAttribute("exp year", row.ExpYear);
             }
-            // if no data is returned we still need to update cache to get the notify listener removed
+            // if no data is returned we still need to update cache to mark it as loaded
             if (data.Count == 0) updateCache(new LookupTable(tableType, new List<Header>(), true));
             foreach (string type in data.Keys)
                 updateCache(new LookupTable(type, data[type].Values, true));

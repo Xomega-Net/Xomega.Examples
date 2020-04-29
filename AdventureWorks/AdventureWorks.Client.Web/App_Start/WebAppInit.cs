@@ -2,7 +2,9 @@
 using AdventureWorks.Client.ViewModels;
 using AdventureWorks.Services;
 using AdventureWorks.Services.Entities;
+#if !EF6
 using Microsoft.EntityFrameworkCore;
+#endif
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Configuration;
@@ -16,29 +18,33 @@ namespace AdventureWorks.Client.Web
     {
         public override IServiceProvider ConfigureServices()
         {
-            IServiceCollection container = new ServiceCollection();
+            IServiceCollection services = new ServiceCollection();
 
             // framework services configuration
-            container.AddErrors();
-            container.AddWebLookupCacheProvider();
+            services.AddErrors(true);
+            services.AddWebLookupCacheProvider();
 
             // app services configuration
-            container.AddSingleton<ResourceManager>(sp => new CompositeResourceManager(
+            services.AddSingleton<ResourceManager>(sp => new CompositeResourceManager(
                 Services.Entities.Messages.ResourceManager,
                 Xomega.Framework.Messages.ResourceManager));
-            container.AddDataObjects();
-            container.AddViewModels();
+            services.AddDataObjects();
+            services.AddViewModels();
             string connStr = ConfigurationManager.ConnectionStrings["AdventureWorksEntities"].ConnectionString;
-            container.AddDbContext<AdventureWorksEntities>(opt => opt
+#if EF6
+            services.AddScoped(sp => new AdventureWorksEntities(connStr));
+#else
+            services.AddDbContext<AdventureWorksEntities>(opt => opt
                 .UseLazyLoadingProxies()
-                .UseSqlServer(connStr, x => x.UseNetTopologySuite()));
-            container.AddServices();
-            container.AddLookupCacheLoaders();
-            container.AddXmlResourceCacheLoader(typeof(Enumerations.Operators).Assembly, ".enumerations.xres", true);
+                .UseSqlServer(connStr));
+#endif
+            services.AddServiceImplementations();
+            services.AddLookupCacheLoaders();
+            services.AddXmlResourceCacheLoader(typeof(Enumerations.Operators).Assembly, ".enumerations.xres", true);
 
             // TODO: configure container with other services as needed
 
-            return container.BuildServiceProvider();
+            return services.BuildServiceProvider();
         }
     }
 }

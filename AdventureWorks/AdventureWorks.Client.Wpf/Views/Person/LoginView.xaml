@@ -12,19 +12,22 @@
                     xmlns:v="clr-namespace:AdventureWorks.Client.Wpf"
                     xmlns:xom="clr-namespace:Xomega.Framework;assembly=Xomega.Framework.Wpf"
                     x:Class="AdventureWorks.Client.Wpf.LoginView"
-                    ViewTitle="Login"
                     ViewWidth="300"
                     ViewHeight="240">
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-    <v:Errors Grid.Row="0" x:Name="pnlErrors"/>
-    <GroupBox Grid.Row="1" Header="Login">
+    <TextBlock Grid.Row="0" Name="viewTitle" Text="View Title"
+               Style="{StaticResource ViewTitleStyle}"
+               Margin="10,0,0,5"/>
+    <v:Errors Grid.Row="1" x:Name="pnlErrors"/>
+    <GroupBox Grid.Row="2" Header="Login">
       <StackPanel>
-        <Grid>
+        <Grid xmlns:clr="http://www.xomega.net/clr">
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -50,7 +53,7 @@
         </Grid>
       </StackPanel>
     </GroupBox>
-    <DockPanel Grid.Row="2">
+    <DockPanel Grid.Row="3">
       <DockPanel DockPanel.Dock="Bottom">
         <Button x:Name="btnClose" Width="75" Margin="0,10,0,0" Content="_Close"
                 DockPanel.Dock="Right"/>

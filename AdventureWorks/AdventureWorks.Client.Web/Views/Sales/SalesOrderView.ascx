@@ -17,9 +17,9 @@
 <asp:Panel ID="pnlComposition" CssClass="view-composition" runat="server">
   <asp:UpdatePanel ID="upl_Main" UpdateMode="Conditional" runat="server">
     <ContentTemplate>
-      <asp:Panel ID="pnl_View" CssClass="view with-footer" runat="server" data-width="840" data-height="640">
+      <asp:Panel ID="pnl_View" CssClass="view with-footer" runat="server" data-width="800" data-height="680">
         <div class="view-header">
-          <asp:Label ID="lblSalesOrderViewTitle" CssClass="view-title" Text="Sales Order" runat="server"></asp:Label>
+          <asp:Label ID="lbl_ViewTitle" CssClass="view-title" runat="server"></asp:Label>
         </div>
         <div class="view-body">
           <div class="content indented">
@@ -122,7 +122,7 @@
                             </td>
                           </tr>
                         </table>
-                        <asp:LinkButton ID="lnkCustomerLookupLookUp" runat="server" OnCommand="lnkCustomerLookupLookUp_Click">Look Up</asp:LinkButton>
+                        <asp:LinkButton ID="LinkCustomerLookupLookUp" runat="server" OnCommand="LinkCustomerLookupLookUp_Click">Look Up</asp:LinkButton>
                       </asp:Panel>
                       <asp:Panel ID="pnlBillingAddress" CssClass="xw-obj " runat="server" GroupingText="Billing Address" ChildObject="<%# SalesOrderCustomerObject.BillingAddress %>">
                         <table class="xw-fieldset-layout">
@@ -202,7 +202,7 @@
                         <Columns>
                           <asp:TemplateField HeaderText="Product">
                             <ItemTemplate>
-                              <asp:LinkButton ID="lnkDetailDetails" runat="server" OnCommand="lnkDetailDetails_Click" CommandArgument="<%# Container.DataItemIndex %>">
+                              <asp:LinkButton ID="LinkDetailDetails" runat="server" OnCommand="LinkDetailDetails_Click" CommandArgument="<%# Container.DataItemIndex %>">
                                 <asp:Label ID="fldProduct" Property="<%# SalesOrderDetailList.Product %>" runat="server"></asp:Label>
                               </asp:LinkButton>
                             </ItemTemplate>
@@ -210,6 +210,11 @@
                           <asp:TemplateField HeaderText="Qty">
                             <ItemTemplate>
                               <asp:Label ID="fldOrderQty" Property="<%# SalesOrderDetailList.OrderQty %>" runat="server"></asp:Label>
+                            </ItemTemplate>
+                          </asp:TemplateField>
+                          <asp:TemplateField HeaderText="Special Offer">
+                            <ItemTemplate>
+                              <asp:Label ID="fldSpecialOffer" Property="<%# SalesOrderDetailList.SpecialOffer %>" runat="server"></asp:Label>
                             </ItemTemplate>
                           </asp:TemplateField>
                           <asp:TemplateField HeaderText="Price">
@@ -220,11 +225,6 @@
                           <asp:TemplateField HeaderText="Discount">
                             <ItemTemplate>
                               <asp:Label ID="fldUnitPriceDiscount" Property="<%# SalesOrderDetailList.UnitPriceDiscount %>" runat="server"></asp:Label>
-                            </ItemTemplate>
-                          </asp:TemplateField>
-                          <asp:TemplateField HeaderText="Special Offer">
-                            <ItemTemplate>
-                              <asp:Label ID="fldSpecialOffer" Property="<%# SalesOrderDetailList.SpecialOffer %>" runat="server"></asp:Label>
                             </ItemTemplate>
                           </asp:TemplateField>
                           <asp:TemplateField HeaderText="Total">
@@ -239,7 +239,7 @@
                           </asp:TemplateField>
                         </Columns>
                       </asp:GridView>
-                      <asp:LinkButton ID="lnkDetailNew" runat="server" OnCommand="lnkDetailNew_Click">New</asp:LinkButton>
+                      <asp:LinkButton ID="LinkDetailNew" runat="server" OnCommand="LinkDetailNew_Click">New</asp:LinkButton>
                     </asp:Panel>
                   </ContentTemplate>
                 </ajaxToolkit:TabPanel>
@@ -344,7 +344,7 @@
           </div>
         </div>
         <div class="view-footer action-bar">
-          <asp:Button ID="btn_Delete" Text="Delete" CssClass="btn-delete" Enabled="false" OnClientClick="if (!confirm('Are you sure you want to delete this object?\nThis action cannot be undone.')) return false;" runat="server"></asp:Button>
+          <asp:Button ID="btn_Delete" Text="Delete" CssClass="btn-delete" Enabled="false" runat="server"></asp:Button>
           <asp:Button ID="btn_Save" Text="Save" CssClass="btn-save" runat="server"></asp:Button>
           <asp:Button ID="btn_Close" Text="Close" CssClass="btn-close" runat="server"></asp:Button>
         </div>

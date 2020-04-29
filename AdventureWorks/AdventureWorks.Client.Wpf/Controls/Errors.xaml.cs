@@ -21,6 +21,11 @@ namespace AdventureWorks.Client.Wpf
 
         void IErrorPresenter.Show(ErrorList errorList)
         {
+            Dispatcher.Invoke(() => ShowErrors(errorList));
+        }
+
+        private void ShowErrors(ErrorList errorList)
+        {
             this.errorList = errorList;
             if (errorList == null || errorList.Errors.Count == 0)
             {
@@ -38,6 +43,11 @@ namespace AdventureWorks.Client.Wpf
                 if (errorList.Errors.Count > 1) str += "s";
                 title.Text = str;
             }
+        }
+
+        public void HideClose()
+        {
+            btnClose.Visibility = Visibility.Hidden;
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)

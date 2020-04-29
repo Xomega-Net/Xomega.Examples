@@ -12,7 +12,8 @@
                    xmlns:v="clr-namespace:AdventureWorks.Client.Wpf"
                    xmlns:xom="clr-namespace:Xomega.Framework;assembly=Xomega.Framework.Wpf"
                    x:Class="AdventureWorks.Client.Wpf.SalesOrderListView"
-                   ViewTitle="Sales Order List">
+                   ViewWidth="1760"
+                   ViewHeight="860">
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*"/>
@@ -24,13 +25,17 @@
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <Expander Grid.Row="0" Name="pnlCriteria" Header="Criteria" IsExpanded="True"
+    <TextBlock Grid.Row="0" Name="viewTitle" Text="View Title"
+               Style="{StaticResource ViewTitleStyle}"
+               Margin="10,0,0,5"/>
+    <Expander Grid.Row="1" Name="pnlCriteria" Header="Criteria" IsExpanded="True"
               xom:Data.ObjectBinding=""
-              Margin="10,0">
-      <Grid>
+              Margin="10,5,10,0">
+      <Grid xmlns:clr="http://www.xomega.net/clr">
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
@@ -129,123 +134,116 @@
         <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" x:Name="ctlCustomerName"
                  xom:Property.Name="{x:Static o:SalesOrderCriteria.CustomerName}"
                  Style="{StaticResource ControlStyle}"/>
-        <Label Grid.Row="2" Grid.Column="4" Name="lblGlobalRegion"
-               Style="{StaticResource LabelStyle}">_Global Region:</Label>
-        <ComboBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="3"
-                  xom:Property.Label="{Binding ElementName=lblGlobalRegion}"
-                  x:Name="ctlGlobalRegion"
-                  xom:Property.Name="{x:Static o:SalesOrderCriteria.GlobalRegion}"
-                  Style="{StaticResource ControlStyle}"/>
-        <Label Grid.Row="3" Grid.Column="4" Name="lblTerritoryId"
+        <Label Grid.Row="2" Grid.Column="4" Name="lblTerritoryId"
                Style="{StaticResource LabelStyle}">_Sales Territory:</Label>
-        <ComboBox Grid.Row="3" Grid.Column="5"
+        <ComboBox Grid.Row="2" Grid.Column="5"
                   xom:Property.Label="{Binding ElementName=lblTerritoryId}"
                   x:Name="ctlTerritoryIdOperator"
                   xom:Property.Name="{x:Static o:SalesOrderCriteria.TerritoryIdOperator}"
                   Style="{StaticResource OperatorStyle}"/>
-        <ComboBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" x:Name="ctlTerritoryId"
+        <ComboBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" x:Name="ctlTerritoryId"
                   xom:Property.Name="{x:Static o:SalesOrderCriteria.TerritoryId}"
                   Style="{StaticResource ControlStyle}"/>
-        <Label Grid.Row="4" Grid.Column="4" Name="lblSalesPersonId"
+        <Label Grid.Row="3" Grid.Column="4" Name="lblSalesPersonId"
                Style="{StaticResource LabelStyle}">_Sales Person:</Label>
-        <ComboBox Grid.Row="4" Grid.Column="5"
+        <ComboBox Grid.Row="3" Grid.Column="5"
                   xom:Property.Label="{Binding ElementName=lblSalesPersonId}"
                   x:Name="ctlSalesPersonIdOperator"
                   xom:Property.Name="{x:Static o:SalesOrderCriteria.SalesPersonIdOperator}"
                   Style="{StaticResource OperatorStyle}"/>
-        <ListBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" x:Name="ctlSalesPersonId"
+        <ListBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" x:Name="ctlSalesPersonId"
                  xom:Property.Name="{x:Static o:SalesOrderCriteria.SalesPersonId}"
                  Style="{StaticResource ControlStyle}"
                  MinHeight="21"
                  MaxHeight="84"/>
       </Grid>
     </Expander>
-    <v:Errors Grid.Row="1" x:Name="pnlErrors" Margin="10,0"/>
-    <DockPanel Grid.Row="2" Margin="10">
+    <v:Errors Grid.Row="2" x:Name="pnlErrors" Margin="10,0"/>
+    <DockPanel Grid.Row="3" Margin="10">
       <Button Name="btnSearch" Width="75">_Search</Button>
       <Button HorizontalAlignment="Left" Margin="10,0,0,0" Name="btnReset" Width="75">_Reset</Button>
     </DockPanel>
-    <v:AppliedCriteria Grid.Row="3" x:Name="pnlAppliedCriteria" Margin="10,0"/>
-    <ListView Grid.Row="4" Name="gridResults" xom:Data.ObjectBinding="" Margin="10,0">
+    <v:AppliedCriteria Grid.Row="4" x:Name="pnlAppliedCriteria" Margin="10,0"/>
+    <ListView Grid.Row="5" Name="gridResults" xom:Data.ObjectBinding="" Margin="10,0">
       <ListView.View>
         <GridView>
           <GridView.Columns>
-            <GridViewColumn Header="Sales Order Number">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Sales Order Number">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock>
-                    <Hyperlink Name="lnkDetails"
-                               Command="{Binding Path=lnkDetails_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}"
-                               CommandParameter="{Binding Row}"
+                    <Hyperlink Name="LinkDetails"
+                               Command="{Binding Path=LinkDetails_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}"
+                               CommandParameter="{Binding}"
                                xom:Property.Name="{x:Static o:SalesOrderList.SalesOrderNumber}"/>
                   </TextBlock>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Status">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Status">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.Status}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Order Date">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Order Date">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.OrderDate}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Ship Date">
-              <GridViewColumn.CellTemplate>
-                <DataTemplate>
-                  <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.ShipDate}"/>
-                </DataTemplate>
-              </GridViewColumn.CellTemplate>
-            </GridViewColumn>
-            <GridViewColumn Header="Due Date">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Due Date">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.DueDate}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Total Due">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Total Due">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.TotalDue}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Online">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Ship Date">
+              <GridViewColumn.CellTemplate>
+                <DataTemplate>
+                  <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.ShipDate}"/>
+                </DataTemplate>
+              </GridViewColumn.CellTemplate>
+            </GridViewColumn>
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Online">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.OnlineOrderFlag}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Customer Store">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Customer Store">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.CustomerStore}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Customer Name">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Customer Name">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.CustomerName}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Sales Person">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Sales Person">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.SalesPersonId}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Sales Territory">
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Sales Territory">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.TerritoryId}"/>
@@ -256,18 +254,18 @@
         </GridView>
       </ListView.View>
     </ListView>
-    <DockPanel Grid.Row="5" VerticalAlignment="Top" Margin="10">
-      <TextBlock>
-        <Hyperlink Name="lnkNew"
-                   Command="{Binding Path=lnkNew_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}">New</Hyperlink>
+    <DockPanel Grid.Row="6" VerticalAlignment="Top" Margin="10">
+      <TextBlock xmlns:clr="http://www.xomega.net/clr">
+        <Hyperlink Name="LinkNew"
+                   Command="{Binding Path=LinkNew_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}">New</Hyperlink>
       </TextBlock>
       <Button Name="btnClose" Width="75" DockPanel.Dock="Right">_Close</Button>
       <Button HorizontalAlignment="Right" Margin="0,0,10,0" Name="btnSelect" Width="75">Se_lect</Button>
     </DockPanel>
-    <GridSplitter Grid.RowSpan="6" Name="splitter" Grid.Column="1" Width="5" Margin="0,5,0,5"
+    <GridSplitter Grid.RowSpan="7" Name="splitter" Grid.Column="1" Width="5" Margin="0,5,0,5"
                   HorizontalAlignment="Center"
                   Visibility="Collapsed"/>
-    <ScrollViewer Grid.RowSpan="6" Name="pnlDetails" Grid.Column="2"
+    <ScrollViewer Grid.RowSpan="7" Name="pnlDetails" Grid.Column="2"
                   VerticalScrollBarVisibility="Disabled"
                   HorizontalScrollBarVisibility="Auto"/>
   </Grid>

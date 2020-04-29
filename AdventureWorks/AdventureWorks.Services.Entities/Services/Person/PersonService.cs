@@ -11,6 +11,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 // CUSTOM_CODE_START: add namespaces for custom code below
 // CUSTOM_CODE_END
@@ -26,33 +27,37 @@ namespace AdventureWorks.Services.Entities
             ctx = serviceProvider.GetService<AdventureWorksEntities>();
         }
 
-        public virtual Output Authenticate(Credentials _credentials)
+        public virtual async Task<Output> AuthenticateAsync(Credentials _credentials)
         {
-            // CUSTOM_CODE_START: add custom security checks for Authenticate operation below
-            // CUSTOM_CODE_END
             try
             {
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for Authenticate operation below
+                // CUSTOM_CODE_END
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output(currentErrors);
+            return await Task.FromResult(new Output(currentErrors));
         }
 
-        public virtual Output<PersonInfo> Read(string _email)
+        public virtual async Task<Output<PersonInfo>> ReadAsync(string _email)
         {
-            // CUSTOM_CODE_START: add custom security checks for Read operation below
-            // CUSTOM_CODE_END
             PersonInfo res = new PersonInfo();
             try
             {
+                currentErrors.AbortIfHasErrors();
+
+                // CUSTOM_CODE_START: add custom security checks for Read operation below
+                // CUSTOM_CODE_END
             }
             catch (Exception ex)
             {
                 currentErrors.MergeWith(errorParser.FromException(ex));
             }
-            return new Output<PersonInfo>(currentErrors, res);
+            return await Task.FromResult(new Output<PersonInfo>(currentErrors, res));
         }
     }
 }

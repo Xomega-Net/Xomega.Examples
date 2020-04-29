@@ -9,7 +9,7 @@ import { AuthManager } from 'xomega';
 
 export class ISalesReasonService {
 
-    public static getReadListRequest(): JQueryAjaxSettings {
+    public static getReadListAsyncRequest(): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
         req.url += `sales-reason`;
@@ -18,6 +18,6 @@ export class ISalesReasonService {
 }
 
 export class SalesReason_ReadListOutput {
-    public SalesReasonId: any;
-    public Name: any;
+    public SalesReasonId: any = null;
+    public Name: any = null;
 }

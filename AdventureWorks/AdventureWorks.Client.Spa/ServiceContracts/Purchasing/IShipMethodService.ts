@@ -9,7 +9,7 @@ import { AuthManager } from 'xomega';
 
 export class IShipMethodService {
 
-    public static getReadListRequest(): JQueryAjaxSettings {
+    public static getReadListAsyncRequest(): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
         req.url += `ship-method`;
@@ -18,6 +18,6 @@ export class IShipMethodService {
 }
 
 export class ShipMethod_ReadListOutput {
-    public ShipMethodId: any;
-    public Name: any;
+    public ShipMethodId: any = null;
+    public Name: any = null;
 }

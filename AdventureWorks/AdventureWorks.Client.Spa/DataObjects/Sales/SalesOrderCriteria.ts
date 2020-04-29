@@ -4,7 +4,7 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-import { CriteriaObject, TextProperty, OperatorProperty, DateProperty, EnumProperty, MoneyProperty } from 'xomega';
+import { CriteriaObject, TextProperty, OperatorProperty, DateProperty, EnumIntProperty, MoneyProperty } from 'xomega';
 
 export class SalesOrderCriteria extends CriteriaObject {
 
@@ -16,17 +16,16 @@ export class SalesOrderCriteria extends CriteriaObject {
     public DueDate: DateProperty;
     public DueDate2: DateProperty;
     public DueDateOperator: OperatorProperty;
-    public GlobalRegion: EnumProperty;
     public OrderDate: DateProperty;
     public OrderDate2: DateProperty;
     public OrderDateOperator: OperatorProperty;
     public SalesOrderNumber: TextProperty;
     public SalesOrderNumberOperator: OperatorProperty;
-    public SalesPersonId: EnumProperty;
+    public SalesPersonId: EnumIntProperty;
     public SalesPersonIdOperator: OperatorProperty;
-    public Status: EnumProperty;
+    public Status: EnumIntProperty;
     public StatusOperator: OperatorProperty;
-    public TerritoryId: EnumProperty;
+    public TerritoryId: EnumIntProperty;
     public TerritoryIdOperator: OperatorProperty;
     public TotalDue: MoneyProperty;
     public TotalDue2: MoneyProperty;
@@ -49,9 +48,6 @@ export class SalesOrderCriteria extends CriteriaObject {
         this.DueDateOperator = new OperatorProperty();
         this.DueDateOperator.Size = 25;
         this.DueDateOperator.EnumType = "operators";
-        this.GlobalRegion = new EnumProperty();
-        this.GlobalRegion.Size = 50;
-        this.GlobalRegion.EnumType = "sales territory group";
         this.OrderDate = new DateProperty();
         this.OrderDate2 = new DateProperty();
         this.OrderDateOperator = new OperatorProperty();
@@ -62,20 +58,20 @@ export class SalesOrderCriteria extends CriteriaObject {
         this.SalesOrderNumberOperator = new OperatorProperty();
         this.SalesOrderNumberOperator.Size = 25;
         this.SalesOrderNumberOperator.EnumType = "operators";
-        this.SalesPersonId = new EnumProperty();
+        this.SalesPersonId = new EnumIntProperty();
         this.SalesPersonId.IsMultiValued = true;
         this.SalesPersonId.EnumType = "sales person";
         this.SalesPersonIdOperator = new OperatorProperty();
         this.SalesPersonIdOperator.Size = 25;
         this.SalesPersonIdOperator.EnumType = "operators";
         this.SalesPersonIdOperator.HasNullCheck = true;
-        this.Status = new EnumProperty();
+        this.Status = new EnumIntProperty();
         this.Status.IsMultiValued = true;
         this.Status.EnumType = "sales order status";
         this.StatusOperator = new OperatorProperty();
         this.StatusOperator.Size = 25;
         this.StatusOperator.EnumType = "operators";
-        this.TerritoryId = new EnumProperty();
+        this.TerritoryId = new EnumIntProperty();
         this.TerritoryId.EnumType = "sales territory";
         this.TerritoryIdOperator = new OperatorProperty();
         this.TerritoryIdOperator.Size = 25;

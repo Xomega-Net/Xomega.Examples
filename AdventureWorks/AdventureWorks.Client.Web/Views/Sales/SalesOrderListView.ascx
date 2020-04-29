@@ -17,13 +17,13 @@
   <div>
     <asp:UpdatePanel ID="upl_Main" UpdateMode="Conditional" runat="server">
       <ContentTemplate>
-        <asp:Panel ID="pnl_View" CssClass="view vw-sales-order-list-view" runat="server">
+        <asp:Panel ID="pnl_View" CssClass="view vw-sales-order-list-view" runat="server" data-width="1760" data-height="860">
           <div class="view-header">
-            <asp:Label ID="lblSalesOrderListViewTitle" CssClass="view-title" Text="Sales Order List" runat="server"></asp:Label>
+            <asp:Label ID="lbl_ViewTitle" CssClass="view-title" runat="server"></asp:Label>
           </div>
           <div class="view-body">
             <div class="content indented">
-              <uc:CollapsiblePanel ID="ucl_Criteria" runat="server">
+              <uc:CollapsiblePanel ID="ucl_Criteria" Title="Criteria" runat="server">
                 <ContentTemplate>
                   <asp:Panel ID="pnlCriteria" CssClass="xw-obj" runat="server">
                     <table class="xw-fieldset-layout">
@@ -70,10 +70,6 @@
                             <asp:TextBox ID="ctlCustomerName" Property="<%# SalesOrderCriteria.CustomerName %>" runat="server"></asp:TextBox>
                           </div>
                           <div class="field">
-                            <asp:Label ID="lblGlobalRegion" Text="Global Region:" CssClass="label" runat="server"></asp:Label>
-                            <asp:DropDownList LabelID="lblGlobalRegion" ID="ctlGlobalRegion" Property="<%# SalesOrderCriteria.GlobalRegion %>" AutoPostBack="true" runat="server"></asp:DropDownList>
-                          </div>
-                          <div class="field">
                             <asp:Label ID="lblTerritoryId" Text="Sales Territory:" CssClass="label" runat="server"></asp:Label>
                             <asp:DropDownList LabelID="lblTerritoryId" ID="ctlTerritoryIdOperator" Property="<%# SalesOrderCriteria.TerritoryIdOperator %>" runat="server" AutoPostBack="true" CssClass="operator"></asp:DropDownList>
                             <asp:DropDownList ID="ctlTerritoryId" Property="<%# SalesOrderCriteria.TerritoryId %>" AutoPostBack="true" runat="server"></asp:DropDownList>
@@ -93,7 +89,7 @@
               <div class="action-bar">
                 <asp:Button ID="btn_Search" Text="Search" CssClass="btn-search" runat="server"></asp:Button>
                 <asp:Button ID="btn_Reset" Text="Reset" CssClass="btn-reset" runat="server"></asp:Button>
-                <asp:LinkButton ID="lnkPermaLink" CssClass="permalink" Text="PermaLink" OnClick="lnkPermaLink_Click" runat="server"></asp:LinkButton>
+                <asp:LinkButton ID="lnkPermaLink" CssClass="permalink" Text="PermaLink" OnClick="PermaLink_Click" runat="server"></asp:LinkButton>
               </div>
               <asp:Panel ID="pnlResults" CssClass="xw-obj" runat="server">
                 <uc:AppliedCriteria ID="ucl_AppliedCriteria" runat="server"></uc:AppliedCriteria>
@@ -101,7 +97,7 @@
                   <Columns>
                     <asp:TemplateField HeaderText="Sales Order Number">
                       <ItemTemplate>
-                        <asp:LinkButton ID="lnkDetails" runat="server" OnCommand="lnkDetails_Click" CommandArgument="<%# Container.DataItemIndex %>">
+                        <asp:LinkButton ID="LinkDetails" runat="server" OnCommand="LinkDetails_Click" CommandArgument="<%# Container.DataItemIndex %>">
                           <asp:Label ID="fldSalesOrderNumber" Property="<%# SalesOrderList.SalesOrderNumber %>" runat="server"></asp:Label>
                         </asp:LinkButton>
                       </ItemTemplate>
@@ -116,11 +112,6 @@
                         <asp:Label ID="fldOrderDate" Property="<%# SalesOrderList.OrderDate %>" runat="server"></asp:Label>
                       </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Ship Date">
-                      <ItemTemplate>
-                        <asp:Label ID="fldShipDate" Property="<%# SalesOrderList.ShipDate %>" runat="server"></asp:Label>
-                      </ItemTemplate>
-                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Due Date">
                       <ItemTemplate>
                         <asp:Label ID="fldDueDate" Property="<%# SalesOrderList.DueDate %>" runat="server"></asp:Label>
@@ -129,6 +120,11 @@
                     <asp:TemplateField HeaderText="Total Due">
                       <ItemTemplate>
                         <asp:Label ID="fldTotalDue" Property="<%# SalesOrderList.TotalDue %>" runat="server"></asp:Label>
+                      </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Ship Date">
+                      <ItemTemplate>
+                        <asp:Label ID="fldShipDate" Property="<%# SalesOrderList.ShipDate %>" runat="server"></asp:Label>
                       </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Online">
@@ -160,7 +156,7 @@
                 </asp:GridView>
               </asp:Panel>
               <div class="action-bar">
-                <asp:LinkButton ID="lnkNew" runat="server" OnCommand="lnkNew_Click">New</asp:LinkButton>
+                <asp:LinkButton ID="LinkNew" runat="server" OnCommand="LinkNew_Click">New</asp:LinkButton>
               </div>
               <div class="action-bar">
                 <asp:Button ID="btn_Select" Text="Select" CssClass="btn-select" runat="server"></asp:Button>

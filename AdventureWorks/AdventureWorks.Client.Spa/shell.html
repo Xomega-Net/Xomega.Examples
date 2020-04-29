@@ -1,8 +1,8 @@
 ﻿<div class="page">
     <script type="text/html" id="menus">
         <li role="menuitem" id="menu" data-bind="visible: allowed">
-            <a data-bind="attr: { href: $data.hash }, text: title" />
-            <ul role="menubar" data-bind="template: {name: 'menus', foreach: $data.items}"/>
+            <a data-bind="attr: { href: $data.hash }, text: title"></a>
+            <ul role="menubar" data-bind="template: {name: 'menus', foreach: $data.items}"></ul>
         </li>
     </script>
     <div class="page-header">
@@ -12,19 +12,19 @@
                 [ <a href="#login">Log In</a> ]
             </div>
             <div class="login-display" data-bind="visible: loggedIn">
-                Welcome <span class="login-name" data-bind="text: userName()"/>!
+                Welcome <span class="login-name" data-bind="text: userName()"></span>!
                 [ <a href="#" data-bind="click: logout">Log Out</a> ]
             </div>
         </div>
         <div class="site-nav">
             <div class="menu">
-                <ul role="menubar" data-bind="template: {name: 'menus', foreach: menu}" />
+                <ul role="menubar" data-bind="template: {name: 'menus', foreach: menu}"></ul>
             </div>
         </div>
     </div>
     <div class="page-body" data-bind="router: {}"></div>
     <div class="page-footer">
-        <div class="copyright">Copyright © <span data-bind="text: new Date().getFullYear()"/> MyCompany. All rights reserved.</div>
+        <div class="copyright">Copyright © <span data-bind="text: new Date().getFullYear()"></span> MyCompany. All rights reserved.</div>
         <div class="attribution">Powered by <a href="http://xomega.net">Xomega.Net</a></div>
     </div>
 </div>

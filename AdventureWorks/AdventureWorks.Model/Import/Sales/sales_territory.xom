@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
-        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:svc="http://www.xomega.net/svc"
         xmlns:rest="http://www.xomega.net/rest"
         xmlns:ui="http://www.xomega.net/ui"
         xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
@@ -12,20 +12,7 @@
     <type name="sales territory" base="integer enumeration">
       <enum ref="sales territory"/>
     </type>
-    <type name="sales territory group" base="enumeration" size="50">
-      <config>
-        <sql:type name="nvarchar"/>
-      </config>
-      <enum ref="sales territory group"/>
-    </type>
   </types>
-  <enums>
-    <enum name="sales territory group">
-      <item name="North America" value="North America"/>
-      <item name="Europe" value="Europe"/>
-      <item name="Pacific" value="Pacific"/>
-    </enum>
-  </enums>
   <objects>
     <object name="sales territory">
       <fields>
@@ -50,7 +37,7 @@
             <summary>ISO standard country or region code. Foreign key to CountryRegion.CountryRegionCode. </summary>
           </doc>
         </field>
-        <field name="group" type="sales territory group" required="true">
+        <field name="group" type="name" required="true">
           <config>
             <sql:column name="Group"/>
           </config>

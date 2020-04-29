@@ -1,66 +1,68 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services.Rest
 {
-    public class Credentials
+    public class AuthenticationController : TokenAuthController
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-    }
+        public class Credentials
+        {
+            [Required]
+            public string Username { get; set; }
 
-    public class AuthenticationController : ControllerBase
-    {
+            [Required]
+            public string Password { get; set; }
+        }
+
         private readonly IPersonService personService;
 
-        private IConfiguration Configuration { get; }
-
-        public AuthenticationController(IConfiguration configuration, IPersonService personService)
+        public AuthenticationController(ErrorList errorList, ErrorParser errorParser,
+            IOptionsMonitor<AuthConfig> configOptions, IPersonService personService)
+            : base(errorList, errorParser, configOptions)
         {
-            Configuration = configuration;
             this.personService = personService;
         }
 
         [AllowAnonymous]
         [HttpPost]
         [Route("authentication")]
-        public ActionResult Authenticate([FromBody]Credentials credentials)
+        public async Task<ActionResult> AuthenticateAsync([FromBody]Credentials credentials, CancellationToken token)
         {
-            Output authResult = personService.Authenticate(new Services.Credentials()
+            try
             {
-                Email = credentials.Username,
-                Password = credentials.Password
-            });
-            if (authResult.Messages.HasErrors())
-                return StatusCode((int)authResult.HttpStatus, authResult);
+                if (!ModelState.IsValid)
+                    currentErrors.AddModelErrors(ModelState);
+                currentErrors.AbortIfHasErrors();
 
-            Output<PersonInfo> info = personService.Read(credentials.Username);
-            if (info.Messages.HasErrors())
-                return StatusCode((int)authResult.HttpStatus, new Output(info.Messages));
+                ClaimsIdentity identity = new ClaimsIdentity();
+                await personService.AuthenticateAsync(new Services.Credentials()
+                {
+                    Email = credentials.Username,
+                    Password = credentials.Password
+                });
+                var info = await personService.ReadAsync(credentials.Username);
+                identity = SecurityManager.CreateIdentity(JwtBearerDefaults.AuthenticationScheme, info.Result);
 
-            ClaimsIdentity identity = SecurityManager.CreateIdentity("password", info.Result);
-
-            // generate jwt token
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>(Startup.ConfigJwtKey));
-            var tokenDescriptor = new SecurityTokenDescriptor
+                // generate jwt token
+                var jwtTokenHandler = new JwtSecurityTokenHandler();
+                string jwtToken = GetSecurityToken(identity, jwtTokenHandler);
+                return StatusCode((int)currentErrors.HttpStatus, new Output<string>(currentErrors, jwtToken));
+            }
+            catch (Exception ex)
             {
-                Subject = identity,
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            string tokenStr = tokenHandler.WriteToken(token);
-
-            return Ok(new Output<string>(null, tokenStr));
+                currentErrors.MergeWith(errorsParser.FromException(ex));
+            }
+            return StatusCode((int)currentErrors.HttpStatus, new Output(currentErrors));
         }
     }
 }

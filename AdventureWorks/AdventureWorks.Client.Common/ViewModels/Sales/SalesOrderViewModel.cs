@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Views;
 
@@ -16,7 +18,7 @@ namespace AdventureWorks.Client.ViewModels
 {
     public partial class SalesOrderViewModel : DetailsViewModel
     {
-        protected SalesOrderObject obj { get { return DetailsObject as SalesOrderObject; } }
+        public SalesOrderObject MainObj => DetailsObject as SalesOrderObject;
 
         public SalesOrderViewModel(IServiceProvider sp) : base(sp)
         {
@@ -27,113 +29,147 @@ namespace AdventureWorks.Client.ViewModels
             base.Initialize();
             DetailsObject = ServiceProvider.GetService<SalesOrderObject>();
         }
+        
+        public override string BaseTitle => GetString("Sales Order");
 
-        #region Link lnkCustomerLookupLookUp
+        #region Link LinkCustomerLookupLookUp
 
-        public virtual NameValueCollection lnkCustomerLookupLookUp_Params()
+        public virtual NameValueCollection LinkCustomerLookupLookUp_Params()
         {
-            NameValueCollection query = new NameValueCollection();
-            query.Add(ViewParams.Action.Param, ViewParams.Action.Select);
-            query.Add(ViewParams.SelectionMode.Param, ViewParams.SelectionMode.Single);
-            query.Add("StoreNameOperator", "CN");
-            query.Add("StoreName", this.obj.CustomerObject.LookupObject.StoreNameProperty.EditStringValue);
-            query.Add("PersonNameOperator", "CN");
-            query.Add("PersonName", this.obj.CustomerObject.LookupObject.PersonNameProperty.EditStringValue);
-            query.Add(ViewParams.Mode.Param, ViewParams.Mode.Popup);
-            query.Add(ViewParams.QuerySource, "lnkCustomerLookupLookUp");
+            NameValueCollection query = new NameValueCollection()
+            {
+                { ViewParams.Action.Param, ViewParams.Action.Select },
+                { ViewParams.SelectionMode.Param, ViewParams.SelectionMode.Single },
+                { "StoreNameOperator", "CN" },
+                { "StoreName", MainObj.CustomerObject.LookupObject.StoreNameProperty.GetStringValue(ValueFormat.EditString) },
+                { "PersonNameOperator", "CN" },
+                { "PersonName", MainObj.CustomerObject.LookupObject.PersonNameProperty.GetStringValue(ValueFormat.EditString) },
+                { ViewParams.Mode.Param, ViewParams.Mode.Popup },
+                { ViewParams.QuerySource, "LinkCustomerLookupLookUp" },
+            };
             return query;
         }
 
-        public virtual void lnkCustomerLookupLookUp_Command(IView tgtView, IView curView)
+        public virtual void LinkCustomerLookupLookUp_Command(IView tgtView, IView curView)
         {
-            NameValueCollection query = lnkCustomerLookupLookUp_Params();
+            NameValueCollection query = LinkCustomerLookupLookUp_Params();
             ViewModel tgtModel = ServiceProvider.GetService<CustomerListViewModel>();
             NavigateTo(tgtModel, tgtView, query, this, curView);
         }
 
-        public virtual bool lnkCustomerLookupLookUp_Enabled()
+        public virtual async Task LinkCustomerLookupLookUp_CommandAsync(IAsyncView tgtView, IAsyncView curView, CancellationToken token = default)
+        {
+            NameValueCollection query = LinkCustomerLookupLookUp_Params();
+            ViewModel tgtModel = ServiceProvider.GetService<CustomerListViewModel>();
+            await NavigateToAsync(tgtModel, tgtView, query, this, curView, token);
+        }
+
+        public virtual bool LinkCustomerLookupLookUp_Enabled()
         {
             return true;
         }
 
-        protected virtual void lnkCustomerLookupLookUp_HandleResult(object sender, List<DataRow> selectedRows)
+        protected virtual void LinkCustomerLookupLookUp_HandleResult(object sender, List<DataRow> selectedRows)
         {
             if (selectedRows == null || selectedRows.Count != 1) return;
             DataRow row = selectedRows[0];
-            this.obj.CustomerObject.CustomerIdProperty.SetValue(DataRow.GetValue(row, CustomerList.CustomerId));
-            this.obj.CustomerObject.StoreIdProperty.SetValue(DataRow.GetValue(row, CustomerList.StoreId));
-            this.obj.CustomerObject.StoreNameProperty.SetValue(DataRow.GetValue(row, CustomerList.StoreName));
-            this.obj.CustomerObject.PersonIdProperty.SetValue(DataRow.GetValue(row, CustomerList.PersonId));
-            this.obj.CustomerObject.PersonNameProperty.SetValue(DataRow.GetValue(row, CustomerList.PersonName));
-            this.obj.CustomerObject.AccountNumberProperty.SetValue(DataRow.GetValue(row, CustomerList.AccountNumber));
-            this.obj.CustomerObject.TerritoryIdProperty.SetValue(DataRow.GetValue(row, CustomerList.TerritoryId));
+            MainObj.CustomerObject.CustomerIdProperty.SetValue(DataRow.GetValue(row, CustomerList.CustomerId));
+            MainObj.CustomerObject.StoreIdProperty.SetValue(DataRow.GetValue(row, CustomerList.StoreId));
+            MainObj.CustomerObject.StoreNameProperty.SetValue(DataRow.GetValue(row, CustomerList.StoreName));
+            MainObj.CustomerObject.PersonIdProperty.SetValue(DataRow.GetValue(row, CustomerList.PersonId));
+            MainObj.CustomerObject.PersonNameProperty.SetValue(DataRow.GetValue(row, CustomerList.PersonName));
+            MainObj.CustomerObject.AccountNumberProperty.SetValue(DataRow.GetValue(row, CustomerList.AccountNumber));
+            MainObj.CustomerObject.TerritoryIdProperty.SetValue(DataRow.GetValue(row, CustomerList.TerritoryId));
         }
         #endregion
 
-        #region Link lnkDetailDetails
+        #region Link LinkDetailDetails
 
-        public virtual NameValueCollection lnkDetailDetails_Params(int row)
+        public virtual NameValueCollection LinkDetailDetails_Params(DataRow row)
         {
-            NameValueCollection query = new NameValueCollection();
-            DataListObject list = this.obj.DetailList;
-            list.CurrentRow = row;
-            query.Add("SalesOrderDetailId", this.obj.DetailList.SalesOrderDetailIdProperty.EditStringValue);
-            query.Add(ViewParams.Mode.Param, ViewParams.Mode.Popup);
-            query.Add(ViewParams.QuerySource, "lnkDetailDetails");
-            return query;
-        }
-
-        public virtual void lnkDetailDetails_Command(IView tgtView, IView curView, int row)
-        {
-            NameValueCollection query = lnkDetailDetails_Params(row);
-            ViewModel tgtModel = ServiceProvider.GetService<SalesOrderDetailViewModel>();
-            if (NavigateTo(tgtModel, tgtView, query, this, curView))
+            NameValueCollection query = new NameValueCollection()
             {
-                DataListObject list = this.obj.DetailList;
-                if (list != null) list.SelectRow(row);
-            }
-        }
-
-        public virtual bool lnkDetailDetails_Enabled(int row)
-        {
-            return true;
-        }
-        #endregion
-
-        #region Link lnkDetailNew
-
-        public virtual NameValueCollection lnkDetailNew_Params()
-        {
-            NameValueCollection query = new NameValueCollection();
-            query.Add(ViewParams.Action.Param, ViewParams.Action.Create);
-            query.Add("SalesOrderId", this.obj.SalesOrderIdProperty.EditStringValue);
-            query.Add(ViewParams.Mode.Param, ViewParams.Mode.Popup);
-            query.Add(ViewParams.QuerySource, "lnkDetailNew");
+                { "SalesOrderDetailId", MainObj.DetailList.SalesOrderDetailIdProperty.GetStringValue(ValueFormat.EditString, row) },
+                { ViewParams.Mode.Param, ViewParams.Mode.Popup },
+                { ViewParams.QuerySource, "LinkDetailDetails" },
+            };
             return query;
         }
 
-        public virtual void lnkDetailNew_Command(IView tgtView, IView curView)
+        public virtual void LinkDetailDetails_Command(IView tgtView, IView curView, DataRow row)
         {
-            NameValueCollection query = lnkDetailNew_Params();
+            NameValueCollection query = LinkDetailDetails_Params(row);
             ViewModel tgtModel = ServiceProvider.GetService<SalesOrderDetailViewModel>();
             NavigateTo(tgtModel, tgtView, query, this, curView);
         }
 
-        public virtual bool lnkDetailNew_Enabled()
+        public virtual async Task LinkDetailDetails_CommandAsync(IAsyncView tgtView, IAsyncView curView, DataRow row, CancellationToken token = default)
         {
-            return !obj.IsNew;
+            NameValueCollection query = LinkDetailDetails_Params(row);
+            ViewModel tgtModel = ServiceProvider.GetService<SalesOrderDetailViewModel>();
+            await NavigateToAsync(tgtModel, tgtView, query, this, curView, token);
+        }
+
+        public virtual bool LinkDetailDetails_Enabled(DataRow row)
+        {
+            return true;
         }
         #endregion
 
+        #region Link LinkDetailNew
+
+        public virtual NameValueCollection LinkDetailNew_Params()
+        {
+            NameValueCollection query = new NameValueCollection()
+            {
+                { ViewParams.Action.Param, ViewParams.Action.Create },
+                { "SalesOrderId", MainObj.SalesOrderIdProperty.GetStringValue(ValueFormat.EditString) },
+                { ViewParams.Mode.Param, ViewParams.Mode.Popup },
+                { ViewParams.QuerySource, "LinkDetailNew" },
+            };
+            return query;
+        }
+
+        public virtual void LinkDetailNew_Command(IView tgtView, IView curView)
+        {
+            NameValueCollection query = LinkDetailNew_Params();
+            ViewModel tgtModel = ServiceProvider.GetService<SalesOrderDetailViewModel>();
+            NavigateTo(tgtModel, tgtView, query, this, curView);
+        }
+
+        public virtual async Task LinkDetailNew_CommandAsync(IAsyncView tgtView, IAsyncView curView, CancellationToken token = default)
+        {
+            NameValueCollection query = LinkDetailNew_Params();
+            ViewModel tgtModel = ServiceProvider.GetService<SalesOrderDetailViewModel>();
+            await NavigateToAsync(tgtModel, tgtView, query, this, curView, token);
+        }
+
+        public virtual bool LinkDetailNew_Enabled()
+        {
+            return !DetailsObject.IsNew;
+        }
+        #endregion
+         
+        #region Child selection event
+          
+        protected virtual void HandleSelection(object sender, ViewEvent e)
+        {
+            ViewModel child = sender as ViewModel;
+            if (e is ViewSelectionEvent && child?.Params?[ViewParams.QuerySource] == "LinkCustomerLookupLookUp")
+                LinkCustomerLookupLookUp_HandleResult(sender, ((ViewSelectionEvent)e).SelectedRows);
+        }
+
         protected override void OnChildEvent(object sender, ViewEvent e)
         {
-            ViewSelectionEvent selEvt = e as ViewSelectionEvent;
-            ViewModel child = sender as ViewModel;
-            if (selEvt != null && child != null && child.Params[ViewParams.QuerySource] == "lnkCustomerLookupLookUp")
-                lnkCustomerLookupLookUp_HandleResult(sender, selEvt.SelectedRows);
-            if (e.IsClosed() && child != null && child.Params[ViewParams.QuerySource] == "lnkDetailDetails")
-                this.obj.DetailList.ClearSelectedRows();
+            HandleSelection(sender, e);
             base.OnChildEvent(sender, e);
         }
+
+        protected override async Task OnChildEventAsync(object sender, ViewEvent e, CancellationToken token = default)
+        {
+            HandleSelection(sender, e);
+            await base.OnChildEventAsync(sender, e, token);
+        }
+        #endregion
     }
 }

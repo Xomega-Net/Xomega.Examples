@@ -8,14 +8,13 @@
 
 <%@ Import Namespace="AdventureWorks.Client.Objects" %>
 <%@ Register src="~/Controls/Errors.ascx" tagname="Errors" tagprefix="uc" %>
-<%@ Register src="~/Controls/Editors/DateTimeControl.ascx" tagname="DateTimeControl" tagprefix="uc" %>
 
 <asp:Panel ID="pnlComposition" CssClass="view-composition" runat="server">
   <asp:UpdatePanel ID="upl_Main" UpdateMode="Conditional" runat="server">
     <ContentTemplate>
-      <asp:Panel ID="pnl_View" CssClass="view with-footer" runat="server">
+      <asp:Panel ID="pnl_View" CssClass="view with-footer" runat="server" data-width="450" data-height="450">
         <div class="view-header">
-          <asp:Label ID="lblSalesOrderDetailViewTitle" CssClass="view-title" Text="Detail" runat="server"></asp:Label>
+          <asp:Label ID="lbl_ViewTitle" CssClass="view-title" runat="server"></asp:Label>
         </div>
         <div class="view-body">
           <div class="content indented">
@@ -24,48 +23,38 @@
               <asp:Panel ID="pnlMain" CssClass="xw-obj" GroupingText="Detail" runat="server">
                 <table class="xw-fieldset-layout">
                   <tr>
-                    <td class="fieldColumn" style="width: 50%">
+                    <td class="fieldColumn" style="width: 100%">
                       <div class="field">
-                        <asp:Label ID="lblSalesOrderId" Text="Sales Order Id:" CssClass="label" runat="server"></asp:Label>
-                        <asp:Label LabelID="lblSalesOrderId" ID="ctlSalesOrderId" Property="<%# SalesOrderDetailObject.SalesOrderId %>" runat="server"></asp:Label>
+                        <asp:Label ID="lblSubcategory" Text="Subcategory:" CssClass="label" runat="server"></asp:Label>
+                        <asp:DropDownList LabelID="lblSubcategory" ID="ctlSubcategory" Property="<%# SalesOrderDetailObject.Subcategory %>" AutoPostBack="true" runat="server"></asp:DropDownList>
+                      </div>
+                      <div class="field">
+                        <asp:Label ID="lblProductId" Text="Product:" CssClass="label" runat="server"></asp:Label>
+                        <asp:DropDownList LabelID="lblProductId" ID="ctlProductId" Property="<%# SalesOrderDetailObject.ProductId %>" AutoPostBack="true" runat="server"></asp:DropDownList>
+                      </div>
+                      <div class="field">
+                        <asp:Label ID="lblOrderQty" Text="Order Qty:" CssClass="label" runat="server"></asp:Label>
+                        <asp:TextBox LabelID="lblOrderQty" ID="ctlOrderQty" Property="<%# SalesOrderDetailObject.OrderQty %>" AutoPostBack="true" runat="server" CssClass="integer"></asp:TextBox>
+                      </div>
+                      <div class="field">
+                        <asp:Label ID="lblSpecialOfferId" Text="Special Offer:" CssClass="label" runat="server"></asp:Label>
+                        <asp:DropDownList LabelID="lblSpecialOfferId" ID="ctlSpecialOfferId" Property="<%# SalesOrderDetailObject.SpecialOfferId %>" AutoPostBack="true" runat="server"></asp:DropDownList>
+                      </div>
+                      <div class="field">
+                        <asp:Label ID="lblUnitPrice" Text="Unit Price:" CssClass="label" runat="server"></asp:Label>
+                        <asp:Label LabelID="lblUnitPrice" ID="ctlUnitPrice" Property="<%# SalesOrderDetailObject.UnitPrice %>" runat="server"></asp:Label>
+                      </div>
+                      <div class="field">
+                        <asp:Label ID="lblUnitPriceDiscount" Text="Unit Price Discount:" CssClass="label" runat="server"></asp:Label>
+                        <asp:Label LabelID="lblUnitPriceDiscount" ID="ctlUnitPriceDiscount" Property="<%# SalesOrderDetailObject.UnitPriceDiscount %>" runat="server"></asp:Label>
+                      </div>
+                      <div class="field">
+                        <asp:Label ID="lblLineTotal" Text="Line Total:" CssClass="label" runat="server"></asp:Label>
+                        <asp:Label LabelID="lblLineTotal" ID="ctlLineTotal" Property="<%# SalesOrderDetailObject.LineTotal %>" runat="server"></asp:Label>
                       </div>
                       <div class="field">
                         <asp:Label ID="lblCarrierTrackingNumber" Text="Carrier Tracking Number:" CssClass="label" runat="server"></asp:Label>
                         <asp:TextBox LabelID="lblCarrierTrackingNumber" ID="ctlCarrierTrackingNumber" Property="<%# SalesOrderDetailObject.CarrierTrackingNumber %>" runat="server"></asp:TextBox>
-                      </div>
-                      <div class="field">
-                        <asp:Label ID="lblOrderQty" Text="Order Qty:" CssClass="label" runat="server"></asp:Label>
-                        <asp:TextBox LabelID="lblOrderQty" ID="ctlOrderQty" Property="<%# SalesOrderDetailObject.OrderQty %>" runat="server" CssClass="integer"></asp:TextBox>
-                      </div>
-                      <div class="field">
-                        <asp:Label ID="lblSpecialOfferId" Text="Special Offer Id:" CssClass="label" runat="server"></asp:Label>
-                        <asp:DropDownList LabelID="lblSpecialOfferId" ID="ctlSpecialOfferId" Property="<%# SalesOrderDetailObject.SpecialOfferId %>" runat="server"></asp:DropDownList>
-                      </div>
-                      <div class="field">
-                        <asp:Label ID="lblProductId" Text="Product Id:" CssClass="label" runat="server"></asp:Label>
-                        <asp:DropDownList LabelID="lblProductId" ID="ctlProductId" Property="<%# SalesOrderDetailObject.ProductId %>" runat="server"></asp:DropDownList>
-                      </div>
-                    </td>
-                    <td class="fieldColumn" style="width: 50%">
-                      <div class="field">
-                        <asp:Label ID="lblUnitPrice" Text="Unit Price:" CssClass="label" runat="server"></asp:Label>
-                        <asp:TextBox LabelID="lblUnitPrice" ID="ctlUnitPrice" Property="<%# SalesOrderDetailObject.UnitPrice %>" runat="server" CssClass="decimal"></asp:TextBox>
-                      </div>
-                      <div class="field">
-                        <asp:Label ID="lblUnitPriceDiscount" Text="Unit Price Discount:" CssClass="label" runat="server"></asp:Label>
-                        <asp:TextBox LabelID="lblUnitPriceDiscount" ID="ctlUnitPriceDiscount" Property="<%# SalesOrderDetailObject.UnitPriceDiscount %>" runat="server" CssClass="decimal"></asp:TextBox>
-                      </div>
-                      <div class="field">
-                        <asp:Label ID="lblLineTotal" Text="Line Total:" CssClass="label" runat="server"></asp:Label>
-                        <asp:TextBox LabelID="lblLineTotal" ID="ctlLineTotal" Property="<%# SalesOrderDetailObject.LineTotal %>" runat="server" CssClass="decimal"></asp:TextBox>
-                      </div>
-                      <div class="field">
-                        <asp:Label ID="lblRowguid" Text="Rowguid:" CssClass="label" runat="server"></asp:Label>
-                        <asp:TextBox LabelID="lblRowguid" ID="ctlRowguid" Property="<%# SalesOrderDetailObject.Rowguid %>" runat="server"></asp:TextBox>
-                      </div>
-                      <div class="field">
-                        <asp:Label ID="lblModifiedDate" Text="Modified Date:" CssClass="label" runat="server"></asp:Label>
-                        <uc:DateTimeControl LabelID="lblModifiedDate" ID="ctlModifiedDate" Property="<%# SalesOrderDetailObject.ModifiedDate %>" TextCssClass="datetime" runat="server"></uc:DateTimeControl>
                       </div>
                     </td>
                   </tr>
@@ -75,7 +64,7 @@
           </div>
         </div>
         <div class="view-footer action-bar">
-          <asp:Button ID="btn_Delete" Text="Delete" CssClass="btn-delete" Enabled="false" OnClientClick="if (!confirm('Are you sure you want to delete this object?\nThis action cannot be undone.')) return false;" runat="server"></asp:Button>
+          <asp:Button ID="btn_Delete" Text="Delete" CssClass="btn-delete" Enabled="false" runat="server"></asp:Button>
           <asp:Button ID="btn_Save" Text="Save" CssClass="btn-save" runat="server"></asp:Button>
           <asp:Button ID="btn_Close" Text="Close" CssClass="btn-close" runat="server"></asp:Button>
         </div>

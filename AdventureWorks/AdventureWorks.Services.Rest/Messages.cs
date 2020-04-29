@@ -18,11 +18,5 @@ namespace AdventureWorks.Services.Rest
         {
             get { return resourceManager.Value; }
         }
-
-        /// <summary>
-        /// Lookup table '{0}' is not found in the global lookup cache.
-        /// Where {0}=Lookup table name
-        /// </summary>
-        public const string LookupTableNotFound = "LookupTableNotFound";
     }
 }

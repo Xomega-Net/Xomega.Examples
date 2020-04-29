@@ -9,7 +9,7 @@ import { AuthManager } from 'xomega';
 
 export class IBusinessEntityAddressService {
 
-    public static getReadListRequest(_businessEntityId: any): JQueryAjaxSettings {
+    public static getReadListAsyncRequest(_businessEntityId: any): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
         req.url += `business entity/${ _businessEntityId }/address`;
@@ -18,12 +18,12 @@ export class IBusinessEntityAddressService {
 }
 
 export class BusinessEntityAddress_ReadListOutput {
-    public AddressId: any;
-    public AddressType: any;
-    public AddressLine1: any;
-    public AddressLine2: any;
-    public City: any;
-    public State: any;
-    public PostalCode: any;
-    public Country: any;
+    public AddressId: any = null;
+    public AddressType: any = null;
+    public AddressLine1: any = null;
+    public AddressLine2: any = null;
+    public City: any = null;
+    public State: any = null;
+    public PostalCode: any = null;
+    public Country: any = null;
 }

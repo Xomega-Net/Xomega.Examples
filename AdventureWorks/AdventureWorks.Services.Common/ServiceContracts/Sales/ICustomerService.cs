@@ -8,7 +8,7 @@ using AdventureWorks.Enumerations;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using Xomega.Framework;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
@@ -26,8 +26,7 @@ namespace AdventureWorks.Services
         /// Reads a list of Customer objects based on the specified criteria.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<ICollection<Customer_ReadListOutput>> ReadList(Customer_ReadListInput_Criteria _criteria);
+        Task<Output<ICollection<Customer_ReadListOutput>>> ReadListAsync(Customer_ReadListInput_Criteria _criteria);
 
     }
     #endregion
@@ -35,7 +34,7 @@ namespace AdventureWorks.Services
     #region Customer_ReadListInput_Criteria structure
 
     ///<summary>
-    /// Structure of parameter Criteria of the input structure of operation ICustomerService.ReadList.
+    /// Structure of parameter Criteria of the input structure of operation ICustomerService.ReadListAsync.
     ///</summary>
     [DataContract]
     public class Customer_ReadListInput_Criteria
@@ -81,7 +80,7 @@ namespace AdventureWorks.Services
     #region Customer_ReadListOutput structure
 
     ///<summary>
-    /// The output structure of operation ICustomerService.ReadList.
+    /// The output structure of operation ICustomerService.ReadListAsync.
     ///</summary>
     [DataContract]
     public class Customer_ReadListOutput

@@ -8,83 +8,82 @@ using AdventureWorks.Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Xomega.Framework;
 using Xomega.Framework.Views;
 
 namespace AdventureWorks.Client.Wpf
 {
     public partial class SalesOrderView
     {
+        protected SalesOrderViewModel VM => Model as SalesOrderViewModel;
+
         public SalesOrderView()
         {
-            lnkCustomerLookupLookUp_Command = new RelayCommand<object>(lnkCustomerLookupLookUp_Execute, lnkCustomerLookupLookUp_Enabled);
-            lnkDetailDetails_Command = new RelayCommand<int?>(lnkDetailDetails_Execute, lnkDetailDetails_Enabled);
-            lnkDetailNew_Command = new RelayCommand<object>(lnkDetailNew_Execute, lnkDetailNew_Enabled);
+            LinkCustomerLookupLookUp_Command = new RelayCommand<object>(LinkCustomerLookupLookUp_Execute, LinkCustomerLookupLookUp_Enabled);
+            LinkDetailDetails_Command = new RelayCommand<DataRow>(LinkDetailDetails_Execute, LinkDetailDetails_Enabled);
+            LinkDetailNew_Command = new RelayCommand<object>(LinkDetailNew_Execute, LinkDetailNew_Enabled);
             InitializeComponent();
+            IsAsync = true;
         }
 
-        #region lnkCustomerLookupLookUp_Command
+        #region LinkCustomerLookupLookUp_Command
 
-        public ICommand lnkCustomerLookupLookUp_Command { get; set; }
+        public ICommand LinkCustomerLookupLookUp_Command { get; set; }
 
-        public virtual void lnkCustomerLookupLookUp_Execute(object arg)
+        public virtual async void LinkCustomerLookupLookUp_Execute(object arg)
         {
-            SalesOrderViewModel vm = Model as SalesOrderViewModel;
-            if (vm == null) return;
+            if (VM == null) return;
             WPFView cur = null as CustomerListView;
-            WPFView tgt = cur ?? vm.ServiceProvider.GetService<CustomerListView>();
+            WPFView tgt = cur ?? VM.ServiceProvider.GetService<CustomerListView>();
             tgt.Owner = this;
-            vm.lnkCustomerLookupLookUp_Command(tgt, cur);
+            await VM.LinkCustomerLookupLookUp_CommandAsync(tgt, cur);
         }
-        public virtual bool lnkCustomerLookupLookUp_Enabled(object arg)
-        {
-            SalesOrderViewModel c = Model as SalesOrderViewModel;
-            return c == null ? false : c.lnkCustomerLookupLookUp_Enabled();
-        }
+
+        public virtual bool LinkCustomerLookupLookUp_Enabled(object arg)
+            => VM != null && VM.LinkCustomerLookupLookUp_Enabled();
+
         #endregion
 
-        #region lnkDetailDetails_Command
+        #region LinkDetailDetails_Command
 
-        public ICommand lnkDetailDetails_Command { get; set; }
+        public ICommand LinkDetailDetails_Command { get; set; }
 
-        public virtual void lnkDetailDetails_Execute(int? row)
+        public virtual async void LinkDetailDetails_Execute(DataRow row)
         {
-            SalesOrderViewModel vm = Model as SalesOrderViewModel;
-            if (vm == null) return;
+            if (VM == null) return;
             WPFView cur = null as SalesOrderDetailView;
-            WPFView tgt = cur ?? vm.ServiceProvider.GetService<SalesOrderDetailView>();
+            WPFView tgt = cur ?? VM.ServiceProvider.GetService<SalesOrderDetailView>();
             tgt.Owner = this;
-            vm.lnkDetailDetails_Command(tgt, cur, row.Value);
+            await VM.LinkDetailDetails_CommandAsync(tgt, cur, row);
         }
-        public virtual bool lnkDetailDetails_Enabled(int? row)
-        {
-            SalesOrderViewModel c = Model as SalesOrderViewModel;
-            return c == null ? false : c.lnkDetailDetails_Enabled(row.Value);
-        }
+
+        public virtual bool LinkDetailDetails_Enabled(DataRow row)
+            => VM != null && VM.LinkDetailDetails_Enabled(row);
+
         #endregion
 
-        #region lnkDetailNew_Command
+        #region LinkDetailNew_Command
 
-        public ICommand lnkDetailNew_Command { get; set; }
+        public ICommand LinkDetailNew_Command { get; set; }
 
-        public virtual void lnkDetailNew_Execute(object arg)
+        public virtual async void LinkDetailNew_Execute(object arg)
         {
-            SalesOrderViewModel vm = Model as SalesOrderViewModel;
-            if (vm == null) return;
+            if (VM == null) return;
             WPFView cur = null as SalesOrderDetailView;
-            WPFView tgt = cur ?? vm.ServiceProvider.GetService<SalesOrderDetailView>();
+            WPFView tgt = cur ?? VM.ServiceProvider.GetService<SalesOrderDetailView>();
             tgt.Owner = this;
-            vm.lnkDetailNew_Command(tgt, cur);
+            await VM.LinkDetailNew_CommandAsync(tgt, cur);
         }
-        public virtual bool lnkDetailNew_Enabled(object arg)
-        {
-            SalesOrderViewModel c = Model as SalesOrderViewModel;
-            return c == null ? false : c.lnkDetailNew_Enabled();
-        }
+
+        public virtual bool LinkDetailNew_Enabled(object arg)
+            => VM != null && VM.LinkDetailNew_Enabled();
+
         #endregion
 
-        protected override Button CloseButton { get { return btnClose; } }
-        protected override IErrorPresenter ErrorsPanel { get { return pnlErrors; } }
-        protected override Button DeleteButton { get { return btnDelete; } }
-        protected override Button SaveButton { get { return btnSave; } }
+        protected override TextBlock TitleControl => viewTitle;
+        protected override Button CloseButton => btnClose;
+        protected override IErrorPresenter ErrorsPanel => pnlErrors;
+        protected override Button DeleteButton => btnDelete;
+        protected override Button SaveButton => btnSave;
     }
 }

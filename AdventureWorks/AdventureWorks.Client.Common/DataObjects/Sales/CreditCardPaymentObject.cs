@@ -42,16 +42,25 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            CardNumberProperty = new TextProperty(this, CardNumber);
-            CardNumberProperty.Required = true;
-            CardNumberProperty.Size = 25;
-            CardNumberProperty.Editable = false;
-            CreditCardApprovalCodeProperty = new TextProperty(this, CreditCardApprovalCode);
-            CreditCardApprovalCodeProperty.Size = 15;
-            CreditCardIdProperty = new EnumIntProperty(this, CreditCardId);
-            CreditCardIdProperty.Required = true;
-            ExpirationProperty = new TextProperty(this, Expiration);
-            ExpirationProperty.Editable = false;
+            CardNumberProperty = new TextProperty(this, CardNumber)
+            {
+                Required = true,
+                Size = 25,
+                Editable = false,
+            };
+            CreditCardApprovalCodeProperty = new TextProperty(this, CreditCardApprovalCode)
+            {
+                Size = 15,
+            };
+            CreditCardIdProperty = new EnumIntProperty(this, CreditCardId)
+            {
+                Required = true,
+                IsKey = true,
+            };
+            ExpirationProperty = new TextProperty(this, Expiration)
+            {
+                Editable = false,
+            };
         }
 
         #endregion

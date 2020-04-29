@@ -1,46 +1,42 @@
-import { BusinessEntityAddressReadListCacheLoader } from 'CacheLoaders/BusinessEntityAddressReadListCacheLoader';
+
 import { SalesOrderCustomerObject as GeneratedDataObject } from 'DataObjects/Sales/SalesOrderCustomerObject';
-import { BusinessEntityAddress } from 'Enumerations/Enumerations';
-import { LookupTable } from 'xomega';
+import { BusinessEntityAddressReadListCacheLoader } from '../../CacheLoaders/BusinessEntityAddressReadListCacheLoader';
+import { BusinessEntityAddress } from '../../Enumerations/Enumerations';
 
 export class SalesOrderCustomerObject extends GeneratedDataObject {
 
+    private addressLoader: BusinessEntityAddressReadListCacheLoader;
+
+    // construct properties and child objects
+    init() {
+        super.init();
+        // add custom construction code here
+    }
+
     // perform post intialization
     onInitialized() {
-        super.onInitialized();
         this.LookupObject.TrackModifications = false;
-        new CustomerAddressLoader(this);
-    }
-}
+        this.addressLoader = new BusinessEntityAddressReadListCacheLoader();
+        this.BillingAddressObject.AddressId.LocalCacheLoader = this.addressLoader;
+        this.ShippingAddressObject.AddressId.LocalCacheLoader = this.addressLoader;
 
-class CustomerAddressLoader extends BusinessEntityAddressReadListCacheLoader {
+        this.StoreId.InternalValue.subscribe(this.onCustomerChanged, this);
+        this.PersonId.InternalValue.subscribe(this.onCustomerChanged, this);
 
-    private customer: SalesOrderCustomerObject;
+        super.onInitialized();
+    }
 
-    constructor(customer: SalesOrderCustomerObject) {
-        super(true);
-        this.customer = customer;
-        customer.StoreId.InternalValue.subscribe(() => this.update(), this);
-        customer.PersonId.InternalValue.subscribe(() => this.update(), this);
-    }
-    // overrde base method to provide proper input value(s)
-    protected loadRequest(): JQueryAjaxSettings {
-        let id = this.customer.StoreId.isNull() ? // use store or person id
-            this.customer.PersonId.InternalValue() : this.customer.StoreId.InternalValue();
-        return this.getLoadRequest(id);
-    }
-    private update() {
-        if (this.customer.PersonId.isNull() && this.customer.StoreId.isNull()) return;
-        let cl = this;
-        this.loadCache(BusinessEntityAddress.EnumName, function (tbl: LookupTable) {
-            cl.customer.BillingAddressObject.AddressId.setLookupTable(tbl);
-            cl.customer.ShippingAddressObject.AddressId.setLookupTable(tbl);
+    onCustomerChanged() {
+        if (this.PersonId.isNull() && this.StoreId.isNull()) return;
+
+        var newParams = {};
+        newParams[BusinessEntityAddress.Parameters.BusinessEntityId] = this.StoreId.isNull() ?
+            this.PersonId.TransportValue() : this.StoreId.TransportValue();
+        this.addressLoader.setParameters(newParams, () => {
+            this.BillingAddressObject.AddressId.clearInvalidValues();
+            this.ShippingAddressObject.AddressId.clearInvalidValues();
+            this.BillingAddressObject.AddressId.updateValueList();
+            this.ShippingAddressObject.AddressId.updateValueList();
         });
     }
 }
-
-
-
-
-
-

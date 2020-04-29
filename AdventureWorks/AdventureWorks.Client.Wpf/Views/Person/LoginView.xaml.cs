@@ -4,6 +4,7 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
+using AdventureWorks.Client.ViewModels;
 using System.Windows.Controls;
 using Xomega.Framework.Views;
 
@@ -11,13 +12,17 @@ namespace AdventureWorks.Client.Wpf
 {
     public partial class LoginView
     {
+        protected LoginViewModel VM => Model as LoginViewModel;
+
         public LoginView()
         {
             InitializeComponent();
+            IsAsync = true;
         }
 
-        protected override Button CloseButton { get { return btnClose; } }
-        protected override IErrorPresenter ErrorsPanel { get { return pnlErrors; } }
-        protected override Button SaveButton { get { return btnSave; } }
+        protected override TextBlock TitleControl => viewTitle;
+        protected override Button CloseButton => btnClose;
+        protected override IErrorPresenter ErrorsPanel => pnlErrors;
+        protected override Button SaveButton => btnSave;
     }
 }

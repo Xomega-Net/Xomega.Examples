@@ -1,0 +1,5 @@
+﻿@inject Xomega.Framework.Blazor.SignInManager signInManager
+
+@code {
+    protected override void OnInitialized() => signInManager.Challenge("/login");
+}

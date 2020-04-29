@@ -7,6 +7,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Services;
 
@@ -15,35 +16,32 @@ namespace AdventureWorks.Services.Rest
     ///<summary>
     /// Cross-reference table mapping customers, vendors, and employees to their addresses.
     ///</summary>
-    public partial class BusinessEntityAddressController : ControllerBase
+    public partial class BusinessEntityAddressController : BaseController
     {
-        private ErrorList currentErrors;
-        private ErrorParser errorsParser;
-        private IBusinessEntityAddressService svc;
+        private readonly IBusinessEntityAddressService svc;
 
         public BusinessEntityAddressController(ErrorList errorList, ErrorParser errorParser, IBusinessEntityAddressService service)
+            : base(errorList, errorParser)
         {
-            currentErrors = errorList;
-            errorsParser = errorParser;
             svc = service;
         }
 
         [Route("business entity/{_businessEntityId}/address")]
         [HttpGet]
-        public ActionResult ReadList([FromRoute] int _businessEntityId)
+        public async Task<ActionResult> ReadListAsync([FromRoute] int _businessEntityId)
         {
-            ActionResult response = null;
+            ActionResult response;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Output<ICollection<BusinessEntityAddress_ReadListOutput>> output = svc.ReadList(_businessEntityId);
+                    Output<ICollection<BusinessEntityAddress_ReadListOutput>> output = await svc.ReadListAsync(_businessEntityId);
                     response = StatusCode((int)output.HttpStatus, output);
                     return response;
                 }
                 else
                 {
-                    ModelValidation.AddModelErrors(currentErrors, ModelState);
+                    currentErrors.AddModelErrors(ModelState);
                 }
             }
             catch (Exception ex)

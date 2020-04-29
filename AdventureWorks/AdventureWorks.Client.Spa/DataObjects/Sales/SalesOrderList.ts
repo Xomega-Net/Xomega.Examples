@@ -6,7 +6,7 @@
 
 import { SalesOrderCriteria } from 'DataObjects/Sales/SalesOrderCriteriaCustomized';
 import { SalesOrder_ReadListInput_Criteria, ISalesOrderService } from 'ServiceContracts/Sales/ISalesOrderService';
-import { DataListObject, TextProperty, DateProperty, EnumProperty, IntegerProperty, MoneyProperty, ErrorList } from 'xomega';
+import { DataListObject, TextProperty, DateProperty, EnumBoolProperty, IntegerProperty, EnumIntProperty, MoneyProperty, ErrorList } from 'xomega';
 
 export class SalesOrderList extends DataListObject {
 
@@ -14,14 +14,14 @@ export class SalesOrderList extends DataListObject {
     public CustomerName: TextProperty;
     public CustomerStore: TextProperty;
     public DueDate: DateProperty;
-    public OnlineOrderFlag: EnumProperty;
+    public OnlineOrderFlag: EnumBoolProperty;
     public OrderDate: DateProperty;
     public SalesOrderId: IntegerProperty;
     public SalesOrderNumber: TextProperty;
-    public SalesPersonId: EnumProperty;
+    public SalesPersonId: EnumIntProperty;
     public ShipDate: DateProperty;
-    public Status: EnumProperty;
-    public TerritoryId: EnumProperty;
+    public Status: EnumIntProperty;
+    public TerritoryId: EnumIntProperty;
     public TotalDue: MoneyProperty;
 
     // Construction and initialization
@@ -33,7 +33,7 @@ export class SalesOrderList extends DataListObject {
         this.DueDate = new DateProperty();
         this.DueDate.Required(true);
         this.DueDate.Editable(false);
-        this.OnlineOrderFlag = new EnumProperty();
+        this.OnlineOrderFlag = new EnumBoolProperty();
         this.OnlineOrderFlag.Required(true);
         this.OnlineOrderFlag.EnumType = "yesno";
         this.OnlineOrderFlag.Editable(false);
@@ -43,20 +43,21 @@ export class SalesOrderList extends DataListObject {
         this.SalesOrderId = new IntegerProperty();
         this.SalesOrderId.Required(true);
         this.SalesOrderId.Editable(false);
+        this.SalesOrderId.IsKey = true;
         this.SalesOrderNumber = new TextProperty();
         this.SalesOrderNumber.Required(true);
         this.SalesOrderNumber.Size = 25;
         this.SalesOrderNumber.Editable(false);
-        this.SalesPersonId = new EnumProperty();
+        this.SalesPersonId = new EnumIntProperty();
         this.SalesPersonId.EnumType = "sales person";
         this.SalesPersonId.Editable(false);
         this.ShipDate = new DateProperty();
         this.ShipDate.Editable(false);
-        this.Status = new EnumProperty();
+        this.Status = new EnumIntProperty();
         this.Status.Required(true);
         this.Status.EnumType = "sales order status";
         this.Status.Editable(false);
-        this.TerritoryId = new EnumProperty();
+        this.TerritoryId = new EnumIntProperty();
         this.TerritoryId.EnumType = "sales territory";
         this.TerritoryId.Editable(false);
         this.TotalDue = new MoneyProperty();
@@ -66,16 +67,16 @@ export class SalesOrderList extends DataListObject {
 
     protected doReadAsync(options?): JQueryPromise<any> {
         return $.when(
-            $.ajax(this.getSalesOrder_ReadListRequest(
+            $.ajax(this.getSalesOrder_ReadListAsyncRequest(
                 !this.CriteriaObject ? null : (this.CriteriaObject as SalesOrderCriteria).toStruct(SalesOrder_ReadListInput_Criteria), options)),
         );
     }
 
-    protected getSalesOrder_ReadListRequest(_criteria: SalesOrder_ReadListInput_Criteria, options?): JQueryAjaxSettings {
+    protected getSalesOrder_ReadListAsyncRequest(_criteria: SalesOrder_ReadListInput_Criteria, options?): JQueryAjaxSettings {
         let obj = this;
-        let req = ISalesOrderService.getReadListRequest(_criteria);
+        let req = ISalesOrderService.getReadListAsyncRequest(_criteria);
         req.success = (_data, _status, xhr) => {
-            obj.fromJSON(_data.Result, options);
+            obj.fromJSON(_data.result || _data.Result, options);
             obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
         }
         req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));

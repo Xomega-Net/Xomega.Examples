@@ -12,20 +12,23 @@
                     xmlns:v="clr-namespace:AdventureWorks.Client.Wpf"
                     xmlns:xom="clr-namespace:Xomega.Framework;assembly=Xomega.Framework.Wpf"
                     x:Class="AdventureWorks.Client.Wpf.SalesOrderView"
-                    ViewTitle="Sales Order"
-                    ViewWidth="840"
-                    ViewHeight="640">
+                    ViewWidth="800"
+                    ViewHeight="680">
   <Grid Margin="10">
     <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <v:Errors Grid.Row="0" x:Name="pnlErrors"/>
-    <GroupBox Grid.Row="1" Header="Sales Order">
+    <TextBlock Grid.Row="0" Name="viewTitle" Text="View Title"
+               Style="{StaticResource ViewTitleStyle}"
+               Margin="10,0,0,5"/>
+    <v:Errors Grid.Row="1" x:Name="pnlErrors"/>
+    <GroupBox Grid.Row="2" Header="Sales Order">
       <StackPanel>
-        <Grid>
+        <Grid xmlns:clr="http://www.xomega.net/clr">
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -112,10 +115,10 @@
         </Grid>
       </StackPanel>
     </GroupBox>
-    <TabControl Grid.Row="2" Margin="0,10,0,0">
+    <TabControl Grid.Row="3" Margin="0,10,0,0">
       <TabItem Header="Customer">
         <StackPanel DataContext="{Binding CustomerObject}" xom:Data.ObjectBinding="">
-          <Grid>
+          <Grid xmlns:clr="http://www.xomega.net/clr">
             <Grid.RowDefinitions>
               <RowDefinition Height="Auto"/>
               <RowDefinition Height="Auto"/>
@@ -157,7 +160,7 @@
           </Grid>
           <GroupBox Header="Lookup">
             <StackPanel DataContext="{Binding LookupObject}" xom:Data.ObjectBinding="">
-              <Grid>
+              <Grid xmlns:clr="http://www.xomega.net/clr">
                 <Grid.RowDefinitions>
                   <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -183,16 +186,16 @@
                          Style="{StaticResource ControlStyle}"/>
               </Grid>
               <StackPanel Orientation="Horizontal" Margin="5">
-                <TextBlock>
-                  <Hyperlink Name="lnkCustomerLookupLookUp"
-                             Command="{Binding Path=lnkCustomerLookupLookUp_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}">Look Up</Hyperlink>
+                <TextBlock xmlns:clr="http://www.xomega.net/clr">
+                  <Hyperlink Name="LinkCustomerLookupLookUp"
+                             Command="{Binding Path=LinkCustomerLookupLookUp_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}">Look Up</Hyperlink>
                 </TextBlock>
               </StackPanel>
             </StackPanel>
           </GroupBox>
           <GroupBox Header="Billing Address">
             <StackPanel DataContext="{Binding BillingAddressObject}" xom:Data.ObjectBinding="">
-              <Grid>
+              <Grid xmlns:clr="http://www.xomega.net/clr">
                 <Grid.RowDefinitions>
                   <RowDefinition Height="Auto"/>
                   <RowDefinition Height="Auto"/>
@@ -251,7 +254,7 @@
           </GroupBox>
           <GroupBox Header="Shipping Address">
             <StackPanel DataContext="{Binding ShippingAddressObject}" xom:Data.ObjectBinding="">
-              <Grid>
+              <Grid xmlns:clr="http://www.xomega.net/clr">
                 <Grid.RowDefinitions>
                   <RowDefinition Height="Auto"/>
                   <RowDefinition Height="Auto"/>
@@ -321,54 +324,54 @@
             <ListView.View>
               <GridView>
                 <GridView.Columns>
-                  <GridViewColumn Header="Product">
+                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Product">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock>
-                          <Hyperlink Name="lnkDetailDetails"
-                                     Command="{Binding Path=lnkDetailDetails_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}"
-                                     CommandParameter="{Binding Row}"
+                          <Hyperlink Name="LinkDetailDetails"
+                                     Command="{Binding Path=LinkDetailDetails_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}"
+                                     CommandParameter="{Binding}"
                                      xom:Property.Name="{x:Static o:SalesOrderDetailList.Product}"/>
                         </TextBlock>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
-                  <GridViewColumn Header="Qty">
+                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Qty">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.OrderQty}"/>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
-                  <GridViewColumn Header="Price">
-                    <GridViewColumn.CellTemplate>
-                      <DataTemplate>
-                        <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.UnitPrice}"/>
-                      </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                  </GridViewColumn>
-                  <GridViewColumn Header="Discount">
-                    <GridViewColumn.CellTemplate>
-                      <DataTemplate>
-                        <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.UnitPriceDiscount}"/>
-                      </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                  </GridViewColumn>
-                  <GridViewColumn Header="Special Offer">
+                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Special Offer">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.SpecialOffer}"/>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
-                  <GridViewColumn Header="Total">
+                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Price">
+                    <GridViewColumn.CellTemplate>
+                      <DataTemplate>
+                        <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.UnitPrice}"/>
+                      </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                  </GridViewColumn>
+                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Discount">
+                    <GridViewColumn.CellTemplate>
+                      <DataTemplate>
+                        <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.UnitPriceDiscount}"/>
+                      </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                  </GridViewColumn>
+                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Total">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.LineTotal}"/>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
-                  <GridViewColumn Header="Tracking #">
+                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Tracking #">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.CarrierTrackingNumber}"/>
@@ -380,16 +383,16 @@
             </ListView.View>
           </ListView>
           <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1">
-            <TextBlock>
-              <Hyperlink Name="lnkDetailNew"
-                         Command="{Binding Path=lnkDetailNew_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}">New</Hyperlink>
+            <TextBlock xmlns:clr="http://www.xomega.net/clr">
+              <Hyperlink Name="LinkDetailNew"
+                         Command="{Binding Path=LinkDetailNew_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}">New</Hyperlink>
             </TextBlock>
           </StackPanel>
         </Grid>
       </TabItem>
       <TabItem Header="Payment">
         <StackPanel DataContext="{Binding PaymentObject}" xom:Data.ObjectBinding="">
-          <Grid>
+          <Grid xmlns:clr="http://www.xomega.net/clr">
             <Grid.RowDefinitions>
               <RowDefinition Height="Auto"/>
               <RowDefinition Height="Auto"/>
@@ -454,7 +457,7 @@
           </Grid>
           <GroupBox Header="Credit Card">
             <StackPanel DataContext="{Binding CreditCardObject}" xom:Data.ObjectBinding="">
-              <Grid>
+              <Grid xmlns:clr="http://www.xomega.net/clr">
                 <Grid.RowDefinitions>
                   <RowDefinition Height="Auto"/>
                   <RowDefinition Height="Auto"/>
@@ -500,7 +503,7 @@
       </TabItem>
       <TabItem Header="Sales">
         <StackPanel DataContext="{Binding SalesObject}" xom:Data.ObjectBinding="">
-          <Grid>
+          <Grid xmlns:clr="http://www.xomega.net/clr">
             <Grid.RowDefinitions>
               <RowDefinition Height="Auto"/>
               <RowDefinition Height="Auto"/>
@@ -538,7 +541,7 @@
         </StackPanel>
       </TabItem>
     </TabControl>
-    <DockPanel Grid.Row="3">
+    <DockPanel Grid.Row="4">
       <DockPanel DockPanel.Dock="Bottom">
         <Button x:Name="btnDelete" Width="75" Margin="0,10,0,0" Content="_Delete"
                 DockPanel.Dock="Left"/>

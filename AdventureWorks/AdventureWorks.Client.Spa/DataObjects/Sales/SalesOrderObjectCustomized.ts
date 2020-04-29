@@ -1,37 +1,25 @@
-import { PersonCreditCardReadListCacheLoader } from 'CacheLoaders/PersonCreditCardReadListCacheLoader';
+
 import { SalesOrderObject as GeneratedDataObject } from 'DataObjects/Sales/SalesOrderObject';
-import { BusinessEntityAddress } from 'Enumerations/Enumerations';
-import { LookupTable } from 'xomega';
+import { PersonCreditCardReadListCacheLoader } from '../../CacheLoaders/PersonCreditCardReadListCacheLoader';
+import { PersonCreditCard } from '../../Enumerations/Enumerations';
 
 export class SalesOrderObject extends GeneratedDataObject {
+
+    // construct properties and child objects
+    init() {
+        super.init();
+        // add custom construction code here
+    }
 
     // perform post intialization
     onInitialized() {
         super.onInitialized();
-        new PersonCreditCardLoader(this);
-    }
-}
 
-class PersonCreditCardLoader extends PersonCreditCardReadListCacheLoader {
-
-    private salesOrder: SalesOrderObject;
-
-    constructor(salesOrder: SalesOrderObject) {
-        super(true);
-        this.salesOrder = salesOrder;
-        salesOrder.CustomerObject.PersonId.InternalValue.subscribe(() => this.update(), this);
+        let ccProperty = this.PaymentObject.CreditCardObject.CreditCardId;
+        ccProperty.LocalCacheLoader = new PersonCreditCardReadListCacheLoader();
+        ccProperty.setCacheLoaderParameters(PersonCreditCard.Parameters.BusinessEntityId, this.CustomerObject.PersonId);
     }
 
-    // overrde base method to provide proper input value(s)
-    protected loadRequest(): JQueryAjaxSettings {
-        return this.getLoadRequest(this.salesOrder.CustomerObject.PersonId.InternalValue());
-    }
+    // add custom code here
 
-    public update() {
-        if (this.salesOrder.CustomerObject.PersonId.isNull()) return;
-        let cl = this;
-        this.loadCache(BusinessEntityAddress.EnumName, function (tbl: LookupTable) {
-            cl.salesOrder.PaymentObject.CreditCardObject.CreditCardId.setLookupTable(tbl);
-        });
-    }
 }

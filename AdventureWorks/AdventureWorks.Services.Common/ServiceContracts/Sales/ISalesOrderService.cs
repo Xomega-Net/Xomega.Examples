@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using Xomega.Framework;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
@@ -27,71 +27,61 @@ namespace AdventureWorks.Services
         /// Reads the values of a Sales Order object by its key.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<SalesOrder_ReadOutput> Read(int _salesOrderId);
+        Task<Output<SalesOrder_ReadOutput>> ReadAsync(int _salesOrderId);
 
         ///<summary>
         /// Creates a new Sales Order object using the specified data.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<SalesOrder_CreateOutput> Create(SalesOrder_CreateInput _data);
+        Task<Output<SalesOrder_CreateOutput>> CreateAsync(SalesOrder_CreateInput _data);
 
         ///<summary>
         /// Updates existing Sales Order object using the specified data.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<SalesOrder_UpdateOutput> Update(int _salesOrderId, SalesOrder_UpdateInput_Data _data);
+        Task<Output<SalesOrder_UpdateOutput>> UpdateAsync(int _salesOrderId, SalesOrder_UpdateInput_Data _data);
 
         ///<summary>
         /// Deletes the specified Sales Order object.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output Delete(int _salesOrderId);
+        Task<Output> DeleteAsync(int _salesOrderId);
 
         ///<summary>
         /// Reads a list of Sales Order objects based on the specified criteria.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<ICollection<SalesOrder_ReadListOutput>> ReadList(SalesOrder_ReadListInput_Criteria _criteria);
+        Task<Output<ICollection<SalesOrder_ReadListOutput>>> ReadListAsync(SalesOrder_ReadListInput_Criteria _criteria);
 
         ///<summary>
         /// Reads the values of a Sales Order Detail object by its key.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<SalesOrderDetail_ReadOutput> Detail_Read(int _salesOrderDetailId);
+        Task<Output<SalesOrderDetail_ReadOutput>> Detail_ReadAsync(int _salesOrderDetailId);
 
         ///<summary>
         /// Creates a new Sales Order Detail object using the specified data.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<SalesOrderDetail_CreateOutput> Detail_Create(int _salesOrderId, SalesOrderDetail_CreateInput_Data _data);
+        Task<Output<SalesOrderDetail_CreateOutput>> Detail_CreateAsync(int _salesOrderId, SalesOrderDetail_CreateInput_Data _data);
 
         ///<summary>
         /// Updates existing Sales Order Detail object using the specified data.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output Detail_Update(int _salesOrderDetailId, SalesOrderDetail_UpdateInput_Data _data);
+        Task<Output> Detail_UpdateAsync(int _salesOrderDetailId, SalesOrderDetail_UpdateInput_Data _data);
 
         ///<summary>
         /// Deletes the specified Sales Order Detail object.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output Detail_Delete(int _salesOrderDetailId);
+        Task<Output> Detail_DeleteAsync(int _salesOrderDetailId);
 
         ///<summary>
         /// Reads a list of Sales Order Detail objects based on the specified criteria.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<ICollection<SalesOrderDetail_ReadListOutput>> Detail_ReadList(int _salesOrderId);
+        Task<Output<ICollection<SalesOrderDetail_ReadListOutput>>> Detail_ReadListAsync(int _salesOrderId);
 
     }
     #endregion
@@ -99,7 +89,7 @@ namespace AdventureWorks.Services
     #region SalesOrder_ReadOutput structure
 
     ///<summary>
-    /// The output structure of operation ISalesOrderService.Read.
+    /// The output structure of operation ISalesOrderService.ReadAsync.
     ///</summary>
     [DataContract]
     public class SalesOrder_ReadOutput
@@ -118,7 +108,7 @@ namespace AdventureWorks.Services
         public DateTime OrderDate { get; set; }
         
         ///<summary>
-        /// Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled
+        /// Order current status.
         ///</summary>
         [DataMember]
         public byte Status { get; set; }
@@ -179,14 +169,14 @@ namespace AdventureWorks.Services
     #region SalesOrder_CreateInput structure
 
     ///<summary>
-    /// The input structure of operation ISalesOrderService.Create.
+    /// The input structure of operation ISalesOrderService.CreateAsync.
     ///</summary>
     [DataContract]
     public class SalesOrder_CreateInput
     {
         
         ///<summary>
-        /// Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled
+        /// Order current status.
         ///</summary>
         [DataMember]
         [XRequired]
@@ -241,7 +231,7 @@ namespace AdventureWorks.Services
     #region SalesOrder_CreateOutput structure
 
     ///<summary>
-    /// The output structure of operation ISalesOrderService.Create.
+    /// The output structure of operation ISalesOrderService.CreateAsync.
     ///</summary>
     [DataContract]
     public class SalesOrder_CreateOutput
@@ -279,14 +269,14 @@ namespace AdventureWorks.Services
     #region SalesOrder_UpdateInput_Data structure
 
     ///<summary>
-    /// Structure of parameter Data of the input structure of operation ISalesOrderService.Update.
+    /// Structure of parameter Data of the input structure of operation ISalesOrderService.UpdateAsync.
     ///</summary>
     [DataContract]
     public class SalesOrder_UpdateInput_Data
     {
         
         ///<summary>
-        /// Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled
+        /// Order current status.
         ///</summary>
         [DataMember]
         [XRequired]
@@ -341,7 +331,7 @@ namespace AdventureWorks.Services
     #region SalesOrder_UpdateOutput structure
 
     ///<summary>
-    /// The output structure of operation ISalesOrderService.Update.
+    /// The output structure of operation ISalesOrderService.UpdateAsync.
     ///</summary>
     [DataContract]
     public class SalesOrder_UpdateOutput
@@ -364,7 +354,7 @@ namespace AdventureWorks.Services
     #region SalesOrder_ReadListInput_Criteria structure
 
     ///<summary>
-    /// Structure of parameter Criteria of the input structure of operation ISalesOrderService.ReadList.
+    /// Structure of parameter Criteria of the input structure of operation ISalesOrderService.ReadListAsync.
     ///</summary>
     [DataContract]
     public class SalesOrder_ReadListInput_Criteria
@@ -394,7 +384,7 @@ namespace AdventureWorks.Services
         public string StatusOperator { get; set; }
         
         ///<summary>
-        /// Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled
+        /// Order current status.
         ///</summary>
         [DataMember]
         [XLookupValue(SalesOrderStatus.EnumName)]
@@ -482,11 +472,6 @@ namespace AdventureWorks.Services
         [DataMember]
         public string CustomerName { get; set; }
         
-        [DataMember]
-        [XMaxLength(50)]
-        [XLookupValue(SalesTerritoryGroup.EnumName)]
-        public string GlobalRegion { get; set; }
-        
         ///<summary>
         /// Comparison operator for the corresponding Territory Id criteria.
         ///</summary>
@@ -522,7 +507,7 @@ namespace AdventureWorks.Services
     #region SalesOrder_ReadListOutput structure
 
     ///<summary>
-    /// The output structure of operation ISalesOrderService.ReadList.
+    /// The output structure of operation ISalesOrderService.ReadListAsync.
     ///</summary>
     [DataContract]
     public class SalesOrder_ReadListOutput
@@ -538,7 +523,7 @@ namespace AdventureWorks.Services
         public string SalesOrderNumber { get; set; }
         
         ///<summary>
-        /// Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled
+        /// Order current status.
         ///</summary>
         [DataMember]
         public byte Status { get; set; }
@@ -548,12 +533,6 @@ namespace AdventureWorks.Services
         ///</summary>
         [DataMember]
         public DateTime OrderDate { get; set; }
-        
-        ///<summary>
-        /// Date the order was shipped to the customer.
-        ///</summary>
-        [DataMember]
-        public DateTime? ShipDate { get; set; }
         
         ///<summary>
         /// Date the order is due to the customer.
@@ -566,6 +545,12 @@ namespace AdventureWorks.Services
         ///</summary>
         [DataMember]
         public decimal TotalDue { get; set; }
+        
+        ///<summary>
+        /// Date the order was shipped to the customer.
+        ///</summary>
+        [DataMember]
+        public DateTime? ShipDate { get; set; }
         
         ///<summary>
         /// 0 = Order placed by sales person. 1 = Order placed online by customer.
@@ -596,7 +581,7 @@ namespace AdventureWorks.Services
     #region SalesOrderDetail_ReadOutput structure
 
     ///<summary>
-    /// The output structure of operation IDetailService.Detail_Read.
+    /// The output structure of operation IDetailService.Detail_ReadAsync.
     ///</summary>
     [DataContract]
     public class SalesOrderDetail_ReadOutput
@@ -605,11 +590,11 @@ namespace AdventureWorks.Services
         [DataMember]
         public int SalesOrderId { get; set; }
         
-        ///<summary>
-        /// Shipment tracking number supplied by the shipper.
-        ///</summary>
         [DataMember]
-        public string CarrierTrackingNumber { get; set; }
+        public int? Subcategory { get; set; }
+        
+        [DataMember]
+        public int ProductId { get; set; }
         
         ///<summary>
         /// Quantity ordered per product.
@@ -619,9 +604,6 @@ namespace AdventureWorks.Services
         
         [DataMember]
         public int SpecialOfferId { get; set; }
-        
-        [DataMember]
-        public int ProductId { get; set; }
         
         ///<summary>
         /// Selling price of a single product.
@@ -642,34 +624,26 @@ namespace AdventureWorks.Services
         public decimal LineTotal { get; set; }
         
         ///<summary>
-        /// ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.
+        /// Shipment tracking number supplied by the shipper.
         ///</summary>
         [DataMember]
-        public Guid Rowguid { get; set; }
-        
-        ///<summary>
-        /// Date and time the record was last updated.
-        ///</summary>
-        [DataMember]
-        public DateTime ModifiedDate { get; set; }
+        public string CarrierTrackingNumber { get; set; }
     }
     #endregion
 
     #region SalesOrderDetail_CreateInput_Data structure
 
     ///<summary>
-    /// Structure of parameter Data of the input structure of operation IDetailService.Detail_Create.
+    /// Structure of parameter Data of the input structure of operation IDetailService.Detail_CreateAsync.
     ///</summary>
     [DataContract]
     public class SalesOrderDetail_CreateInput_Data
     {
         
-        ///<summary>
-        /// Shipment tracking number supplied by the shipper.
-        ///</summary>
         [DataMember]
-        [XMaxLength(25)]
-        public string CarrierTrackingNumber { get; set; }
+        [XRequired]
+        [XLookupValue(Product.EnumName)]
+        public int ProductId { get; set; }
         
         ///<summary>
         /// Quantity ordered per product.
@@ -683,52 +657,19 @@ namespace AdventureWorks.Services
         [XLookupValue(SpecialOffer.EnumName)]
         public int SpecialOfferId { get; set; }
         
-        [DataMember]
-        [XRequired]
-        [XLookupValue(Product.EnumName)]
-        public int ProductId { get; set; }
-        
         ///<summary>
-        /// Selling price of a single product.
+        /// Shipment tracking number supplied by the shipper.
         ///</summary>
         [DataMember]
-        [XRequired]
-        public decimal UnitPrice { get; set; }
-        
-        ///<summary>
-        /// Discount amount.
-        ///</summary>
-        [DataMember]
-        [XRequired]
-        public decimal UnitPriceDiscount { get; set; }
-        
-        ///<summary>
-        /// Per product subtotal. Computed as UnitPrice * (1 - UnitPriceDiscount) * OrderQty.
-        ///</summary>
-        [DataMember]
-        [XRequired]
-        public decimal LineTotal { get; set; }
-        
-        ///<summary>
-        /// ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.
-        ///</summary>
-        [DataMember]
-        [XRequired]
-        public Guid Rowguid { get; set; }
-        
-        ///<summary>
-        /// Date and time the record was last updated.
-        ///</summary>
-        [DataMember]
-        [XRequired]
-        public DateTime ModifiedDate { get; set; }
+        [XMaxLength(25)]
+        public string CarrierTrackingNumber { get; set; }
     }
     #endregion
 
     #region SalesOrderDetail_CreateOutput structure
 
     ///<summary>
-    /// The output structure of operation IDetailService.Detail_Create.
+    /// The output structure of operation IDetailService.Detail_CreateAsync.
     ///</summary>
     [DataContract]
     public class SalesOrderDetail_CreateOutput
@@ -742,18 +683,16 @@ namespace AdventureWorks.Services
     #region SalesOrderDetail_UpdateInput_Data structure
 
     ///<summary>
-    /// Structure of parameter Data of the input structure of operation IDetailService.Detail_Update.
+    /// Structure of parameter Data of the input structure of operation IDetailService.Detail_UpdateAsync.
     ///</summary>
     [DataContract]
     public class SalesOrderDetail_UpdateInput_Data
     {
         
-        ///<summary>
-        /// Shipment tracking number supplied by the shipper.
-        ///</summary>
         [DataMember]
-        [XMaxLength(25)]
-        public string CarrierTrackingNumber { get; set; }
+        [XRequired]
+        [XLookupValue(Product.EnumName)]
+        public int ProductId { get; set; }
         
         ///<summary>
         /// Quantity ordered per product.
@@ -767,62 +706,29 @@ namespace AdventureWorks.Services
         [XLookupValue(SpecialOffer.EnumName)]
         public int SpecialOfferId { get; set; }
         
-        [DataMember]
-        [XRequired]
-        [XLookupValue(Product.EnumName)]
-        public int ProductId { get; set; }
-        
         ///<summary>
-        /// Selling price of a single product.
+        /// Shipment tracking number supplied by the shipper.
         ///</summary>
         [DataMember]
-        [XRequired]
-        public decimal UnitPrice { get; set; }
-        
-        ///<summary>
-        /// Discount amount.
-        ///</summary>
-        [DataMember]
-        [XRequired]
-        public decimal UnitPriceDiscount { get; set; }
-        
-        ///<summary>
-        /// Per product subtotal. Computed as UnitPrice * (1 - UnitPriceDiscount) * OrderQty.
-        ///</summary>
-        [DataMember]
-        [XRequired]
-        public decimal LineTotal { get; set; }
-        
-        ///<summary>
-        /// ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.
-        ///</summary>
-        [DataMember]
-        [XRequired]
-        public Guid Rowguid { get; set; }
-        
-        ///<summary>
-        /// Date and time the record was last updated.
-        ///</summary>
-        [DataMember]
-        [XRequired]
-        public DateTime ModifiedDate { get; set; }
+        [XMaxLength(25)]
+        public string CarrierTrackingNumber { get; set; }
     }
     #endregion
 
     #region SalesOrderDetail_ReadListOutput structure
 
     ///<summary>
-    /// The output structure of operation IDetailService.Detail_ReadList.
+    /// The output structure of operation IDetailService.Detail_ReadListAsync.
     ///</summary>
     [DataContract]
     public class SalesOrderDetail_ReadListOutput
     {
         
         [DataMember]
-        public int SalesOrderDetailId { get; set; }
+        public int Product { get; set; }
         
         [DataMember]
-        public int Product { get; set; }
+        public int SalesOrderDetailId { get; set; }
         
         ///<summary>
         /// Quantity ordered per product.
@@ -830,6 +736,9 @@ namespace AdventureWorks.Services
         [DataMember]
         public short OrderQty { get; set; }
         
+        [DataMember]
+        public int SpecialOffer { get; set; }
+        
         ///<summary>
         /// Selling price of a single product.
         ///</summary>
@@ -841,9 +750,6 @@ namespace AdventureWorks.Services
         ///</summary>
         [DataMember]
         public decimal UnitPriceDiscount { get; set; }
-        
-        [DataMember]
-        public int SpecialOffer { get; set; }
         
         ///<summary>
         /// Per product subtotal. Computed as UnitPrice * (1 - UnitPriceDiscount) * OrderQty.

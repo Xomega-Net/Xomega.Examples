@@ -1,0 +1,17 @@
+﻿@using System.Net
+
+@inject NavigationManager Navigation
+
+<AuthorizeView>
+    <Authorized>
+        <div class="login-display">
+            Welcome <span class="login-name">@context.User.Identity.Name</span>!
+            [ <a href="/SignOut?redirectUri=@WebUtility.UrlEncode(Navigation.Uri)">Log Out</a> ]
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div class="login-display">
+            [ <a href="/login">Log In</a> ]
+        </div>
+    </NotAuthorized>
+</AuthorizeView>

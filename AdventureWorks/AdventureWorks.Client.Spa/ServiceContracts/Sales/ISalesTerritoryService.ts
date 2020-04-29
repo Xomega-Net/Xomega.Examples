@@ -9,7 +9,7 @@ import { AuthManager } from 'xomega';
 
 export class ISalesTerritoryService {
 
-    public static getReadListRequest(): JQueryAjaxSettings {
+    public static getReadListAsyncRequest(): JQueryAjaxSettings {
         let req: JQueryAjaxSettings = AuthManager.Current.createAjaxRequest();
         req.type = 'GET';
         req.url += `sales-territory`;
@@ -18,8 +18,8 @@ export class ISalesTerritoryService {
 }
 
 export class SalesTerritory_ReadListOutput {
-    public TerritoryId: any;
-    public Name: any;
-    public CountryRegionCode: any;
-    public Group: any;
+    public TerritoryId: any = null;
+    public Name: any = null;
+    public CountryRegionCode: any = null;
+    public Group: any = null;
 }

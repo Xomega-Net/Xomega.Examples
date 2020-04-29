@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using Xomega.Framework;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
@@ -25,8 +25,7 @@ namespace AdventureWorks.Services
         /// Reads a list of Ship Method objects based on the specified criteria.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<ICollection<ShipMethod_ReadListOutput>> ReadList();
+        Task<Output<ICollection<ShipMethod_ReadListOutput>>> ReadListAsync();
 
     }
     #endregion
@@ -34,7 +33,7 @@ namespace AdventureWorks.Services
     #region ShipMethod_ReadListOutput structure
 
     ///<summary>
-    /// The output structure of operation IShipMethodService.ReadList.
+    /// The output structure of operation IShipMethodService.ReadListAsync.
     ///</summary>
     [DataContract]
     public class ShipMethod_ReadListOutput

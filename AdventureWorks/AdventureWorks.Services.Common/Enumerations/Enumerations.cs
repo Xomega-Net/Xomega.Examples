@@ -8,7 +8,7 @@ namespace AdventureWorks.Enumerations
 {
     #region BusinessEntityAddress
     ///<summary>
-    /// Cached enumeration returned by the IBusinessEntityAddressService.ReadList operation.
+    /// Cached enumeration returned by the IBusinessEntityAddressService.ReadListAsync operation.
     ///  
     ///</summary>
     public class BusinessEntityAddress
@@ -17,6 +17,14 @@ namespace AdventureWorks.Enumerations
         /// Enumeration name used for storing it in a lookup cache.
         ///</summary>
         public const string EnumName = "business entity address";
+
+        ///<summary>
+        /// Input parameters for dynamic enumeration 'business entity address'.
+        ///</summary>
+        public class Parameters
+        {
+            public const string BusinessEntityId = "business entity id";
+        }
 
         ///<summary>
         /// Additional attributes for enumeration 'business entity address'.
@@ -177,7 +185,7 @@ namespace AdventureWorks.Enumerations
 
     #region PersonCreditCard
     ///<summary>
-    /// Cached enumeration returned by the IPersonCreditCardService.ReadList operation.
+    /// Cached enumeration returned by the IPersonCreditCardService.ReadListAsync operation.
     ///  
     ///</summary>
     public class PersonCreditCard
@@ -186,6 +194,14 @@ namespace AdventureWorks.Enumerations
         /// Enumeration name used for storing it in a lookup cache.
         ///</summary>
         public const string EnumName = "person credit card";
+
+        ///<summary>
+        /// Input parameters for dynamic enumeration 'person credit card'.
+        ///</summary>
+        public class Parameters
+        {
+            public const string BusinessEntityId = "business entity id";
+        }
 
         ///<summary>
         /// Additional attributes for enumeration 'person credit card'.
@@ -221,7 +237,7 @@ namespace AdventureWorks.Enumerations
 
     #region Product
     ///<summary>
-    /// Cached enumeration returned by the IProductService.ReadList operation.
+    /// Cached enumeration returned by the IProductService.ReadListAsync operation.
     ///  
     ///</summary>
     public class Product
@@ -238,6 +254,30 @@ namespace AdventureWorks.Enumerations
         {
             public const string ProductSubcategoryId = "product subcategory id";
             public const string ProductModelId = "product model id";
+            public const string ListPrice = "list price";
+        }
+
+    }
+    #endregion
+
+    #region ProductSubcategory
+    ///<summary>
+    /// Cached enumeration returned by the IProductSubcategoryService.ReadListAsync operation.
+    ///  
+    ///</summary>
+    public class ProductSubcategory
+    {
+        ///<summary>
+        /// Enumeration name used for storing it in a lookup cache.
+        ///</summary>
+        public const string EnumName = "product subcategory";
+
+        ///<summary>
+        /// Additional attributes for enumeration 'product subcategory'.
+        ///</summary>
+        public class Attributes
+        {
+            public const string ProductCategoryId = "product category id";
         }
 
     }
@@ -262,7 +302,7 @@ namespace AdventureWorks.Enumerations
 
     #region SalesPerson
     ///<summary>
-    /// Cached enumeration returned by the ISalesPersonService.ReadList operation.
+    /// Cached enumeration returned by the ISalesPersonService.ReadListAsync operation.
     ///  
     ///</summary>
     public class SalesPerson
@@ -285,7 +325,7 @@ namespace AdventureWorks.Enumerations
 
     #region SalesReason
     ///<summary>
-    /// Cached enumeration returned by the ISalesReasonService.ReadList operation.
+    /// Cached enumeration returned by the ISalesReasonService.ReadListAsync operation.
     ///  
     ///</summary>
     public class SalesReason
@@ -300,7 +340,7 @@ namespace AdventureWorks.Enumerations
 
     #region SalesTerritory
     ///<summary>
-    /// Cached enumeration returned by the ISalesTerritoryService.ReadList operation.
+    /// Cached enumeration returned by the ISalesTerritoryService.ReadListAsync operation.
     ///  
     ///</summary>
     public class SalesTerritory
@@ -322,23 +362,9 @@ namespace AdventureWorks.Enumerations
     }
     #endregion
 
-    #region SalesTerritoryGroup
-    public class SalesTerritoryGroup
-    {
-        ///<summary>
-        /// Enumeration name used for storing it in a lookup cache.
-        ///</summary>
-        public const string EnumName = "sales territory group";
-
-        public const string NorthAmerica = "North America";
-        public const string Europe = "Europe";
-        public const string Pacific = "Pacific";
-    }
-    #endregion
-
     #region ShipMethod
     ///<summary>
-    /// Cached enumeration returned by the IShipMethodService.ReadList operation.
+    /// Cached enumeration returned by the IShipMethodService.ReadListAsync operation.
     ///  
     ///</summary>
     public class ShipMethod
@@ -353,7 +379,7 @@ namespace AdventureWorks.Enumerations
 
     #region SpecialOffer
     ///<summary>
-    /// Cached enumeration returned by the ISpecialOfferService.ReadList operation.
+    /// Cached enumeration returned by the ISpecialOfferService.ReadListAsync operation.
     ///  
     ///</summary>
     public class SpecialOffer
@@ -363,12 +389,37 @@ namespace AdventureWorks.Enumerations
         ///</summary>
         public const string EnumName = "special offer";
 
+    }
+    #endregion
+
+    #region SpecialOfferProduct
+    ///<summary>
+    /// Cached enumeration returned by the ISpecialOfferProductService.ReadListAsync operation.
+    ///  
+    ///</summary>
+    public class SpecialOfferProduct
+    {
         ///<summary>
-        /// Additional attributes for enumeration 'special offer'.
+        /// Enumeration name used for storing it in a lookup cache.
+        ///</summary>
+        public const string EnumName = "special offer product";
+
+        ///<summary>
+        /// Input parameters for dynamic enumeration 'special offer product'.
+        ///</summary>
+        public class Parameters
+        {
+            public const string ProductId = "product id";
+        }
+
+        ///<summary>
+        /// Additional attributes for enumeration 'special offer product'.
         ///</summary>
         public class Attributes
         {
-            public const string Category = "category";
+            public const string Discount = "discount";
+            public const string MinQty = "min qty";
+            public const string MaxQty = "max qty";
         }
 
     }

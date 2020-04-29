@@ -9,7 +9,6 @@ namespace AdventureWorks.Client.Web
     public partial class SalesOrderListView
     {
         protected global::System.Web.UI.WebControls.Panel pnlComposition;
-        protected global::System.Web.UI.WebControls.Label lblSalesOrderListViewTitle;
         protected global::System.Web.UI.WebControls.Panel pnlCriteria;
         protected global::System.Web.UI.WebControls.Label lblSalesOrderNumber;
         protected global::System.Web.UI.WebControls.DropDownList ctlSalesOrderNumberOperator;
@@ -35,8 +34,6 @@ namespace AdventureWorks.Client.Web
         protected global::System.Web.UI.WebControls.Label lblCustomerName;
         protected global::System.Web.UI.WebControls.DropDownList ctlCustomerNameOperator;
         protected global::System.Web.UI.WebControls.TextBox ctlCustomerName;
-        protected global::System.Web.UI.WebControls.Label lblGlobalRegion;
-        protected global::System.Web.UI.WebControls.DropDownList ctlGlobalRegion;
         protected global::System.Web.UI.WebControls.Label lblTerritoryId;
         protected global::System.Web.UI.WebControls.DropDownList ctlTerritoryIdOperator;
         protected global::System.Web.UI.WebControls.DropDownList ctlTerritoryId;
@@ -45,7 +42,7 @@ namespace AdventureWorks.Client.Web
         protected global::System.Web.UI.WebControls.ListBox ctlSalesPersonId;
         protected global::System.Web.UI.WebControls.LinkButton lnkPermaLink;
         protected global::System.Web.UI.WebControls.Panel pnlResults;
-        protected global::System.Web.UI.WebControls.LinkButton lnkNew;
+        protected global::System.Web.UI.WebControls.LinkButton LinkNew;
         protected global::System.Web.UI.UpdatePanel uplSalesOrderView;
         protected global::AdventureWorks.Client.Web.SalesOrderView uclSalesOrderView;
     }

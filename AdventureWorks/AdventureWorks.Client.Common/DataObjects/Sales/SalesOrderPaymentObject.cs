@@ -56,25 +56,39 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            CurrencyRateProperty = new TextProperty(this, CurrencyRate);
-            CurrencyRateProperty.Editable = false;
-            DueDateProperty = new DateProperty(this, DueDate);
-            DueDateProperty.Required = true;
-            FreightProperty = new MoneyProperty(this, Freight);
-            FreightProperty.Required = true;
-            FreightProperty.Editable = false;
-            ShipMethodIdProperty = new EnumIntProperty(this, ShipMethodId);
-            ShipMethodIdProperty.Required = true;
-            ShipMethodIdProperty.EnumType = "ship method";
-            SubTotalProperty = new MoneyProperty(this, SubTotal);
-            SubTotalProperty.Required = true;
-            SubTotalProperty.Editable = false;
-            TaxAmtProperty = new MoneyProperty(this, TaxAmt);
-            TaxAmtProperty.Required = true;
-            TaxAmtProperty.Editable = false;
-            TotalDueProperty = new MoneyProperty(this, TotalDue);
-            TotalDueProperty.Required = true;
-            TotalDueProperty.Editable = false;
+            CurrencyRateProperty = new TextProperty(this, CurrencyRate)
+            {
+                Editable = false,
+            };
+            DueDateProperty = new DateProperty(this, DueDate)
+            {
+                Required = true,
+            };
+            FreightProperty = new MoneyProperty(this, Freight)
+            {
+                Required = true,
+                Editable = false,
+            };
+            ShipMethodIdProperty = new EnumIntProperty(this, ShipMethodId)
+            {
+                Required = true,
+                EnumType = "ship method",
+            };
+            SubTotalProperty = new MoneyProperty(this, SubTotal)
+            {
+                Required = true,
+                Editable = false,
+            };
+            TaxAmtProperty = new MoneyProperty(this, TaxAmt)
+            {
+                Required = true,
+                Editable = false,
+            };
+            TotalDueProperty = new MoneyProperty(this, TotalDue)
+            {
+                Required = true,
+                Editable = false,
+            };
             DataObject objCreditCard = ServiceProvider.GetService<CreditCardPaymentObject>();
             AddChildObject(CreditCard, objCreditCard);
         }

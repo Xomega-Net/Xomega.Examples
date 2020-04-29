@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
-        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:svc="http://www.xomega.net/svc"
         xmlns:rest="http://www.xomega.net/rest"
         xmlns:ui="http://www.xomega.net/ui"
         xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
@@ -11,15 +11,16 @@
   <types>
     <type name="sales person" base="employee">
       <config>
-        <xfk:property class="EnumIntProperty" namespace="Xomega.Framework.Properties"
-                      tsClass="EnumProperty" tsModule="xomega"/>
+        <xfk:property class="EnumIntProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
         <ui:control>
-          <ComboBox Style="{StaticResource ControlStyle}"
-                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
+          <ComboBox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    Style="{StaticResource ControlStyle}"/>
         </ui:control>
         <ui:control multi-value="true">
-          <ListBox Style="{StaticResource ControlStyle}" MinHeight="21" MaxHeight="84"
-                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
+          <ListBox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   Style="{StaticResource ControlStyle}"
+                   MinHeight="21"
+                   MaxHeight="84"/>
         </ui:control>
         <ui:web-control>
           <asp:DropDownList runat="server"/>
@@ -33,6 +34,12 @@
         <ui:html-control multi-value="true">
           <select multiple="multiple" xmlns="http://www.w3.org/1999/xhtml"/>
         </ui:html-control>
+        <ui:blazor-control>
+          <XSelect />
+        </ui:blazor-control>
+        <ui:blazor-control multi-value="true">
+          <XSelect />
+        </ui:blazor-control>
       </config>
       <enum ref="sales person"/>
     </type>

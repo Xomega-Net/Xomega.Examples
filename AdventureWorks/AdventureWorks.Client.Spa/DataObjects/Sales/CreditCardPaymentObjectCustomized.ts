@@ -1,8 +1,15 @@
+
 import { CreditCardPaymentObject as GeneratedDataObject } from 'DataObjects/Sales/CreditCardPaymentObject';
-import { PersonCreditCard } from 'Enumerations/Enumerations';
 import { Header } from 'xomega';
+import { PersonCreditCard } from '../../Enumerations/Enumerations';
 
 export class CreditCardPaymentObject extends GeneratedDataObject {
+
+    // construct properties and child objects
+    init() {
+        super.init();
+        // add custom construction code here
+    }
 
     // perform post intialization
     onInitialized() {
@@ -15,5 +22,7 @@ export class CreditCardPaymentObject extends GeneratedDataObject {
                 `${h.attr[PersonCreditCard.Attributes.ExpMonth]}/${h.attr[PersonCreditCard.Attributes.ExpYear]}` : null);
         });
     }
-}
 
+    // add custom code here
+
+}

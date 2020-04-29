@@ -22,7 +22,7 @@
       <ItemsControl.ItemTemplate>
         <DataTemplate>
           <StackPanel Orientation="Horizontal">
-            <Image Source="{Binding Severity, Converter={StaticResource SevIconConverter}}" Width="16" Height="16" Margin="5,1,5,1"/>
+            <Rectangle Fill="{Binding Severity, Converter={StaticResource SevIconConverter}}" Width="16" Height="16" Margin="5,1,5,1"/>
             <TextBlock Text="{Binding Message}" Foreground="{Binding Severity, Converter={StaticResource SevBrushConverter}}" TextWrapping="Wrap"/>
           </StackPanel>
         </DataTemplate>

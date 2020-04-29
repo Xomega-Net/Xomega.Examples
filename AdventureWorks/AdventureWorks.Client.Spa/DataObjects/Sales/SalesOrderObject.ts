@@ -9,7 +9,7 @@ import { SalesOrderDetailList } from 'DataObjects/Sales/SalesOrderDetailList';
 import { SalesOrderPaymentObject } from 'DataObjects/Sales/SalesOrderPaymentObject';
 import { SalesOrderSalesObject } from 'DataObjects/Sales/SalesOrderSalesObjectCustomized';
 import { ISalesOrderService, SalesOrder_CreateInput, SalesOrder_UpdateInput_Data } from 'ServiceContracts/Sales/ISalesOrderService';
-import { DataObject, TextProperty, DateTimeProperty, BooleanProperty, DateProperty, IntegerProperty, EnumProperty, ErrorList } from 'xomega';
+import { DataObject, TextProperty, DateTimeProperty, BooleanProperty, DateProperty, IntegerProperty, EnumIntProperty, ErrorList } from 'xomega';
 
 export class SalesOrderObject extends DataObject {
 
@@ -24,7 +24,7 @@ export class SalesOrderObject extends DataObject {
     public SalesOrderId: IntegerProperty;
     public SalesOrderNumber: TextProperty;
     public ShipDate: DateProperty;
-    public Status: EnumProperty;
+    public Status: EnumIntProperty;
 
     // Child Objects
     public CustomerObject: SalesOrderCustomerObject;
@@ -54,12 +54,13 @@ export class SalesOrderObject extends DataObject {
         this.SalesOrderId = new IntegerProperty();
         this.SalesOrderId.Required(true);
         this.SalesOrderId.Editable(false);
+        this.SalesOrderId.IsKey = true;
         this.SalesOrderNumber = new TextProperty();
         this.SalesOrderNumber.Required(true);
         this.SalesOrderNumber.Size = 25;
         this.SalesOrderNumber.Editable(false);
         this.ShipDate = new DateProperty();
-        this.Status = new EnumProperty();
+        this.Status = new EnumIntProperty();
         this.Status.Required(true);
         this.Status.EnumType = "sales order status";
 
@@ -72,7 +73,7 @@ export class SalesOrderObject extends DataObject {
 
     protected doReadAsync(options?): JQueryPromise<any> {
         return $.when(
-            $.ajax(this.getSalesOrder_ReadRequest(options)),
+            $.ajax(this.getSalesOrder_ReadAsyncRequest(options)),
             this.CustomerObject.readAsync(options),
             this.DetailList.readAsync(options),
             this.PaymentObject.readAsync(options),
@@ -82,14 +83,14 @@ export class SalesOrderObject extends DataObject {
 
     protected doSaveAsync(options?): JQueryPromise<any> {
         if (this.IsNew()) return $.when(
-            $.ajax(this.getSalesOrder_CreateRequest(options)),
+            $.ajax(this.getSalesOrder_CreateAsyncRequest(options)),
             this.CustomerObject.saveAsync(options),
             this.DetailList.saveAsync(options),
             this.PaymentObject.saveAsync(options),
             this.SalesObject.saveAsync(options),
         );
         return $.when(
-            $.ajax(this.getSalesOrder_UpdateRequest(options)),
+            $.ajax(this.getSalesOrder_UpdateAsyncRequest(options)),
             this.CustomerObject.saveAsync(options),
             this.DetailList.saveAsync(options),
             this.PaymentObject.saveAsync(options),
@@ -99,51 +100,51 @@ export class SalesOrderObject extends DataObject {
 
     protected doDeleteAsync(options?): JQueryPromise<any> {
         return $.when(
-            $.ajax(this.getSalesOrder_DeleteRequest(options)),
+            $.ajax(this.getSalesOrder_DeleteAsyncRequest(options)),
         );
     }
 
-    protected getSalesOrder_ReadRequest(options?): JQueryAjaxSettings {
+    protected getSalesOrder_ReadAsyncRequest(options?): JQueryAjaxSettings {
         let obj = this;
         let _salesOrderId: any = obj.SalesOrderId.TransportValue();
-        let req = ISalesOrderService.getReadRequest(_salesOrderId);
+        let req = ISalesOrderService.getReadAsyncRequest(_salesOrderId);
         req.success = (_data, _status, xhr) => {
-            obj.fromJSON(_data.Result, options);
+            obj.fromJSON(_data.result || _data.Result, options);
             obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
         }
         req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 
-    protected getSalesOrder_CreateRequest(options?): JQueryAjaxSettings {
+    protected getSalesOrder_CreateAsyncRequest(options?): JQueryAjaxSettings {
         let obj = this;
         let _data: SalesOrder_CreateInput = obj.toStruct(SalesOrder_CreateInput, options);
-        let req = ISalesOrderService.getCreateRequest(_data);
+        let req = ISalesOrderService.getCreateAsyncRequest(_data);
         req.success = (_data, _status, xhr) => {
-            obj.fromJSON(_data.Result, options);
+            obj.fromJSON(_data.result || _data.Result, options);
             obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
         }
         req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 
-    protected getSalesOrder_UpdateRequest(options?): JQueryAjaxSettings {
+    protected getSalesOrder_UpdateAsyncRequest(options?): JQueryAjaxSettings {
         let obj = this;
         let _salesOrderId: any = obj.SalesOrderId.TransportValue();
         let _data: SalesOrder_UpdateInput_Data = obj.toStruct(SalesOrder_UpdateInput_Data, options);
-        let req = ISalesOrderService.getUpdateRequest(_salesOrderId, _data);
+        let req = ISalesOrderService.getUpdateAsyncRequest(_salesOrderId, _data);
         req.success = (_data, _status, xhr) => {
-            obj.fromJSON(_data.Result, options);
+            obj.fromJSON(_data.result || _data.Result, options);
             obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
         }
         req.error = (xhr, _status, error) => obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, error));
         return req;
     }
 
-    protected getSalesOrder_DeleteRequest(options?): JQueryAjaxSettings {
+    protected getSalesOrder_DeleteAsyncRequest(options?): JQueryAjaxSettings {
         let obj = this;
         let _salesOrderId: any = obj.SalesOrderId.TransportValue();
-        let req = ISalesOrderService.getDeleteRequest(_salesOrderId);
+        let req = ISalesOrderService.getDeleteAsyncRequest(_salesOrderId);
         req.success = (_data, _status, xhr) => {
             obj.ValidationErrors.mergeWith(ErrorList.fromErrorResponse(xhr, null));
         }

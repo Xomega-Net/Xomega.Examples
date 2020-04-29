@@ -20,5 +20,5 @@ export class AuthenticationObject extends DataObject {
         this.Password = new TextProperty();
         this.Password.Required(true);
     }
-    // No REST method configured in the model for operation 'authenticate' of object 'person'
+    // Operation 'authenticate' on object 'person' is not exposed via REST.
 }

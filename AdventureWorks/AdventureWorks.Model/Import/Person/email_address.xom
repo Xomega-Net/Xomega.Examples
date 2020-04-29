@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.xomega.net/omodel" xmlns:xfk="http://www.xomega.net/framework"
-        xmlns:wcf="http://www.xomega.net/wcf"
+        xmlns:svc="http://www.xomega.net/svc"
         xmlns:rest="http://www.xomega.net/rest"
         xmlns:ui="http://www.xomega.net/ui"
         xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
@@ -8,15 +8,6 @@
         xmlns:clr="http://www.xomega.net/clr"
         xmlns:edm="http://www.xomega.net/edm"
         name="person">
-  <types>
-    <type name="email" base="name">
-      <config>
-        <ui:web-control>
-          <asp:TextBox TextMode="Email" Width="200px" runat="server"/>
-        </ui:web-control>
-      </config>
-    </type>
-  </types>
   <fieldsets>
     <fieldset name="email address">
       <field name="business entity id" type="person" required="true">
@@ -41,7 +32,7 @@
     <object name="email address">
       <fields>
         <fieldset ref="email address" key="supplied" required="true"/>
-        <field name="email address" type="email">
+        <field name="email address" type="name">
           <config>
             <sql:column name="EmailAddress"/>
           </config>

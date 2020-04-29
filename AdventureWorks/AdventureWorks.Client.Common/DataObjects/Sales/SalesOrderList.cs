@@ -8,6 +8,8 @@ using AdventureWorks.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Properties;
 using Xomega.Framework.Services;
@@ -62,52 +64,77 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            CustomerNameProperty = new TextProperty(this, CustomerName);
-            CustomerNameProperty.Editable = false;
-            CustomerStoreProperty = new TextProperty(this, CustomerStore);
-            CustomerStoreProperty.Editable = false;
-            DueDateProperty = new DateProperty(this, DueDate);
-            DueDateProperty.Required = true;
-            DueDateProperty.Editable = false;
-            OnlineOrderFlagProperty = new EnumBoolProperty(this, OnlineOrderFlag);
-            OnlineOrderFlagProperty.Required = true;
-            OnlineOrderFlagProperty.EnumType = "yesno";
-            OnlineOrderFlagProperty.Editable = false;
-            OrderDateProperty = new DateProperty(this, OrderDate);
-            OrderDateProperty.Required = true;
-            OrderDateProperty.Editable = false;
-            SalesOrderIdProperty = new IntegerKeyProperty(this, SalesOrderId);
-            SalesOrderIdProperty.Required = true;
-            SalesOrderIdProperty.Editable = false;
-            SalesOrderNumberProperty = new TextProperty(this, SalesOrderNumber);
-            SalesOrderNumberProperty.Required = true;
-            SalesOrderNumberProperty.Size = 25;
-            SalesOrderNumberProperty.Editable = false;
-            SalesPersonIdProperty = new EnumIntProperty(this, SalesPersonId);
-            SalesPersonIdProperty.EnumType = "sales person";
-            SalesPersonIdProperty.Editable = false;
-            ShipDateProperty = new DateProperty(this, ShipDate);
-            ShipDateProperty.Editable = false;
-            StatusProperty = new EnumByteProperty(this, Status);
-            StatusProperty.Required = true;
-            StatusProperty.EnumType = "sales order status";
-            StatusProperty.Editable = false;
-            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId);
-            TerritoryIdProperty.EnumType = "sales territory";
-            TerritoryIdProperty.Editable = false;
-            TotalDueProperty = new MoneyProperty(this, TotalDue);
-            TotalDueProperty.Required = true;
-            TotalDueProperty.Editable = false;
+            CustomerNameProperty = new TextProperty(this, CustomerName)
+            {
+                Editable = false,
+            };
+            CustomerStoreProperty = new TextProperty(this, CustomerStore)
+            {
+                Editable = false,
+            };
+            DueDateProperty = new DateProperty(this, DueDate)
+            {
+                Required = true,
+                Editable = false,
+            };
+            OnlineOrderFlagProperty = new EnumBoolProperty(this, OnlineOrderFlag)
+            {
+                Required = true,
+                EnumType = "yesno",
+                Editable = false,
+            };
+            OrderDateProperty = new DateProperty(this, OrderDate)
+            {
+                Required = true,
+                Editable = false,
+            };
+            SalesOrderIdProperty = new IntegerKeyProperty(this, SalesOrderId)
+            {
+                Required = true,
+                Editable = false,
+                IsKey = true,
+            };
+            SalesOrderNumberProperty = new TextProperty(this, SalesOrderNumber)
+            {
+                Required = true,
+                Size = 25,
+                Editable = false,
+            };
+            SalesPersonIdProperty = new EnumIntProperty(this, SalesPersonId)
+            {
+                EnumType = "sales person",
+                Editable = false,
+            };
+            ShipDateProperty = new DateProperty(this, ShipDate)
+            {
+                Editable = false,
+            };
+            StatusProperty = new EnumByteProperty(this, Status)
+            {
+                Required = true,
+                EnumType = "sales order status",
+                Editable = false,
+            };
+            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            {
+                EnumType = "sales territory",
+                Editable = false,
+            };
+            TotalDueProperty = new MoneyProperty(this, TotalDue)
+            {
+                Required = true,
+                Editable = false,
+            };
         }
 
         #endregion
 
         #region CRUD Operations
 
-        protected override ErrorList DoRead(object options)
+        protected override async Task<ErrorList> DoReadAsync(object options, CancellationToken token = default)
         {
-            var output = SalesOrder_ReadList(
-                CriteriaObject == null ? null : CriteriaObject.ToDataContract<SalesOrder_ReadListInput_Criteria>(options), options);
+            var output = await SalesOrder_ReadListAsync(options, 
+                CriteriaObject?.ToDataContract<SalesOrder_ReadListInput_Criteria>(options));
             return output.Messages;
         }
 
@@ -115,11 +142,11 @@ namespace AdventureWorks.Client.Objects
 
         #region Service Operations
 
-        protected virtual Output<ICollection<SalesOrder_ReadListOutput>> SalesOrder_ReadList(SalesOrder_ReadListInput_Criteria _criteria, object options)
+        protected virtual async Task<Output<ICollection<SalesOrder_ReadListOutput>>> SalesOrder_ReadListAsync(object options, SalesOrder_ReadListInput_Criteria _criteria)
         {
             using (var s = ServiceProvider.CreateScope())
             {
-                var output = s.ServiceProvider.GetService<ISalesOrderService>().ReadList(_criteria);
+                var output = await s.ServiceProvider.GetService<ISalesOrderService>().ReadListAsync(_criteria);
 
                 FromDataContract(output?.Result, options);
                 return output;

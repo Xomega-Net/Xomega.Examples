@@ -4,18 +4,17 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
+using AdventureWorks.Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Web.UI.WebControls;
-using AdventureWorks.Client.ViewModels;
 using Xomega.Framework.Web;
 
 namespace AdventureWorks.Client.Web
 {
     public partial class CustomerListView : WebSearchView
     {
-
-        protected CustomerListViewModel viewModel { get { return Model as CustomerListViewModel; } }
+        protected CustomerListViewModel VM => Model as CustomerListViewModel;
 
         public CustomerListView()
         {
@@ -30,13 +29,13 @@ namespace AdventureWorks.Client.Web
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
-            if (viewModel == null) return;
+            if (VM == null) return;
         }
 
-        public virtual void lnkPermaLink_Click(object sender, EventArgs e)
+        public virtual void PermaLink_Click(object sender, EventArgs e)
         {
-            if (viewModel != null && viewModel.List != null && viewModel.List.CriteriaObject != null)
-                Response.Redirect(WebUtil.AddQueryString(Request.RawUrl, viewModel.List.CriteriaObject.ToNameValueCollection()));
+            if (VM?.List?.CriteriaObject == null) return;
+            Response.Redirect(WebUtil.AddQueryString(Request.RawUrl, VM.List.CriteriaObject.ToNameValueCollection()));
         }
     }
 }

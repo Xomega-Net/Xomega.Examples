@@ -4,7 +4,7 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-import { SalesOrderDetailObject } from 'DataObjects/Sales/SalesOrderDetailObject';
+import { SalesOrderDetailObject } from 'DataObjects/Sales/SalesOrderDetailObjectCustomized';
 import { DetailsViewModel, ViewParams } from 'xomega';
 import * as controls from 'xomega-controls';
 
@@ -15,6 +15,10 @@ class SalesOrderDetailView extends DetailsViewModel {
     public constructor() {
         super();
         this.DetailsObject = this.obj = new SalesOrderDetailObject();
+    }
+
+    protected getBaseTitle(): string {
+        return 'Detail';
     }
 
     public attached(view, parent) {

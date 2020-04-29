@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using Xomega.Framework;
+using System.Threading.Tasks;
 using Xomega.Framework.Services;
 
 namespace AdventureWorks.Services
@@ -25,8 +25,7 @@ namespace AdventureWorks.Services
         /// Reads a list of Product objects based on the specified criteria.
         ///</summary>
         [OperationContract]
-        [FaultContract(typeof(ErrorList))]
-        Output<ICollection<Product_ReadListOutput>> ReadList();
+        Task<Output<ICollection<Product_ReadListOutput>>> ReadListAsync();
 
     }
     #endregion
@@ -34,7 +33,7 @@ namespace AdventureWorks.Services
     #region Product_ReadListOutput structure
 
     ///<summary>
-    /// The output structure of operation IProductService.ReadList.
+    /// The output structure of operation IProductService.ReadListAsync.
     ///</summary>
     [DataContract]
     public class Product_ReadListOutput
@@ -49,9 +48,6 @@ namespace AdventureWorks.Services
         [DataMember]
         public string Name { get; set; }
         
-        [DataMember]
-        public bool IsActive { get; set; }
-        
         ///<summary>
         /// Product is a member of this product subcategory. Foreign key to ProductSubCategory.ProductSubCategoryID. 
         ///</summary>
@@ -63,6 +59,15 @@ namespace AdventureWorks.Services
         ///</summary>
         [DataMember]
         public int? ProductModelId { get; set; }
+        
+        ///<summary>
+        /// Selling price.
+        ///</summary>
+        [DataMember]
+        public decimal ListPrice { get; set; }
+        
+        [DataMember]
+        public bool Current { get; set; }
     }
     #endregion
 
