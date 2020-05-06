@@ -9,7 +9,7 @@ The examples demonstrate working multi-tier applications based on the sample Adv
 - **WPF Core multi-tier** application with a **REST middle tier** based on ASP.NET Core;
 - **WPF Core multi-tier** application with a **WCF middle tier**;
 
-The business services are async, and use EntityFrameworkCore, but allow switching to EF 6.4, which also supports .NET Core.
+Most of the code, including views, view models, business service contracts and service implementations are generated from the Xomega model, with custom code added on top of it to make up the fully functional applications. The business services are async, and use EntityFrameworkCore, but allow switching to EF 6.4, which also supports .NET Core.
 
 AdventureWorks Xomega examples were initially created by following the [comprehensive Xomega tutorial](https://xomega.net/Tutorials/WalkThrough.aspx).
 
