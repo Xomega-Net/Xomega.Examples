@@ -215,8 +215,6 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <CustomPath-desc>Path where to output override classes for the generated Service Implementations. 
 If not set then the OutputPath will be used. The path must contain {File} placeholder to output files by service.</CustomPath-desc>
       <CustomPath-category>Output</CustomPath-category>
-      <Database>$(Database)</Database>
-      <DbVersion>$(DbVersion)</DbVersion>
       <IncludeInBuild>true</IncludeInBuild>
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>services</GeneratorGroup>
@@ -679,7 +677,7 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <CustomPath-param>
       </CustomPath-param>
       <CustomPath-desc>
-        Path where to output override classes for the generated Views.
+        Relative path where to output custom partial classes for the generated views.
         If not set then the OutputPath will be used. The path must contain {File} placeholder to output files by view.
       </CustomPath-desc>
       <CustomPath-category>Output</CustomPath-category>
@@ -687,7 +685,7 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <OutputPath-desc>Path where to output files with generated views. Path must contain {File} placeholder.</OutputPath-desc>
       <OutputPath-category>Output</OutputPath-category>
       <MenuFile-param>../AdventureWorks.Client.Blazor/Views/MainMenu.cs</MenuFile-param>
-      <MenuFile-desc>Output path for the generated menu structure.</MenuFile-desc>
+      <MenuFile-desc>Output path to the C# file where to generate static structure for the main menu.</MenuFile-desc>
       <MenuFile-category>Output</MenuFile-category>
       <Namespace-param>AdventureWorks.Client.Blazor.Views</Namespace-param>
       <Namespace-desc>Namespace for the generated views.</Namespace-desc>
