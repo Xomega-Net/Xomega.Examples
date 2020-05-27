@@ -924,6 +924,7 @@
       <ui:view-model data-object="SalesOrderObject" customize="true"/>
       <ui:layout base="standard">
         <ui:details>
+          <ui:fields flow="vertical"/>
           <ui:errors position="bottom"/>
         </ui:details>
         <ui:size width="800" height="680"/>

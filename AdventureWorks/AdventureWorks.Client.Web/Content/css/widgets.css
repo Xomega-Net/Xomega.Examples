@@ -221,17 +221,15 @@ html .tabs-header li.active, html .tabs-header li.active a:hover  {
    ===================================================== */
 
 .picklist {
-  display: inline-table;
-}
-
-.picklist > * {
-  display: table-cell;
+  display: flex !important;
 }
 
 .picklist-buttons {
   width: 40px;
-  text-align:center;
-  vertical-align:middle;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .picklist > select {
