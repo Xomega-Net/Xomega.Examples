@@ -134,24 +134,31 @@
         <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" x:Name="ctlCustomerName"
                  xom:Property.Name="{x:Static o:SalesOrderCriteria.CustomerName}"
                  Style="{StaticResource ControlStyle}"/>
-        <Label Grid.Row="2" Grid.Column="4" Name="lblTerritoryId"
+        <Label Grid.Row="2" Grid.Column="4" Name="lblGlobalRegion"
+               Style="{StaticResource LabelStyle}">_Global Region:</Label>
+        <ComboBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="3"
+                  xom:Property.Label="{Binding ElementName=lblGlobalRegion}"
+                  x:Name="ctlGlobalRegion"
+                  xom:Property.Name="{x:Static o:SalesOrderCriteria.GlobalRegion}"
+                  Style="{StaticResource ControlStyle}"/>
+        <Label Grid.Row="3" Grid.Column="4" Name="lblTerritoryId"
                Style="{StaticResource LabelStyle}">_Sales Territory:</Label>
-        <ComboBox Grid.Row="2" Grid.Column="5"
+        <ComboBox Grid.Row="3" Grid.Column="5"
                   xom:Property.Label="{Binding ElementName=lblTerritoryId}"
                   x:Name="ctlTerritoryIdOperator"
                   xom:Property.Name="{x:Static o:SalesOrderCriteria.TerritoryIdOperator}"
                   Style="{StaticResource OperatorStyle}"/>
-        <ComboBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" x:Name="ctlTerritoryId"
+        <ComboBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" x:Name="ctlTerritoryId"
                   xom:Property.Name="{x:Static o:SalesOrderCriteria.TerritoryId}"
                   Style="{StaticResource ControlStyle}"/>
-        <Label Grid.Row="3" Grid.Column="4" Name="lblSalesPersonId"
+        <Label Grid.Row="4" Grid.Column="4" Name="lblSalesPersonId"
                Style="{StaticResource LabelStyle}">_Sales Person:</Label>
-        <ComboBox Grid.Row="3" Grid.Column="5"
+        <ComboBox Grid.Row="4" Grid.Column="5"
                   xom:Property.Label="{Binding ElementName=lblSalesPersonId}"
                   x:Name="ctlSalesPersonIdOperator"
                   xom:Property.Name="{x:Static o:SalesOrderCriteria.SalesPersonIdOperator}"
                   Style="{StaticResource OperatorStyle}"/>
-        <ListBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" x:Name="ctlSalesPersonId"
+        <ListBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" x:Name="ctlSalesPersonId"
                  xom:Property.Name="{x:Static o:SalesOrderCriteria.SalesPersonId}"
                  Style="{StaticResource ControlStyle}"
                  MinHeight="21"
@@ -194,6 +201,13 @@
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
+            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Ship Date">
+              <GridViewColumn.CellTemplate>
+                <DataTemplate>
+                  <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.ShipDate}"/>
+                </DataTemplate>
+              </GridViewColumn.CellTemplate>
+            </GridViewColumn>
             <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Due Date">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
@@ -205,13 +219,6 @@
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.TotalDue}"/>
-                </DataTemplate>
-              </GridViewColumn.CellTemplate>
-            </GridViewColumn>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Ship Date">
-              <GridViewColumn.CellTemplate>
-                <DataTemplate>
-                  <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.ShipDate}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>

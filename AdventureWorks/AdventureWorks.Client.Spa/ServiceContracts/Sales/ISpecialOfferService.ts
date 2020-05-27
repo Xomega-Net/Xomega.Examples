@@ -20,4 +20,6 @@ export class ISpecialOfferService {
 export class SpecialOffer_ReadListOutput {
     public SpecialOfferId: any = null;
     public Description: any = null;
+    public IsActive: any = null;
+    public Category: any = null;
 }

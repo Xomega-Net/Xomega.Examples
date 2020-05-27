@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 #endif
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Services;
@@ -18,11 +17,7 @@ namespace AdventureWorks.Services.Entities
         {
         }
 
-        public override async Task<Output> AuthenticateAsync(Credentials _credentials
-#if !WCF
-            , CancellationToken token = default
-#endif
-        )
+        public override async Task<Output> AuthenticateAsync(Credentials _credentials)
         {
             // lookup password
             var pwdQry = from em in ctx.EmailAddress
@@ -39,15 +34,11 @@ namespace AdventureWorks.Services.Entities
                 // TODO: hash _credentials.Password using pwd.PasswordSalt,
                 //       and compare it with pwd.PasswordHash instead
             }
-            if (!valid) currentErrors.CriticalError(ErrorType.Security, "Invalid credentials");
+            if (!valid) currentErrors.CriticalError(ErrorType.Security, Messages.InvalidCredentials);
             return new Output(currentErrors);
         }
 
-        public override async Task<Output<PersonInfo>> ReadAsync(string _email
-#if !WCF
-            , CancellationToken token = default
-#endif
-        )
+        public override async Task<Output<PersonInfo>> ReadAsync(string _email)
         {
             // lookup and return person info
             var qry = from em in ctx.EmailAddress
@@ -70,7 +61,7 @@ namespace AdventureWorks.Services.Entities
                           Vendor = vn.BusinessEntityId
                       };
             var person = await qry.FirstOrDefaultAsync();
-            if (person == null) currentErrors.CriticalError(ErrorType.Data, "Person info not found");
+            if (person == null) currentErrors.CriticalError(ErrorType.Data, Messages.PersonNotFound);
 
             return new Output<PersonInfo>(currentErrors, person);
         }

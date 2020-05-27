@@ -45,11 +45,12 @@ namespace AdventureWorks.Services.Entities
                           select new Product_ReadListOutput() {
                               ProductId = obj.ProductId,
                               Name = obj.Name,
+                              // CUSTOM_CODE_START: set the IsActive output parameter of ReadList operation below
+                              IsActive = (obj.SellEndDate == null || obj.SellEndDate > DateTime.Today)
+                                         && obj.DiscontinuedDate == null, // CUSTOM_CODE_END
                               ProductSubcategoryId = obj.ProductSubcategoryId,
                               ProductModelId = obj.ProductModelId,
                               ListPrice = obj.ListPrice,
-                              // CUSTOM_CODE_START: set the Current output parameter of ReadList operation below
-                              Current = obj.DiscontinuedDate == null, // CUSTOM_CODE_END
                           };
 
                 // CUSTOM_CODE_START: add custom filter criteria to the result query for ReadList operation below

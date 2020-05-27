@@ -26,6 +26,7 @@ namespace AdventureWorks.Client.Web
 
             // app services configuration
             services.AddSingleton<ResourceManager>(sp => new CompositeResourceManager(
+                Common.Messages.ResourceManager,
                 Services.Entities.Messages.ResourceManager,
                 Xomega.Framework.Messages.ResourceManager));
             services.AddDataObjects();

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xomega.Framework.Services;
 // CUSTOM_CODE_START: add namespaces for custom code below
+using AdventureWorks.Enumerations;
 using Xomega.Framework;
 // CUSTOM_CODE_END
 
@@ -157,10 +158,18 @@ namespace AdventureWorks.Services.Entities
                 if (!CurrentPrincipal.IsEmployee() && !CurrentPrincipal.IsIndividualCustomer() &&
                     !CurrentPrincipal.IsStoreContact())
                 {
-                    currentErrors.CriticalError(ErrorType.Security, "Operation is not allowed");
+                    currentErrors.CriticalError(ErrorType.Security, Messages.OperationNotAllowed);
                 }
                 // CUSTOM_CODE_END
                 var src = from obj in ctx.SalesOrder select obj;
+
+                // Source filter
+                if (_criteria != null)
+                {
+                    // CUSTOM_CODE_START: add code for GlobalRegion criteria of ReadList operation below
+                    src = AddClause(src, "GlobalRegion", o => o.TerritoryObject.Group, Operators.IsEqualTo, _criteria.GlobalRegion);
+                    // CUSTOM_CODE_END
+                }
 
                 // CUSTOM_CODE_START: add custom filter criteria to the source query for ReadList operation below
                 if (CurrentPrincipal.IsStoreContact())
@@ -181,9 +190,9 @@ namespace AdventureWorks.Services.Entities
                               SalesOrderNumber = obj.SalesOrderNumber,
                               Status = obj.Status,
                               OrderDate = obj.OrderDate,
+                              ShipDate = obj.ShipDate,
                               DueDate = obj.DueDate,
                               TotalDue = obj.TotalDue,
-                              ShipDate = obj.ShipDate,
                               OnlineOrderFlag = obj.OnlineOrderFlag,
                               // CUSTOM_CODE_START: set the CustomerStore output parameter of ReadList operation below
                               CustomerStore = obj.CustomerObject.StoreObject.Name, // CUSTOM_CODE_END
@@ -345,14 +354,12 @@ namespace AdventureWorks.Services.Entities
 
                 var qry = from obj in src
                           select new SalesOrderDetail_ReadListOutput() {
-                              // CUSTOM_CODE_START: set the Product output parameter of Detail_ReadList operation below
-                              Product = obj.SpecialOfferProductObject.ProductId, // CUSTOM_CODE_END
                               SalesOrderDetailId = obj.SalesOrderDetailId,
+                              ProductId = obj.ProductId,
                               OrderQty = obj.OrderQty,
-                              // CUSTOM_CODE_START: set the SpecialOffer output parameter of Detail_ReadList operation below
-                              SpecialOffer = obj.SpecialOfferProductObject.SpecialOfferId, // CUSTOM_CODE_END
                               UnitPrice = obj.UnitPrice,
                               UnitPriceDiscount = obj.UnitPriceDiscount,
+                              SpecialOfferId = obj.SpecialOfferId,
                               LineTotal = obj.LineTotal,
                               CarrierTrackingNumber = obj.CarrierTrackingNumber,
                           };

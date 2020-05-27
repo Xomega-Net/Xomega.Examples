@@ -26,6 +26,7 @@ namespace AdventureWorks.Client.Objects
             EmailProperty.SetValue("jay1@adventure-works.com");
             PasswordProperty.SetValue("password");
             TrackModifications = false;
+            IsNew = false;
         }
 
         // add custom code here

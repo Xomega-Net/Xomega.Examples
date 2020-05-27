@@ -53,6 +53,7 @@ namespace AdventureWorks.Client.Wpf
             // app resources
             services.AddSingleton<ResourceManager>(sp => new CompositeResourceManager(
                 Messages.ResourceManager,
+                Common.Messages.ResourceManager,
 #if TWO_TIER
                 Services.Entities.Messages.ResourceManager,
 #endif

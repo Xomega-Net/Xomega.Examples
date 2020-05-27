@@ -47,6 +47,15 @@ namespace AdventureWorks.Services
         ///</summary>
         [DataMember]
         public string Description { get; set; }
+        
+        [DataMember]
+        public bool IsActive { get; set; }
+        
+        ///<summary>
+        /// Group the discount applies to such as Reseller or Customer.
+        ///</summary>
+        [DataMember]
+        public string Category { get; set; }
     }
     #endregion
 

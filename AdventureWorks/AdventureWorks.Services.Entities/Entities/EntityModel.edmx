@@ -95,10 +95,6 @@
                <EntitySet Name="ProductSubcategory" EntityType="Self.ProductSubcategory"
                           store:Type="Tables"
                           Schema="Production"/>
-               <EntitySet Name="Product_inmem" EntityType="Self.Product_inmem" store:Type="Tables"
-                          Schema="Production"/>
-               <EntitySet Name="Product_ondisk" EntityType="Self.Product_ondisk" store:Type="Tables"
-                          Schema="Production"/>
                <EntitySet Name="ScrapReason" EntityType="Self.ScrapReason" store:Type="Tables"
                           Schema="Production"/>
                <EntitySet Name="TransactionHistory" EntityType="Self.TransactionHistory"
@@ -1063,64 +1059,6 @@
                <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50"/>
                <Property Name="rowguid" Type="uniqueidentifier" Nullable="false"/>
                <Property Name="ModifiedDate" Type="datetime" Nullable="false"/>
-            </EntityType>
-            <EntityType Name="Product_inmem">
-               <Key>
-                  <PropertyRef Name="ProductID"/>
-               </Key>
-               <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity"/>
-               <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50"/>
-               <Property Name="ProductNumber" Type="nvarchar" Nullable="false" MaxLength="25"/>
-               <Property Name="MakeFlag" Type="bit" Nullable="false"/>
-               <Property Name="FinishedGoodsFlag" Type="bit" Nullable="false"/>
-               <Property Name="Color" Type="nvarchar" MaxLength="15"/>
-               <Property Name="SafetyStockLevel" Type="smallint" Nullable="false"/>
-               <Property Name="ReorderPoint" Type="smallint" Nullable="false"/>
-               <Property Name="StandardCost" Type="money" Nullable="false"/>
-               <Property Name="ListPrice" Type="money" Nullable="false"/>
-               <Property Name="Size" Type="nvarchar" MaxLength="5"/>
-               <Property Name="SizeUnitMeasureCode" Type="nchar" MaxLength="3"/>
-               <Property Name="WeightUnitMeasureCode" Type="nchar" MaxLength="3"/>
-               <Property Name="Weight" Type="decimal" Precision="8" Scale="2"/>
-               <Property Name="DaysToManufacture" Type="int" Nullable="false"/>
-               <Property Name="ProductLine" Type="nchar" MaxLength="2"/>
-               <Property Name="Class" Type="nchar" MaxLength="2"/>
-               <Property Name="Style" Type="nchar" MaxLength="2"/>
-               <Property Name="ProductSubcategoryID" Type="int"/>
-               <Property Name="ProductModelID" Type="int"/>
-               <Property Name="SellStartDate" Type="datetime2" Nullable="false"/>
-               <Property Name="SellEndDate" Type="datetime2"/>
-               <Property Name="DiscontinuedDate" Type="datetime2"/>
-               <Property Name="ModifiedDate" Type="datetime2" Nullable="false"/>
-            </EntityType>
-            <EntityType Name="Product_ondisk">
-               <Key>
-                  <PropertyRef Name="ProductID"/>
-               </Key>
-               <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity"/>
-               <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50"/>
-               <Property Name="ProductNumber" Type="nvarchar" Nullable="false" MaxLength="25"/>
-               <Property Name="MakeFlag" Type="bit" Nullable="false"/>
-               <Property Name="FinishedGoodsFlag" Type="bit" Nullable="false"/>
-               <Property Name="Color" Type="nvarchar" MaxLength="15"/>
-               <Property Name="SafetyStockLevel" Type="smallint" Nullable="false"/>
-               <Property Name="ReorderPoint" Type="smallint" Nullable="false"/>
-               <Property Name="StandardCost" Type="money" Nullable="false"/>
-               <Property Name="ListPrice" Type="money" Nullable="false"/>
-               <Property Name="Size" Type="nvarchar" MaxLength="5"/>
-               <Property Name="SizeUnitMeasureCode" Type="nchar" MaxLength="3"/>
-               <Property Name="WeightUnitMeasureCode" Type="nchar" MaxLength="3"/>
-               <Property Name="Weight" Type="decimal" Precision="8" Scale="2"/>
-               <Property Name="DaysToManufacture" Type="int" Nullable="false"/>
-               <Property Name="ProductLine" Type="nchar" MaxLength="2"/>
-               <Property Name="Class" Type="nchar" MaxLength="2"/>
-               <Property Name="Style" Type="nchar" MaxLength="2"/>
-               <Property Name="ProductSubcategoryID" Type="int"/>
-               <Property Name="ProductModelID" Type="int"/>
-               <Property Name="SellStartDate" Type="datetime2" Nullable="false"/>
-               <Property Name="SellEndDate" Type="datetime2"/>
-               <Property Name="DiscontinuedDate" Type="datetime2"/>
-               <Property Name="ModifiedDate" Type="datetime2" Nullable="false"/>
             </EntityType>
             <EntityType Name="ScrapReason">
                <Key>
@@ -2693,14 +2631,12 @@
                <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory"/>
                <EntitySet Name="ProductCostHistory" EntityType="Self.ProductCostHistory"/>
                <EntitySet Name="ProductDescription" EntityType="Self.ProductDescription"/>
-               <EntitySet Name="ProductInmem" EntityType="Self.ProductInmem"/>
                <EntitySet Name="ProductInventory" EntityType="Self.ProductInventory"/>
                <EntitySet Name="ProductListPriceHistory" EntityType="Self.ProductListPriceHistory"/>
                <EntitySet Name="ProductModel" EntityType="Self.ProductModel"/>
                <EntitySet Name="ProductModelIllustration" EntityType="Self.ProductModelIllustration"/>
                <EntitySet Name="ProductModelProductDescriptionCulture"
                           EntityType="Self.ProductModelProductDescriptionCulture"/>
-               <EntitySet Name="ProductOndisk" EntityType="Self.ProductOndisk"/>
                <EntitySet Name="ProductPhoto" EntityType="Self.ProductPhoto"/>
                <EntitySet Name="ProductProductPhoto" EntityType="Self.ProductProductPhoto"/>
                <EntitySet Name="ProductReview" EntityType="Self.ProductReview"/>
@@ -4456,36 +4392,6 @@
                   </Documentation>
                </Property>
             </EntityType>
-            <EntityType Name="ProductInmem">
-               <Key>
-                  <PropertyRef Name="ProductId"/>
-               </Key>
-               <Property Name="ProductId" ns0:StoreGeneratedPattern="Identity" Type="Int32"
-                         Nullable="false"/>
-               <Property Name="Name" Type="String" Nullable="false"/>
-               <Property Name="ProductNumber" Type="String" Nullable="false"/>
-               <Property Name="MakeFlag" Type="Boolean" Nullable="false"/>
-               <Property Name="FinishedGoodsFlag" Type="Boolean" Nullable="false"/>
-               <Property Name="Color" Type="String"/>
-               <Property Name="SafetyStockLevel" Type="Int16" Nullable="false"/>
-               <Property Name="ReorderPoint" Type="Int16" Nullable="false"/>
-               <Property Name="StandardCost" Type="Decimal" Nullable="false"/>
-               <Property Name="ListPrice" Type="Decimal" Nullable="false"/>
-               <Property Name="Size" Type="String"/>
-               <Property Name="SizeUnitMeasureCode" Type="String"/>
-               <Property Name="WeightUnitMeasureCode" Type="String"/>
-               <Property Name="Weight" Type="Decimal"/>
-               <Property Name="DaysToManufacture" Type="Int32" Nullable="false"/>
-               <Property Name="ProductLine" Type="String"/>
-               <Property Name="Class" Type="String"/>
-               <Property Name="Style" Type="String"/>
-               <Property Name="ProductSubcategoryId" Type="Int32"/>
-               <Property Name="ProductModelId" Type="Int32"/>
-               <Property Name="SellStartDate" Type="DateTime" Nullable="false"/>
-               <Property Name="SellEndDate" Type="DateTime"/>
-               <Property Name="DiscontinuedDate" Type="DateTime"/>
-               <Property Name="ModifiedDate" Type="DateTime" Nullable="false"/>
-            </EntityType>
             <EntityType Name="ProductInventory">
                <Documentation>
                   <Summary>Product inventory information.</Summary>
@@ -4681,36 +4587,6 @@
                                    Relationship="Self.ProductModelProductDescriptionCulture_CultureId"
                                    FromRole="ProductModelProductDescriptionCulture"
                                    ToRole="Culture"/>
-            </EntityType>
-            <EntityType Name="ProductOndisk">
-               <Key>
-                  <PropertyRef Name="ProductId"/>
-               </Key>
-               <Property Name="ProductId" ns0:StoreGeneratedPattern="Identity" Type="Int32"
-                         Nullable="false"/>
-               <Property Name="Name" Type="String" Nullable="false"/>
-               <Property Name="ProductNumber" Type="String" Nullable="false"/>
-               <Property Name="MakeFlag" Type="Boolean" Nullable="false"/>
-               <Property Name="FinishedGoodsFlag" Type="Boolean" Nullable="false"/>
-               <Property Name="Color" Type="String"/>
-               <Property Name="SafetyStockLevel" Type="Int16" Nullable="false"/>
-               <Property Name="ReorderPoint" Type="Int16" Nullable="false"/>
-               <Property Name="StandardCost" Type="Decimal" Nullable="false"/>
-               <Property Name="ListPrice" Type="Decimal" Nullable="false"/>
-               <Property Name="Size" Type="String"/>
-               <Property Name="SizeUnitMeasureCode" Type="String"/>
-               <Property Name="WeightUnitMeasureCode" Type="String"/>
-               <Property Name="Weight" Type="Decimal"/>
-               <Property Name="DaysToManufacture" Type="Int32" Nullable="false"/>
-               <Property Name="ProductLine" Type="String"/>
-               <Property Name="Class" Type="String"/>
-               <Property Name="Style" Type="String"/>
-               <Property Name="ProductSubcategoryId" Type="Int32"/>
-               <Property Name="ProductModelId" Type="Int32"/>
-               <Property Name="SellStartDate" Type="DateTime" Nullable="false"/>
-               <Property Name="SellEndDate" Type="DateTime"/>
-               <Property Name="DiscontinuedDate" Type="DateTime"/>
-               <Property Name="ModifiedDate" Type="DateTime" Nullable="false"/>
             </EntityType>
             <EntityType Name="ProductPhoto">
                <Documentation>
@@ -7273,36 +7149,6 @@
                      </MappingFragment>
                   </EntityTypeMapping>
                </EntitySetMapping>
-               <EntitySetMapping Name="ProductInmem">
-                  <EntityTypeMapping TypeName="AdventureWorksModel.ProductInmem">
-                     <MappingFragment StoreEntitySet="Product_inmem">
-                        <ScalarProperty Name="ProductId" ColumnName="ProductID"/>
-                        <ScalarProperty Name="Name" ColumnName="Name"/>
-                        <ScalarProperty Name="ProductNumber" ColumnName="ProductNumber"/>
-                        <ScalarProperty Name="MakeFlag" ColumnName="MakeFlag"/>
-                        <ScalarProperty Name="FinishedGoodsFlag" ColumnName="FinishedGoodsFlag"/>
-                        <ScalarProperty Name="Color" ColumnName="Color"/>
-                        <ScalarProperty Name="SafetyStockLevel" ColumnName="SafetyStockLevel"/>
-                        <ScalarProperty Name="ReorderPoint" ColumnName="ReorderPoint"/>
-                        <ScalarProperty Name="StandardCost" ColumnName="StandardCost"/>
-                        <ScalarProperty Name="ListPrice" ColumnName="ListPrice"/>
-                        <ScalarProperty Name="Size" ColumnName="Size"/>
-                        <ScalarProperty Name="SizeUnitMeasureCode" ColumnName="SizeUnitMeasureCode"/>
-                        <ScalarProperty Name="WeightUnitMeasureCode" ColumnName="WeightUnitMeasureCode"/>
-                        <ScalarProperty Name="Weight" ColumnName="Weight"/>
-                        <ScalarProperty Name="DaysToManufacture" ColumnName="DaysToManufacture"/>
-                        <ScalarProperty Name="ProductLine" ColumnName="ProductLine"/>
-                        <ScalarProperty Name="Class" ColumnName="Class"/>
-                        <ScalarProperty Name="Style" ColumnName="Style"/>
-                        <ScalarProperty Name="ProductSubcategoryId" ColumnName="ProductSubcategoryID"/>
-                        <ScalarProperty Name="ProductModelId" ColumnName="ProductModelID"/>
-                        <ScalarProperty Name="SellStartDate" ColumnName="SellStartDate"/>
-                        <ScalarProperty Name="SellEndDate" ColumnName="SellEndDate"/>
-                        <ScalarProperty Name="DiscontinuedDate" ColumnName="DiscontinuedDate"/>
-                        <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate"/>
-                     </MappingFragment>
-                  </EntityTypeMapping>
-               </EntitySetMapping>
                <EntitySetMapping Name="ProductInventory">
                   <EntityTypeMapping TypeName="AdventureWorksModel.ProductInventory">
                      <MappingFragment StoreEntitySet="ProductInventory">
@@ -7354,36 +7200,6 @@
                         <ScalarProperty Name="ProductModelId" ColumnName="ProductModelID"/>
                         <ScalarProperty Name="ProductDescriptionId" ColumnName="ProductDescriptionID"/>
                         <ScalarProperty Name="CultureId" ColumnName="CultureID"/>
-                        <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate"/>
-                     </MappingFragment>
-                  </EntityTypeMapping>
-               </EntitySetMapping>
-               <EntitySetMapping Name="ProductOndisk">
-                  <EntityTypeMapping TypeName="AdventureWorksModel.ProductOndisk">
-                     <MappingFragment StoreEntitySet="Product_ondisk">
-                        <ScalarProperty Name="ProductId" ColumnName="ProductID"/>
-                        <ScalarProperty Name="Name" ColumnName="Name"/>
-                        <ScalarProperty Name="ProductNumber" ColumnName="ProductNumber"/>
-                        <ScalarProperty Name="MakeFlag" ColumnName="MakeFlag"/>
-                        <ScalarProperty Name="FinishedGoodsFlag" ColumnName="FinishedGoodsFlag"/>
-                        <ScalarProperty Name="Color" ColumnName="Color"/>
-                        <ScalarProperty Name="SafetyStockLevel" ColumnName="SafetyStockLevel"/>
-                        <ScalarProperty Name="ReorderPoint" ColumnName="ReorderPoint"/>
-                        <ScalarProperty Name="StandardCost" ColumnName="StandardCost"/>
-                        <ScalarProperty Name="ListPrice" ColumnName="ListPrice"/>
-                        <ScalarProperty Name="Size" ColumnName="Size"/>
-                        <ScalarProperty Name="SizeUnitMeasureCode" ColumnName="SizeUnitMeasureCode"/>
-                        <ScalarProperty Name="WeightUnitMeasureCode" ColumnName="WeightUnitMeasureCode"/>
-                        <ScalarProperty Name="Weight" ColumnName="Weight"/>
-                        <ScalarProperty Name="DaysToManufacture" ColumnName="DaysToManufacture"/>
-                        <ScalarProperty Name="ProductLine" ColumnName="ProductLine"/>
-                        <ScalarProperty Name="Class" ColumnName="Class"/>
-                        <ScalarProperty Name="Style" ColumnName="Style"/>
-                        <ScalarProperty Name="ProductSubcategoryId" ColumnName="ProductSubcategoryID"/>
-                        <ScalarProperty Name="ProductModelId" ColumnName="ProductModelID"/>
-                        <ScalarProperty Name="SellStartDate" ColumnName="SellStartDate"/>
-                        <ScalarProperty Name="SellEndDate" ColumnName="SellEndDate"/>
-                        <ScalarProperty Name="DiscontinuedDate" ColumnName="DiscontinuedDate"/>
                         <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate"/>
                      </MappingFragment>
                   </EntityTypeMapping>

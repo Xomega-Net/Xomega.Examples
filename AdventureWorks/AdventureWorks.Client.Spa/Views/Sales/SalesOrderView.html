@@ -11,7 +11,6 @@
     <div class="view-header"><span class="view-title" data-bind="text: ViewTitle"></span></div>
     <div class="view-body">
       <div class="content indented">
-        <div data-bind="msglist: { items: getErrorList().Errors }"></div>
         <div class="xw-obj indented">
           <fieldset data-bind="with: obj">
             <legend>Sales Order</legend>
@@ -194,11 +193,11 @@
                              id="gridDetail">
                         <thead>
                           <tr data-bind="with: $root.obj.DetailList">
-                            <th data-bind="sortby: Product">Product</th>
+                            <th data-bind="sortby: ProductId">Product</th>
                             <th data-bind="sortby: OrderQty">Qty</th>
-                            <th data-bind="sortby: SpecialOffer">Special Offer</th>
                             <th data-bind="sortby: UnitPrice">Price</th>
                             <th data-bind="sortby: UnitPriceDiscount">Discount</th>
+                            <th data-bind="sortby: SpecialOfferId">Special Offer</th>
                             <th data-bind="sortby: LineTotal">Total</th>
                             <th data-bind="sortby: CarrierTrackingNumber">Tracking #</th>
                           </tr>
@@ -207,11 +206,11 @@
                           <tr data-bind="css: { selected: _selected }, click: toggleSelection">
                             <td><a data-bind="click: $root.LinkDetailDetails_Click.bind($root), css: {disabled: !$root.LinkDetailDetails_Enabled($data)}"
                                  href="#">
-                                <span data-bind="property: List.Product"></span></a></td>
+                                <span data-bind="property: List.ProductId"></span></a></td>
                             <td><span data-bind="property: List.OrderQty"></span></td>
-                            <td><span data-bind="property: List.SpecialOffer"></span></td>
                             <td><span data-bind="property: List.UnitPrice"></span></td>
                             <td><span data-bind="property: List.UnitPriceDiscount"></span></td>
+                            <td><span data-bind="property: List.SpecialOfferId"></span></td>
                             <td><span data-bind="property: List.LineTotal"></span></td>
                             <td><span data-bind="property: List.CarrierTrackingNumber"></span></td>
                           </tr>
@@ -311,6 +310,7 @@
             </div>
           </div>
         </div>
+        <div data-bind="msglist: { items: getErrorList().Errors }"></div>
       </div>
     </div>
     <div class="view-footer action-bar" data-bind="with: $root">

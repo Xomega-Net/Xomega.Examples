@@ -57,8 +57,8 @@ namespace AdventureWorks.Services
                 {
                     tbl[id] = h = new Header(type, id, row.AddressType);
                 }
-                h.AddToAttribute("address line 1", row.AddressLine1);
-                h.AddToAttribute("address line 2", row.AddressLine2);
+                h.AddToAttribute("address line1", row.AddressLine1);
+                h.AddToAttribute("address line2", row.AddressLine2);
                 h.AddToAttribute("city", row.City);
                 h.AddToAttribute("state", row.State);
                 h.AddToAttribute("postal code", row.PostalCode);

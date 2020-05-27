@@ -21,8 +21,8 @@ export module BusinessEntityAddress {
 export module BusinessEntityAddress {
     export class Attributes
     {
-        public static AddressLine1: string = "address line 1";
-        public static AddressLine2: string = "address line 2";
+        public static AddressLine1: string = "address line1";
+        public static AddressLine2: string = "address line2";
         public static City: string = "city";
         public static State: string = "state";
         public static PostalCode: string = "postal code";
@@ -161,6 +161,13 @@ export module SalesTerritory {
     }
 }
 
+export class SalesTerritoryGroup {
+    public static EnumName: string = "sales territory group";
+
+    public static NorthAmerica: string = "North America";
+    public static Europe: string = "Europe";
+    public static Pacific: string = "Pacific";
+}
 export class ShipMethod {
     public static EnumName: string = "ship method";
 
@@ -169,6 +176,13 @@ export class SpecialOffer {
     public static EnumName: string = "special offer";
 
 }
+export module SpecialOffer {
+    export class Attributes
+    {
+        public static Category: string = "category";
+    }
+}
+
 export class SpecialOfferProduct {
     public static EnumName: string = "special offer product";
 

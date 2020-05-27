@@ -21,6 +21,9 @@ namespace AdventureWorks.Services
     public interface IBusinessEntityAddressService
     {
 
+        ///<summary>
+        /// Reads a list of Business Entity Address objects based on the specified criteria.
+        ///</summary>
         [OperationContract]
         Task<Output<ICollection<BusinessEntityAddress_ReadListOutput>>> ReadListAsync(int _businessEntityId);
 

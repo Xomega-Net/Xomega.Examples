@@ -1,4 +1,3 @@
-using AdventureWorks.Client.Objects;
 using AdventureWorks.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin.Security.Cookies;
@@ -19,7 +18,7 @@ namespace AdventureWorks.Client.Web
             base.OnInit(e);
 
             btn_Save.Text = "Login";
-            pnlMain.Width = new Unit("500px");
+            pnl_View.Width = new Unit("500px");
         }
 
         protected override void OnPreRender(EventArgs e)
@@ -39,29 +38,26 @@ namespace AdventureWorks.Client.Web
             }
         }
 
-        private async Task SignIn(CancellationToken token = default)
-        {
-            AuthenticationObject authObj = VM?.MainObj;
-            ClaimsIdentity ci = null;
-            if (authObj != null && authObj.EmailProperty.Value != null)
-            {
-                PersonInfo userInfo = (await ServiceProvider.GetService<IPersonService>().ReadAsync(authObj.EmailProperty.Value)).Result;
-                ci = SecurityManager.CreateIdentity(CookieAuthenticationDefaults.AuthenticationType, userInfo);
-            }
-            if (ci != null)
-            {
-                HttpContext.Current.GetOwinContext().Authentication.SignIn(ci);
-                string url = HttpContext.Current.Request.QueryString[CookieAuthenticationDefaults.ReturnUrlParameter];
-                if (url != null)
-                    HttpContext.Current.Response.Redirect(url, false);
-            }
-        }
-
         protected override async Task OnViewEventsAsync(object sender, ViewEvent e, CancellationToken token = default)
         {
             await base.OnViewEventsAsync(sender, e, token);
             if (e.IsSaved()) // authenticated successfully
-                await SignIn(token);
+            {
+                ClaimsIdentity ci = null;
+                if (VM?.MainObj?.EmailProperty?.Value != null)
+                {
+                    var personService = ServiceProvider.GetService<IPersonService>();
+                    PersonInfo userInfo = (await personService.ReadAsync(VM.MainObj.EmailProperty.Value)).Result;
+                    ci = SecurityManager.CreateIdentity(CookieAuthenticationDefaults.AuthenticationType, userInfo);
+                }
+                if (ci != null)
+                {
+                    HttpContext.Current.GetOwinContext().Authentication.SignIn(ci);
+                    string url = HttpContext.Current.Request.QueryString[CookieAuthenticationDefaults.ReturnUrlParameter];
+                    if (url != null)
+                        HttpContext.Current.Response.Redirect(url, false);
+                }
+            }
         }
     }
 }

@@ -20,8 +20,8 @@ export class IProductService {
 export class Product_ReadListOutput {
     public ProductId: any = null;
     public Name: any = null;
+    public IsActive: any = null;
     public ProductSubcategoryId: any = null;
     public ProductModelId: any = null;
     public ListPrice: any = null;
-    public Current: any = null;
 }

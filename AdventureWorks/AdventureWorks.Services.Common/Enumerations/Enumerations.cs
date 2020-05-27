@@ -31,8 +31,8 @@ namespace AdventureWorks.Enumerations
         ///</summary>
         public class Attributes
         {
-            public const string AddressLine1 = "address line 1";
-            public const string AddressLine2 = "address line 2";
+            public const string AddressLine1 = "address line1";
+            public const string AddressLine2 = "address line2";
             public const string City = "city";
             public const string State = "state";
             public const string PostalCode = "postal code";
@@ -362,6 +362,20 @@ namespace AdventureWorks.Enumerations
     }
     #endregion
 
+    #region SalesTerritoryGroup
+    public class SalesTerritoryGroup
+    {
+        ///<summary>
+        /// Enumeration name used for storing it in a lookup cache.
+        ///</summary>
+        public const string EnumName = "sales territory group";
+
+        public const string NorthAmerica = "North America";
+        public const string Europe = "Europe";
+        public const string Pacific = "Pacific";
+    }
+    #endregion
+
     #region ShipMethod
     ///<summary>
     /// Cached enumeration returned by the IShipMethodService.ReadListAsync operation.
@@ -388,6 +402,14 @@ namespace AdventureWorks.Enumerations
         /// Enumeration name used for storing it in a lookup cache.
         ///</summary>
         public const string EnumName = "special offer";
+
+        ///<summary>
+        /// Additional attributes for enumeration 'special offer'.
+        ///</summary>
+        public class Attributes
+        {
+            public const string Category = "category";
+        }
 
     }
     #endregion

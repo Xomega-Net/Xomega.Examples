@@ -1,6 +1,6 @@
 using AdventureWorks.Client.Objects;
-#if TWO_TIER
 using AdventureWorks.Services;
+#if TWO_TIER
 using Microsoft.Extensions.DependencyInjection;
 #endif
 using System;
@@ -61,7 +61,10 @@ namespace AdventureWorks.Client.Wpf
             try
             {
                 SaveButton.IsEnabled = false;
-                principalProvider.CurrentPrincipal = await Authenticate();
+                var user = await Authenticate();
+                principalProvider.CurrentPrincipal = user;
+                MainMenu.M_Sales_Visible = user.IsEmployee() ||
+                    user.IsStoreContact() || user.IsIndividualCustomer();
                 MainView.Start();
                 Close();
             }

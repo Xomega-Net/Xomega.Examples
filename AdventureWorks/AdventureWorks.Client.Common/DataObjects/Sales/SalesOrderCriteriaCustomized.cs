@@ -1,6 +1,5 @@
 using AdventureWorks.Services;
 using System;
-using System.Threading;
 using Xomega.Framework;
 
 namespace AdventureWorks.Client.Objects
@@ -26,10 +25,10 @@ namespace AdventureWorks.Client.Objects
         protected override void OnInitialized()
         {
             base.OnInitialized();
-
-            StatusProperty.DisplayFormat = Header.FieldId + " - " + Header.FieldText;
-            SalesPersonIdProperty.NullsMatchAnyCascading = true;
+            StatusProperty.DisplayFormat = $"{Header.FieldId} - {Header.FieldText}";
+            TerritoryIdProperty.SetCascadingProperty(Enumerations.SalesTerritory.Attributes.Group, GlobalRegionProperty);
             SalesPersonIdProperty.SetCascadingProperty(Enumerations.SalesPerson.Attributes.TerritoryId, TerritoryIdProperty);
+            SalesPersonIdProperty.NullsMatchAnyCascading = true;
             SalesPersonIdProperty.DisplayListSeparator = "; ";
 
             if (CurrentPrincipal.IsStoreContact() || CurrentPrincipal.IsIndividualCustomer())
@@ -44,7 +43,7 @@ namespace AdventureWorks.Client.Objects
             base.Validate(force);
             DateTime? orderDateFrom = OrderDateProperty.Value;
             DateTime? orderDateTo = OrderDate2Property.Value;
-            if (orderDateFrom != null && orderDateTo != null && orderDateTo < orderDateFrom)
+            if (orderDateFrom != null && orderDateTo != null && orderDateFrom > orderDateTo)
                 validationErrorList.AddValidationError(Common.Messages.OrderFromToDate);
         }
     }

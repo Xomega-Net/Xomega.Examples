@@ -17,14 +17,6 @@ namespace AdventureWorks.Client.Blazor.Views
         [Inject] SignInManager signInManager { get; set; }
         [Inject] IPersonService personService { get; set; }
 
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            if (VM?.MainObj != null)
-                VM.MainObj.TrackModifications = false;
-        }
-
         protected override string SaveText => "Login";
 
         protected override async Task OnViewEventsAsync(object sender, ViewEvent e, CancellationToken token = default)

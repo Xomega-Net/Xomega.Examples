@@ -29,7 +29,7 @@ namespace AdventureWorks.Services
         /// <inheritdoc/>
         public virtual async Task<Output<ICollection<BusinessEntityAddress_ReadListOutput>>> ReadListAsync(int _businessEntityId)
         {
-            HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Get, $"business entity/{ _businessEntityId }/address");
+            HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Get, $"business-entity/{ _businessEntityId }/address");
             using (var resp = await Http.SendAsync(msg, HttpCompletionOption.ResponseHeadersRead))
             {
                 var content = await resp.Content.ReadAsStreamAsync();

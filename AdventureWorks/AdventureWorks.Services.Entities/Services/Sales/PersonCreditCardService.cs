@@ -55,7 +55,8 @@ namespace AdventureWorks.Services.Entities
                                                obj.CreditCardObject.CardNumber.Substring(
                                                    obj.CreditCardObject.CardNumber.Length - 4), // CUSTOM_CODE_END
                               // CUSTOM_CODE_START: set the PersonName output parameter of ReadList operation below
-                              PersonName = obj.BusinessEntityObject.FullName, // CUSTOM_CODE_END
+                              PersonName = obj.BusinessEntityObject.LastName + ", " +
+                                           obj.BusinessEntityObject.FirstName, // CUSTOM_CODE_END
                               // CUSTOM_CODE_START: set the CardType output parameter of ReadList operation below
                               CardType = obj.CreditCardObject.CardType, // CUSTOM_CODE_END
                               // CUSTOM_CODE_START: set the CardNumber output parameter of ReadList operation below

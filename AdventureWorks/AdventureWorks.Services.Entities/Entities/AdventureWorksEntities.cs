@@ -121,8 +121,7 @@ namespace AdventureWorks.Services.Entities
         public virtual DbSet<EmployeePayHistory> EmployeePayHistory { get; set; }
 
         ///<summary>
-        /// Audit table tracking errors in the the AdventureWorks database that are caught by the CATCH block of a TRY...CATCH construct.
-        /// Data is inserted by stored procedure dbo.uspLogError when it is executed from inside the CATCH block of a TRY...CATCH construct.
+        /// Audit table tracking errors in the the AdventureWorks database that are caught by the CATCH block of a TRY...CATCH construct. Data is inserted by stored procedure dbo.uspLogError when it is executed from inside the CATCH block of a TRY...CATCH construct.
         ///</summary>
         public virtual DbSet<ErrorLog> ErrorLog { get; set; }
 
@@ -191,8 +190,6 @@ namespace AdventureWorks.Services.Entities
         ///</summary>
         public virtual DbSet<ProductDescription> ProductDescription { get; set; }
 
-        public virtual DbSet<ProductInmem> ProductInmem { get; set; }
-
         ///<summary>
         /// Product inventory information.
         ///</summary>
@@ -217,8 +214,6 @@ namespace AdventureWorks.Services.Entities
         /// Cross-reference table mapping product descriptions and the language the description is written in.
         ///</summary>
         public virtual DbSet<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCulture { get; set; }
-
-        public virtual DbSet<ProductOndisk> ProductOndisk { get; set; }
 
         ///<summary>
         /// Product images.
@@ -418,13 +413,11 @@ namespace AdventureWorks.Services.Entities
             modelBuilder.ApplyConfiguration(new ProductCategoryConfig());
             modelBuilder.ApplyConfiguration(new ProductCostHistoryConfig());
             modelBuilder.ApplyConfiguration(new ProductDescriptionConfig());
-            modelBuilder.ApplyConfiguration(new ProductInmemConfig());
             modelBuilder.ApplyConfiguration(new ProductInventoryConfig());
             modelBuilder.ApplyConfiguration(new ProductListPriceHistoryConfig());
             modelBuilder.ApplyConfiguration(new ProductModelConfig());
             modelBuilder.ApplyConfiguration(new ProductModelIllustrationConfig());
             modelBuilder.ApplyConfiguration(new ProductModelProductDescriptionCultureConfig());
-            modelBuilder.ApplyConfiguration(new ProductOndiskConfig());
             modelBuilder.ApplyConfiguration(new ProductPhotoConfig());
             modelBuilder.ApplyConfiguration(new ProductProductPhotoConfig());
             modelBuilder.ApplyConfiguration(new ProductReviewConfig());

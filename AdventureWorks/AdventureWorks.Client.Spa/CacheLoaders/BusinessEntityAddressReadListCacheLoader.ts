@@ -30,8 +30,8 @@ export class BusinessEntityAddressReadListCacheLoader extends LocalLookupCacheLo
                 let row = new BusinessEntityAddress_ReadListOutput();
                 fromJSON(row, r);
                 let h: Header = lkpData[row.AddressId] || new Header(tableType, row.AddressId, row.AddressType);
-                h.addToAttribute('address line 1', row.AddressLine1);
-                h.addToAttribute('address line 2', row.AddressLine2);
+                h.addToAttribute('address line1', row.AddressLine1);
+                h.addToAttribute('address line2', row.AddressLine2);
                 h.addToAttribute('city', row.City);
                 h.addToAttribute('state', row.State);
                 h.addToAttribute('postal code', row.PostalCode);

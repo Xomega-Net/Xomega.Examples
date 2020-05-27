@@ -4,7 +4,7 @@
 // Manual CHANGES to this file WILL BE LOST when the code is regenerated.
 //---------------------------------------------------------------------------------------------
 
-import { CriteriaObject, TextProperty, OperatorProperty, DateProperty, EnumIntProperty, MoneyProperty } from 'xomega';
+import { CriteriaObject, TextProperty, OperatorProperty, DateProperty, EnumProperty, EnumIntProperty, MoneyProperty } from 'xomega';
 
 export class SalesOrderCriteria extends CriteriaObject {
 
@@ -16,6 +16,7 @@ export class SalesOrderCriteria extends CriteriaObject {
     public DueDate: DateProperty;
     public DueDate2: DateProperty;
     public DueDateOperator: OperatorProperty;
+    public GlobalRegion: EnumProperty;
     public OrderDate: DateProperty;
     public OrderDate2: DateProperty;
     public OrderDateOperator: OperatorProperty;
@@ -48,6 +49,9 @@ export class SalesOrderCriteria extends CriteriaObject {
         this.DueDateOperator = new OperatorProperty();
         this.DueDateOperator.Size = 25;
         this.DueDateOperator.EnumType = "operators";
+        this.GlobalRegion = new EnumProperty();
+        this.GlobalRegion.Size = 50;
+        this.GlobalRegion.EnumType = "sales territory group";
         this.OrderDate = new DateProperty();
         this.OrderDate2 = new DateProperty();
         this.OrderDateOperator = new OperatorProperty();

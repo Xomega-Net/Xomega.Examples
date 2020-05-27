@@ -451,7 +451,7 @@ namespace AdventureWorks.Services
         public decimal? TotalDue2 { get; set; }
         
         ///<summary>
-        /// Comparison operator for the corresponding Customer Store criteria.
+        /// Comparison operator for the corresponding Customer store criteria.
         ///</summary>
         [DataMember]
         [XMaxLength(25)]
@@ -462,7 +462,7 @@ namespace AdventureWorks.Services
         public string CustomerStore { get; set; }
         
         ///<summary>
-        /// Comparison operator for the corresponding Customer Name criteria.
+        /// Comparison operator for the corresponding Customer name criteria.
         ///</summary>
         [DataMember]
         [XMaxLength(25)]
@@ -471,6 +471,11 @@ namespace AdventureWorks.Services
         
         [DataMember]
         public string CustomerName { get; set; }
+        
+        [DataMember]
+        [XMaxLength(50)]
+        [XLookupValue(SalesTerritoryGroup.EnumName)]
+        public string GlobalRegion { get; set; }
         
         ///<summary>
         /// Comparison operator for the corresponding Territory Id criteria.
@@ -535,6 +540,12 @@ namespace AdventureWorks.Services
         public DateTime OrderDate { get; set; }
         
         ///<summary>
+        /// Date the order was shipped to the customer.
+        ///</summary>
+        [DataMember]
+        public DateTime? ShipDate { get; set; }
+        
+        ///<summary>
         /// Date the order is due to the customer.
         ///</summary>
         [DataMember]
@@ -545,12 +556,6 @@ namespace AdventureWorks.Services
         ///</summary>
         [DataMember]
         public decimal TotalDue { get; set; }
-        
-        ///<summary>
-        /// Date the order was shipped to the customer.
-        ///</summary>
-        [DataMember]
-        public DateTime? ShipDate { get; set; }
         
         ///<summary>
         /// 0 = Order placed by sales person. 1 = Order placed online by customer.
@@ -725,19 +730,16 @@ namespace AdventureWorks.Services
     {
         
         [DataMember]
-        public int Product { get; set; }
+        public int SalesOrderDetailId { get; set; }
         
         [DataMember]
-        public int SalesOrderDetailId { get; set; }
+        public int ProductId { get; set; }
         
         ///<summary>
         /// Quantity ordered per product.
         ///</summary>
         [DataMember]
         public short OrderQty { get; set; }
-        
-        [DataMember]
-        public int SpecialOffer { get; set; }
         
         ///<summary>
         /// Selling price of a single product.
@@ -750,6 +752,9 @@ namespace AdventureWorks.Services
         ///</summary>
         [DataMember]
         public decimal UnitPriceDiscount { get; set; }
+        
+        [DataMember]
+        public int SpecialOfferId { get; set; }
         
         ///<summary>
         /// Per product subtotal. Computed as UnitPrice * (1 - UnitPriceDiscount) * OrderQty.

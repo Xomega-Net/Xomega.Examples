@@ -1,27 +1,27 @@
 
 import { SalesOrderCriteria as GeneratedDataObject } from 'DataObjects/Sales/SalesOrderCriteria';
 import { Header, AuthManager, AccessLevel } from 'xomega';
-import { SalesPerson, PersonType } from '../../Enumerations/Enumerations';
+import { SalesPerson, PersonType, SalesTerritory } from '../../Enumerations/Enumerations';
 
 export class SalesOrderCriteria extends GeneratedDataObject {
 
-    // construct properties and child objects
     init() {
         super.init();
-        // add custom construction code here
     }
 
-    // perform post intialization
     onInitialized() {
         super.onInitialized();
-        this.Status.DisplayFormat = Header.fieldId + ' - ' + Header.fieldText;
+        this.Status.DisplayFormat = `${Header.fieldId} - ${Header.fieldText}`;
+
+        this.TerritoryId.setCascadingProperty(SalesTerritory.Attributes.Group, this.GlobalRegion);
+
         this.SalesPersonId.setCascadingProperty(SalesPerson.Attributes.TerritoryId, this.TerritoryId);
         this.SalesPersonId.DisplayListSeparator = '; ';
         this.SalesPersonId.nullsMatchAnyCascading = true;
 
         let claims = AuthManager.Current.Claims;
         if (claims && (claims.role == PersonType.StoreContact
-                    || claims.role == PersonType.IndividualCustomer)) {
+            || claims.role == PersonType.IndividualCustomer)) {
             this.CustomerStoreOperator.AccessLevel(AccessLevel.None);
             this.CustomerNameOperator.AccessLevel(AccessLevel.None);
         }

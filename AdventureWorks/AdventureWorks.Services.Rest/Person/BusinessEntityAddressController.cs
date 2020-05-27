@@ -26,7 +26,10 @@ namespace AdventureWorks.Services.Rest
             svc = service;
         }
 
-        [Route("business entity/{_businessEntityId}/address")]
+        ///<summary>
+        /// Reads a list of Business Entity Address objects based on the specified criteria.
+        ///</summary>
+        [Route("business-entity/{_businessEntityId}/address")]
         [HttpGet]
         public async Task<ActionResult> ReadListAsync([FromRoute] int _businessEntityId)
         {

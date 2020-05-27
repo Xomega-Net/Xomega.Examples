@@ -26,12 +26,6 @@ namespace AdventureWorks.Services.Entities
         public const string CustomerRequired = "CustomerRequired";
 
         /// <summary>
-        /// Person info for email {0} not found.
-        /// Where {0}=Email
-        /// </summary>
-        public const string EmailPersonNotFound = "EmailPersonNotFound";
-
-        /// <summary>
         /// {0} with id {1} already exists.
         /// Where {0}=Entity Type, {1}=Entity ID
         /// </summary>
@@ -73,7 +67,7 @@ namespace AdventureWorks.Services.Entities
         public const string InvalidForeignKeys = "InvalidForeignKeys";
 
         /// <summary>
-        /// Operation is not allowed.
+        /// Operation not allowed.
         /// </summary>
         public const string OperationNotAllowed = "OperationNotAllowed";
 
@@ -82,6 +76,11 @@ namespace AdventureWorks.Services.Entities
         /// Where {0}=Order ID
         /// </summary>
         public const string PaymentRequired = "PaymentRequired";
+
+        /// <summary>
+        /// Person info not found.
+        /// </summary>
+        public const string PersonNotFound = "PersonNotFound";
 
         /// <summary>
         /// Sales information is required for order {0}.

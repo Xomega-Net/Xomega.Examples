@@ -22,7 +22,7 @@ namespace AdventureWorks.Services
     {
 
         ///<summary>
-        /// Reads a list of Person Credit Card objects based on the person ID.
+        /// Reads a list of Person Credit Card objects based on the specified criteria.
         ///</summary>
         [OperationContract]
         Task<Output<ICollection<PersonCreditCard_ReadListOutput>>> ReadListAsync(int _businessEntityId);

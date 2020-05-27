@@ -70,6 +70,10 @@
                             <asp:TextBox ID="ctlCustomerName" Property="<%# SalesOrderCriteria.CustomerName %>" runat="server"></asp:TextBox>
                           </div>
                           <div class="field">
+                            <asp:Label ID="lblGlobalRegion" Text="Global Region:" CssClass="label" runat="server"></asp:Label>
+                            <asp:DropDownList LabelID="lblGlobalRegion" ID="ctlGlobalRegion" Property="<%# SalesOrderCriteria.GlobalRegion %>" AutoPostBack="true" runat="server"></asp:DropDownList>
+                          </div>
+                          <div class="field">
                             <asp:Label ID="lblTerritoryId" Text="Sales Territory:" CssClass="label" runat="server"></asp:Label>
                             <asp:DropDownList LabelID="lblTerritoryId" ID="ctlTerritoryIdOperator" Property="<%# SalesOrderCriteria.TerritoryIdOperator %>" runat="server" AutoPostBack="true" CssClass="operator"></asp:DropDownList>
                             <asp:DropDownList ID="ctlTerritoryId" Property="<%# SalesOrderCriteria.TerritoryId %>" AutoPostBack="true" runat="server"></asp:DropDownList>
@@ -112,6 +116,11 @@
                         <asp:Label ID="fldOrderDate" Property="<%# SalesOrderList.OrderDate %>" runat="server"></asp:Label>
                       </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Ship Date">
+                      <ItemTemplate>
+                        <asp:Label ID="fldShipDate" Property="<%# SalesOrderList.ShipDate %>" runat="server"></asp:Label>
+                      </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Due Date">
                       <ItemTemplate>
                         <asp:Label ID="fldDueDate" Property="<%# SalesOrderList.DueDate %>" runat="server"></asp:Label>
@@ -120,11 +129,6 @@
                     <asp:TemplateField HeaderText="Total Due">
                       <ItemTemplate>
                         <asp:Label ID="fldTotalDue" Property="<%# SalesOrderList.TotalDue %>" runat="server"></asp:Label>
-                      </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Ship Date">
-                      <ItemTemplate>
-                        <asp:Label ID="fldShipDate" Property="<%# SalesOrderList.ShipDate %>" runat="server"></asp:Label>
                       </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Online">

@@ -51,7 +51,7 @@ namespace AdventureWorks.Services
                 if (!tbl.TryGetValue(id, out Header h))
                 {
                     tbl[id] = h = new Header(type, id, row.Name);
-                    h.IsActive = IsActive(row.Current);
+                    h.IsActive = IsActive(row.IsActive);
                 }
                 h.AddToAttribute("product subcategory id", row.ProductSubcategoryId);
                 h.AddToAttribute("product model id", row.ProductModelId);

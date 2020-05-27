@@ -30,6 +30,6 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="copy &quot;$(SolutionDir)AdventureWorks.Services.Entities\db.config&quot; &quot;$(ProjectDir)&quot;" />
+    <Exec Command="copy &quot;$(ProjectDir)..\AdventureWorks.Services.Entities\db.config&quot; &quot;$(ProjectDir)&quot;" />
   </Target>
 </Project>

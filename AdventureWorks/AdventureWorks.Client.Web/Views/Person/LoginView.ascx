@@ -26,7 +26,7 @@
                     <td class="fieldColumn" style="width: 100%">
                       <div class="field">
                         <asp:Label ID="lblEmail" Text="Email:" CssClass="label" runat="server"></asp:Label>
-                        <asp:TextBox LabelID="lblEmail" ID="ctlEmail" Property="<%# AuthenticationObject.Email %>" TextMode="Email" Width="200px" runat="server"></asp:TextBox>
+                        <asp:TextBox LabelID="lblEmail" ID="ctlEmail" Property="<%# AuthenticationObject.Email %>" runat="server"></asp:TextBox>
                       </div>
                       <div class="field">
                         <asp:Label ID="lblPassword" Text="Password:" CssClass="label" runat="server"></asp:Label>

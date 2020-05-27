@@ -50,6 +50,7 @@ namespace AdventureWorks.Client.Blazor
 
             // App services configuration
             services.AddSingleton<ResourceManager>(sp => new CompositeResourceManager(
+                Common.Messages.ResourceManager,
                 Services.Entities.Messages.ResourceManager,
                 Xomega.Framework.Messages.ResourceManager));
             string connStr = configuration.GetValue<string>(ConfigConnectionString);
@@ -69,11 +70,12 @@ namespace AdventureWorks.Client.Blazor
                 Href = "/"
             });
 
-            // add authorization with any security policies
+            // TODO: add authorization with any security policies
             services.AddAuthorization(o => {
-                o.AddPolicy("Sales", policy => policy.RequireRole(
-                    PersonType.StoreContact, PersonType.IndividualCustomer,
-                    PersonType.Employee, PersonType.SalesPerson));
+                o.AddPolicy("Sales", policy => policy.RequireAssertion(ctx =>
+                    ctx.User.IsEmployee() ||
+                    ctx.User.IsIndividualCustomer() ||
+                    ctx.User.IsStoreContact()));
             });
 
             foreach (var mi in MainMenu.Items)
@@ -82,9 +84,10 @@ namespace AdventureWorks.Client.Blazor
 
         private void SecureMenu(MenuItem mi)
         {
-            if (mi?.Href?.StartsWith("Sales") ?? false)
+            if (mi?.Href == null) return;
+            if (mi.Href.StartsWith("Sales") || mi.Href.StartsWith("Customer"))
                 mi.Policy = "Sales";
-            else mi.Policy = ""; // default
+            else mi.Policy = ""; // visible for all authorized users
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

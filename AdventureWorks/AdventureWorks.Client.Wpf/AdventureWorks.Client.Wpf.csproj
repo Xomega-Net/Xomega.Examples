@@ -17,7 +17,7 @@
     <DefineConstants>TRACE;WCF;_REST;_TWO_TIER;_EF6</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
-    <DefineConstants>TRACE;TWO_TIER</DefineConstants>
+    <DefineConstants>TRACE;REST</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <ProjectCapability Include="DynamicDependentFile" />
@@ -68,6 +68,6 @@
     </None>
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="copy &quot;$(SolutionDir)AdventureWorks.Services.Entities\db.config&quot; &quot;$(ProjectDir)&quot;" />
+    <Exec Command="copy &quot;$(ProjectDir)..\AdventureWorks.Services.Entities\db.config&quot; &quot;$(ProjectDir)&quot;" />
   </Target>
 </Project>

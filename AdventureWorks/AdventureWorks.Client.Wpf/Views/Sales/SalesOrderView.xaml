@@ -18,15 +18,14 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     <TextBlock Grid.Row="0" Name="viewTitle" Text="View Title"
                Style="{StaticResource ViewTitleStyle}"
                Margin="10,0,0,5"/>
-    <v:Errors Grid.Row="1" x:Name="pnlErrors"/>
-    <GroupBox Grid.Row="2" Header="Sales Order">
+    <GroupBox Grid.Row="1" Header="Sales Order">
       <StackPanel>
         <Grid xmlns:clr="http://www.xomega.net/clr">
           <Grid.RowDefinitions>
@@ -115,7 +114,7 @@
         </Grid>
       </StackPanel>
     </GroupBox>
-    <TabControl Grid.Row="3" Margin="0,10,0,0">
+    <TabControl Grid.Row="2" Margin="0,10,0,0">
       <TabItem Header="Customer">
         <StackPanel DataContext="{Binding CustomerObject}" xom:Data.ObjectBinding="">
           <Grid xmlns:clr="http://www.xomega.net/clr">
@@ -331,7 +330,7 @@
                           <Hyperlink Name="LinkDetailDetails"
                                      Command="{Binding Path=LinkDetailDetails_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}"
                                      CommandParameter="{Binding}"
-                                     xom:Property.Name="{x:Static o:SalesOrderDetailList.Product}"/>
+                                     xom:Property.Name="{x:Static o:SalesOrderDetailList.ProductId}"/>
                         </TextBlock>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
@@ -340,13 +339,6 @@
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.OrderQty}"/>
-                      </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                  </GridViewColumn>
-                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Special Offer">
-                    <GridViewColumn.CellTemplate>
-                      <DataTemplate>
-                        <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.SpecialOffer}"/>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
@@ -361,6 +353,13 @@
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.UnitPriceDiscount}"/>
+                      </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                  </GridViewColumn>
+                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Special Offer">
+                    <GridViewColumn.CellTemplate>
+                      <DataTemplate>
+                        <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.SpecialOfferId}"/>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
@@ -541,6 +540,7 @@
         </StackPanel>
       </TabItem>
     </TabControl>
+    <v:Errors Grid.Row="3" x:Name="pnlErrors"/>
     <DockPanel Grid.Row="4">
       <DockPanel DockPanel.Dock="Bottom">
         <Button x:Name="btnDelete" Width="75" Margin="0,10,0,0" Content="_Delete"

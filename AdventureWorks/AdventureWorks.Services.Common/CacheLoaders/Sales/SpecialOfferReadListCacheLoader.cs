@@ -51,7 +51,9 @@ namespace AdventureWorks.Services
                 if (!tbl.TryGetValue(id, out Header h))
                 {
                     tbl[id] = h = new Header(type, id, row.Description);
+                    h.IsActive = IsActive(row.IsActive);
                 }
+                h.AddToAttribute("category", row.Category);
             }
             // if no data is returned we still need to update cache to mark it as loaded
             if (data.Count == 0) updateCache(new LookupTable(tableType, new List<Header>(), true));

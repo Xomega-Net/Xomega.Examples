@@ -121,10 +121,6 @@
     <value>Customer information is required for order {0}.</value>
     <comment>{0}=Order ID</comment>
   </data>
-  <data name="EmailPersonNotFound" xml:space="preserve">
-    <value>Person info for email {0} not found.</value>
-    <comment>{0}=Email</comment>
-  </data>
   <data name="EntityExistsWithKey" xml:space="preserve">
     <value>{0} with id {1} already exists.</value>
     <comment>{0}=Entity Type, {1}=Entity ID</comment>
@@ -153,11 +149,14 @@
     <comment>{0}=Values, {1}=Parameter Names, {2}=Reference Entity Type</comment>
   </data>
   <data name="OperationNotAllowed" xml:space="preserve">
-    <value>Operation is not allowed.</value>
+    <value>Operation not allowed.</value>
   </data>
   <data name="PaymentRequired" xml:space="preserve">
     <value>Payment information is required for order {0}.</value>
     <comment>{0}=Order ID</comment>
+  </data>
+  <data name="PersonNotFound" xml:space="preserve">
+    <value>Person info not found.</value>
   </data>
   <data name="SalesRequired" xml:space="preserve">
     <value>Sales information is required for order {0}.</value>

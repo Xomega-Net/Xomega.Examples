@@ -29,7 +29,13 @@
     <type name="discount" base="percent">
       <config>
         <sql:type name="money" db="sqlsrv"/>
-        <xfk:property class="PercentFractionProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
+        <xfk:property class="PercentFractionProperty"
+                      namespace="Xomega.Framework.Properties" tsModule="xomega"/>
+      </config>
+    </type>
+    <type name="line total" base="money">
+      <config>
+        <sql:type name="numeric(38,6)" db="sqlsrv"/>
       </config>
     </type>
   </types>
@@ -425,9 +431,9 @@
           <output>
             <param name="revision number"/>
             <param name="modified date"/>
-            <config>
-              <xfk:add-to-object class="SalesOrderObject"/>
-            </config>
+              <config>
+                <xfk:add-to-object class="SalesOrderObject"/>
+              </config>
           </output>
           <config>
             <rest:method verb="PUT" uri-template="sales-order/{sales order id}"/>
@@ -500,16 +506,17 @@
               </param>
               <param name="customer store operator" type="operator">
                 <doc>
-                  <summary>Comparison operator for the corresponding Customer Store criteria.</summary>
+                  <summary>Comparison operator for the corresponding Customer store criteria.</summary>
                 </doc>
               </param>
               <param name="customer store" type="string"/>
               <param name="customer name operator" type="operator">
                 <doc>
-                  <summary>Comparison operator for the corresponding Customer Name criteria.</summary>
+                  <summary>Comparison operator for the corresponding Customer name criteria.</summary>
                 </doc>
               </param>
               <param name="customer name" type="string"/>
+              <param name="global region" type="sales territory group" required="false"/>
               <param name="territory id operator" type="operator">
                 <doc>
                   <summary>Comparison operator for the corresponding Territory Id criteria.</summary>
@@ -532,9 +539,9 @@
             <param name="sales order number"/>
             <param name="status"/>
             <param name="order date" type="date"/>
+            <param name="ship date" type="date"/>
             <param name="due date" type="date"/>
             <param name="total due"/>
-            <param name="ship date" type="date"/>
             <param name="online order flag" type="yesno" required="true"/>
             <param name="customer store" type="string"/>
             <param name="customer name" type="string"/>
@@ -734,12 +741,12 @@
                 </config>
               </input>
               <output list="true">
-                <param name="product" type="product" required="true"/>
                 <param name="sales order detail id"/>
+                <param name="product id" type="product" required="true"/>
                 <param name="order qty"/>
-                <param name="special offer" type="special offer" required="true"/>
                 <param name="unit price"/>
                 <param name="unit price discount"/>
+                <param name="special offer id" type="special offer" required="true"/>
                 <param name="line total"/>
                 <param name="carrier tracking number"/>
                 <config>
@@ -811,6 +818,7 @@
       <ui:display>
         <ui:field param="sales person id" label="Sales Person"/>
         <ui:field param="territory id" label="Sales Territory" is-trigger="true"/>
+        <ui:field param="global region" is-trigger="true"/>
       </ui:display>
     </xfk:data-object>
     <xfk:data-object class="SalesOrderList" list="true">
@@ -877,17 +885,19 @@
     <xfk:data-object class="SalesOrderDetailList" list="true">
       <ui:display>
         <ui:field param="sales order detail id" hidden="true"/>
-        <ui:field param="carrier tracking number" label="Tracking #"/>
+        <ui:field param="product id" label="Product"/>
         <ui:field param="order qty" label="Qty"/>
         <ui:field param="unit price" label="Price"/>
         <ui:field param="unit price discount" label="Discount"/>
         <ui:field param="line total" label="Total"/>
+        <ui:field param="special offer id" label="Special Offer"/>
+        <ui:field param="carrier tracking number" label="Tracking #"/>
       </ui:display>
       <ui:link name="details" view="SalesOrderDetailView" child="true">
         <ui:params>
           <ui:param name="sales order detail id" field="sales order detail id"/>
         </ui:params>
-        <ui:display on-field="product"/>
+        <ui:display on-field="product id"/>
       </ui:link>
       <ui:link name="new" view="SalesOrderDetailView" child="true">
         <ui:params>
@@ -914,7 +924,7 @@
       <ui:view-model data-object="SalesOrderObject" customize="true"/>
       <ui:layout base="standard">
         <ui:details>
-          <ui:children layout="tabs"/>
+          <ui:errors position="bottom"/>
         </ui:details>
         <ui:size width="800" height="680"/>
       </ui:layout>

@@ -25,11 +25,11 @@ namespace AdventureWorks.Client.Objects
         {
             base.OnInitialized();
 
+            CustomerObject.LookupObject.TrackModifications = false;
+
             var ccProperty = PaymentObject.CreditCardObject.CreditCardIdProperty;
             ccProperty.LocalCacheLoader = new PersonCreditCardReadListCacheLoader(ServiceProvider);
             ccProperty.SetCacheLoaderParameters(Enumerations.PersonCreditCard.Parameters.BusinessEntityId, CustomerObject.PersonIdProperty);
         }
-
-        // add custom code here
     }
 }

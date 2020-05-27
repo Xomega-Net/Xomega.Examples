@@ -23,9 +23,9 @@ namespace AdventureWorks.Client.Objects
         public const string CarrierTrackingNumber = "CarrierTrackingNumber";
         public const string LineTotal = "LineTotal";
         public const string OrderQty = "OrderQty";
-        public const string Product = "Product";
+        public const string ProductId = "ProductId";
         public const string SalesOrderDetailId = "SalesOrderDetailId";
-        public const string SpecialOffer = "SpecialOffer";
+        public const string SpecialOfferId = "SpecialOfferId";
         public const string UnitPrice = "UnitPrice";
         public const string UnitPriceDiscount = "UnitPriceDiscount";
 
@@ -36,9 +36,9 @@ namespace AdventureWorks.Client.Objects
         public TextProperty CarrierTrackingNumberProperty { get; private set; }
         public MoneyProperty LineTotalProperty { get; private set; }
         public SmallIntegerProperty OrderQtyProperty { get; private set; }
-        public EnumIntProperty ProductProperty { get; private set; }
+        public EnumIntProperty ProductIdProperty { get; private set; }
         public IntegerKeyProperty SalesOrderDetailIdProperty { get; private set; }
-        public EnumIntProperty SpecialOfferProperty { get; private set; }
+        public EnumIntProperty SpecialOfferIdProperty { get; private set; }
         public MoneyProperty UnitPriceProperty { get; private set; }
         public PercentFractionProperty UnitPriceDiscountProperty { get; private set; }
 
@@ -71,7 +71,7 @@ namespace AdventureWorks.Client.Objects
                 Required = true,
                 Editable = false,
             };
-            ProductProperty = new EnumIntProperty(this, Product)
+            ProductIdProperty = new EnumIntProperty(this, ProductId)
             {
                 Required = true,
                 EnumType = "product",
@@ -83,7 +83,7 @@ namespace AdventureWorks.Client.Objects
                 Editable = false,
                 IsKey = true,
             };
-            SpecialOfferProperty = new EnumIntProperty(this, SpecialOffer)
+            SpecialOfferIdProperty = new EnumIntProperty(this, SpecialOfferId)
             {
                 Required = true,
                 EnumType = "special offer",

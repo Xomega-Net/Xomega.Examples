@@ -8,9 +8,9 @@
 
 <%@ Import Namespace="AdventureWorks.Client.Objects" %>
 <%@ Register Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
-<%@ Register src="~/Controls/Errors.ascx" tagname="Errors" tagprefix="uc" %>
 <%@ Register src="~/Controls/Editors/DateTimeControl.ascx" tagname="DateTimeControl" tagprefix="uc" %>
 <%@ Register src="~/Controls/Editors/PickListControl.ascx" tagname="PickListControl" tagprefix="uc" %>
+<%@ Register src="~/Controls/Errors.ascx" tagname="Errors" tagprefix="uc" %>
 <%@ Register src="~/Views/Sales/CustomerListView.ascx" tagname="CustomerListView" tagprefix="uc" %>
 <%@ Register src="~/Views/Sales/SalesOrderDetailView.ascx" tagname="SalesOrderDetailView" tagprefix="uc" %>
 
@@ -23,7 +23,6 @@
         </div>
         <div class="view-body">
           <div class="content indented">
-            <uc:Errors ID="ucl_Errors" runat="server"></uc:Errors>
             <asp:Panel ID="pnl_Object" CssClass="indented" runat="server">
               <asp:Panel ID="pnlMain" CssClass="xw-obj" GroupingText="Sales Order" runat="server">
                 <table class="xw-fieldset-layout">
@@ -203,18 +202,13 @@
                           <asp:TemplateField HeaderText="Product">
                             <ItemTemplate>
                               <asp:LinkButton ID="LinkDetailDetails" runat="server" OnCommand="LinkDetailDetails_Click" CommandArgument="<%# Container.DataItemIndex %>">
-                                <asp:Label ID="fldProduct" Property="<%# SalesOrderDetailList.Product %>" runat="server"></asp:Label>
+                                <asp:Label ID="fldProductId" Property="<%# SalesOrderDetailList.ProductId %>" runat="server"></asp:Label>
                               </asp:LinkButton>
                             </ItemTemplate>
                           </asp:TemplateField>
                           <asp:TemplateField HeaderText="Qty">
                             <ItemTemplate>
                               <asp:Label ID="fldOrderQty" Property="<%# SalesOrderDetailList.OrderQty %>" runat="server"></asp:Label>
-                            </ItemTemplate>
-                          </asp:TemplateField>
-                          <asp:TemplateField HeaderText="Special Offer">
-                            <ItemTemplate>
-                              <asp:Label ID="fldSpecialOffer" Property="<%# SalesOrderDetailList.SpecialOffer %>" runat="server"></asp:Label>
                             </ItemTemplate>
                           </asp:TemplateField>
                           <asp:TemplateField HeaderText="Price">
@@ -225,6 +219,11 @@
                           <asp:TemplateField HeaderText="Discount">
                             <ItemTemplate>
                               <asp:Label ID="fldUnitPriceDiscount" Property="<%# SalesOrderDetailList.UnitPriceDiscount %>" runat="server"></asp:Label>
+                            </ItemTemplate>
+                          </asp:TemplateField>
+                          <asp:TemplateField HeaderText="Special Offer">
+                            <ItemTemplate>
+                              <asp:Label ID="fldSpecialOfferId" Property="<%# SalesOrderDetailList.SpecialOfferId %>" runat="server"></asp:Label>
                             </ItemTemplate>
                           </asp:TemplateField>
                           <asp:TemplateField HeaderText="Total">
@@ -341,6 +340,7 @@
                 </ajaxToolkit:TabPanel>
               </ajaxToolkit:TabContainer>
             </asp:Panel>
+            <uc:Errors ID="ucl_Errors" runat="server"></uc:Errors>
           </div>
         </div>
         <div class="view-footer action-bar">

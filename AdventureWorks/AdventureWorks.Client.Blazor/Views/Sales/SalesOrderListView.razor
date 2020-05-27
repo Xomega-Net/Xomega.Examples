@@ -98,6 +98,12 @@
                                   Property="@VM?.CritObj?.CustomerNameProperty"></XInputText>
                     </div>
                     <div class="field">
+                      <XLabel Property="@VM?.CritObj?.GlobalRegionProperty" Text="Global Region:"
+                              class="label"></XLabel>
+                      <XSelect
+                               Property="@VM?.CritObj?.GlobalRegionProperty"></XSelect>
+                    </div>
+                    <div class="field">
                       <XLabel Property="@VM?.CritObj?.TerritoryIdOperatorProperty"
                               Text="Sales Territory:"
                               class="label"></XLabel>
@@ -142,9 +148,9 @@
                     <ColumnHeader Property="@VM?.ListObj?.SalesOrderNumberProperty" Text="Sales Order Number"></ColumnHeader>
                     <ColumnHeader Property="@VM?.ListObj?.StatusProperty" Text="Status"></ColumnHeader>
                     <ColumnHeader Property="@VM?.ListObj?.OrderDateProperty" Text="Order Date"></ColumnHeader>
+                    <ColumnHeader Property="@VM?.ListObj?.ShipDateProperty" Text="Ship Date"></ColumnHeader>
                     <ColumnHeader Property="@VM?.ListObj?.DueDateProperty" Text="Due Date"></ColumnHeader>
                     <ColumnHeader Property="@VM?.ListObj?.TotalDueProperty" Text="Total Due"></ColumnHeader>
-                    <ColumnHeader Property="@VM?.ListObj?.ShipDateProperty" Text="Ship Date"></ColumnHeader>
                     <ColumnHeader Property="@VM?.ListObj?.OnlineOrderFlagProperty" Text="Online"></ColumnHeader>
                     <ColumnHeader Property="@VM?.ListObj?.CustomerStoreProperty" Text="Customer Store"></ColumnHeader>
                     <ColumnHeader Property="@VM?.ListObj?.CustomerNameProperty" Text="Customer Name"></ColumnHeader>
@@ -170,13 +176,13 @@
                         <XDataLabel Property="@VM?.ListObj?.OrderDateProperty"></XDataLabel>
                       </td>
                       <td>
+                        <XDataLabel Property="@VM?.ListObj?.ShipDateProperty"></XDataLabel>
+                      </td>
+                      <td>
                         <XDataLabel Property="@VM?.ListObj?.DueDateProperty"></XDataLabel>
                       </td>
                       <td>
                         <XDataLabel Property="@VM?.ListObj?.TotalDueProperty"></XDataLabel>
-                      </td>
-                      <td>
-                        <XDataLabel Property="@VM?.ListObj?.ShipDateProperty"></XDataLabel>
                       </td>
                       <td>
                         <XDataLabel Property="@VM?.ListObj?.OnlineOrderFlagProperty"></XDataLabel>

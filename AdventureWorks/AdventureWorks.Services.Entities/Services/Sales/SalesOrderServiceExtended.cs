@@ -1,29 +1,26 @@
-
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Xomega.Framework;
 
 namespace AdventureWorks.Services.Entities
 {
     public partial class SalesOrderService
     {
-
         protected PaymentInfo GetPaymentInfo(SalesOrder obj)
         {
             PaymentInfo res = new PaymentInfo()
             {
-                CreditCard = new PaymentInfo_CreditCard
-                {
-                    CreditCardId = obj.CreditCardObject?.CreditCardId ?? 0,
-                    CreditCardApprovalCode = obj.CreditCardApprovalCode
-                },
                 DueDate = obj.DueDate,
                 SubTotal = obj.SubTotal,
                 Freight = obj.Freight,
                 TaxAmt = obj.TaxAmt,
                 TotalDue = obj.TotalDue,
                 ShipMethodId = obj.ShipMethodObject?.ShipMethodId ?? 0,
+                CreditCard = new PaymentInfo_CreditCard()
+                {
+                    CreditCardId = obj.CreditCardObject?.CreditCardId ?? 0,
+                    CreditCardApprovalCode = obj.CreditCardApprovalCode,
+                },
                 CurrencyRate = obj.CurrencyRateObject?.RateString
             };
             return res;
@@ -38,24 +35,18 @@ namespace AdventureWorks.Services.Entities
             }
             obj.DueDate = _data.DueDate;
             obj.ShipMethodObject = await ctx.FindEntityAsync<ShipMethod>(currentErrors, _data.ShipMethodId);
-            if (_data.CreditCard != null)
-            {
-                obj.CreditCardApprovalCode = _data.CreditCard.CreditCardApprovalCode;
-                obj.CreditCardObject = await ctx.FindEntityAsync<CreditCard>(currentErrors, _data.CreditCard.CreditCardId);
-            }
+            obj.CreditCardApprovalCode = _data.CreditCard?.CreditCardApprovalCode;
+            obj.CreditCardObject = _data.CreditCard == null ? null : 
+                await ctx.FindEntityAsync<CreditCard>(currentErrors, _data.CreditCard.CreditCardId);
         }
 
-        protected SalesInfo GetSalesInfo(SalesOrder obj)
+        protected SalesInfo GetSalesInfo(SalesOrder obj) => new SalesInfo()
         {
-            SalesInfo res = new SalesInfo()
-            {
-                SalesPersonId = obj.SalesPersonObject?.BusinessEntityId,
-                TerritoryId = obj.TerritoryObject?.TerritoryId,
-                // select a list of sales reason IDs from the child list
-                SalesReason = obj.ReasonObjectList?.Select(r => r.SalesReasonId).ToList()
-            };
-            return res;
-        }
+            SalesPersonId = obj.SalesPersonId,
+            TerritoryId = obj.TerritoryId,
+            // select a list of sales reason IDs from the child list
+            SalesReason = obj.ReasonObjectList?.Select(r => r.SalesReasonId).ToList()
+        };
 
         protected async Task UpdateSalesInfo(SalesOrder obj, SalesInfo _data)
         {
@@ -83,23 +74,21 @@ namespace AdventureWorks.Services.Entities
                     }));
             }
         }
+
         protected CustomerInfo GetCustomerInfo(SalesOrder obj)
         {
-            CustomerInfo res = new CustomerInfo();
-            if (obj.CustomerObject != null)
+            CustomerInfo res = new CustomerInfo()
             {
-                res.CustomerId = obj.CustomerObject.CustomerId;
-                res.AccountNumber = obj.CustomerObject.AccountNumber;
-                res.PersonId = obj.CustomerObject.PersonObject?.BusinessEntityId;
-                res.PersonName = obj.CustomerObject.PersonObject?.FullName;
-                res.StoreId = obj.CustomerObject.StoreObject?.BusinessEntityId;
-                res.StoreName = obj.CustomerObject.StoreObject?.Name;
-                res.TerritoryId = obj.CustomerObject.TerritoryObject?.TerritoryId;
+                CustomerId = obj.CustomerId,
+                AccountNumber = obj.CustomerObject?.AccountNumber,
+                PersonId = obj.CustomerObject?.PersonObject?.BusinessEntityId,
+                PersonName = obj.CustomerObject.PersonObject?.FullName,
+                StoreId = obj.CustomerObject?.StoreObject?.BusinessEntityId,
+                StoreName = obj.CustomerObject?.StoreObject?.Name,
+                TerritoryId = obj.CustomerObject?.TerritoryObject?.TerritoryId,
+                BillingAddress = new AddressKey { AddressId = obj.BillToAddressId },
+                ShippingAddress = new AddressKey { AddressId = obj.ShipToAddressId },
             };
-            if (obj.BillToAddressObject != null)
-                res.BillingAddress = new AddressKey { AddressId = obj.BillToAddressObject.AddressId };
-            if (obj.ShipToAddressObject != null)
-                res.ShippingAddress = new AddressKey { AddressId = obj.ShipToAddressObject.AddressId };
             return res;
         }
 

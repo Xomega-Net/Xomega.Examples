@@ -50,9 +50,9 @@ class Shell {
 
     private setUpRoles(item) {
         // TODO: check item.route and set item.roles array accordingly
-        if (item.route != null && item.route.indexOf('Sales') >= 0)
+        if (item.route != null && (item.route.indexOf('Sales') >= 0 || item.route == 'CustomerListView'))
             item.roles = [PersonType.StoreContact, PersonType.IndividualCustomer,
-            PersonType.Employee, PersonType.SalesPerson];
+                          PersonType.Employee, PersonType.SalesPerson];
     }
 }
 

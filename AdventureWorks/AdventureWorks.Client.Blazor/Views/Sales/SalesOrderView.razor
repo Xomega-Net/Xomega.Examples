@@ -18,7 +18,6 @@
         <ViewTitle @ref="TitleComponent" Title="@Model?.ViewTitle"></ViewTitle></span></div>
     <div class="view-body">
       <div class="content indented">
-        <Errors ErrorList="@Model?.Errors"></Errors>
         <div class="xw-obj indented">
           <fieldset>
             <legend>Sales Order</legend>
@@ -289,11 +288,12 @@
                       <table class="grid @SelectableClass(VM?.MainObj?.DetailList)" id="gridDetail">
                         <thead>
                           <tr>
-                            <ColumnHeader Property="@VM?.MainObj?.DetailList?.ProductProperty" Text="Product"></ColumnHeader>
+                            <ColumnHeader Property="@VM?.MainObj?.DetailList?.ProductIdProperty" Text="Product"></ColumnHeader>
                             <ColumnHeader Property="@VM?.MainObj?.DetailList?.OrderQtyProperty" Text="Qty"></ColumnHeader>
-                            <ColumnHeader Property="@VM?.MainObj?.DetailList?.SpecialOfferProperty" Text="Special Offer"></ColumnHeader>
                             <ColumnHeader Property="@VM?.MainObj?.DetailList?.UnitPriceProperty" Text="Price"></ColumnHeader>
                             <ColumnHeader Property="@VM?.MainObj?.DetailList?.UnitPriceDiscountProperty" Text="Discount"></ColumnHeader>
+                            <ColumnHeader Property="@VM?.MainObj?.DetailList?.SpecialOfferIdProperty"
+                                          Text="Special Offer"></ColumnHeader>
                             <ColumnHeader Property="@VM?.MainObj?.DetailList?.LineTotalProperty" Text="Total"></ColumnHeader>
                             <ColumnHeader Property="@VM?.MainObj?.DetailList?.CarrierTrackingNumberProperty"
                                           Text="Tracking #"></ColumnHeader>
@@ -310,18 +310,18 @@
                               <td><a href="javascript: void(0)"
                                    @onclick="() => LinkDetailDetails_ClickAsync(row)"
                                    class="@LinkDetailDetails_Disabled(row)">
-                                  <XDataLabel Property="@VM?.MainObj?.DetailList?.ProductProperty"></XDataLabel></a></td>
+                                  <XDataLabel Property="@VM?.MainObj?.DetailList?.ProductIdProperty"></XDataLabel></a></td>
                               <td>
                                 <XDataLabel Property="@VM?.MainObj?.DetailList?.OrderQtyProperty"></XDataLabel>
-                              </td>
-                              <td>
-                                <XDataLabel Property="@VM?.MainObj?.DetailList?.SpecialOfferProperty"></XDataLabel>
                               </td>
                               <td>
                                 <XDataLabel Property="@VM?.MainObj?.DetailList?.UnitPriceProperty"></XDataLabel>
                               </td>
                               <td>
                                 <XDataLabel Property="@VM?.MainObj?.DetailList?.UnitPriceDiscountProperty"></XDataLabel>
+                              </td>
+                              <td>
+                                <XDataLabel Property="@VM?.MainObj?.DetailList?.SpecialOfferIdProperty"></XDataLabel>
                               </td>
                               <td>
                                 <XDataLabel Property="@VM?.MainObj?.DetailList?.LineTotalProperty"></XDataLabel>
@@ -480,6 +480,7 @@
             </TabSet>
           </div>
         </div>
+        <Errors ErrorList="@Model?.Errors"></Errors>
       </div>
     </div>
     <div class="view-footer action-bar">

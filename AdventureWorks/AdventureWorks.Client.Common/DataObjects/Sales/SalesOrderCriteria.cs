@@ -21,6 +21,7 @@ namespace AdventureWorks.Client.Objects
         public const string DueDate = "DueDate";
         public const string DueDate2 = "DueDate2";
         public const string DueDateOperator = "DueDateOperator";
+        public const string GlobalRegion = "GlobalRegion";
         public const string OrderDate = "OrderDate";
         public const string OrderDate2 = "OrderDate2";
         public const string OrderDateOperator = "OrderDateOperator";
@@ -47,6 +48,7 @@ namespace AdventureWorks.Client.Objects
         public DateProperty DueDateProperty { get; private set; }
         public DateProperty DueDate2Property { get; private set; }
         public OperatorProperty DueDateOperatorProperty { get; private set; }
+        public EnumProperty GlobalRegionProperty { get; private set; }
         public DateProperty OrderDateProperty { get; private set; }
         public DateProperty OrderDate2Property { get; private set; }
         public OperatorProperty OrderDateOperatorProperty { get; private set; }
@@ -104,6 +106,11 @@ namespace AdventureWorks.Client.Objects
             {
                 Size = 25,
                 EnumType = "operators",
+            };
+            GlobalRegionProperty = new EnumProperty(this, GlobalRegion)
+            {
+                Size = 50,
+                EnumType = "sales territory group",
             };
             OrderDateProperty = new DateProperty(this, OrderDate)
             {

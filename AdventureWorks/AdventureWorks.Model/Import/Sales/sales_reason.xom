@@ -12,12 +12,12 @@
   <types>
     <type name="sales reason" base="integer enumeration">
       <config>
-        <ui:web-control multi-value="true">
-          <uc:PickListControl Rows="6" runat="server"/>
-        </ui:web-control>
         <ui:blazor-control multi-value="true">
           <XPickList/>
         </ui:blazor-control>
+        <ui:web-control multi-value="true">
+          <uc:PickListControl Rows="6" runat="server"/>
+        </ui:web-control>
       </config>
       <enum ref="sales reason"/>
     </type>
@@ -62,8 +62,8 @@
             <param name="name"/>
           </output>
           <config>
-            <xfk:enum-cache enum-name="sales reason" id-param="sales reason id" desc-param="name"/>
             <rest:method verb="GET" uri-template="sales-reason"/>
+            <xfk:enum-cache enum-name="sales reason" id-param="sales reason id" desc-param="name"/>
           </config>
           <doc>
             <summary>Reads a list of Sales Reason objects based on the specified criteria.</summary>
@@ -81,6 +81,4 @@
       </doc>
     </object>
   </objects>
-  <xfk:data-objects/>
-  <ui:views/>
 </module>

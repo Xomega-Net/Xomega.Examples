@@ -11,7 +11,7 @@ namespace AdventureWorks.Services
     public static class SecurityManager
     {
         public const string ClaimTypeStore = "http://adventure-works.com/store";
-        public const string ClaimTypeVendor = "http://adventure-works.com/value";
+        public const string ClaimTypeVendor = "http://adventure-works.com/vendor";
 
         public static ClaimsIdentity CreateIdentity(string authenticationType, PersonInfo userInfo)
         {
@@ -53,18 +53,18 @@ namespace AdventureWorks.Services
 
         public static int? GetStoreId(this IPrincipal principal)
         {
-            ClaimsIdentity ci = principal.Identity as ClaimsIdentity;
             Claim storeIdClaim = null;
-            if (ci != null && (storeIdClaim = ci.Claims.FirstOrDefault(c => c.Type == ClaimTypeStore)) != null)
+            if (principal.Identity is ClaimsIdentity ci && 
+                (storeIdClaim = ci.Claims.FirstOrDefault(c => c.Type == ClaimTypeStore)) != null)
                 return int.Parse(storeIdClaim.Value);
             return null;
         }
 
         public static int? GetPersonId(this IPrincipal principal)
         {
-            ClaimsIdentity ci = principal.Identity as ClaimsIdentity;
             Claim idClaim = null;
-            if (ci != null && (idClaim = ci.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)) != null)
+            if (principal.Identity is ClaimsIdentity ci && 
+                (idClaim = ci.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)) != null)
                 return int.Parse(idClaim.Value);
             return null;
         }

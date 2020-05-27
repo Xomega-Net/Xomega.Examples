@@ -27,7 +27,7 @@ namespace AdventureWorks.Services.Rest
         }
 
         ///<summary>
-        /// Reads a list of Person Credit Card objects based on the person ID.
+        /// Reads a list of Person Credit Card objects based on the specified criteria.
         ///</summary>
         [Route("person/{_businessEntityId}/credit-card")]
         [HttpGet]

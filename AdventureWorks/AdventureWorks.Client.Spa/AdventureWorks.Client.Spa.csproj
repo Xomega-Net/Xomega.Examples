@@ -10,7 +10,7 @@
       <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
       <ProductVersion/>
       <SchemaVersion>2.0</SchemaVersion>
-      <ProjectGuid>{06CB1C64-FA28-4A5C-9DED-1B1B0D93E109}</ProjectGuid>
+      <ProjectGuid>{BC09075F-060D-4D4A-AF66-4FDA5DC3FC19}</ProjectGuid>
       <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
       <OutputType>Library</OutputType>
       <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -172,151 +172,32 @@
       <TypeScriptCompile Include="Widgets\msglist\viewmodel.ts"/>
       <TypeScriptCompile Include="Widgets\pager\viewmodel.ts"/>
       <TypeScriptCompile Include="Widgets\panel\viewmodel.ts"/>
-      <TypeScriptCompile Include="Enumerations\Enumerations.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="Views\ViewsConfig.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Person\PersonStructures.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Sales\SalesStructures.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Person\IBusinessEntityAddressService.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Production\IProductService.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Production\IProductSubcategoryService.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Purchasing\IShipMethodService.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Sales\ICustomerService.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
       <TypeScriptCompile Include="ServiceContracts\Sales\ISalesOrderService.ts">
          <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Sales\ISalesPersonService.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Sales\ISalesReasonService.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Sales\ISalesTerritoryService.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Sales\ISpecialOfferService.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="ServiceContracts\Sales\ISpecialOfferProductService.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Person\AddressObject.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Person\AddressObjectCustomized.ts">
-         <DependentUpon>AddressObject.ts</DependentUpon>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Person\AuthenticationObject.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Person\AuthenticationObjectCustomized.ts">
-         <DependentUpon>AuthenticationObject.ts</DependentUpon>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\CustomerCriteria.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\CustomerList.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\CreditCardPaymentObject.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\CreditCardPaymentObjectCustomized.ts">
-         <DependentUpon>CreditCardPaymentObject.ts</DependentUpon>
       </TypeScriptCompile>
       <TypeScriptCompile Include="DataObjects\Sales\SalesOrderObject.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderObjectCustomized.ts">
-         <DependentUpon>SalesOrderObject.ts</DependentUpon>
-      </TypeScriptCompile>
       <TypeScriptCompile Include="DataObjects\Sales\SalesOrderCriteria.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderCriteriaCustomized.ts">
-         <DependentUpon>SalesOrderCriteria.ts</DependentUpon>
-      </TypeScriptCompile>
       <TypeScriptCompile Include="DataObjects\Sales\SalesOrderList.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderCustomerObject.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderCustomerObjectCustomized.ts">
-         <DependentUpon>SalesOrderCustomerObject.ts</DependentUpon>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\SalesCustomerLookupObject.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
       <TypeScriptCompile Include="DataObjects\Sales\SalesOrderDetailObject.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderDetailObjectCustomized.ts">
-         <DependentUpon>SalesOrderDetailObject.ts</DependentUpon>
-      </TypeScriptCompile>
       <TypeScriptCompile Include="DataObjects\Sales\SalesOrderDetailList.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderPaymentObject.ts">
+      <TypeScriptCompile Include="Enumerations\Enumerations.ts">
          <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderSalesObject.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderSalesObjectCustomized.ts">
-         <DependentUpon>SalesOrderSalesObject.ts</DependentUpon>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="CacheLoaders\BusinessEntityAddressReadListCacheLoader.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="CacheLoaders\SpecialOfferProductReadListCacheLoader.ts">
-         <AutoGen>True</AutoGen>
-      </TypeScriptCompile>
-      <TypescriptCompile Include="Views\MainMenu.ts">
-         <AutoGen>True</AutoGen>
-      </TypescriptCompile>
-      <Content Include="Views\Person\LoginView.html">
-         <AutoGen>True</AutoGen>
-      </Content>
-      <TypeScriptCompile Include="Views\Person\LoginView.ts">
-         <AutoGen>True</AutoGen>
-         <DependentUpon>LoginView.html</DependentUpon>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="Views\Person\LoginViewCustomized.ts">
-         <DependentUpon>LoginView.html</DependentUpon>
-      </TypeScriptCompile>
-      <Content Include="Views\Sales\CustomerListView.html">
-         <AutoGen>True</AutoGen>
-      </Content>
-      <TypeScriptCompile Include="Views\Sales\CustomerListView.ts">
-         <AutoGen>True</AutoGen>
-         <DependentUpon>CustomerListView.html</DependentUpon>
       </TypeScriptCompile>
       <Content Include="Views\Sales\SalesOrderView.html">
          <AutoGen>True</AutoGen>
       </Content>
       <TypeScriptCompile Include="Views\Sales\SalesOrderView.ts">
          <AutoGen>True</AutoGen>
-         <DependentUpon>SalesOrderView.html</DependentUpon>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="Views\Sales\SalesOrderViewCustomized.ts">
          <DependentUpon>SalesOrderView.html</DependentUpon>
       </TypeScriptCompile>
       <Content Include="Views\Sales\SalesOrderListView.html">
@@ -333,10 +214,129 @@
          <AutoGen>True</AutoGen>
          <DependentUpon>SalesOrderDetailView.html</DependentUpon>
       </TypeScriptCompile>
+      <TypeScriptCompile Include="Views\ViewsConfig.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Sales\ISalesPersonService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Sales\ISalesTerritoryService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderCriteriaCustomized.ts">
+         <DependentUpon>SalesOrderCriteria.ts</DependentUpon>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Production\IProductService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Sales\ISpecialOfferService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Sales\SalesStructures.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Purchasing\IShipMethodService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderPaymentObject.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Sales\ISalesReasonService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderSalesObject.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderSalesObjectCustomized.ts">
+         <DependentUpon>SalesOrderSalesObject.ts</DependentUpon>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderCustomerObject.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Sales\ICustomerService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\CustomerCriteria.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\CustomerList.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypescriptCompile Include="Views\MainMenu.ts">
+         <AutoGen>True</AutoGen>
+      </TypescriptCompile>
+      <Content Include="Views\Sales\CustomerListView.html">
+         <AutoGen>True</AutoGen>
+      </Content>
+      <TypeScriptCompile Include="Views\Sales\CustomerListView.ts">
+         <AutoGen>True</AutoGen>
+         <DependentUpon>CustomerListView.html</DependentUpon>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesCustomerLookupObject.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Person\IBusinessEntityAddressService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderCustomerObjectCustomized.ts">
+         <DependentUpon>SalesOrderCustomerObject.ts</DependentUpon>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="CacheLoaders\BusinessEntityAddressReadListCacheLoader.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Person\PersonStructures.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Person\AddressObject.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Person\AddressObjectCustomized.ts">
+         <DependentUpon>AddressObject.ts</DependentUpon>
+      </TypeScriptCompile>
       <TypeScriptCompile Include="ServiceContracts\Sales\IPersonCreditCardService.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\CreditCardPaymentObject.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\CreditCardPaymentObjectCustomized.ts">
+         <DependentUpon>CreditCardPaymentObject.ts</DependentUpon>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderObjectCustomized.ts">
+         <DependentUpon>SalesOrderObject.ts</DependentUpon>
+      </TypeScriptCompile>
       <TypeScriptCompile Include="CacheLoaders\PersonCreditCardReadListCacheLoader.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="Views\Sales\SalesOrderViewCustomized.ts">
+         <DependentUpon>SalesOrderView.html</DependentUpon>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Person\AuthenticationObject.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Person\AuthenticationObjectCustomized.ts">
+         <DependentUpon>AuthenticationObject.ts</DependentUpon>
+      </TypeScriptCompile>
+      <Content Include="Views\Person\LoginView.html">
+         <AutoGen>True</AutoGen>
+      </Content>
+      <TypeScriptCompile Include="Views\Person\LoginView.ts">
+         <AutoGen>True</AutoGen>
+         <DependentUpon>LoginView.html</DependentUpon>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="Views\Person\LoginViewCustomized.ts">
+         <DependentUpon>LoginView.html</DependentUpon>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Production\IProductSubcategoryService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="ServiceContracts\Sales\ISpecialOfferProductService.ts">
+         <AutoGen>True</AutoGen>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderDetailObjectCustomized.ts">
+         <DependentUpon>SalesOrderDetailObject.ts</DependentUpon>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="CacheLoaders\SpecialOfferProductReadListCacheLoader.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
    </ItemGroup>
@@ -350,9 +350,9 @@
             <WebProjectProperties>
                <UseIIS>True</UseIIS>
                <AutoAssignPort>True</AutoAssignPort>
-               <DevelopmentServerPort>57858</DevelopmentServerPort>
+               <DevelopmentServerPort>52890</DevelopmentServerPort>
                <DevelopmentServerVPath>/</DevelopmentServerVPath>
-               <IISUrl>http://localhost:57858/</IISUrl>
+               <IISUrl>http://localhost:52890/</IISUrl>
                <NTLMAuthentication>False</NTLMAuthentication>
                <UseCustomServer>False</UseCustomServer>
                <CustomServerUrl/>

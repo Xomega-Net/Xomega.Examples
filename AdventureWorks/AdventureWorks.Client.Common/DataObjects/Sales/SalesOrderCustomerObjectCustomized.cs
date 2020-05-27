@@ -8,8 +8,6 @@ namespace AdventureWorks.Client.Objects
 {
     public class SalesOrderCustomerObjectCustomized : SalesOrderCustomerObject
     {
-        private LocalLookupCacheLoader AddressLoader;
-
         public SalesOrderCustomerObjectCustomized()
         {
         }
@@ -24,12 +22,12 @@ namespace AdventureWorks.Client.Objects
             base.Initialize();
         }
 
+        private LocalLookupCacheLoader AddressLoader;
+
         // perform post intialization
         protected override void OnInitialized()
         {
             base.OnInitialized();
-
-            LookupObject.TrackModifications = false;
 
             AddressLoader = new BusinessEntityAddressReadListCacheLoader(ServiceProvider);
             BillingAddressObject.AddressIdProperty.LocalCacheLoader = AddressLoader;

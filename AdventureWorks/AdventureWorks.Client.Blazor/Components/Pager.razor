@@ -8,7 +8,7 @@
     {
     <div class="pagination">
         <div class="pgn-summary">
-            <span>Showing @(PageSize*(CurrentPage-1)+1) to @(Math.Min(PageSize*CurrentPage, ItemsCount)) of @ItemsCount items</span>
+            <span>Showing @(PageSize * (CurrentPage - 1) + 1) to @(Math.Min(PageSize * CurrentPage, ItemsCount)) of @ItemsCount items</span>
         </div>
         <div class="pgn-pages">
         @if (MaxPage > 1)
@@ -23,7 +23,7 @@
                        @onclick="@(async () => await SetCurrentPage(CurrentPage - 1))"></a>
                 </li>
                 <li>
-                    @foreach  (var p in GetPagesRange())
+                    @foreach (var p in GetPagesRange())
                     {
                     <ul>
                         <li><a href="javascript: void(0)" class="@(p == CurrentPage ? "active" : "")"
@@ -53,3 +53,9 @@
     </div>
     }
 </div>
+
+@code
+{
+    protected override IEnumerable<int> Indexes => Enumerable.Range(PageSize * (CurrentPage - 1),
+      Math.Max(0, Math.Min(PageSize, ItemsCount - PageSize * (CurrentPage - 1))));
+}

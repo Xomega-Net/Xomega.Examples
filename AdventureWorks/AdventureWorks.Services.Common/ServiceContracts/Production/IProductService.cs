@@ -48,6 +48,9 @@ namespace AdventureWorks.Services
         [DataMember]
         public string Name { get; set; }
         
+        [DataMember]
+        public bool IsActive { get; set; }
+        
         ///<summary>
         /// Product is a member of this product subcategory. Foreign key to ProductSubCategory.ProductSubCategoryID. 
         ///</summary>
@@ -65,9 +68,6 @@ namespace AdventureWorks.Services
         ///</summary>
         [DataMember]
         public decimal ListPrice { get; set; }
-        
-        [DataMember]
-        public bool Current { get; set; }
     }
     #endregion
 

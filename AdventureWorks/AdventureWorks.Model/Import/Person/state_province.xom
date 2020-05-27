@@ -19,7 +19,7 @@
             <sql:column name="StateProvinceID"/>
           </config>
         </field>
-        <field name="state province code" type="code3" required="true">
+        <field name="state province code" type="state province code" required="true">
           <config>
             <sql:column name="StateProvinceCode"/>
           </config>

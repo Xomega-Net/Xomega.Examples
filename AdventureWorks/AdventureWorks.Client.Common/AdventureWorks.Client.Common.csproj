@@ -16,12 +16,12 @@
     <ProjectReference Include="../AdventureWorks.Services.Common/AdventureWorks.Services.Common.csproj" />
   </ItemGroup>
 
-   <ItemGroup>
-      <None Update="Messages.tt">
-         <Generator>TextTemplatingFileGenerator</Generator>
-         <DependentUpon>Resources.resx</DependentUpon>
-         <LastGenOutput>Messages.cs</LastGenOutput>
-      </None>
-   </ItemGroup>
+  <ItemGroup>
+    <None Update="Messages.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <LastGenOutput>Messages.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 
 </Project>

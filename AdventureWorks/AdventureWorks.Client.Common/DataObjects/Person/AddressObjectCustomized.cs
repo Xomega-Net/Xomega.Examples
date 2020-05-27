@@ -39,7 +39,5 @@ namespace AdventureWorks.Client.Objects
             PostalCodeProperty.SetValue(addr?[Enumerations.BusinessEntityAddress.Attributes.PostalCode]);
             CountryProperty.SetValue(addr?[Enumerations.BusinessEntityAddress.Attributes.Country]);
         }
-
-        // add custom code here
     }
 }

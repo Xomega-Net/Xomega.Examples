@@ -107,10 +107,13 @@
           <output list="true">
             <param name="special offer id"/>
             <param name="description"/>
+            <param name="is active" type="boolean" required="true"/>
+            <param name="category"/>
           </output>
           <config>
-            <xfk:enum-cache enum-name="special offer" id-param="special offer id" desc-param="description"/>
             <rest:method verb="GET" uri-template="special-offer"/>
+            <xfk:enum-cache enum-name="special offer" id-param="special offer id"
+                            desc-param="description" is-active-param="is active"/>
           </config>
           <doc>
             <summary>Reads a list of Special Offer objects based on the specified criteria.</summary>
@@ -128,6 +131,4 @@
       </doc>
     </object>
   </objects>
-  <xfk:data-objects/>
-  <ui:views/>
 </module>

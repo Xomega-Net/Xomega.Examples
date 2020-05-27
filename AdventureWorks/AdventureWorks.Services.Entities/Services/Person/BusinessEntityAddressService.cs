@@ -60,7 +60,7 @@ namespace AdventureWorks.Services.Entities
                               // CUSTOM_CODE_START: set the PostalCode output parameter of ReadList operation below
                               PostalCode = obj.AddressObject.PostalCode, // CUSTOM_CODE_END
                               // CUSTOM_CODE_START: set the Country output parameter of ReadList operation below
-                              Country = obj.AddressObject.StateProvinceObject.CountryRegionCodeObject.CountryRegionCode, // CUSTOM_CODE_END
+                              Country = obj.AddressObject.StateProvinceObject.CountryRegionCode, // CUSTOM_CODE_END
                           };
 
                 // CUSTOM_CODE_START: add custom filter criteria to the result query for ReadList operation below

@@ -8,7 +8,7 @@ namespace AdventureWorks.Client.ViewModels
         {
         }
 
-        public override string BaseTitle => base.BaseTitle + 
+        public override string BaseTitle => base.BaseTitle +
             (MainObj.IsNew ? "" : " - " + MainObj.SalesOrderNumberProperty.Value);
     }
 }

@@ -48,6 +48,10 @@ namespace AdventureWorks.Services.Entities
                           select new SpecialOffer_ReadListOutput() {
                               SpecialOfferId = obj.SpecialOfferId,
                               Description = obj.Description,
+                              // CUSTOM_CODE_START: set the IsActive output parameter of ReadList operation below
+                              IsActive = (obj.StartDate == null || obj.StartDate < DateTime.Today) &&
+                                         (obj.EndDate == null || obj.EndDate > DateTime.Today), // CUSTOM_CODE_END
+                              Category = obj.Category,
                           };
 
                 // CUSTOM_CODE_START: add custom filter criteria to the result query for ReadList operation below

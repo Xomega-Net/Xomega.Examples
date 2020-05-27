@@ -25,7 +25,6 @@ namespace AdventureWorks.Client.Objects
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            // add custom intialization code here
             CreditCardIdProperty.Change += OnCreditCardChanged;
         }
 

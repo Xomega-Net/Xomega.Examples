@@ -7,7 +7,11 @@ class SalesOrderViewCustomized extends GeneratedViewModel {
         // change this method to specify a custom view, can return a path to view or DOM element
         return 'Views/Sales/SalesOrderView.html';
     }
-    // add custom code here
+
+    public getViewTitle(): string {
+        return super.getViewTitle() + (this.obj.IsNew() ? '' :
+            ' - ' + this.obj.SalesOrderNumber.DisplayStringValue());
+    }
 }
 
 export = SalesOrderViewCustomized;

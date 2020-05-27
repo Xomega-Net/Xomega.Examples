@@ -14,9 +14,9 @@ export class SalesOrderDetailList extends DataListObject {
     public CarrierTrackingNumber: TextProperty;
     public LineTotal: MoneyProperty;
     public OrderQty: IntegerProperty;
-    public Product: EnumIntProperty;
+    public ProductId: EnumIntProperty;
     public SalesOrderDetailId: IntegerProperty;
-    public SpecialOffer: EnumIntProperty;
+    public SpecialOfferId: EnumIntProperty;
     public UnitPrice: MoneyProperty;
     public UnitPriceDiscount: PercentFractionProperty;
 
@@ -31,18 +31,18 @@ export class SalesOrderDetailList extends DataListObject {
         this.OrderQty = new IntegerProperty();
         this.OrderQty.Required(true);
         this.OrderQty.Editable(false);
-        this.Product = new EnumIntProperty();
-        this.Product.Required(true);
-        this.Product.EnumType = "product";
-        this.Product.Editable(false);
+        this.ProductId = new EnumIntProperty();
+        this.ProductId.Required(true);
+        this.ProductId.EnumType = "product";
+        this.ProductId.Editable(false);
         this.SalesOrderDetailId = new IntegerProperty();
         this.SalesOrderDetailId.Required(true);
         this.SalesOrderDetailId.Editable(false);
         this.SalesOrderDetailId.IsKey = true;
-        this.SpecialOffer = new EnumIntProperty();
-        this.SpecialOffer.Required(true);
-        this.SpecialOffer.EnumType = "special offer";
-        this.SpecialOffer.Editable(false);
+        this.SpecialOfferId = new EnumIntProperty();
+        this.SpecialOfferId.Required(true);
+        this.SpecialOfferId.EnumType = "special offer";
+        this.SpecialOfferId.Editable(false);
         this.UnitPrice = new MoneyProperty();
         this.UnitPrice.Required(true);
         this.UnitPrice.Editable(false);

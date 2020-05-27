@@ -13,14 +13,11 @@
       <config>
         <xfk:property class="EnumIntProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
         <ui:control>
-          <ComboBox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    Style="{StaticResource ControlStyle}"/>
+          <ComboBox Style="{StaticResource ControlStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
         </ui:control>
         <ui:control multi-value="true">
-          <ListBox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                   Style="{StaticResource ControlStyle}"
-                   MinHeight="21"
-                   MaxHeight="84"/>
+          <ListBox Style="{StaticResource ControlStyle}" MinHeight="21" MaxHeight="84"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
         </ui:control>
         <ui:web-control>
           <asp:DropDownList runat="server"/>
@@ -126,9 +123,9 @@
             <param name="is current" type="boolean" required="true"/>
           </output>
           <config>
-            <xfk:enum-cache enum-name="sales person" id-param="business entity id" desc-param="name"
-                            is-active-param="is current"/>
             <rest:method verb="GET" uri-template="sales-person"/>
+            <xfk:enum-cache enum-name="sales person" id-param="business entity id"
+                            desc-param="name" is-active-param="is current"/>
           </config>
           <doc>
             <summary>Reads a list of Sales Person objects based on the specified criteria.</summary>
@@ -146,6 +143,4 @@
       </doc>
     </object>
   </objects>
-  <xfk:data-objects/>
-  <ui:views/>
 </module>

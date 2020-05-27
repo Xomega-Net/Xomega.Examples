@@ -7,15 +7,9 @@ export class SalesOrderCustomerObject extends GeneratedDataObject {
 
     private addressLoader: BusinessEntityAddressReadListCacheLoader;
 
-    // construct properties and child objects
-    init() {
-        super.init();
-        // add custom construction code here
-    }
-
-    // perform post intialization
     onInitialized() {
         this.LookupObject.TrackModifications = false;
+
         this.addressLoader = new BusinessEntityAddressReadListCacheLoader();
         this.BillingAddressObject.AddressId.LocalCacheLoader = this.addressLoader;
         this.ShippingAddressObject.AddressId.LocalCacheLoader = this.addressLoader;

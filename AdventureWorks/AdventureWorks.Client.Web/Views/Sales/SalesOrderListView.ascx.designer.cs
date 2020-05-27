@@ -34,6 +34,8 @@ namespace AdventureWorks.Client.Web
         protected global::System.Web.UI.WebControls.Label lblCustomerName;
         protected global::System.Web.UI.WebControls.DropDownList ctlCustomerNameOperator;
         protected global::System.Web.UI.WebControls.TextBox ctlCustomerName;
+        protected global::System.Web.UI.WebControls.Label lblGlobalRegion;
+        protected global::System.Web.UI.WebControls.DropDownList ctlGlobalRegion;
         protected global::System.Web.UI.WebControls.Label lblTerritoryId;
         protected global::System.Web.UI.WebControls.DropDownList ctlTerritoryIdOperator;
         protected global::System.Web.UI.WebControls.DropDownList ctlTerritoryId;

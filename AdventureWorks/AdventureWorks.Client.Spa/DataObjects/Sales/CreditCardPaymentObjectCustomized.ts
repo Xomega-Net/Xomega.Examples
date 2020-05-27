@@ -5,13 +5,6 @@ import { PersonCreditCard } from '../../Enumerations/Enumerations';
 
 export class CreditCardPaymentObject extends GeneratedDataObject {
 
-    // construct properties and child objects
-    init() {
-        super.init();
-        // add custom construction code here
-    }
-
-    // perform post intialization
     onInitialized() {
         super.onInitialized();
         let obj = this;
@@ -22,7 +15,4 @@ export class CreditCardPaymentObject extends GeneratedDataObject {
                 `${h.attr[PersonCreditCard.Attributes.ExpMonth]}/${h.attr[PersonCreditCard.Attributes.ExpYear]}` : null);
         });
     }
-
-    // add custom code here
-
 }

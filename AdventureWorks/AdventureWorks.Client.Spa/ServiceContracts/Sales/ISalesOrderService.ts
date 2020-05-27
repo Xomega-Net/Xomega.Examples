@@ -156,6 +156,7 @@ export class SalesOrder_ReadListInput_Criteria {
     public CustomerStore: any = null;
     public CustomerNameOperator: any = null;
     public CustomerName: any = null;
+    public GlobalRegion: any = null;
     public TerritoryIdOperator: any = null;
     public TerritoryId: any = null;
     public SalesPersonIdOperator: any = null;
@@ -167,9 +168,9 @@ export class SalesOrder_ReadListOutput {
     public SalesOrderNumber: any = null;
     public Status: any = null;
     public OrderDate: any = null;
+    public ShipDate: any = null;
     public DueDate: any = null;
     public TotalDue: any = null;
-    public ShipDate: any = null;
     public OnlineOrderFlag: any = null;
     public CustomerStore: any = null;
     public CustomerName: any = null;
@@ -208,12 +209,12 @@ export class SalesOrderDetail_UpdateInput_Data {
 }
 
 export class SalesOrderDetail_ReadListOutput {
-    public Product: any = null;
     public SalesOrderDetailId: any = null;
+    public ProductId: any = null;
     public OrderQty: any = null;
-    public SpecialOffer: any = null;
     public UnitPrice: any = null;
     public UnitPriceDiscount: any = null;
+    public SpecialOfferId: any = null;
     public LineTotal: any = null;
     public CarrierTrackingNumber: any = null;
 }

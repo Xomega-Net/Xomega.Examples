@@ -14,7 +14,6 @@
     <type name="char string15" base="char string" size="15"/>
     <type name="code1" base="code" size="1"/>
     <type name="code2" base="code" size="2"/>
-    <type name="code3" base="code" size="3"/>
     <type name="code5" base="code" size="5"/>
     <type name="decimal_8_2" base="decimal">
       <config>
@@ -29,11 +28,6 @@
     <type name="decimal_9_4" base="decimal">
       <config>
         <sql:type name="decimal(9,4)" db="sqlsrv"/>
-      </config>
-    </type>
-    <type name="line total" base="money">
-      <config>
-        <sql:type name="numeric(38,6)" db="sqlsrv"/>
       </config>
     </type>
     <type name="string10" base="string" size="10"/>
