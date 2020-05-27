@@ -53,9 +53,3 @@
     </div>
     }
 </div>
-
-@code
-{
-    protected override IEnumerable<int> Indexes => Enumerable.Range(PageSize * (CurrentPage - 1),
-      Math.Max(0, Math.Min(PageSize, ItemsCount - PageSize * (CurrentPage - 1))));
-}
