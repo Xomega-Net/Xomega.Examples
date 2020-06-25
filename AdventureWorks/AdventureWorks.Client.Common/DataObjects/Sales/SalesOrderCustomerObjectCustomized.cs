@@ -1,6 +1,8 @@
 using AdventureWorks.Services;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Xomega.Framework;
 using Xomega.Framework.Lookup;
 
@@ -33,11 +35,11 @@ namespace AdventureWorks.Client.Objects
             BillingAddressObject.AddressIdProperty.LocalCacheLoader = AddressLoader;
             ShippingAddressObject.AddressIdProperty.LocalCacheLoader = AddressLoader;
 
-            StoreIdProperty.Change += OnCustomerChanged;
-            PersonIdProperty.Change += OnCustomerChanged;
+            StoreIdProperty.AsyncChange += OnCustomerChanged;
+            PersonIdProperty.AsyncChange += OnCustomerChanged;
         }
 
-        private void OnCustomerChanged(object sender, PropertyChangeEventArgs e)
+        private async Task OnCustomerChanged(object sender, PropertyChangeEventArgs e, CancellationToken token)
         {
             if (!e.Change.IncludesValue() || Equals(e.OldValue, e.NewValue) ||
                 PersonIdProperty.Value == null && StoreIdProperty.Value == null) return;
@@ -45,16 +47,16 @@ namespace AdventureWorks.Client.Objects
             int entityId = StoreIdProperty.Value == null ? // use store or person id
                 PersonIdProperty.Value.Value : StoreIdProperty.Value.Value;
 
-            AddressLoader.SetParameters(new Dictionary<string, object>() {
+            await AddressLoader.SetParametersAsync(new Dictionary<string, object>() {
                 { Enumerations.BusinessEntityAddress.Parameters.BusinessEntityId, entityId }
             });
 
-            BillingAddressObject.AddressIdProperty.ClearInvalidValues();
-            ShippingAddressObject.AddressIdProperty.ClearInvalidValues();
+            await BillingAddressObject.AddressIdProperty.ClearInvalidValues();
+            await ShippingAddressObject.AddressIdProperty.ClearInvalidValues();
 
             var args = new PropertyChangeEventArgs(PropertyChange.Items, null, null, e.Row);
-            BillingAddressObject.AddressIdProperty.FirePropertyChange(args);
-            ShippingAddressObject.AddressIdProperty.FirePropertyChange(args);
+            await BillingAddressObject.AddressIdProperty.FirePropertyChangeAsync(args, token);
+            await ShippingAddressObject.AddressIdProperty.FirePropertyChangeAsync(args, token);
         }
     }
 }

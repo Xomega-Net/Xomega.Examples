@@ -1,3 +1,4 @@
+using AdventureWorks.Client.Blazor.Views;
 using AdventureWorks.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -6,18 +7,16 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Xomega.Framework;
-using Xomega.Framework.Blazor;
+using Xomega.Framework.Services;
 
-namespace AdventureWorks.Client.Blazor.Views
+namespace AdventureWorks.Client.Blazor.Server
 {
     [AllowAnonymous]
     [Route("/login")]
-    public partial class LoginView
+    public class BlazorLoginView : LoginView
     {
         [Inject] SignInManager signInManager { get; set; }
         [Inject] IPersonService personService { get; set; }
-
-        protected override string SaveText => "Login";
 
         protected override async Task OnViewEventsAsync(object sender, ViewEvent e, CancellationToken token = default)
         {

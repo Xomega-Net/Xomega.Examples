@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Xomega.Framework;
+using Xomega.Framework.Lookup;
 using Xomega.Framework.Properties;
 using Xomega.Framework.Services;
 
@@ -81,6 +82,7 @@ namespace AdventureWorks.Client.Objects
             {
                 Required = true,
                 EnumType = "yesno",
+                LookupValidation = LookupValidationType.None,
                 Editable = false,
             };
             OrderDateProperty = new DateProperty(this, OrderDate)
@@ -148,7 +150,7 @@ namespace AdventureWorks.Client.Objects
             {
                 var output = await s.ServiceProvider.GetService<ISalesOrderService>().ReadListAsync(_criteria);
 
-                FromDataContract(output?.Result, options);
+                await FromDataContractAsync(output?.Result, options);
                 return output;
             }
         }

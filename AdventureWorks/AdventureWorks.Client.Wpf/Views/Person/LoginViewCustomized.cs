@@ -1,3 +1,4 @@
+using AdventureWorks.Client.Common;
 using AdventureWorks.Client.Objects;
 using AdventureWorks.Services;
 #if TWO_TIER
@@ -33,7 +34,8 @@ namespace AdventureWorks.Client.Wpf
 #if REST
             authObj.Validate(true);
             authObj.GetValidationErrors().AbortIfHasErrors();
-            return await RestServices.Authenticate(authObj.EmailProperty.Value, authObj.PasswordProperty.Value);
+            return await RestServices.Authenticate(App.Services,
+                authObj.EmailProperty.Value, authObj.PasswordProperty.Value);
 #endif
 #if WCF
             authObj.Validate(true);

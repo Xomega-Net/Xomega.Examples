@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using Xomega.Framework.Blazor.Components;
 
-namespace AdventureWorks.Client.Blazor.Views
+namespace AdventureWorks.Client.Blazor.Common.Views
 {
     public class MainMenu
     {

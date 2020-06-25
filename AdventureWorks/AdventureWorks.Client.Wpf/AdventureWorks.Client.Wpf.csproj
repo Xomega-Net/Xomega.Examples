@@ -14,7 +14,7 @@
     <AssemblyName>AdventureWorks.Client.Wpf</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='net461'">
-    <DefineConstants>TRACE;WCF;_REST;_TWO_TIER;_EF6</DefineConstants>
+    <DefineConstants>TRACE;_WCF;REST;_TWO_TIER;_EF6</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
     <DefineConstants>TRACE;REST</DefineConstants>
@@ -24,13 +24,12 @@
     <ProjectCapability Include="DynamicFileNesting" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Xml" Version="3.1.4" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.4" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.6.0" />
-    <PackageReference Include="Xomega.Framework.Wcf" Version="3.0.1" Condition="'$(TargetFramework)'=='net461'" />
-    <PackageReference Include="Xomega.Framework.Wpf" Version="3.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Xml" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.5" />
+    <PackageReference Include="Xomega.Framework.Wcf" Version="3.1.0" Condition="'$(TargetFramework)'=='net461'" />
+    <PackageReference Include="Xomega.Framework.Wpf" Version="3.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../AdventureWorks.Client.Common/AdventureWorks.Client.Common.csproj" />

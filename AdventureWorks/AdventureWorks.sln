@@ -3,25 +3,34 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Client.Blazor", "AdventureWorks.Client.Blazor\AdventureWorks.Client.Blazor.csproj", "{818B6207-E71C-4FEB-AD66-A750FAB46BBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Client.Blazor.Common", "AdventureWorks.Client.Blazor.Common\AdventureWorks.Client.Blazor.Common.csproj", "{818B6207-E71C-4FEB-AD66-A750FAB46BBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Client.Common", "AdventureWorks.Client.Common\AdventureWorks.Client.Common.csproj", "{DD361F9D-5D5F-42FE-AA24-CFE018F99901}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Client.Common", "AdventureWorks.Client.Common\AdventureWorks.Client.Common.csproj", "{DD361F9D-5D5F-42FE-AA24-CFE018F99901}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Client.Spa", "AdventureWorks.Client.Spa\AdventureWorks.Client.Spa.csproj", "{BC09075F-060D-4D4A-AF66-4FDA5DC3FC19}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Client.Web", "AdventureWorks.Client.Web\AdventureWorks.Client.Web.csproj", "{899D2592-1DB6-41D9-A476-CC7FA848BB51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Client.Wpf", "AdventureWorks.Client.Wpf\AdventureWorks.Client.Wpf.csproj", "{1A40F0BF-781E-4340-9C4F-D3B0C84DC955}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Client.Wpf", "AdventureWorks.Client.Wpf\AdventureWorks.Client.Wpf.csproj", "{1A40F0BF-781E-4340-9C4F-D3B0C84DC955}"
 EndProject
 Project("{952B131A-83A3-49CE-ACAC-E4BEBC86F246}") = "AdventureWorks.Model", "AdventureWorks.Model\AdventureWorks.Model.xomproj", "{4CB6D5FA-2614-4A45-A42E-7E831CFE342B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Services.Common", "AdventureWorks.Services.Common\AdventureWorks.Services.Common.csproj", "{DE713C7D-B9A9-43B1-AF2C-5D2641CBD7AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Services.Common", "AdventureWorks.Services.Common\AdventureWorks.Services.Common.csproj", "{DE713C7D-B9A9-43B1-AF2C-5D2641CBD7AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Services.Entities", "AdventureWorks.Services.Entities\AdventureWorks.Services.Entities.csproj", "{811FA23D-35A7-4636-8A32-954DA386FA82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Services.Entities", "AdventureWorks.Services.Entities\AdventureWorks.Services.Entities.csproj", "{811FA23D-35A7-4636-8A32-954DA386FA82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Services.Rest", "AdventureWorks.Services.Rest\AdventureWorks.Services.Rest.csproj", "{795BD892-BD02-4FBE-BB34-C8BAB5A59AB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Services.Rest", "AdventureWorks.Services.Rest\AdventureWorks.Services.Rest.csproj", "{795BD892-BD02-4FBE-BB34-C8BAB5A59AB4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Services.Wcf", "AdventureWorks.Services.Wcf\AdventureWorks.Services.Wcf.csproj", "{380E4A64-962E-44F1-B6F5-D31E8161EEE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Client.Blazor.Wasm", "AdventureWorks.Client.Blazor.Wasm\AdventureWorks.Client.Blazor.Wasm.csproj", "{220D1B1F-7C1B-4F07-8D59-2BA8E1AE26F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Client.Blazor.Server", "AdventureWorks.Client.Blazor.Server\AdventureWorks.Client.Blazor.Server.csproj", "{A57876C1-95C2-4C16-ACEA-E08227BB783A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "T4", "T4", "{86FEBB18-CD6A-4487-B52D-2DDF439C679B}"
+	ProjectSection(SolutionItems) = preProject
+		T4\Messages.t4 = T4\Messages.t4
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +76,14 @@ Global
 		{380E4A64-962E-44F1-B6F5-D31E8161EEE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{380E4A64-962E-44F1-B6F5-D31E8161EEE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{380E4A64-962E-44F1-B6F5-D31E8161EEE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{220D1B1F-7C1B-4F07-8D59-2BA8E1AE26F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{220D1B1F-7C1B-4F07-8D59-2BA8E1AE26F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{220D1B1F-7C1B-4F07-8D59-2BA8E1AE26F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{220D1B1F-7C1B-4F07-8D59-2BA8E1AE26F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A57876C1-95C2-4C16-ACEA-E08227BB783A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A57876C1-95C2-4C16-ACEA-E08227BB783A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A57876C1-95C2-4C16-ACEA-E08227BB783A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A57876C1-95C2-4C16-ACEA-E08227BB783A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

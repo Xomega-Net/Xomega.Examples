@@ -19,7 +19,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\db_import.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\db_import.xsl">
       <Name>Import from Database</Name>
       <Folder>Model Enhancement</Folder>
       <IncludeInBuild>false</IncludeInBuild>
@@ -54,7 +54,7 @@ The path may contain {Module/} and {File} placeholders to output files by databa
       <NamingDelimiter-category>Naming Convention</NamingDelimiter-category>
       <NamingDelimiter-desc>The delimiter to use for logical names: space, underscore or dash. Leave empty to use DB names as is.</NamingDelimiter-desc>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\db_schema.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\db_schema.xsl">
       <Name>Database Schema</Name>
       <Folder>Data Layer</Folder>
       <OutputPath-param>db_schema.sql</OutputPath-param>
@@ -65,7 +65,7 @@ The path may contain {Module/} and {File} placeholders to output files by databa
       <DbCase>$(DbCase)</DbCase>
       <IncludeInBuild>false</IncludeInBuild>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\db_diff.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\db_diff.xsl">
       <Name>Database Change Script</Name>
       <Folder>Data Layer</Folder>
       <IncludeInBuild>false</IncludeInBuild>
@@ -80,7 +80,7 @@ The path may contain {Module/} and {File} placeholders to output files by databa
       <DbTimeout>$(DbTimeout)</DbTimeout>
       <DbExcludeTables>$(DbExcludeTables)</DbExcludeTables>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\doc_xomega.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\doc_xomega.xsl">
       <Name>Domain Model Design</Name>
       <Folder>Documentation</Folder>
       <OutputPath-param>../Docs/DomainModelDesign.docx</OutputPath-param>
@@ -99,7 +99,7 @@ The path may contain {Module/} and {File} placeholders to output files by databa
       <Company-param>[Company]</Company-param>
       <Company-desc>Company to use for the generated document.</Company-desc>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\doc_xomega.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\doc_xomega.xsl">
       <Name>Service Model Design</Name>
       <Folder>Documentation</Folder>
       <OutputPath-param>../Docs/ServiceModelDesign.docx</OutputPath-param>
@@ -118,7 +118,7 @@ The path may contain {Module/} and {File} placeholders to output files by databa
       <Company-param>[Company]</Company-param>
       <Company-desc>Company to use for the generated document.</Company-desc>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\doc_xomega.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\doc_xomega.xsl">
       <Name>Static Data Design</Name>
       <Folder>Documentation</Folder>
       <OutputPath-param>../Docs/StaticDataDesign.docx</OutputPath-param>
@@ -137,7 +137,7 @@ The path may contain {Module/} and {File} placeholders to output files by databa
       <Company-param>[Company]</Company-param>
       <Company-desc>Company to use for the generated document.</Company-desc>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\doc_sqlxml.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\doc_sqlxml.xsl">
       <Name>SQLXML Report</Name>
       <Folder>Documentation\Custom</Folder>
       <OutputPath-param>../Docs/SqlXmlReport.docx</OutputPath-param>
@@ -168,7 +168,7 @@ The path may contain {Module/} and {File} placeholders to output files by databa
       <Company-param>[Company]</Company-param>
       <Company-desc>Company to use for the generated document.</Company-desc>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\ef_entities.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\ef_entities.xsl">
       <Name>EF Domain Objects</Name>
       <Folder>Data Layer</Folder>
       <OutputPath-param>../AdventureWorks.Services.Entities/Entities/{Module/}{File}.cs</OutputPath-param>
@@ -186,7 +186,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>services</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\edm.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\edm.xsl">
       <Name>Entity Data Model</Name>
       <Folder>Data Layer</Folder>
       <OutputPath-param>../AdventureWorks.Services.Entities/Entities/EntityModel.edmx</OutputPath-param>
@@ -200,7 +200,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <IncludeInBuild>false</IncludeInBuild>
       <TargetFrameworkVersion>$(TargetFrameworkVersion)</TargetFrameworkVersion>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\model_ops.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\model_ops.xsl">
       <Name>Lookup View</Name>
       <Folder>Model Enhancement</Folder>
       <IncludeInBuild>false</IncludeInBuild>
@@ -282,7 +282,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <AddSuggestType-desc>Whether to add a separate type linked to the generated enumeration to suggest values, which also accepts other values.</AddSuggestType-desc>
       <AddSuggestType-category>Enumeration</AddSuggestType-category>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\svc_impl.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\svc_impl.xsl">
       <Name>Service Implementations</Name>
       <Folder>Service Layer</Folder>
       <OutputPath-param>../AdventureWorks.Services.Entities/Services/{Module/}{File}.cs</OutputPath-param>
@@ -303,7 +303,7 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>services</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\model_ops.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\model_ops.xsl">
       <Name>Full CRUD with Views</Name>
       <Folder>Model Enhancement</Folder>
       <IncludeInBuild>false</IncludeInBuild>
@@ -385,7 +385,7 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <AddSuggestType-desc>Whether to add a separate type linked to the generated enumeration to suggest values, which also accepts other values.</AddSuggestType-desc>
       <AddSuggestType-category>Enumeration</AddSuggestType-category>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\model_ops.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\model_ops.xsl">
       <Name>Enumeration Read List</Name>
       <Folder>Model Enhancement</Folder>
       <IncludeInBuild>false</IncludeInBuild>
@@ -467,7 +467,7 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <AddSuggestType-desc>Whether to add a separate type linked to the generated enumeration to suggest values, which also accepts other values.</AddSuggestType-desc>
       <AddSuggestType-category>Enumeration</AddSuggestType-category>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\model_enums_db.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\model_enums_db.xsl">
       <Name>Enumerations from Database</Name>
       <Folder>Model Enhancement</Folder>
       <OutputPath-param>ImportedEnums/_{Module}_enums.xom</OutputPath-param>
@@ -482,7 +482,7 @@ The path may contain {Module/} and {File} placeholders to output files by databa
       <DbConnection>$(DbConnection)</DbConnection>
       <DbTimeout>$(DbTimeout)</DbTimeout>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\ts_services.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\ts_services.xsl">
       <Name>TS Service Contracts</Name>
       <Folder>Presentation Layer\SPA</Folder>
       <AddToProject-param>../AdventureWorks.Client.Spa/AdventureWorks.Client.Spa.csproj</AddToProject-param>
@@ -492,10 +492,10 @@ The path may contain {Module/} and {File} placeholders to output files by databa
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>presentation</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\svc_client_rest.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\svc_client_rest.xsl">
       <Name>REST Service Clients</Name>
-      <Folder>Presentation Layer\WPF</Folder>
-      <OutputPath-param>../AdventureWorks.Client.Wpf/ServiceClients/{Module/}{File}.cs</OutputPath-param>
+      <Folder>Presentation Layer\Common</Folder>
+      <OutputPath-param>../AdventureWorks.Client.Common/ServiceClients/{Module/}{File}.cs</OutputPath-param>
       <OutputPath-desc>Path where to output generated files for REST service clients.
 The path may contain {Module/} and {File} placeholders to output files by module and service respectively.</OutputPath-desc>
       <OutputPath-category>Output</OutputPath-category>
@@ -504,14 +504,14 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <CustomPath-desc>Path where to output override classes for the generated service clients. 
 If not set then the OutputPath will be used. The path must contain {File} placeholder to output files by service.</CustomPath-desc>
       <CustomPath-category>Output</CustomPath-category>
-      <RegistryFile-param>../AdventureWorks.Client.Wpf/ServiceClients/RestClients.cs</RegistryFile-param>
+      <RegistryFile-param>../AdventureWorks.Client.Common/ServiceClients/RestClients.cs</RegistryFile-param>
       <RegistryFile-desc>A path to the file for service REST clients resgistration.</RegistryFile-desc>
       <RegistryFile-category>Output</RegistryFile-category>
       <IncludeInBuild>true</IncludeInBuild>
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>presentation</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\svc_contracts.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\svc_contracts.xsl">
       <Name>Service Contracts</Name>
       <Folder>Service Layer</Folder>
       <OutputPath-param>../AdventureWorks.Services.Common/ServiceContracts/{Module/}{File}.cs</OutputPath-param>
@@ -522,7 +522,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>services</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\wcf_config.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\wcf_config.xsl">
       <Name>WCF Server Configuration</Name>
       <Folder>Service Layer</Folder>
       <OutputPath-param>../AdventureWorks.Services.Wcf/serviceModel.services.config</OutputPath-param>
@@ -539,7 +539,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <ServiceBehavior-desc>Service behavior to set for all services.</ServiceBehavior-desc>
       <IncludeInBuild>true</IncludeInBuild>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\wcf_iis_svchost.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\wcf_iis_svchost.xsl">
       <Name>WCF Service Host Files</Name>
       <Folder>Service Layer</Folder>
       <OutputPath-param>../AdventureWorks.Services.Wcf/{Module/}{File}.svc</OutputPath-param>
@@ -550,7 +550,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <AddToProject-category>Output</AddToProject-category>
       <IncludeInBuild>true</IncludeInBuild>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\wcf_config.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\wcf_config.xsl">
       <Name>WCF Client Configuration</Name>
       <Folder>Presentation Layer\WPF</Folder>
       <OutputPath-param>../AdventureWorks.Client.Wpf/serviceModel.client.config</OutputPath-param>
@@ -561,7 +561,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <IsClient-type>System.Boolean</IsClient-type>
       <IncludeInBuild>true</IncludeInBuild>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\webapi_controllers.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\webapi_controllers.xsl">
       <Name>Web API Controllers</Name>
       <Folder>Service Layer</Folder>
       <OutputPath-param>../AdventureWorks.Services.Rest/{Module/}{File}.cs</OutputPath-param>
@@ -582,9 +582,9 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>services</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\data_objects.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\data_objects.xsl">
       <Name>Xomega Data Objects</Name>
-      <Folder>Presentation Layer\View Models</Folder>
+      <Folder>Presentation Layer\Common</Folder>
       <OutputPath-param>../AdventureWorks.Client.Common/DataObjects/{Module/}{File}.cs</OutputPath-param>
       <OutputPath-desc>Path where to output files with generated Xomega Data Objects.
 The path may contain {Module/} and {File} placeholders to output files by module and data object respectively.</OutputPath-desc>
@@ -601,9 +601,9 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>presentation</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\view_models.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\view_models.xsl">
       <Name>View Models</Name>
-      <Folder>Presentation Layer\View Models</Folder>
+      <Folder>Presentation Layer\Common</Folder>
       <OutputPath-param>../AdventureWorks.Client.Common/ViewModels/{Module/}{File}.cs</OutputPath-param>
       <OutputPath-desc>Path where to output files with generated views models.</OutputPath-desc>
       <OutputPath-category>Output</OutputPath-category>
@@ -619,7 +619,7 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>presentation</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\ts_data_objects.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\ts_data_objects.xsl">
       <Name>XomegaJS Data Objects</Name>
       <Folder>Presentation Layer\SPA</Folder>
       <AddToProject-param>../AdventureWorks.Client.Spa/AdventureWorks.Client.Spa.csproj</AddToProject-param>
@@ -633,7 +633,7 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>presentation</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\ts_enum_cache.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\ts_enum_cache.xsl">
       <Name>TS Lookup Cache Loaders</Name>
       <Folder>Presentation Layer\SPA</Folder>
       <OutputPath-param>../AdventureWorks.Client.Spa/CacheLoaders/{File}.ts</OutputPath-param>
@@ -654,7 +654,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>services</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\ts_enum_const.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\ts_enum_const.xsl">
       <Name>TS Enumeration Constants</Name>
       <Folder>Presentation Layer\SPA</Folder>
       <OutputPath-param>../AdventureWorks.Client.Spa/Enumerations/Enumerations.ts</OutputPath-param>
@@ -665,7 +665,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <AddToProject-category>Output</AddToProject-category>
       <IncludeInBuild>true</IncludeInBuild>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\ts_views.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\ts_views.xsl">
       <Name>SPA Views</Name>
       <Folder>Presentation Layer\SPA</Folder>
       <AddToProject-param>../AdventureWorks.Client.Spa/AdventureWorks.Client.Spa.csproj</AddToProject-param>
@@ -697,7 +697,7 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>presentation</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\wpf_views.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\wpf_views.xsl">
       <Name>WPF Views</Name>
       <Folder>Presentation Layer\WPF</Folder>
       <CustomPath-param>
@@ -724,7 +724,7 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>presentation</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\asp_views.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\asp_views.xsl">
       <Name>ASP.NET Views</Name>
       <Folder>Presentation Layer\ASP.NET</Folder>
       <AddToProject-param>../AdventureWorks.Client.Web/AdventureWorks.Client.Web.csproj</AddToProject-param>
@@ -755,7 +755,7 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>presentation</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\blz_views.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\blz_views.xsl">
       <Name>Blazor Views</Name>
       <Folder>Presentation Layer\Blazor</Folder>
       <CustomPath-param>
@@ -781,7 +781,7 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>presentation</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\enum_cache.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\enum_cache.xsl">
       <Name>Lookup Cache Loaders</Name>
       <Folder>Static Data</Folder>
       <OutputPath-param>../AdventureWorks.Services.Common/CacheLoaders/{Module/}{File}.cs</OutputPath-param>
@@ -798,7 +798,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <IndividualFiles>true</IndividualFiles>
       <GeneratorGroup>services</GeneratorGroup>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\enum_xml.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\enum_xml.xsl">
       <Name>Enumeration Data XML</Name>
       <Folder>Static Data</Folder>
       <OutputPath-param>../AdventureWorks.Services.Common/Enumerations/enumerations.xres</OutputPath-param>
@@ -806,7 +806,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <OutputPath-category>Output</OutputPath-category>
       <IncludeInBuild>true</IncludeInBuild>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\enum_sql.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\enum_sql.xsl">
       <Name>Enumeration Reload SQL</Name>
       <Folder>Static Data</Folder>
       <DbCase>$(DbCase)</DbCase>
@@ -815,7 +815,7 @@ The path may contain {Module/} and {File} placeholders to output files by module
       <OutputPath-category>Output</OutputPath-category>
       <IncludeInBuild>true</IncludeInBuild>
     </XomGenerator>
-    <XomGenerator Include="C:\Program Files (x86)\Xomega.Net\8.10\Xsl\enum_const.xsl">
+    <XomGenerator Include="C:\Projects\Xomega\Xomega.Net\Xsl\enum_const.xsl">
       <Name>Enumeration Constants</Name>
       <Folder>Static Data</Folder>
       <OutputPath-param>../AdventureWorks.Services.Common/Enumerations/Enumerations.cs</OutputPath-param>

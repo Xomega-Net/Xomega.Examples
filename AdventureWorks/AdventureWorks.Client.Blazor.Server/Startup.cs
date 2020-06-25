@@ -1,4 +1,5 @@
-using AdventureWorks.Client.Blazor.Views;
+using AdventureWorks.Client.Blazor.Common;
+using AdventureWorks.Client.Blazor.Common.Views;
 using AdventureWorks.Client.Objects;
 using AdventureWorks.Client.ViewModels;
 using AdventureWorks.Enumerations;
@@ -15,10 +16,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Resources;
 using Xomega.Framework;
-using Xomega.Framework.Blazor;
 using Xomega.Framework.Blazor.Components;
+using Xomega.Framework.Services;
 
-namespace AdventureWorks.Client.Blazor
+namespace AdventureWorks.Client.Blazor.Server
 {
     public class Startup
     {
@@ -31,6 +32,7 @@ namespace AdventureWorks.Client.Blazor
         {
             this.configuration = configuration;
             this.env = env;
+            App.AdditionalAssemblies = new[] { GetType().Assembly };
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -46,11 +48,12 @@ namespace AdventureWorks.Client.Blazor
             services.AddSingletonLookupCacheProvider();
             services.AddXmlResourceCacheLoader(typeof(Operators).Assembly, ".enumerations.xres", true);
             services.AddOperators();
-            services.AddBlazorSecurity();
+            services.AddTransient<IPrincipalProvider, ContextPrincipalProvider>();
+            services.AddScoped<SignInManager>();
 
             // App services configuration
             services.AddSingleton<ResourceManager>(sp => new CompositeResourceManager(
-                Common.Messages.ResourceManager,
+                Client.Common.Messages.ResourceManager,
                 Services.Entities.Messages.ResourceManager,
                 Xomega.Framework.Messages.ResourceManager));
             string connStr = configuration.GetValue<string>(ConfigConnectionString);

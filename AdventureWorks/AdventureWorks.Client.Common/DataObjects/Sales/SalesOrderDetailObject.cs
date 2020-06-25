@@ -150,7 +150,7 @@ namespace AdventureWorks.Client.Objects
             {
                 var output = await s.ServiceProvider.GetService<ISalesOrderService>().Detail_ReadAsync(_salesOrderDetailId);
 
-                FromDataContract(output?.Result, options);
+                await FromDataContractAsync(output?.Result, options);
                 return output;
             }
         }
@@ -163,7 +163,7 @@ namespace AdventureWorks.Client.Objects
             {
                 var output = await s.ServiceProvider.GetService<ISalesOrderService>().Detail_CreateAsync(_salesOrderId, _data);
 
-                FromDataContract(output?.Result, options);
+                await FromDataContractAsync(output?.Result, options);
                 return output;
             }
         }

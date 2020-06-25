@@ -1,5 +1,5 @@
 ﻿@page "/"
-@namespace AdventureWorks.Client.Blazor.Pages
+@using AdventureWorks.Client.Blazor.Common
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
@@ -12,16 +12,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AdventureWorks</title>
     <base href="~/" />
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/page.css" />
-    <link rel="stylesheet" href="css/spa.css" />
-    <link rel="stylesheet" href="css/widgets.css" />
-    <link rel="stylesheet" href="css/xomega.css" />
-    <link rel="stylesheet" href="~/lib/xomega-controls/xomega-controls.css" />
-    <script src="~/lib/xomega-controls/xomega-controls.js"></script>
+    <link rel="stylesheet" href="_content/AdventureWorks.Client.Blazor.Common/css/blazor.css" />
+    <link rel="stylesheet" href="_content/AdventureWorks.Client.Blazor.Common/css/normalize.css" />
+    <link rel="stylesheet" href="_content/AdventureWorks.Client.Blazor.Common/css/page.css" />
+    <link rel="stylesheet" href="_content/AdventureWorks.Client.Blazor.Common/css/spa.css" />
+    <link rel="stylesheet" href="_content/AdventureWorks.Client.Blazor.Common/css/widgets.css" />
+    <link rel="stylesheet" href="_content/AdventureWorks.Client.Blazor.Common/css/xomega.css" />
+    <link rel="stylesheet" href="_content/AdventureWorks.Client.Blazor.Common/lib/xomega-controls/xomega-controls.css" />
+    <script src="_content/AdventureWorks.Client.Blazor.Common/lib/xomega-controls/xomega-controls.js"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <body>

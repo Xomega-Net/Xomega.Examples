@@ -176,7 +176,7 @@ namespace AdventureWorks.Client.Objects
             {
                 var output = await s.ServiceProvider.GetService<ISalesOrderService>().ReadAsync(_salesOrderId);
 
-                FromDataContract(output?.Result, options);
+                await FromDataContractAsync(output?.Result, options);
                 return output;
             }
         }
@@ -188,7 +188,7 @@ namespace AdventureWorks.Client.Objects
             {
                 var output = await s.ServiceProvider.GetService<ISalesOrderService>().CreateAsync(_data);
 
-                FromDataContract(output?.Result, options);
+                await FromDataContractAsync(output?.Result, options);
                 return output;
             }
         }
@@ -201,7 +201,7 @@ namespace AdventureWorks.Client.Objects
             {
                 var output = await s.ServiceProvider.GetService<ISalesOrderService>().UpdateAsync(_salesOrderId, _data);
 
-                FromDataContract(output?.Result, options);
+                await FromDataContractAsync(output?.Result, options);
                 return output;
             }
         }

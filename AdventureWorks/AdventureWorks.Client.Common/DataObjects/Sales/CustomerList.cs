@@ -110,7 +110,7 @@ namespace AdventureWorks.Client.Objects
             {
                 var output = await s.ServiceProvider.GetService<ICustomerService>().ReadListAsync(_criteria);
 
-                FromDataContract(output?.Result, options);
+                await FromDataContractAsync(output?.Result, options);
                 return output;
             }
         }

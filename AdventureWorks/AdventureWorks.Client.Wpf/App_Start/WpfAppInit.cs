@@ -75,6 +75,7 @@ namespace AdventureWorks.Client.Wpf
 #if REST
             string apiBaseAddress = context.Configuration.GetValue<string>("RestAPI:BaseAddress");
             services.AddRestServices(apiBaseAddress);
+            services.AddRestClients();
 #endif
 
             // TODO: configure container with other services as needed

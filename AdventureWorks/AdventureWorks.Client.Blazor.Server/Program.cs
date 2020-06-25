@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace AdventureWorks.Client.Blazor
+namespace AdventureWorks.Client.Blazor.Server
 {
     public class Program
     {

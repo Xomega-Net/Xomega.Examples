@@ -30,9 +30,9 @@ namespace AdventureWorks.Client.Wpf
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            List<FieldCriteriaSetting> criteria = value as List<FieldCriteriaSetting>;
-            if (criteria != null) return FieldCriteriaSetting.ToString(criteria);
-            else return value != null ? value.ToString() : null;
+            if (value is List<FieldCriteriaSetting> criteria)
+                return FieldCriteriaSetting.ToString(criteria);
+            else return value?.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
