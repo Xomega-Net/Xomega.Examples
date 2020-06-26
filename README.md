@@ -3,6 +3,7 @@ Current repository contains examples for building .Net web and desktop apps with
 
 The examples demonstrate working multi-tier applications based on the sample AdventureWorks database in the following technologies:
 - **Blazor Server** application;
+- **Blazor WebAssembly** application;
 - **Single Page Application** in TypeScript with a REST middle tier based on ASP.NET Core
 - **ASP.NET WebForms** application;
 - **WPF Core 2-tier** application;
@@ -26,7 +27,10 @@ You need to make the following updates to be able to run the examples.
 - On the properties of the AdventureWorks.Services.Wcf project select "Don't open a page" option as a Start Action under the Web tab.
 
 ## Running the apps
-* **Blazor Server** - select `AdventureWorks.Client.Blazor` as the startup project and run the solution.
+* **Blazor Server** - select `AdventureWorks.Client.Blazor.Server` as the startup project and run the solution.
+* **Blazor WebAssembly** - open solution properties, and select multiple startup projects as follows, and run the solution.
+  * `AdventureWorks.Client.Blazor.Wasm` with 'Start' action.
+  * `AdventureWorks.Services.Rest` with 'Start' action.
 * **SPA** - open solution properties, and select multiple startup projects as follows, and run the solution.
   * `AdventureWorks.Client.Spa` with 'Start without Debugging' action. (Debugging will be in the browser)
   * `AdventureWorks.Services.Rest` with 'Start' action.
