@@ -1,6 +1,8 @@
 using AdventureWorks.Services;
 using System;
+using System.Linq.Expressions;
 using Xomega.Framework;
+using Xomega.Framework.Properties;
 
 namespace AdventureWorks.Client.Objects
 {
@@ -28,36 +30,39 @@ namespace AdventureWorks.Client.Objects
 
             ProductIdProperty.SetCascadingProperty(Enumerations.Product.Attributes.ProductSubcategoryId, SubcategoryProperty);
             ProductIdProperty.CascadingMatchNulls = true; // blank subcategory will display products with no categories
-            ProductIdProperty.Change += (sender, e) =>
-            {
-                if (e.Change.IncludesValue() && !ProductIdProperty.IsNull())
-                {
-                    UnitPriceProperty.SetValue(ProductIdProperty.Value[Enumerations.Product.Attributes.ListPrice]);
-                    UpdateLineTotal(sender, e);
-                }
-            };
 
             SpecialOfferIdProperty.LocalCacheLoader = new SpecialOfferProductReadListCacheLoader(ServiceProvider);
             SpecialOfferIdProperty.SetCacheLoaderParameters(Enumerations.SpecialOfferProduct.Parameters.ProductId, ProductIdProperty);
-            SpecialOfferIdProperty.Change += (sender, e) =>
-            {
-                if (e.Change.IncludesValue() && !SpecialOfferIdProperty.IsNull())
-                {
-                    UnitPriceDiscountProperty.SetValue(SpecialOfferIdProperty.Value[Enumerations.SpecialOfferProduct.Attributes.Discount]);
-                    UpdateLineTotal(sender, e);
-                }
-            };
-            OrderQtyProperty.Change += UpdateLineTotal;
+
+            // computed property using the entire object
+            Expression<Func<SalesOrderDetailObject, object>> xPrice = sod =>
+                sod.ProductIdProperty.IsNull(null) ? null : sod.ProductIdProperty.Value[Enumerations.Product.Attributes.ListPrice];
+            UnitPriceProperty.SetComputedValue(xPrice, this);
+
+            // computed property using individual property
+            Expression<Func<EnumProperty, object>> xDiscount = spOf =>
+                spOf.IsNull(null) ? null : spOf.Value[Enumerations.SpecialOfferProduct.Attributes.Discount];
+            UnitPriceDiscountProperty.SetComputedValue(xDiscount, SpecialOfferIdProperty);
+
+            // computed visible attribute based on discount value
+            Expression<Func<PercentFractionProperty, bool>> xDiscountVisible = dp => !dp.IsNull(null) && dp.Value > 0;
+            UnitPriceDiscountProperty.SetComputedVisible(xDiscountVisible, UnitPriceDiscountProperty);
+
+            // computed total using a helper function
+            Expression<Func<SalesOrderDetailObject, decimal>> xLineTotal = sod =>
+                GetLineTotal(sod.UnitPriceProperty.Value, sod.UnitPriceDiscountProperty.Value, sod.OrderQtyProperty.Value);
+            LineTotalProperty.SetComputedValue(xLineTotal, this);
         }
+
+        private decimal GetLineTotal(decimal? price, decimal? discount, int? qty) =>
+            (price ?? 0) * (1 - (discount ?? 0)) * (qty ?? 0);
 
         private void UpdateLineTotal(object sender, PropertyChangeEventArgs e)
         {
             if (e.Change.IncludesValue())
             {
-                var price = UnitPriceProperty.Value ?? 0;
-                var qty = OrderQtyProperty.Value ?? 0;
-                var discount = UnitPriceDiscountProperty.Value ?? 0;
-                LineTotalProperty.SetValue(price * (1 - discount) * qty);
+                LineTotalProperty.SetValue(GetLineTotal(UnitPriceProperty.Value,
+                    UnitPriceDiscountProperty.Value, OrderQtyProperty.Value));
             }
         }
     }

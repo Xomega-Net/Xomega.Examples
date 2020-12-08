@@ -765,13 +765,13 @@ If not set then the OutputPath will be used. The path must contain {File} placeh
         If not set then the OutputPath will be used. The path must contain {File} placeholder to output files by view.
       </CustomPath-desc>
       <CustomPath-category>Output</CustomPath-category>
-      <OutputPath-param>../AdventureWorks.Client.Blazor/Views/{Module/}{File}</OutputPath-param>
+      <OutputPath-param>../AdventureWorks.Client.Blazor.Common/Views/{Module/}{File}</OutputPath-param>
       <OutputPath-desc>Path where to output files with generated views. Path must contain {File} placeholder.</OutputPath-desc>
       <OutputPath-category>Output</OutputPath-category>
-      <MenuFile-param>../AdventureWorks.Client.Blazor/Views/MainMenu.cs</MenuFile-param>
+      <MenuFile-param>../AdventureWorks.Client.Blazor.Common/Views/MainMenu.cs</MenuFile-param>
       <MenuFile-desc>Output path for the generated menu structure.</MenuFile-desc>
       <MenuFile-category>Output</MenuFile-category>
-      <Namespace-param>AdventureWorks.Client.Blazor.Views</Namespace-param>
+      <Namespace-param>AdventureWorks.Client.Blazor.Common.Views</Namespace-param>
       <Namespace-desc>Namespace for the generated views.</Namespace-desc>
       <View-param>
       </View-param>

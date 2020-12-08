@@ -1,4 +1,4 @@
-using AdventureWorks.Client.Blazor.Views;
+using AdventureWorks.Client.Blazor.Common.Views;
 using AdventureWorks.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;

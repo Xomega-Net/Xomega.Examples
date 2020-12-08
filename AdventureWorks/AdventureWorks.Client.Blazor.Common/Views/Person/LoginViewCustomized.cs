@@ -1,4 +1,4 @@
-namespace AdventureWorks.Client.Blazor.Views
+namespace AdventureWorks.Client.Blazor.Common.Views
 {
     public partial class LoginView
     {

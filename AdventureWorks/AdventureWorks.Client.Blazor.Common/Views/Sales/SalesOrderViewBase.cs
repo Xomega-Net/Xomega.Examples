@@ -12,7 +12,7 @@ using Xomega.Framework;
 using Xomega.Framework.Blazor.Views;
 using Xomega.Framework.Views;
 
-namespace AdventureWorks.Client.Blazor.Views
+namespace AdventureWorks.Client.Blazor.Common.Views
 {
     public partial class SalesOrderViewBase : BlazorDetailsView
     {
