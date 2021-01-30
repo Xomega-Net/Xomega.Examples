@@ -156,11 +156,6 @@ pkg/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
 # JS resources from external packages
-**/Scripts/*
-**/themes/*
-**/images/*
-xomega-controls.css
-durandal.css
 
 # Windows Azure Build Output
 csx/
@@ -290,9 +285,9 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-!**/Scripts/**/*.js
 **/*.d.ts
 !**/Scripts/typings/**/*.d.ts
 *.map
+!**/Scripts/**/*.map
 /AdventureWorks/AdventureWorks.Client.Spa/**/*.js
 !/AdventureWorks/AdventureWorks.Client.Spa/Scripts/**/*.js
