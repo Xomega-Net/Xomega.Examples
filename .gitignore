@@ -290,10 +290,9 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-**/*.js
 !**/Scripts/**/*.js
 **/*.d.ts
 !**/Scripts/typings/**/*.d.ts
 *.map
-/AdventureWorks/AdventureWorks.Client.Spa/Scripts
-/AdventureWorks/AdventureWorks.Client.Web/Scripts
+/AdventureWorks/AdventureWorks.Client.Spa/**/*.js
+!/AdventureWorks/AdventureWorks.Client.Spa/Scripts/**/*.js
