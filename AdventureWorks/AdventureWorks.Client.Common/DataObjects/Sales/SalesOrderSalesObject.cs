@@ -40,6 +40,10 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
+            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            {
+                EnumType = "sales territory",
+            };
             SalesPersonIdProperty = new EnumIntProperty(this, SalesPersonId)
             {
                 EnumType = "sales person",
@@ -48,10 +52,6 @@ namespace AdventureWorks.Client.Objects
             {
                 IsMultiValued = true,
                 EnumType = "sales reason",
-            };
-            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
-            {
-                EnumType = "sales territory",
             };
         }
 

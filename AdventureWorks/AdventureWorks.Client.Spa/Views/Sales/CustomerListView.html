@@ -55,9 +55,7 @@
                 </caption>
                 <thead>
                   <tr data-bind="with: $root.ListObject">
-                    <th data-bind="sortby: StoreId">Store Id</th>
                     <th data-bind="sortby: StoreName">Store Name</th>
-                    <th data-bind="sortby: PersonId">Person Id</th>
                     <th data-bind="sortby: PersonName">Person Name</th>
                     <th data-bind="sortby: AccountNumber">Account Number</th>
                     <th data-bind="sortby: TerritoryId">Territory Id</th>
@@ -65,9 +63,7 @@
                 </thead>
                 <tbody data-bind="foreach: pagedItems">
                   <tr data-bind="css: { selected: _selected }, click: toggleSelection">
-                    <td><span data-bind="property: List.StoreId"></span></td>
                     <td><span data-bind="property: List.StoreName"></span></td>
-                    <td><span data-bind="property: List.PersonId"></span></td>
                     <td><span data-bind="property: List.PersonName"></span></td>
                     <td><span data-bind="property: List.AccountNumber"></span></td>
                     <td><span data-bind="property: List.TerritoryId"></span></td>

@@ -27,8 +27,10 @@ export class SalesOrderList extends DataListObject {
     // Construction and initialization
     init() {
         this.CustomerName = new TextProperty();
+        this.CustomerName.Size = 50;
         this.CustomerName.Editable(false);
         this.CustomerStore = new TextProperty();
+        this.CustomerStore.Size = 50;
         this.CustomerStore.Editable(false);
         this.DueDate = new DateProperty();
         this.DueDate.Required(true);

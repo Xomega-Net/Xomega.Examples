@@ -341,6 +341,12 @@
       <TypeScriptCompile Include="CacheLoaders\SpecialOfferProductReadListCacheLoader.ts">
          <AutoGen>True</AutoGen>
       </TypeScriptCompile>
+      <TypeScriptCompile Include="Views\Sales\SalesOrderListViewCustomized.ts">
+         <DependentUpon>SalesOrderListView.html</DependentUpon>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="DataObjects\Sales\SalesOrderDetailListCustomized.ts">
+         <DependentUpon>SalesOrderDetailList.ts</DependentUpon>
+      </TypeScriptCompile>
    </ItemGroup>
    <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets"/>
    <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets"/>

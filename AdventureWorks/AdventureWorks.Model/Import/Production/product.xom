@@ -10,6 +10,9 @@
         name="production">
   <types>
     <type name="product" base="integer enumeration">
+      <config>
+        <ui:display-config typical-length="30"/>
+      </config>
       <enum ref="product"/>
     </type>
   </types>

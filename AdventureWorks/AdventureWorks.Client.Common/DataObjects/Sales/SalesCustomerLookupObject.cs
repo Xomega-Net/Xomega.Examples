@@ -26,6 +26,12 @@ namespace AdventureWorks.Client.Objects
 
         #endregion
 
+        #region Actions
+
+        public ActionProperty LookUpAction { get; private set; }
+
+        #endregion
+
         #region Construction
 
         public SalesCustomerLookupObject()
@@ -38,12 +44,13 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            PersonNameProperty = new TextProperty(this, PersonName)
-            {
-            };
             StoreNameProperty = new TextProperty(this, StoreName)
             {
             };
+            PersonNameProperty = new TextProperty(this, PersonName)
+            {
+            };
+          LookUpAction = new ActionProperty(this, "LookUp");
         }
 
         #endregion

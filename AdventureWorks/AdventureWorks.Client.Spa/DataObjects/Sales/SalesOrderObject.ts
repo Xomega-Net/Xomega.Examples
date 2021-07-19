@@ -5,7 +5,7 @@
 //---------------------------------------------------------------------------------------------
 
 import { SalesOrderCustomerObject } from 'DataObjects/Sales/SalesOrderCustomerObjectCustomized';
-import { SalesOrderDetailList } from 'DataObjects/Sales/SalesOrderDetailList';
+import { SalesOrderDetailList } from 'DataObjects/Sales/SalesOrderDetailListCustomized';
 import { SalesOrderPaymentObject } from 'DataObjects/Sales/SalesOrderPaymentObject';
 import { SalesOrderSalesObject } from 'DataObjects/Sales/SalesOrderSalesObjectCustomized';
 import { ISalesOrderService, SalesOrder_CreateInput, SalesOrder_UpdateInput_Data } from 'ServiceContracts/Sales/ISalesOrderService';

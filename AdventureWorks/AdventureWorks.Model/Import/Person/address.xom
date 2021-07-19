@@ -124,12 +124,14 @@
   <xfk:data-objects>
     <xfk:data-object class="AddressObject" customize="true">
       <ui:display>
-        <ui:field param="address id" label="Address Type" is-trigger="true"/>
-        <ui:field param="address line1" editable="false"/>
-        <ui:field param="address line2" editable="false"/>
-        <ui:field param="city state" editable="false" label="City/State"/>
-        <ui:field param="postal code" editable="false"/>
-        <ui:field param="country" editable="false"/>
+        <ui:fields field-cols="3" field-width="100">
+          <ui:field param="address id" label="Address Type" is-trigger="true"/>
+          <ui:field param="address line1" editable="false"/>
+          <ui:field param="address line2" editable="false"/>
+          <ui:field param="city state" editable="false" label="City/State"/>
+          <ui:field param="postal code" editable="false"/>
+          <ui:field param="country" editable="false"/>
+        </ui:fields>
       </ui:display>
     </xfk:data-object>
   </xfk:data-objects>

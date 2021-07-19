@@ -9,7 +9,7 @@ require.config({
         'LoginView': 'Views/Person/LoginViewCustomized',
         'CustomerListView': 'Views/Sales/CustomerListView',
         'SalesOrderView': 'Views/Sales/SalesOrderViewCustomized',
-        'SalesOrderListView': 'Views/Sales/SalesOrderListView',
+        'SalesOrderListView': 'Views/Sales/SalesOrderListViewCustomized',
         'SalesOrderDetailView': 'Views/Sales/SalesOrderDetailView',
     }
 });

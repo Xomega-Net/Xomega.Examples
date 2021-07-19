@@ -78,47 +78,7 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            CustomerNameProperty = new TextProperty(this, CustomerName)
-            {
-            };
-            CustomerNameOperatorProperty = new OperatorProperty(this, CustomerNameOperator)
-            {
-                Size = 25,
-                EnumType = "operators",
-                HasNullCheck = true,
-            };
-            CustomerStoreProperty = new TextProperty(this, CustomerStore)
-            {
-            };
-            CustomerStoreOperatorProperty = new OperatorProperty(this, CustomerStoreOperator)
-            {
-                Size = 25,
-                EnumType = "operators",
-                HasNullCheck = true,
-            };
-            DueDateProperty = new DateProperty(this, DueDate)
-            {
-            };
-            DueDate2Property = new DateProperty(this, DueDate2)
-            {
-            };
-            DueDateOperatorProperty = new OperatorProperty(this, DueDateOperator)
-            {
-                Size = 25,
-                EnumType = "operators",
-            };
-            GlobalRegionProperty = new EnumProperty(this, GlobalRegion)
-            {
-                Size = 50,
-                EnumType = "sales territory group",
-            };
-            OrderDateProperty = new DateProperty(this, OrderDate)
-            {
-            };
-            OrderDate2Property = new DateProperty(this, OrderDate2)
-            {
-            };
-            OrderDateOperatorProperty = new OperatorProperty(this, OrderDateOperator)
+            SalesOrderNumberOperatorProperty = new OperatorProperty(this, SalesOrderNumberOperator)
             {
                 Size = 25,
                 EnumType = "operators",
@@ -127,41 +87,42 @@ namespace AdventureWorks.Client.Objects
             {
                 Size = 25,
             };
-            SalesOrderNumberOperatorProperty = new OperatorProperty(this, SalesOrderNumberOperator)
+            StatusOperatorProperty = new OperatorProperty(this, StatusOperator)
             {
                 Size = 25,
                 EnumType = "operators",
-            };
-            SalesPersonIdProperty = new EnumIntProperty(this, SalesPersonId)
-            {
-                IsMultiValued = true,
-                EnumType = "sales person",
-            };
-            SalesPersonIdOperatorProperty = new OperatorProperty(this, SalesPersonIdOperator)
-            {
-                Size = 25,
-                EnumType = "operators",
-                HasNullCheck = true,
             };
             StatusProperty = new EnumByteProperty(this, Status)
             {
                 IsMultiValued = true,
                 EnumType = "sales order status",
             };
-            StatusOperatorProperty = new OperatorProperty(this, StatusOperator)
+            OrderDateOperatorProperty = new OperatorProperty(this, OrderDateOperator)
             {
                 Size = 25,
                 EnumType = "operators",
             };
-            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            OrderDateProperty = new DateProperty(this, OrderDate)
             {
-                EnumType = "sales territory",
             };
-            TerritoryIdOperatorProperty = new OperatorProperty(this, TerritoryIdOperator)
+            OrderDate2Property = new DateProperty(this, OrderDate2)
+            {
+            };
+            DueDateOperatorProperty = new OperatorProperty(this, DueDateOperator)
             {
                 Size = 25,
                 EnumType = "operators",
-                HasNullCheck = true,
+            };
+            DueDateProperty = new DateProperty(this, DueDate)
+            {
+            };
+            DueDate2Property = new DateProperty(this, DueDate2)
+            {
+            };
+            TotalDueOperatorProperty = new OperatorProperty(this, TotalDueOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
             };
             TotalDueProperty = new MoneyProperty(this, TotalDue)
             {
@@ -169,10 +130,49 @@ namespace AdventureWorks.Client.Objects
             TotalDue2Property = new MoneyProperty(this, TotalDue2)
             {
             };
-            TotalDueOperatorProperty = new OperatorProperty(this, TotalDueOperator)
+            CustomerStoreOperatorProperty = new OperatorProperty(this, CustomerStoreOperator)
             {
                 Size = 25,
                 EnumType = "operators",
+                HasNullCheck = true,
+            };
+            CustomerStoreProperty = new TextProperty(this, CustomerStore)
+            {
+            };
+            CustomerNameOperatorProperty = new OperatorProperty(this, CustomerNameOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+                HasNullCheck = true,
+            };
+            CustomerNameProperty = new TextProperty(this, CustomerName)
+            {
+            };
+            GlobalRegionProperty = new EnumProperty(this, GlobalRegion)
+            {
+                Size = 50,
+                EnumType = "sales territory group",
+            };
+            TerritoryIdOperatorProperty = new OperatorProperty(this, TerritoryIdOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+                HasNullCheck = true,
+            };
+            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            {
+                EnumType = "sales territory",
+            };
+            SalesPersonIdOperatorProperty = new OperatorProperty(this, SalesPersonIdOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+                HasNullCheck = true,
+            };
+            SalesPersonIdProperty = new EnumIntProperty(this, SalesPersonId)
+            {
+                IsMultiValued = true,
+                EnumType = "sales person",
             };
         }
 

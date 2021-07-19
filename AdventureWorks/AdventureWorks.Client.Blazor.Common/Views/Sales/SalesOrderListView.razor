@@ -11,221 +11,140 @@
 
 @if (Visible)
 {
-<div @ref="MainPanel"
-     class="view-composition">
-  <div>
-    <div class="view with-footer" data-width="1760" data-height="860">
-      <div class="view-header"><span class="view-title">
-          <ViewTitle @ref="TitleComponent" Title="@Model?.ViewTitle"></ViewTitle></span></div>
-      <div class="view-body">
-        <div class="content indented">
-          <Panel Title="Criteria" @bind-Collapsed="@CriteriaCollapsed">
-            <div class="xw-obj">
-              <table class="xw-fieldset-layout">
-                <tr>
-                  <td class="fieldColumn" style="width: 50%">
-                    <div class="field">
-                      <XLabel Property="@VM?.CritObj?.SalesOrderNumberOperatorProperty"
-                              Text="Sales Order Number:"
-                              class="label"></XLabel>
-                      <XSelect
-                               Property="@VM?.CritObj?.SalesOrderNumberOperatorProperty"
-                               class="operator"></XSelect>
-                      <XInputText
-                                  Property="@VM?.CritObj?.SalesOrderNumberProperty"></XInputText>
-                    </div>
-                    <div class="field">
-                      <XLabel Property="@VM?.CritObj?.StatusOperatorProperty" Text="Status:"
-                              class="label"></XLabel>
-                      <XSelect
-                               Property="@VM?.CritObj?.StatusOperatorProperty"
-                               class="operator"></XSelect>
-                      <XInputText Property="@VM?.CritObj?.StatusProperty"></XInputText>
-                    </div>
-                    <div class="field">
-                      <XLabel Property="@VM?.CritObj?.OrderDateOperatorProperty" Text="Order Date:"
-                              class="label"></XLabel>
-                      <XSelect
-                               Property="@VM?.CritObj?.OrderDateOperatorProperty"
-                               class="operator"></XSelect>
-                      <XInputText Property="@VM?.CritObj?.OrderDateProperty"
-                                  class="date"></XInputText>
-                      <XInputText Property="@VM?.CritObj?.OrderDate2Property"
-                                  class="date"></XInputText>
-                    </div>
-                    <div class="field">
-                      <XLabel Property="@VM?.CritObj?.DueDateOperatorProperty" Text="Due Date:"
-                              class="label"></XLabel>
-                      <XSelect
-                               Property="@VM?.CritObj?.DueDateOperatorProperty"
-                               class="operator"></XSelect>
-                      <XInputText Property="@VM?.CritObj?.DueDateProperty"
-                                  class="date"></XInputText>
-                      <XInputText Property="@VM?.CritObj?.DueDate2Property"
-                                  class="date"></XInputText>
-                    </div>
-                    <div class="field">
-                      <XLabel Property="@VM?.CritObj?.TotalDueOperatorProperty" Text="Total Due:"
-                              class="label"></XLabel>
-                      <XSelect
-                               Property="@VM?.CritObj?.TotalDueOperatorProperty"
-                               class="operator"></XSelect>
-                      <XInputText Property="@VM?.CritObj?.TotalDueProperty"
-                                  class="decimal"></XInputText>
-                      <XInputText Property="@VM?.CritObj?.TotalDue2Property"
-                                  class="decimal"></XInputText>
-                    </div>
-                  </td>
-                  <td class="fieldColumn" style="width: 50%">
-                    <div class="field">
-                      <XLabel Property="@VM?.CritObj?.CustomerStoreOperatorProperty"
-                              Text="Customer Store:"
-                              class="label"></XLabel>
-                      <XSelect
-                               Property="@VM?.CritObj?.CustomerStoreOperatorProperty"
-                               class="operator"></XSelect>
-                      <XInputText
-                                  Property="@VM?.CritObj?.CustomerStoreProperty"></XInputText>
-                    </div>
-                    <div class="field">
-                      <XLabel Property="@VM?.CritObj?.CustomerNameOperatorProperty"
-                              Text="Customer Name:"
-                              class="label"></XLabel>
-                      <XSelect
-                               Property="@VM?.CritObj?.CustomerNameOperatorProperty"
-                               class="operator"></XSelect>
-                      <XInputText
-                                  Property="@VM?.CritObj?.CustomerNameProperty"></XInputText>
-                    </div>
-                    <div class="field">
-                      <XLabel Property="@VM?.CritObj?.GlobalRegionProperty" Text="Global Region:"
-                              class="label"></XLabel>
-                      <XSelect
-                               Property="@VM?.CritObj?.GlobalRegionProperty"></XSelect>
-                    </div>
-                    <div class="field">
-                      <XLabel Property="@VM?.CritObj?.TerritoryIdOperatorProperty"
-                              Text="Sales Territory:"
-                              class="label"></XLabel>
-                      <XSelect
-                               Property="@VM?.CritObj?.TerritoryIdOperatorProperty"
-                               class="operator"></XSelect>
-                      <XSelect
-                               Property="@VM?.CritObj?.TerritoryIdProperty"></XSelect>
-                    </div>
-                    <div class="field">
-                      <XLabel Property="@VM?.CritObj?.SalesPersonIdOperatorProperty"
-                              Text="Sales Person:"
-                              class="label"></XLabel>
-                      <XSelect
-                               Property="@VM?.CritObj?.SalesPersonIdOperatorProperty"
-                               class="operator"></XSelect>
-                      <XSelect
-                               Property="@VM?.CritObj?.SalesPersonIdProperty"></XSelect>
-                    </div>
-                  </td>
-                </tr>
-              </table>
+<div @ref="MainPanel" class="@UpperClass">
+  <div class="@MiddleClass">
+    <div class="d-flex">
+      <div class="@GetViewCol(null) @LowerClass">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <ViewTitle @ref="TitleComponent" Title="@Model?.ViewTitle"></ViewTitle>
+          </h5>
+          <XActionButton Class="btn-close" NoText="true" OnClick="OnCloseAsync"
+                         Action="@VM?.CloseAction"></XActionButton>
+        </div>
+        <div class="modal-body row g-0">
+          <div class="col-auto g-0 d-flex">
+            <Panel Class="me-3" Title="@CriteriaText" @bind-Collapsed="CriteriaCollapsed">
+              <div>
+                <XActionButton Action="VM?.List?.ResetAction" OnClick="OnResetAsync"></XActionButton>
+                <XActionButton Action="VM?.List?.SearchAction" OnClick="OnSearchAsync"
+                               IsPrimary="true"
+                               Class="float-end"></XActionButton>
+              </div>
+              <div class="row">
+                <XSelect Class="mt-3 col" Property="@VM?.CritObj?.SalesOrderNumberOperatorProperty"></XSelect>
+              </div>
+              <div class="row gx-2">
+                <XInputText Class="mt-2 col" ShowLabel="false"
+                            Property="@VM?.CritObj?.SalesOrderNumberProperty"></XInputText>
+              </div>
+              <div class="row">
+                <XSelect Class="mt-3 col" Property="@VM?.CritObj?.StatusOperatorProperty"></XSelect>
+              </div>
+              <div class="row gx-2">
+                <XAutoComplete Class="mt-2 col" ShowLabel="false" Property="@VM?.CritObj?.StatusProperty"></XAutoComplete>
+              </div>
+              <div class="row">
+                <XSelect Class="mt-3 col" Property="@VM?.CritObj?.OrderDateOperatorProperty"></XSelect>
+              </div>
+              <div class="row gx-2">
+                <XDatePicker Class="mt-2 col" ShowLabel="false" Property="@VM?.CritObj?.OrderDateProperty"></XDatePicker>
+                <XDatePicker Class="mt-2 col" ShowLabel="false" Property="@VM?.CritObj?.OrderDate2Property"></XDatePicker>
+              </div>
+              <div class="row">
+                <XSelect Class="mt-3 col" Property="@VM?.CritObj?.DueDateOperatorProperty"></XSelect>
+              </div>
+              <div class="row gx-2">
+                <XDatePicker Class="mt-2 col" ShowLabel="false" Property="@VM?.CritObj?.DueDateProperty"></XDatePicker>
+                <XDatePicker Class="mt-2 col" ShowLabel="false" Property="@VM?.CritObj?.DueDate2Property"></XDatePicker>
+              </div>
+              <div class="row">
+                <XSelect Class="mt-3 col" Property="@VM?.CritObj?.TotalDueOperatorProperty"></XSelect>
+              </div>
+              <div class="row gx-2">
+                <XNumericBox Class="mt-2 col" ShowLabel="false" Property="@VM?.CritObj?.TotalDueProperty"></XNumericBox>
+                <XNumericBox Class="mt-2 col" ShowLabel="false" Property="@VM?.CritObj?.TotalDue2Property"></XNumericBox>
+              </div>
+              <div class="row">
+                <XSelect Class="mt-3 col" Property="@VM?.CritObj?.CustomerStoreOperatorProperty"></XSelect>
+              </div>
+              <div class="row gx-2">
+                <XInputText Class="mt-2 col" ShowLabel="false"
+                            Property="@VM?.CritObj?.CustomerStoreProperty"></XInputText>
+              </div>
+              <div class="row">
+                <XSelect Class="mt-3 col" Property="@VM?.CritObj?.CustomerNameOperatorProperty"></XSelect>
+              </div>
+              <div class="row gx-2">
+                <XInputText Class="mt-2 col" ShowLabel="false"
+                            Property="@VM?.CritObj?.CustomerNameProperty"></XInputText>
+              </div>
+              <div class="row">
+                <XSelect Class="mt-3 col" Property="@VM?.CritObj?.GlobalRegionProperty"></XSelect>
+              </div>
+              <div class="row">
+                <XSelect Class="mt-3 col" Property="@VM?.CritObj?.TerritoryIdOperatorProperty"></XSelect>
+              </div>
+              <div class="row gx-2">
+                <XSelect Class="mt-2 col" ShowLabel="false" Property="@VM?.CritObj?.TerritoryIdProperty"></XSelect>
+              </div>
+              <div class="row">
+                <XSelect Class="mt-3 col" Property="@VM?.CritObj?.SalesPersonIdOperatorProperty"></XSelect>
+              </div>
+              <div class="row gx-2">
+                <XSelect Class="mt-2 col" ShowLabel="false"
+                         Property="@VM?.CritObj?.SalesPersonIdProperty"></XSelect>
+              </div>
+            </Panel>
+          </div>
+          <div class="col">
+            <Errors Class="mb-3" ErrorList="@Model?.Errors" ViewKey="@Model?.GetResourceKey()"></Errors>
+            <CriteriaBar @bind-CriteriaCollapsed="@CriteriaCollapsed"
+                         AppliedCriteria="@ListObject?.AppliedCriteria"
+                         Title="@CriteriaText"
+                         OnRefresh="@OnRefreshAsync"></CriteriaBar>
+            <XGrid List="@VM?.ListObj" ResourceKey="@Model?.GetResourceKey()"
+                   @bind-CurrentPage="CurrentPage"
+                   AllowSelection="true"
+                   RowSelected="async (arg) => await LinkDetails_ClickAsync(arg)">
+              <GridColumns>
+                <XGridColumn Property="@VM?.ListObj?.SalesOrderNumberProperty" Width="5%">
+                  <Template>
+                    <a role="button"
+                       @onclick="async () => await LinkDetails_ClickAsync(context as DataRow)"
+                       class="btn-link @(DisabledIfNot(VM?.LinkDetails_Enabled(context as DataRow)))">
+                      <XDataText Property="@VM?.ListObj?.SalesOrderNumberProperty"></XDataText>
+                    </a>
+                  </Template>
+                </XGridColumn>
+                <XGridColumn Property="@VM?.ListObj?.StatusProperty" Width="7%"></XGridColumn>
+                <XGridColumn Property="@VM?.ListObj?.OrderDateProperty" Width="7%"></XGridColumn>
+                <XGridColumn Property="@VM?.ListObj?.ShipDateProperty" Width="7%"></XGridColumn>
+                <XGridColumn Property="@VM?.ListObj?.DueDateProperty" Width="7%"></XGridColumn>
+                <XGridColumn Property="@VM?.ListObj?.TotalDueProperty" Width="8%"></XGridColumn>
+                <XGridColumn Property="@VM?.ListObj?.OnlineOrderFlagProperty" Width="4%"
+                             TextAlign="Alignment.Center"></XGridColumn>
+                <XGridColumn Property="@VM?.ListObj?.CustomerStoreProperty" Width="17%"></XGridColumn>
+                <XGridColumn Property="@VM?.ListObj?.CustomerNameProperty" Width="17%"></XGridColumn>
+                <XGridColumn Property="@VM?.ListObj?.SalesPersonIdProperty" Width="14%"></XGridColumn>
+                <XGridColumn Property="@VM?.ListObj?.TerritoryIdProperty" Width="7%"></XGridColumn>
+              </GridColumns>
+            </XGrid>
+            <div class="btn-group mt-3">
+              <XActionButton Action="@VM?.ListObj?.NewAction"
+                             OnClick="async () => await LinkNew_ClickAsync()"
+                             Outline="true"></XActionButton>
             </div>
-          </Panel>
-          <Errors ErrorList="@Model?.Errors"></Errors>
-          <div class="action-bar">
-            <input type="button" value="@SearchText" class="btn-search"
-                   @onclick="@OnSearchAsync" />
-            <input type="button" value="@ResetText" class="btn-reset" @onclick="@OnResetAsync" />
-            <a class="permalink" href="javascript: void(0)" @onclick="@OnPermaLinkAsync">@PermaLinkText</a></div>
-          <Pager ItemsCount="@(ListObject?.GetData()?.Count() ?? 0)"
-                 @bind-CurrentPage="@CurrentPage"
-                 @bind-PageSize="@CurrentPageSize">
-            <div style="overflow: auto">
-              <table class="grid @SelectableClass(VM?.ListObj)">
-                <caption>
-                  <Criteria AppliedCriteria="@ListObject?.AppliedCriteria"
-                            AppliedCriteriaText="@ListObject?.GetAppliedCriteriaText()"></Criteria>
-                </caption>
-                <thead>
-                  <tr>
-                    <ColumnHeader Property="@VM?.ListObj?.SalesOrderNumberProperty" Text="Sales Order Number"></ColumnHeader>
-                    <ColumnHeader Property="@VM?.ListObj?.StatusProperty" Text="Status"></ColumnHeader>
-                    <ColumnHeader Property="@VM?.ListObj?.OrderDateProperty" Text="Order Date"></ColumnHeader>
-                    <ColumnHeader Property="@VM?.ListObj?.ShipDateProperty" Text="Ship Date"></ColumnHeader>
-                    <ColumnHeader Property="@VM?.ListObj?.DueDateProperty" Text="Due Date"></ColumnHeader>
-                    <ColumnHeader Property="@VM?.ListObj?.TotalDueProperty" Text="Total Due"></ColumnHeader>
-                    <ColumnHeader Property="@VM?.ListObj?.OnlineOrderFlagProperty" Text="Online"></ColumnHeader>
-                    <ColumnHeader Property="@VM?.ListObj?.CustomerStoreProperty" Text="Customer Store"></ColumnHeader>
-                    <ColumnHeader Property="@VM?.ListObj?.CustomerNameProperty" Text="Customer Name"></ColumnHeader>
-                    <ColumnHeader Property="@VM?.ListObj?.SalesPersonIdProperty" Text="Sales Person"></ColumnHeader>
-                    <ColumnHeader Property="@VM?.ListObj?.TerritoryIdProperty" Text="Sales Territory"></ColumnHeader>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach (var idx in context)
-                  {
-                  var row = VM?.ListObj.GetData()[idx];
-                  
-                  <CascadingValue Value="row">
-                    <tr class="@SelectedClass(VM?.ListObj, row)"
-                        @onclick="@(() => RowClicked(VM?.ListObj, row))">
-                      <td><a href="javascript: void(0)" @onclick="() => LinkDetails_ClickAsync(row)"
-                           class="@LinkDetails_Disabled(row)">
-                          <XDataLabel Property="@VM?.ListObj?.SalesOrderNumberProperty"></XDataLabel></a></td>
-                      <td>
-                        <XDataLabel Property="@VM?.ListObj?.StatusProperty"></XDataLabel>
-                      </td>
-                      <td>
-                        <XDataLabel Property="@VM?.ListObj?.OrderDateProperty"></XDataLabel>
-                      </td>
-                      <td>
-                        <XDataLabel Property="@VM?.ListObj?.ShipDateProperty"></XDataLabel>
-                      </td>
-                      <td>
-                        <XDataLabel Property="@VM?.ListObj?.DueDateProperty"></XDataLabel>
-                      </td>
-                      <td>
-                        <XDataLabel Property="@VM?.ListObj?.TotalDueProperty"></XDataLabel>
-                      </td>
-                      <td>
-                        <XDataLabel Property="@VM?.ListObj?.OnlineOrderFlagProperty"></XDataLabel>
-                      </td>
-                      <td>
-                        <XDataLabel Property="@VM?.ListObj?.CustomerStoreProperty"></XDataLabel>
-                      </td>
-                      <td>
-                        <XDataLabel Property="@VM?.ListObj?.CustomerNameProperty"></XDataLabel>
-                      </td>
-                      <td>
-                        <XDataLabel Property="@VM?.ListObj?.SalesPersonIdProperty"></XDataLabel>
-                      </td>
-                      <td>
-                        <XDataLabel Property="@VM?.ListObj?.TerritoryIdProperty"></XDataLabel>
-                      </td>
-                    </tr>
-                  </CascadingValue>
-                  }
-                </tbody>
-              </table>
-            </div>
-          </Pager>
-          <div class="action-bar">
-            <a href="javascript: void(0)" @onclick="() => LinkNew_ClickAsync()"
-               class="@LinkNew_Disabled()">New</a></div>
+          </div>
+        </div>
+        <div class="@FooterClass">
+          <XActionButton Action="@VM?.List?.SelectAction" OnClick="OnSelectAsync"
+                         IsPrimary="true"></XActionButton>
+          <XActionButton Action="@VM?.CloseAction" OnClick="OnCloseAsync"></XActionButton>
         </div>
       </div>
-      <div class="view-footer action-bar">
-        @if (SelectVisible)
-        {
-        <input type="button" value="@SelectText" class="btn-select"
-               @onclick="@OnSelectAsync" />
-        }
-        @if (CloseVisible)
-        {
-        <input type="button" value="@CloseText" class="btn-close" @onclick="@OnCloseAsync" />
-        }
-      </div>
+      <SalesOrderView @ref="cvSalesOrderView" Class="@GetViewCol(cvSalesOrderView)"></SalesOrderView>
     </div>
-  </div>
-  <div>
-    <SalesOrderView @ref="cvSalesOrderView" Visible="false"></SalesOrderView>
   </div>
 </div>
 }

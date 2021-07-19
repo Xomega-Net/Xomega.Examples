@@ -35,7 +35,7 @@
     <Expander Grid.Row="1" Name="pnlCriteria" Header="Criteria" IsExpanded="True"
               xom:Data.ObjectBinding=""
               Margin="10,5,10,0">
-      <Grid xmlns:clr="http://www.xomega.net/clr">
+      <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
@@ -175,7 +175,7 @@
       <ListView.View>
         <GridView>
           <GridView.Columns>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Sales Order Number">
+            <GridViewColumn Header="SO#">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock>
@@ -187,70 +187,70 @@
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Status">
+            <GridViewColumn Header="Status">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.Status}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Order Date">
+            <GridViewColumn Header="Order Date">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.OrderDate}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Ship Date">
+            <GridViewColumn Header="Ship Date">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.ShipDate}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Due Date">
+            <GridViewColumn Header="Due Date">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.DueDate}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Total Due">
+            <GridViewColumn Header="Total Due">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.TotalDue}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Online">
+            <GridViewColumn Header="Online">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.OnlineOrderFlag}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Customer Store">
+            <GridViewColumn Header="Customer Store">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.CustomerStore}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Customer Name">
+            <GridViewColumn Header="Customer Name">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.CustomerName}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Sales Person">
+            <GridViewColumn Header="Sales Person">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.SalesPersonId}"/>
                 </DataTemplate>
               </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Sales Territory">
+            <GridViewColumn Header="Sales Territory">
               <GridViewColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock xom:Property.Name="{x:Static o:SalesOrderList.TerritoryId}"/>
@@ -262,7 +262,7 @@
       </ListView.View>
     </ListView>
     <DockPanel Grid.Row="6" VerticalAlignment="Top" Margin="10">
-      <TextBlock xmlns:clr="http://www.xomega.net/clr">
+      <TextBlock>
         <Hyperlink Name="LinkNew"
                    Command="{Binding Path=LinkNew_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}">New</Hyperlink>
       </TextBlock>

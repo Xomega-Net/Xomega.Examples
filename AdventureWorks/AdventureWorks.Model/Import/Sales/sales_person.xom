@@ -37,6 +37,13 @@
         <ui:blazor-control multi-value="true">
           <XSelect />
         </ui:blazor-control>
+        <ui:sf-blazor-control>
+          <XSfDropDownList />
+        </ui:sf-blazor-control>
+        <ui:sf-blazor-control multi-value="true">
+          <XSfMultiSelect />
+        </ui:sf-blazor-control>
+        <ui:display-config typical-length="20"/>
       </config>
       <enum ref="sales person"/>
     </type>
@@ -119,7 +126,7 @@
           <output list="true">
             <param name="business entity id"/>
             <param name="territory id"/>
-            <param name="name" type="string"/>
+            <param name="name" type="person full name"/>
             <param name="is current" type="boolean" required="true"/>
           </output>
           <config>

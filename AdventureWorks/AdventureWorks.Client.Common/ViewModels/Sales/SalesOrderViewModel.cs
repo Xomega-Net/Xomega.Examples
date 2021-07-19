@@ -29,8 +29,6 @@ namespace AdventureWorks.Client.ViewModels
             base.Initialize();
             DetailsObject = ServiceProvider.GetService<SalesOrderObject>();
         }
-        
-        public override string BaseTitle => GetString("Sales Order");
 
         #region Link LinkCustomerLookupLookUp
 

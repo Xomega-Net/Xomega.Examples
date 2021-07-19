@@ -11,6 +11,11 @@
   <types>
     <type name="sales order detail" base="integer key"/>
     <type name="sales order" base="integer key"/>
+    <type name="sales order number" base="string" size="25">
+      <config>
+        <ui:display-config typical-length="8"/>
+      </config>
+    </type>
     <type name="sales order reason" base="sales reason"/>
     <type name="sales order status" base="tiny int enumeration">
       <config>
@@ -21,7 +26,7 @@
           <input xmlns="http://www.w3.org/1999/xhtml"/>
         </ui:html-control>
         <ui:blazor-control multi-value="true">
-          <XInputText />
+          <XAutoComplete/>
         </ui:blazor-control>
       </config>
       <enum ref="sales order status"/>
@@ -188,7 +193,7 @@
             <summary>0 = Order placed by sales person. 1 = Order placed online by customer.</summary>
           </doc>
         </field>
-        <field name="sales order number" type="string25" required="true">
+        <field name="sales order number" type="sales order number" required="true">
           <config>
             <sql:column name="SalesOrderNumber"
                         computed="(isnull(N'SO'+CONVERT([nvarchar](23),[SalesOrderID]),N'*** ERROR ***'))"/>
@@ -543,8 +548,8 @@
             <param name="due date" type="date"/>
             <param name="total due"/>
             <param name="online order flag" type="yesno" required="true"/>
-            <param name="customer store" type="string"/>
-            <param name="customer name" type="string"/>
+            <param name="customer store" type="store name"/>
+            <param name="customer name" type="person full name"/>
             <param name="sales person id"/>
             <param name="territory id"/>
             <config>
@@ -587,7 +592,7 @@
                 <summary>Shipment tracking number supplied by the shipper.</summary>
               </doc>
             </field>
-            <field name="order qty" type="small int" required="true">
+            <field name="order qty" type="positive small int" required="true">
               <config>
                 <sql:column name="OrderQty"/>
               </config>
@@ -800,9 +805,11 @@
   <xfk:data-objects>
     <xfk:data-object class="CreditCardPaymentObject" customize="true">
       <ui:display>
-        <ui:field param="credit card id" label="Credit Card" is-trigger="true"/>
-        <ui:field param="card number" editable="false"/>
-        <ui:field param="expiration" editable="false"/>
+        <ui:fields>
+          <ui:field param="credit card id" label="Credit Card" is-trigger="true"/>
+          <ui:field param="card number" editable="false"/>
+          <ui:field param="expiration" editable="false"/>
+        </ui:fields>
       </ui:display>
     </xfk:data-object>
     <xfk:data-object class="SalesOrderObject" customize="true">
@@ -811,44 +818,70 @@
       <xfk:add-child name="payment" class="SalesOrderPaymentObject"/>
       <xfk:add-child name="sales" class="SalesOrderSalesObject"/>
       <ui:display>
-        <ui:field param="sales order id" hidden="true"/>
+        <ui:fields field-cols="6" panel-cols="1" title="Order Info">
+          <ui:field param="sales order id" hidden="true"/>
+        </ui:fields>
+        <ui:tabs>
+          <ui:tab child="detail" title="Line Items"/>
+        </ui:tabs>
       </ui:display>
     </xfk:data-object>
     <xfk:data-object class="SalesOrderCriteria" customize="true">
       <ui:display>
-        <ui:field param="sales person id" label="Sales Person"/>
-        <ui:field param="territory id" label="Sales Territory" is-trigger="true"/>
-        <ui:field param="global region" is-trigger="true"/>
+        <ui:fields>
+          <ui:field param="sales person id" label="Sales Person"/>
+          <ui:field param="territory id" label="Sales Territory" is-trigger="true"/>
+          <ui:field param="global region" is-trigger="true"/>
+        </ui:fields>
       </ui:display>
     </xfk:data-object>
     <xfk:data-object class="SalesOrderList" list="true">
       <ui:display>
-        <ui:field param="sales order id" hidden="true"/>
-        <ui:field param="online order flag" label="Online"/>
-        <ui:field param="sales person id" label="Sales Person"/>
-        <ui:field param="territory id" label="Sales Territory"/>
+        <ui:fields>
+          <ui:field param="sales order id" hidden="true"/>
+          <ui:field param="sales order number" label="SO#"/>
+          <ui:field param="online order flag" label="Online"/>
+          <ui:field param="sales person id" label="Sales Person"/>
+          <ui:field param="territory id" label="Sales Territory"/>
+        </ui:fields>
       </ui:display>
-      <ui:link name="details" view="SalesOrderView" child="true">
+      <ui:link name="details" view="SalesOrderView" child="true" mode="inline">
         <ui:params>
           <ui:param name="sales order id" field="sales order id"/>
         </ui:params>
-        <ui:display on-field="sales order number"/>
+        <ui:display on-field="sales order number" on-selection="true"/>
       </ui:link>
-      <ui:link name="new" view="SalesOrderView" child="true">
+      <ui:link name="new" view="SalesOrderView" child="true" mode="inline">
         <ui:params>
           <ui:param name="_action" value="create"/>
         </ui:params>
+        <ui:display title="New Order" access-key="N"/>
       </ui:link>
+      <blazor-controls xmlns="http://www.xomega.net/xsf">
+        <XSfGrid AllowPaging="true" AllowReordering="true" AllowResizing="true"
+                 AllowSelection="true" AllowSorting="true" ShowColumnChooser="true" ShowColumnMenu="false">
+          <XSfGridSelectionSettings PersistSelection="true"/>
+          <GridSearchSettings IgnoreCase="true" />
+          <GridPageSettings PageSizes="true" />
+        </XSfGrid>
+      </blazor-controls>
     </xfk:data-object>
     <xfk:data-object class="SalesOrderCustomerObject" customize="true">
       <xfk:add-child name="lookup" class="SalesCustomerLookupObject"/>
       <xfk:add-child name="billing address" class="AddressObject"/>
       <xfk:add-child name="shipping address" class="AddressObject"/>
       <ui:display>
-        <ui:field param="customer id" hidden="true"/>
-        <ui:field param="person id" hidden="true"/>
-        <ui:field param="store id" hidden="true"/>
-        <ui:field param="territory id" label="Territory"/>
+        <ui:fields field-cols="2" panel-cols="2" title="Customer Info">
+          <ui:field param="customer id" hidden="true"/>
+          <ui:field param="person id" hidden="true"/>
+          <ui:field param="store id" hidden="true"/>
+          <ui:field param="territory id" label="Territory"/>
+        </ui:fields>
+        <ui:child-panels>
+          <ui:panel child="lookup" panel-cols="2" field-cols="2" title="Lookup Customer"/>
+          <ui:panel child="billing address" panel-cols="2"/>
+          <ui:panel child="shipping address" panel-cols="2"/>
+        </ui:child-panels>
       </ui:display>
     </xfk:data-object>
     <xfk:data-object class="SalesCustomerLookupObject">
@@ -870,28 +903,33 @@
           <ui:param name="account number" field="account number"/>
           <ui:param name="territory id" field="territory id"/>
         </ui:result>
+        <ui:display access-key="L"/>
       </ui:link>
     </xfk:data-object>
     <xfk:data-object class="SalesOrderDetailObject" customize="true">
       <ui:display>
-        <ui:field param="sales order detail id" hidden="true"/>
-        <ui:field param="sales order id" hidden="true"/>
-        <ui:field param="product id" label="Product" is-trigger="true"/>
-        <ui:field param="special offer id" label="Special Offer" is-trigger="true"/>
-        <ui:field param="subcategory" editable="true" is-trigger="true"/>
-        <ui:field param="order qty" is-trigger="true"/>
+        <ui:fields field-cols="2">
+          <ui:field param="sales order detail id" hidden="true"/>
+          <ui:field param="sales order id" hidden="true"/>
+          <ui:field param="product id" label="Product" is-trigger="true"/>
+          <ui:field param="special offer id" label="Special Offer" is-trigger="true"/>
+          <ui:field param="subcategory" editable="true" is-trigger="true"/>
+          <ui:field param="order qty" is-trigger="true"/>
+        </ui:fields>
       </ui:display>
     </xfk:data-object>
-    <xfk:data-object class="SalesOrderDetailList" list="true">
+    <xfk:data-object class="SalesOrderDetailList" list="true" customize="true">
       <ui:display>
-        <ui:field param="sales order detail id" hidden="true"/>
-        <ui:field param="product id" label="Product"/>
-        <ui:field param="order qty" label="Qty"/>
-        <ui:field param="unit price" label="Price"/>
-        <ui:field param="unit price discount" label="Discount"/>
-        <ui:field param="line total" label="Total"/>
-        <ui:field param="special offer id" label="Special Offer"/>
-        <ui:field param="carrier tracking number" label="Tracking #"/>
+        <ui:fields>
+          <ui:field param="sales order detail id" hidden="true"/>
+          <ui:field param="product id" label="Product"/>
+          <ui:field param="order qty" label="Qty" typical-length="10"/>
+          <ui:field param="unit price" label="Price"/>
+          <ui:field param="unit price discount" label="Discount"/>
+          <ui:field param="line total" label="Total"/>
+          <ui:field param="special offer id" label="Special Offer"/>
+          <ui:field param="carrier tracking number" label="Tracking #"/>
+        </ui:fields>
       </ui:display>
       <ui:link name="details" view="SalesOrderDetailView" child="true">
         <ui:params>
@@ -905,17 +943,32 @@
           <ui:param name="sales order id" field="sales order id" data-object=".."/>
         </ui:params>
       </ui:link>
+      <blazor-controls xmlns="http://www.xomega.net/xsf">
+        <XSfGrid AllowPaging="true" AllowReordering="true" AllowResizing="true"
+                 AllowSelection="true" AllowSorting="true" ShowColumnChooser="true" ShowColumnMenu="false"
+                 Toolbar="@(new List«string»() { ʺAddʺ, ʺEditʺ, ʺDeleteʺ, ʺUpdateʺ, ʺCancelʺ })">
+          <XSfGridSelectionSettings PersistSelection="true"/>
+          <GridSearchSettings IgnoreCase="true" />
+          <GridPageSettings PageSizes="true" />
+          <GridEditSettings AllowEditing="true" AllowAdding="true" AllowDeleting="true" Mode="EditMode.Normal" />
+        </XSfGrid>
+      </blazor-controls>
     </xfk:data-object>
     <xfk:data-object class="SalesOrderPaymentObject">
       <xfk:add-child name="credit card" class="CreditCardPaymentObject"/>
       <ui:display>
-        <ui:field param="ship method id" label="Shipment Method"/>
+        <ui:fields>
+          <ui:field param="ship method id" label="Shipment Method"/>
+        </ui:fields>
       </ui:display>
     </xfk:data-object>
     <xfk:data-object class="SalesOrderSalesObject" customize="true">
       <ui:display>
-        <ui:field param="territory id" label="Territory" is-trigger="true"/>
-        <ui:field param="sales person id" label="Sales Person"/>
+        <ui:fields field-cols="1">
+          <ui:field param="territory id" label="Territory" is-trigger="true"/>
+          <ui:field param="sales person id" label="Sales Person"/>
+          <ui:field param="sales reason" label="Sales Reasons"/>
+        </ui:fields>
       </ui:display>
     </xfk:data-object>
   </xfk:data-objects>
@@ -926,17 +979,18 @@
         <ui:details>
           <ui:fields flow="vertical"/>
           <ui:errors position="bottom"/>
+          <ui:children layout="tabs"/>
         </ui:details>
         <ui:size width="800" height="680"/>
       </ui:layout>
     </ui:view>
     <ui:view name="SalesOrderListView" title="Sales Order List">
-      <ui:view-model data-object="SalesOrderList"/>
+      <ui:view-model data-object="SalesOrderList" customize="true"/>
       <ui:layout base="master-details">
         <ui:size width="1760" height="860"/>
       </ui:layout>
     </ui:view>
-    <ui:view name="SalesOrderDetailView" title="Detail" child="true">
+    <ui:view name="SalesOrderDetailView" title="Line Item Detail" child="true">
       <ui:view-model data-object="SalesOrderDetailObject"/>
       <ui:layout>
         <ui:details>

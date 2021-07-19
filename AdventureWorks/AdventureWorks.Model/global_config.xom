@@ -50,6 +50,9 @@
 
   <!-- UI controls configuration -->
   <ui:controls-config>
+    <ui:blazor-controls>
+      <ui:XGrid/>
+    </ui:blazor-controls>
     <ui:user-controls>
       <ui:user-control name="AppliedCriteria" path="Controls/AppliedCriteria"/>
       <ui:user-control name="CollapsiblePanel" path="Controls/CollapsiblePanel"/>
@@ -59,6 +62,16 @@
       <ui:user-control name="ViewTemplate" path="Site.Master"/>
     </ui:user-controls>
   </ui:controls-config>
+
+  <!-- Syncfusion Blazor default controls configuration -->
+  <blazor-controls-config xmlns="http://www.xomega.net/xsf">
+    <XSfGrid AllowPaging="true" AllowReordering="true" AllowResizing="true"
+             AllowSelection="true" AllowSorting="true" ShowColumnChooser="true" ShowColumnMenu="false">
+      <XSfGridSelectionSettings PersistSelection="true"/>
+      <GridSearchSettings IgnoreCase="true" />
+      <GridPageSettings PageSizes="true" />
+    </XSfGrid>
+  </blazor-controls-config>
 
   <!-- configuration for generation of enumerations -->
   <xfk:enumerations-config namespace="AdventureWorks.Enumerations"/>

@@ -64,19 +64,9 @@
                 <uc:AppliedCriteria ID="ucl_AppliedCriteria" runat="server"></uc:AppliedCriteria>
                 <asp:GridView ID="grd_Results" AllowPaging="True" PageSize="20" runat="server">
                   <Columns>
-                    <asp:TemplateField HeaderText="Store Id">
-                      <ItemTemplate>
-                        <asp:Label ID="fldStoreId" Property="<%# CustomerList.StoreId %>" runat="server"></asp:Label>
-                      </ItemTemplate>
-                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Store Name">
                       <ItemTemplate>
                         <asp:Label ID="fldStoreName" Property="<%# CustomerList.StoreName %>" runat="server"></asp:Label>
-                      </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Person Id">
-                      <ItemTemplate>
-                        <asp:Label ID="fldPersonId" Property="<%# CustomerList.PersonId %>" runat="server"></asp:Label>
                       </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Person Name">

@@ -35,12 +35,19 @@ namespace AdventureWorks.Client.Objects
 
         public TextProperty CarrierTrackingNumberProperty { get; private set; }
         public MoneyProperty LineTotalProperty { get; private set; }
-        public SmallIntegerProperty OrderQtyProperty { get; private set; }
+        public PositiveSmallIntProperty OrderQtyProperty { get; private set; }
         public EnumIntProperty ProductIdProperty { get; private set; }
         public IntegerKeyProperty SalesOrderDetailIdProperty { get; private set; }
         public EnumIntProperty SpecialOfferIdProperty { get; private set; }
         public MoneyProperty UnitPriceProperty { get; private set; }
         public PercentFractionProperty UnitPriceDiscountProperty { get; private set; }
+
+        #endregion
+
+        #region Actions
+
+        public ActionProperty DetailsAction { get; private set; }
+        public ActionProperty NewAction { get; private set; }
 
         #endregion
 
@@ -56,20 +63,11 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            CarrierTrackingNumberProperty = new TextProperty(this, CarrierTrackingNumber)
-            {
-                Size = 25,
-                Editable = false,
-            };
-            LineTotalProperty = new MoneyProperty(this, LineTotal)
+            SalesOrderDetailIdProperty = new IntegerKeyProperty(this, SalesOrderDetailId)
             {
                 Required = true,
                 Editable = false,
-            };
-            OrderQtyProperty = new SmallIntegerProperty(this, OrderQty)
-            {
-                Required = true,
-                Editable = false,
+                IsKey = true,
             };
             ProductIdProperty = new EnumIntProperty(this, ProductId)
             {
@@ -77,16 +75,9 @@ namespace AdventureWorks.Client.Objects
                 EnumType = "product",
                 Editable = false,
             };
-            SalesOrderDetailIdProperty = new IntegerKeyProperty(this, SalesOrderDetailId)
+            OrderQtyProperty = new PositiveSmallIntProperty(this, OrderQty)
             {
                 Required = true,
-                Editable = false,
-                IsKey = true,
-            };
-            SpecialOfferIdProperty = new EnumIntProperty(this, SpecialOfferId)
-            {
-                Required = true,
-                EnumType = "special offer",
                 Editable = false,
             };
             UnitPriceProperty = new MoneyProperty(this, UnitPrice)
@@ -99,6 +90,24 @@ namespace AdventureWorks.Client.Objects
                 Required = true,
                 Editable = false,
             };
+            SpecialOfferIdProperty = new EnumIntProperty(this, SpecialOfferId)
+            {
+                Required = true,
+                EnumType = "special offer",
+                Editable = false,
+            };
+            LineTotalProperty = new MoneyProperty(this, LineTotal)
+            {
+                Required = true,
+                Editable = false,
+            };
+            CarrierTrackingNumberProperty = new TextProperty(this, CarrierTrackingNumber)
+            {
+                Size = 25,
+                Editable = false,
+            };
+          DetailsAction = new ActionProperty(this, "Details");
+          NewAction = new ActionProperty(this, "New");
         }
 
         #endregion

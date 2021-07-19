@@ -6,14 +6,14 @@
 
 import { SalesOrderObject } from 'DataObjects/Sales/SalesOrderObjectCustomized';
 import { ISalesOrderService } from 'ServiceContracts/Sales/ISalesOrderService';
-import { DataListObject, TextProperty, MoneyProperty, IntegerProperty, EnumIntProperty, PercentFractionProperty, ErrorList } from 'xomega';
+import { DataListObject, TextProperty, MoneyProperty, PositiveIntegerProperty, EnumIntProperty, IntegerProperty, PercentFractionProperty, ErrorList } from 'xomega';
 
 export class SalesOrderDetailList extends DataListObject {
 
     // Properties
     public CarrierTrackingNumber: TextProperty;
     public LineTotal: MoneyProperty;
-    public OrderQty: IntegerProperty;
+    public OrderQty: PositiveIntegerProperty;
     public ProductId: EnumIntProperty;
     public SalesOrderDetailId: IntegerProperty;
     public SpecialOfferId: EnumIntProperty;
@@ -28,7 +28,7 @@ export class SalesOrderDetailList extends DataListObject {
         this.LineTotal = new MoneyProperty();
         this.LineTotal.Required(true);
         this.LineTotal.Editable(false);
-        this.OrderQty = new IntegerProperty();
+        this.OrderQty = new PositiveIntegerProperty();
         this.OrderQty.Required(true);
         this.OrderQty.Editable(false);
         this.ProductId = new EnumIntProperty();

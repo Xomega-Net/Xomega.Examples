@@ -120,7 +120,11 @@
     <xfk:data-object class="CustomerCriteria"/>
     <xfk:data-object class="CustomerList" list="true">
       <ui:display>
-        <ui:field param="customer id" hidden="true"/>
+        <ui:fields>
+          <ui:field param="customer id" hidden="true"/>
+          <ui:field param="store id" hidden="true"/>
+          <ui:field param="person id" hidden="true"/>
+        </ui:fields>
       </ui:display>
     </xfk:data-object>
   </xfk:data-objects>

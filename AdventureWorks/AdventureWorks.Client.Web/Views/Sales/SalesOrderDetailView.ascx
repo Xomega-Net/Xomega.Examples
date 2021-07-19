@@ -20,7 +20,7 @@
           <div class="content indented">
             <uc:Errors ID="ucl_Errors" runat="server"></uc:Errors>
             <asp:Panel ID="pnl_Object" CssClass="indented" runat="server">
-              <asp:Panel ID="pnlMain" CssClass="xw-obj" GroupingText="Detail" runat="server">
+              <asp:Panel ID="pnlMain" CssClass="xw-obj" GroupingText="Line Item Detail" runat="server">
                 <table class="xw-fieldset-layout">
                   <tr>
                     <td class="fieldColumn" style="width: 100%">

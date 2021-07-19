@@ -1,6 +1,7 @@
 using AdventureWorks.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Xomega.Framework;
@@ -48,8 +49,8 @@ namespace AdventureWorks.Client.Objects
                 PersonIdProperty.Value.Value : StoreIdProperty.Value.Value;
 
             await AddressLoader.SetParametersAsync(new Dictionary<string, object>() {
-                { Enumerations.BusinessEntityAddress.Parameters.BusinessEntityId, entityId }
-            });
+                { Enumerations.BusinessEntityAddress.Parameters.BusinessEntityId, entityId }                
+            }, AddressLoader.LocalCache, token);
 
             await BillingAddressObject.AddressIdProperty.ClearInvalidValues();
             await ShippingAddressObject.AddressIdProperty.ClearInvalidValues();
@@ -57,6 +58,9 @@ namespace AdventureWorks.Client.Objects
             var args = new PropertyChangeEventArgs(PropertyChange.Items, null, null, e.Row);
             await BillingAddressObject.AddressIdProperty.FirePropertyChangeAsync(args, token);
             await ShippingAddressObject.AddressIdProperty.FirePropertyChangeAsync(args, token);
+
+            Expression<Func<DataObject, bool>> lookUpEnabled = (obj) => obj.Editable;
+            LookupObject.LookUpAction.SetComputedEnabled(lookUpEnabled, this);
         }
     }
 }

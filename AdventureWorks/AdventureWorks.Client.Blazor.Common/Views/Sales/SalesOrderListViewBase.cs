@@ -30,28 +30,19 @@ namespace AdventureWorks.Client.Blazor.Common.Views
             base.BindTo(viewModel);
         }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-            if (firstRender)
-                await Split();
-        }
         protected SalesOrderView cvSalesOrderView;
 
-        protected virtual string LinkDetails_Disabled(DataRow row)
-            => VM != null && VM.LinkDetails_Enabled(row) ? "" : "disabled";
-
-        
+        protected override BlazorView[] ChildViews => new BlazorView[]
+        {
+            cvSalesOrderView,
+        };
+    
         protected virtual async Task LinkDetails_ClickAsync(DataRow row, CancellationToken token = default)
         {
             if (VM != null && VM.LinkDetails_Enabled(row))
                 await VM.LinkDetails_CommandAsync(cvSalesOrderView, cvSalesOrderView.Visible ? cvSalesOrderView : null, row, token);
         }
-
-        protected virtual string LinkNew_Disabled()
-            => VM != null && VM.LinkNew_Enabled() ? "" : "disabled";
-
-        
+    
         protected virtual async Task LinkNew_ClickAsync(CancellationToken token = default)
         {
             if (VM != null && VM.LinkNew_Enabled())

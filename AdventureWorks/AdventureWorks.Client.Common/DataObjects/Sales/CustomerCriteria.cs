@@ -48,17 +48,9 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            AccountNumberProperty = new TextProperty(this, AccountNumber)
+            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
             {
-                Size = 10,
-            };
-            AccountNumberOperatorProperty = new OperatorProperty(this, AccountNumberOperator)
-            {
-                Size = 25,
-                EnumType = "operators",
-            };
-            PersonNameProperty = new TextProperty(this, PersonName)
-            {
+                EnumType = "sales territory",
             };
             PersonNameOperatorProperty = new OperatorProperty(this, PersonNameOperator)
             {
@@ -66,7 +58,7 @@ namespace AdventureWorks.Client.Objects
                 EnumType = "operators",
                 HasNullCheck = true,
             };
-            StoreNameProperty = new TextProperty(this, StoreName)
+            PersonNameProperty = new TextProperty(this, PersonName)
             {
             };
             StoreNameOperatorProperty = new OperatorProperty(this, StoreNameOperator)
@@ -75,9 +67,17 @@ namespace AdventureWorks.Client.Objects
                 EnumType = "operators",
                 HasNullCheck = true,
             };
-            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            StoreNameProperty = new TextProperty(this, StoreName)
             {
-                EnumType = "sales territory",
+            };
+            AccountNumberOperatorProperty = new OperatorProperty(this, AccountNumberOperator)
+            {
+                Size = 25,
+                EnumType = "operators",
+            };
+            AccountNumberProperty = new TextProperty(this, AccountNumber)
+            {
+                Size = 10,
             };
         }
 

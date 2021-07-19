@@ -18,7 +18,7 @@ class SalesOrderDetailView extends DetailsViewModel {
     }
 
     protected getBaseTitle(): string {
-        return 'Detail';
+        return 'Line Item Detail';
     }
 
     public attached(view, parent) {

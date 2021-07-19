@@ -186,11 +186,11 @@
       <Reference Include="System.Windows.Forms"/>
       <Reference Include="System.Xml"/>
       <Reference Include="System.Xml.Linq"/>
-      <Reference Include="Xomega.Framework, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-         <HintPath>..\packages\Xomega.Framework.3.2.0\lib\netstandard2.0\Xomega.Framework.dll</HintPath>
+      <Reference Include="Xomega.Framework, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+         <HintPath>..\packages\Xomega.Framework.4.0.0\lib\netstandard2.0\Xomega.Framework.dll</HintPath>
       </Reference>
-      <Reference Include="Xomega.Framework.Web, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-         <HintPath>..\packages\Xomega.Framework.Web.3.2.0\lib\net461\Xomega.Framework.Web.dll</HintPath>
+      <Reference Include="Xomega.Framework.Web, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+         <HintPath>..\packages\Xomega.Framework.Web.4.0.0\lib\net461\Xomega.Framework.Web.dll</HintPath>
       </Reference>
    </ItemGroup>
    <ItemGroup>

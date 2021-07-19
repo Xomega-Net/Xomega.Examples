@@ -27,7 +27,7 @@
     <v:Errors Grid.Row="1" x:Name="pnlErrors"/>
     <GroupBox Grid.Row="2" Header="Login">
       <StackPanel>
-        <Grid xmlns:clr="http://www.xomega.net/clr">
+        <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

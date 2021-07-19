@@ -1,32 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.xomega.net/omodel"
         xmlns:sql="http://www.xomega.net/sql"
-        xmlns:edm="http://www.xomega.net/edm"
         xmlns:clr="http://www.xomega.net/clr"
         xmlns:xfk="http://www.xomega.net/framework"
         xmlns:ui="http://www.xomega.net/ui"
-        xmlns:uc="UserControl"
-        xmlns:asp="clr-namespace:System.Web.UI.WebControls;assembly=System.Web"
         name="framework">
   <types>
     <type name="boolean">
       <config>
         <sql:type name="bit" db="sqlsrv"/>
-        <edm:type Type="Boolean"/>
         <clr:type name="bool" valuetype="true"/>
         <xfk:property class="BooleanProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
-        <ui:control>
-          <CheckBox Style="{StaticResource ControlStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
-        </ui:control>
-        <ui:web-control use-in-grid="true">
-          <asp:CheckBox runat="server"/>
-        </ui:web-control>
-        <ui:html-control>
-          <input class="boolean" type="checkbox" xmlns="http://www.w3.org/1999/xhtml"/>
-        </ui:html-control>
-        <ui:blazor-control>
-          <XCheckBox />
-        </ui:blazor-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -36,21 +20,9 @@
     <type name="integer">
       <config>
         <sql:type name="int" db="sqlsrv"/>
-        <edm:type Type="Int32"/>
         <clr:type name="int" valuetype="true"/>
         <xfk:property class="IntegerProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
-        <ui:control>
-          <TextBox Style="{StaticResource ControlStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
-        </ui:control>
-        <ui:web-control>
-          <asp:TextBox runat="server" CssClass="integer"/>
-        </ui:web-control>
-        <ui:html-control>
-          <input class="integer" xmlns="http://www.w3.org/1999/xhtml"/>
-        </ui:html-control>
-        <ui:blazor-control>
-          <XInputText />
-        </ui:blazor-control>
+        <ui:display-config typical-length="6"/>
       </config>
       <usage generic="true"/>
       <doc>
@@ -69,7 +41,6 @@
     <type name="tiny int" base="integer">
       <config>
         <sql:type name="tinyint" db="sqlsrv"/>
-        <edm:type Type="Byte"/>
         <clr:type name="byte" valuetype="true"/>
         <xfk:property class="TinyIntegerProperty" namespace="Xomega.Framework.Properties"/>
       </config>
@@ -81,7 +52,6 @@
     <type name="small int" base="integer">
       <config>
         <sql:type name="smallint" db="sqlsrv"/>
-        <edm:type Type="Int16"/>
         <clr:type name="short" valuetype="true"/>
         <xfk:property class="SmallIntegerProperty" namespace="Xomega.Framework.Properties"/>
       </config>
@@ -92,7 +62,8 @@
     </type>
     <type name="positive small int" base="small int">
       <config>
-        <xfk:property class="PositiveSmallIntProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
+        <xfk:property class="PositiveSmallIntProperty" namespace="Xomega.Framework.Properties"
+                      tsModule="xomega" tsClass="PositiveIntegerProperty"/>
       </config>
       <usage generic="true"/>
       <doc>
@@ -102,7 +73,6 @@
     <type name="big int" base="integer">
       <config>
         <sql:type name="bigint" db="sqlsrv"/>
-        <edm:type Type="Int64"/>
         <clr:type name="long" valuetype="true"/>
       </config>
       <usage generic="true"/>
@@ -122,21 +92,9 @@
     <type name="date time">
       <config>
         <sql:type name="datetime" db="sqlsrv"/>
-        <edm:type Type="DateTime"/>
         <clr:type name="DateTime" valuetype="true" namespace="System"/>
         <xfk:property class="DateTimeProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
-        <ui:control>
-          <TextBox Style="{StaticResource ControlStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
-        </ui:control>
-        <ui:web-control>
-          <uc:DateTimeControl TextCssClass="datetime" runat="server"/>
-        </ui:web-control>
-        <ui:html-control>
-          <input class="datetime" xmlns="http://www.w3.org/1999/xhtml"/>
-        </ui:html-control>
-        <ui:blazor-control>
-          <XInputText class="datetime"/>
-        </ui:blazor-control>
+        <ui:display-config typical-length="16"/>
       </config>
       <usage generic="true"/>
       <doc>
@@ -147,18 +105,7 @@
       <config>
         <sql:type name="date" db="sqlsrv" minver="10"/>
         <xfk:property class="DateProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
-        <ui:control>
-          <DatePicker Style="{StaticResource ControlStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
-        </ui:control>
-        <ui:web-control>
-          <uc:DateTimeControl TextCssClass="date" runat="server"/>
-        </ui:web-control>
-        <ui:html-control>
-          <input class="date" xmlns="http://www.w3.org/1999/xhtml"/>
-        </ui:html-control>
-        <ui:blazor-control>
-          <XInputText class="date"/>
-        </ui:blazor-control>
+        <ui:display-config typical-length="10"/>
       </config>
       <usage generic="true"/>
       <doc>
@@ -169,7 +116,6 @@
       <config>
         <clr:type name="TimeSpan" valuetype="true"/>
         <sql:type name="time" db="sqlsrv" minver="10"/>
-        <edm:type Type="Time"/>
         <xfk:property class="TimeProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
       </config>
       <usage generic="true"/>
@@ -198,7 +144,6 @@
     <type name="date time offset" base="date time">
       <config>
         <sql:type name="datetimeoffset" db="sqlsrv"/>
-        <edm:type Type="DateTimeOffset"/>
       </config>
       <usage generic="true"/>
       <doc>
@@ -208,21 +153,9 @@
     <type name="decimal">
       <config>
         <sql:type name="decimal" db="sqlsrv"/>
-        <edm:type Type="Decimal"/>
         <clr:type name="decimal" valuetype="true"/>
         <xfk:property class="DecimalProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
-        <ui:control>
-          <TextBox Style="{StaticResource ControlStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
-        </ui:control>
-        <ui:web-control>
-          <asp:TextBox runat="server" CssClass="decimal"/>
-        </ui:web-control>
-        <ui:html-control>
-          <input class="decimal" xmlns="http://www.w3.org/1999/xhtml"/>
-        </ui:html-control>
-        <ui:blazor-control>
-          <XInputText class="decimal"/>
-        </ui:blazor-control>
+        <ui:display-config typical-length="10"/>
       </config>
       <usage generic="true"/>
       <doc>
@@ -260,6 +193,7 @@
       <config>
         <sql:type name="money" db="sqlsrv"/>
         <xfk:property class="MoneyProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
+        <ui:display-config typical-length="12"/>
       </config>
       <usage generic="true"/>
       <doc>
@@ -287,7 +221,6 @@
     <type name="float">
       <config>
         <sql:type name="float" db="sqlsrv"/>
-        <edm:type Type="Double"/>
         <clr:type name="double" valuetype="true"/>
         <xfk:property class="DecimalProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
       </config>
@@ -299,7 +232,6 @@
     <type name="real" base="float">
       <config>
         <sql:type name="real" db="sqlsrv"/>
-        <edm:type Type="Single"/>
       </config>
       <usage generic="true" replaced-by="float"/>
       <doc>
@@ -309,21 +241,9 @@
     <type name="string">
       <config>
         <sql:type name="nvarchar" db="sqlsrv"/>
-        <edm:type Type="String"/>
         <clr:type name="string"/>
         <xfk:property class="TextProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
-        <ui:control>
-          <TextBox Style="{StaticResource ControlStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
-        </ui:control>
-        <ui:web-control>
-          <asp:TextBox runat="server"/>
-        </ui:web-control>
-        <ui:html-control>
-          <input xmlns="http://www.w3.org/1999/xhtml"/>
-        </ui:html-control>
-        <ui:blazor-control>
-          <XInputText />
-        </ui:blazor-control>
+        <ui:display-config typical-length="20"/>
       </config>
       <usage generic="true"/>
       <doc>
@@ -340,37 +260,6 @@
       </doc>
     </type>
     <type name="selection">
-      <config>
-        <ui:control>
-          <ComboBox Style="{StaticResource ControlStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
-        </ui:control>
-        <ui:control multi-value="true">
-          <ListBox Style="{StaticResource ControlStyle}" MinHeight="21" MaxHeight="84"
-                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
-        </ui:control>
-        <ui:web-control>
-          <asp:DropDownList runat="server"/>
-        </ui:web-control>
-        <ui:web-control multi-value="true">
-          <asp:ListBox runat="server"/>
-        </ui:web-control>
-        <ui:html-control>
-          <select xmlns="http://www.w3.org/1999/xhtml"/>
-        </ui:html-control>
-        <ui:html-control multi-value="true">
-          <select multiple="multiple" xmlns="http://www.w3.org/1999/xhtml"/>
-          <!-- use this control for check box list type of selection instead
-          <div data-control="options" xmlns="http://www.w3.org/1999/xhtml"/>
-          -->
-        </ui:html-control>
-        <ui:blazor-control>
-          <XSelect />
-        </ui:blazor-control>
-        <ui:blazor-control multi-value="true">
-          <XSelect />
-          <!--<XOptions />-->
-        </ui:blazor-control>
-      </config>
       <usage generic="true"/>
       <doc>
         <summary>A base type associated with selection UI controls.</summary>
@@ -379,7 +268,6 @@
     <type name="enumeration" base="selection" size="25">
       <config>
         <sql:type name="nchar" db="sqlsrv"/>
-        <edm:type Type="String"/>
         <clr:type name="string"/>
         <xfk:property class="EnumProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
       </config>
@@ -391,12 +279,8 @@
     <type name="integer enumeration" base="selection">
       <config>
         <xfk:property class="EnumIntProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
-        <edm:type Type="Int32"/>
         <clr:type name="int" valuetype="true"/>
         <sql:type name="int"/>
-        <ui:web-control multi-value="true">
-          <uc:PickListControl Rows="5" runat="server"/>
-        </ui:web-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -408,7 +292,6 @@
         <xfk:property class="EnumByteProperty" namespace="Xomega.Framework.Properties"
                       tsClass="EnumIntProperty" tsModule="xomega"/>
         <sql:type name="tinyint" db="sqlsrv"/>
-        <edm:type Type="Byte"/>
         <clr:type name="byte" valuetype="true"/>
       </config>
       <usage generic="true"/>
@@ -421,7 +304,6 @@
         <xfk:property class="EnumShortProperty" namespace="Xomega.Framework.Properties"
                       tsClass="EnumIntProperty" tsModule="xomega"/>
         <sql:type name="smallint" db="sqlsrv"/>
-        <edm:type Type="Int16"/>
         <clr:type name="short" valuetype="true"/>
       </config>
       <usage generic="true"/>
@@ -434,7 +316,6 @@
         <xfk:property class="EnumLongProperty" namespace="Xomega.Framework.Properties"
                       tsClass="EnumIntProperty" tsModule="xomega"/>
         <sql:type name="bigint" db="sqlsrv"/>
-        <edm:type Type="Int64"/>
         <clr:type name="long" valuetype="true"/>
       </config>
       <usage generic="true"/>
@@ -445,7 +326,6 @@
     <type name="boolean enumeration" base="selection">
       <config>
         <xfk:property class="EnumBoolProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
-        <edm:type Type="Boolean"/>
         <clr:type name="bool" valuetype="true"/>
         <sql:type name="bit"/>
       </config>
@@ -455,26 +335,6 @@
       </doc>
     </type>
     <type name="suggest string" base="enumeration">
-      <config>
-        <ui:html-control>
-          <input xmlns="http://www.w3.org/1999/xhtml"/>
-        </ui:html-control>
-        <ui:html-control multi-value="true">
-          <input xmlns="http://www.w3.org/1999/xhtml"/>
-        </ui:html-control>
-        <ui:web-control>
-          <asp:TextBox runat="server"/>
-        </ui:web-control>
-        <ui:web-control multi-value="true">
-          <asp:TextBox runat="server"/>
-        </ui:web-control>
-        <ui:blazor-control>
-          <XInputText />
-        </ui:blazor-control>
-        <ui:blazor-control multi-value="true">
-          <XInputText />
-        </ui:blazor-control>
-      </config>
       <usage generic="true"/>
       <doc>
         <summary>Text data that can be entered manually or picked from a list of suggestions.</summary>
@@ -537,21 +397,8 @@
     <type name="guid">
       <config>
         <sql:type name="uniqueidentifier" db="sqlsrv"/>
-        <edm:type Type="Guid"/>
         <clr:type name="Guid" valuetype="true" namespace="System"/>
         <xfk:property class="GuidProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
-        <ui:control>
-          <TextBox Style="{StaticResource ControlStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
-        </ui:control>
-        <ui:web-control>
-          <asp:TextBox runat="server"/>
-        </ui:web-control>
-        <ui:html-control>
-          <input class="guid" xmlns="http://www.w3.org/1999/xhtml"/>
-        </ui:html-control>
-        <ui:blazor-control>
-          <XInputText class="guid"/>
-        </ui:blazor-control>
       </config>
       <usage generic="true"/>
       <doc>
@@ -563,7 +410,6 @@
         <xfk:property class="EnumGuidProperty" namespace="Xomega.Framework.Properties"
                       tsClass="EnumProperty" tsModule="xomega"/>
         <sql:type name="uniqueidentifier" db="sqlsrv"/>
-        <edm:type Type="Guid"/>
         <clr:type name="Guid" valuetype="true"/>
       </config>
       <usage generic="true"/>
@@ -574,7 +420,6 @@
     <type name="binary">
       <config>
         <sql:type name="varbinary" db="sqlsrv"/>
-        <edm:type Type="Binary"/>
         <clr:type name="byte[]"/>
         <xfk:property class="DataProperty" namespace="Xomega.Framework"/>
       </config>
@@ -640,7 +485,6 @@
     <type name="geometry">
       <config>
         <sql:type name="geometry" db="sqlsrv" minver="10"/>
-        <edm:type Type="Geometry" minFwkVer="4"/>
         <!--
   Add the Spatial types package to your projects and uncomment the appropriate CLR type
   below for your version of the EF6.x or EF Core respectively.
@@ -656,7 +500,6 @@
     <type name="geography">
       <config>
         <sql:type name="geography" db="sqlsrv" minver="10"/>
-        <edm:type Type="Geography" minFwkVer="4"/>
         <!--
   Add the Spatial types package to your projects and uncomment the appropriate CLR type
   below for your version of the EF6.x or EF Core respectively.
@@ -679,25 +522,17 @@
       </doc>
     </type>
     <type name="yesno" base="boolean enumeration">
+      <config>
+        <ui:display-config typical-length="6" text-align="center"/>
+      </config>
       <enum ref="yesno" validation="none"/>
       <usage generic="true"/>
     </type>
     <type name="plain password" base="string">
-      <config>
-        <ui:control>
-          <PasswordBox Style="{StaticResource ControlStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
-        </ui:control>
-        <ui:web-control>
-          <asp:TextBox TextMode="Password" runat="server"/>
-        </ui:web-control>
-        <ui:html-control>
-          <input type="password" xmlns="http://www.w3.org/1999/xhtml"/>
-        </ui:html-control>
-        <ui:blazor-control>
-          <XInputText type="password"/>
-        </ui:blazor-control>
-      </config>
       <usage generic="true"/>
+      <doc>
+        <summary>Stores plain unhashed password during login.</summary>
+      </doc>
     </type>
   </types>
   <enums>

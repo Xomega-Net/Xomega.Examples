@@ -31,8 +31,6 @@ namespace AdventureWorks.Client.ViewModels
             List.CriteriaObject = ServiceProvider.GetService<SalesOrderCriteria>();
         }
 
-        public override string BaseTitle => GetString("Sales Order List");
-
         #region Link LinkDetails
 
         public virtual NameValueCollection LinkDetails_Params(DataRow row)

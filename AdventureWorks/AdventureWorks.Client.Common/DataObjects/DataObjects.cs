@@ -20,7 +20,7 @@ namespace AdventureWorks.Client.Objects
             services.AddTransient<SalesCustomerLookupObject, SalesCustomerLookupObject>();
             services.AddTransient<SalesOrderCriteria, SalesOrderCriteriaCustomized>();
             services.AddTransient<SalesOrderCustomerObject, SalesOrderCustomerObjectCustomized>();
-            services.AddTransient<SalesOrderDetailList, SalesOrderDetailList>();
+            services.AddTransient<SalesOrderDetailList, SalesOrderDetailListCustomized>();
             services.AddTransient<SalesOrderDetailObject, SalesOrderDetailObjectCustomized>();
             services.AddTransient<SalesOrderList, SalesOrderList>();
             services.AddTransient<SalesOrderObject, SalesOrderObjectCustomized>();

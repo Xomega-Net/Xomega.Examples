@@ -11,82 +11,42 @@
 
 @if (Visible)
 {
-<div @ref="MainPanel"
-     class="view-composition">
-  <div class="view with-footer" data-width="450" data-height="450">
-    <div class="view-header"><span class="view-title">
-        <ViewTitle @ref="TitleComponent" Title="@Model?.ViewTitle"></ViewTitle></span></div>
-    <div class="view-body">
-      <div class="content indented">
-        <Errors ErrorList="@Model?.Errors"></Errors>
-        <div class="xw-obj indented">
-          <fieldset>
-            <legend>Detail</legend>
-            <table class="xw-fieldset-layout">
-              <tr>
-                <td class="fieldColumn" style="width: 100%">
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.SubcategoryProperty" Text="Subcategory:"
-                            class="label"></XLabel>
-                    <XSelect
-                             Property="@VM?.MainObj?.SubcategoryProperty"></XSelect>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.ProductIdProperty" Text="Product:"
-                            class="label"></XLabel>
-                    <XSelect Property="@VM?.MainObj?.ProductIdProperty"></XSelect>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.OrderQtyProperty" Text="Order Qty:"
-                            class="label"></XLabel>
-                    <XInputText Property="@VM?.MainObj?.OrderQtyProperty"></XInputText>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.SpecialOfferIdProperty" Text="Special Offer:"
-                            class="label"></XLabel>
-                    <XSelect
-                             Property="@VM?.MainObj?.SpecialOfferIdProperty"></XSelect>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.UnitPriceProperty" Text="Unit Price:"
-                            class="label"></XLabel>
-                    <XDataLabel Property="@VM?.MainObj?.UnitPriceProperty"></XDataLabel>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.UnitPriceDiscountProperty"
-                            Text="Unit Price Discount:"
-                            class="label"></XLabel>
-                    <XDataLabel Property="@VM?.MainObj?.UnitPriceDiscountProperty"></XDataLabel>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.LineTotalProperty" Text="Line Total:"
-                            class="label"></XLabel>
-                    <XDataLabel Property="@VM?.MainObj?.LineTotalProperty"></XDataLabel>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.CarrierTrackingNumberProperty"
-                            Text="Carrier Tracking Number:"
-                            class="label"></XLabel>
-                    <XInputText
-                                Property="@VM?.MainObj?.CarrierTrackingNumberProperty"></XInputText>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </fieldset>
+<div @ref="MainPanel" class="@UpperClass">
+  <div class="@MiddleClass">
+    <div class="d-flex">
+      <div class="@GetViewCol(null) @LowerClass">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <ViewTitle @ref="TitleComponent" Title="@Model?.ViewTitle"></ViewTitle>
+          </h5>
+          <XActionButton Class="btn-close" NoText="true" OnClick="OnCloseAsync"
+                         Action="@VM?.CloseAction"></XActionButton>
+        </div>
+        <div class="modal-body">
+          <div class="row g-0">
+            <Errors Class="mb-3" ErrorList="@Model?.Errors" ViewKey="@Model?.GetResourceKey()"></Errors>
+            <fieldset>
+              <div class="row @GetRowCol(2)">
+                <XSelect Class="mb-3" Property="@VM?.MainObj?.SubcategoryProperty"></XSelect>
+                <XSelect Class="mb-3" Property="@VM?.MainObj?.ProductIdProperty"></XSelect>
+                <XNumericBox Class="mb-3" Property="@VM?.MainObj?.OrderQtyProperty"></XNumericBox>
+                <XSelect Class="mb-3" Property="@VM?.MainObj?.SpecialOfferIdProperty"></XSelect>
+                <XDataLabel Class="mb-3" Property="@VM?.MainObj?.UnitPriceProperty"></XDataLabel>
+                <XDataLabel Class="mb-3" Property="@VM?.MainObj?.UnitPriceDiscountProperty"></XDataLabel>
+                <XDataLabel Class="mb-3" Property="@VM?.MainObj?.LineTotalProperty"></XDataLabel>
+                <XInputText Class="mb-3" Property="@VM?.MainObj?.CarrierTrackingNumberProperty"></XInputText>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="@FooterClass">
+          <XActionButton Action="@VM?.MainObj?.DeleteAction" OnClick="OnDeleteAsync"
+                         Class="me-auto"></XActionButton>
+          <XActionButton Action="@VM?.MainObj?.SaveAction" OnClick="OnSaveAsync"
+                         IsPrimary="true"></XActionButton>
+          <XActionButton Action="@VM?.CloseAction" OnClick="OnCloseAsync"></XActionButton>
         </div>
       </div>
-    </div>
-    <div class="view-footer action-bar">
-      <input type="button" value="@DeleteText" disabled="@(!DeleteEnabled)"
-             @onclick="@OnDeleteAsync"
-             class="btn-delete" />
-      <input type="button" value="@SaveText" disabled="@(!SaveEnabled)"
-             @onclick="@OnSaveAsync"
-             class="btn-save" />
-      @if (CloseVisible) {
-      <input type="button" value="@CloseText" @onclick="@OnCloseAsync" class="btn-close" />
-      }
     </div>
   </div>
 </div>

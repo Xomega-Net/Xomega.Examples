@@ -10,6 +10,11 @@
         name="sales">
   <types>
     <type name="store" base="business entity"/>
+    <type name="store name" base="name">
+      <config>
+        <ui:display-config typical-length="25"/>
+      </config>
+    </type>
   </types>
   <objects>
     <object name="store">
@@ -19,7 +24,7 @@
             <sql:column name="BusinessEntityID"/>
           </config>
         </field>
-        <field name="name" type="name" required="true">
+        <field name="name" type="store name" required="true">
           <config>
             <sql:column name="Name"/>
           </config>

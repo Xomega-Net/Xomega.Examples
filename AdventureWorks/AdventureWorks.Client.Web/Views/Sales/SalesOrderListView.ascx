@@ -75,7 +75,7 @@
                           </div>
                           <div class="field">
                             <asp:Label ID="lblTerritoryId" Text="Sales Territory:" CssClass="label" runat="server"></asp:Label>
-                            <asp:DropDownList LabelID="lblTerritoryId" ID="ctlTerritoryIdOperator" Property="<%# SalesOrderCriteria.TerritoryIdOperator %>" runat="server" AutoPostBack="true" CssClass="operator"></asp:DropDownList>
+                            <asp:DropDownList LabelID="lblTerritoryId" ID="ctlTerritoryIdOperator" Property="<%# SalesOrderCriteria.TerritoryIdOperator %>" AutoPostBack="true" runat="server" CssClass="operator"></asp:DropDownList>
                             <asp:DropDownList ID="ctlTerritoryId" Property="<%# SalesOrderCriteria.TerritoryId %>" AutoPostBack="true" runat="server"></asp:DropDownList>
                           </div>
                           <div class="field">
@@ -99,7 +99,7 @@
                 <uc:AppliedCriteria ID="ucl_AppliedCriteria" runat="server"></uc:AppliedCriteria>
                 <asp:GridView ID="grd_Results" AllowPaging="True" PageSize="20" runat="server">
                   <Columns>
-                    <asp:TemplateField HeaderText="Sales Order Number">
+                    <asp:TemplateField HeaderText="SO#">
                       <ItemTemplate>
                         <asp:LinkButton ID="LinkDetails" runat="server" OnCommand="LinkDetails_Click" CommandArgument="<%# Container.DataItemIndex %>">
                           <asp:Label ID="fldSalesOrderNumber" Property="<%# SalesOrderList.SalesOrderNumber %>" runat="server"></asp:Label>

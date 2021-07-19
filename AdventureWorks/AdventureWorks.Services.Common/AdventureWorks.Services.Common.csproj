@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.7.0" />
-    <PackageReference Include="Xomega.Framework" Version="3.2.0" />
+    <PackageReference Include="Xomega.Framework" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>

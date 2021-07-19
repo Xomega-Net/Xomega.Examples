@@ -1,5 +1,8 @@
+using AdventureWorks.Enumerations;
 using AdventureWorks.Services;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AdventureWorks.Client.Objects
 {
@@ -25,11 +28,22 @@ namespace AdventureWorks.Client.Objects
         {
             base.OnInitialized();
 
+            //Expression<Func<DataProperty, bool>> objEditable = (status) => status.IsNull(null) || 
+            //    !status.GetValue(ValueFormat.Transport, null).ToString().Equals(SalesOrderStatus.Shipped);
+            //SetComputedEditable(objEditable, StatusProperty);
+
             CustomerObject.LookupObject.TrackModifications = false;
 
             var ccProperty = PaymentObject.CreditCardObject.CreditCardIdProperty;
             ccProperty.LocalCacheLoader = new PersonCreditCardReadListCacheLoader(ServiceProvider);
-            ccProperty.SetCacheLoaderParameters(Enumerations.PersonCreditCard.Parameters.BusinessEntityId, CustomerObject.PersonIdProperty);
+            ccProperty.SetCacheLoaderParameters(PersonCreditCard.Parameters.BusinessEntityId, CustomerObject.PersonIdProperty);
+        }
+
+        public override async Task FromDataContractAsync(object dataContract, object options, CancellationToken token = default)
+        {
+            await base.FromDataContractAsync(dataContract, options, token);
+            if (!StatusProperty.IsNull() && StatusProperty.Value.Id == SalesOrderStatus.Shipped)
+                Editable = false;
         }
     }
 }

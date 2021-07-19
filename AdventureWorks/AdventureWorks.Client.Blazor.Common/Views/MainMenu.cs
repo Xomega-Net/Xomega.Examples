@@ -15,22 +15,26 @@ namespace AdventureWorks.Client.Blazor.Common.Views
         {
             new MenuItem()
             {
-                Text = "Sales",
+                ResourceKey = "Module_Sales_NavMenu",
+                IconClass = "bi bi-columns",
                 Items = new List<MenuItem>()
                 {
                     new MenuItem()
                     {
-                        Text = "Customer List",
+                        ResourceKey = "CustomerListView_NavMenu",
+                        IconClass = "bi bi-card-list",
                         Href = "CustomerListView"
                     },
                     new MenuItem()
                     {
-                        Text = "New Sales Order",
+                        ResourceKey = "SalesOrderView_NavMenu",
+                        IconClass = "bi bi-pencil-square",
                         Href = "SalesOrderView?_action=create"
                     },
                     new MenuItem()
                     {
-                        Text = "Sales Order List",
+                        ResourceKey = "SalesOrderListView_NavMenu",
+                        IconClass = "bi bi-card-list",
                         Href = "SalesOrderListView"
                     },
                 }

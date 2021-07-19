@@ -66,15 +66,15 @@ namespace AdventureWorks.Client.Objects
             {
                 Editable = false,
             };
-            CountryProperty = new TextProperty(this, Country)
-            {
-                Size = 3,
-                Editable = false,
-            };
             PostalCodeProperty = new TextProperty(this, PostalCode)
             {
                 Required = true,
                 Size = 15,
+                Editable = false,
+            };
+            CountryProperty = new TextProperty(this, Country)
+            {
+                Size = 3,
                 Editable = false,
             };
         }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Syncfusion.Blazor;
 using System.Resources;
 using System.Threading.Tasks;
 using Xomega.Framework;
@@ -20,6 +21,9 @@ namespace AdventureWorks.Client.Blazor.Wasm
     {
         public static async Task Main(string[] args)
         {
+            var key = "<Your Syncfusion Blazor license key>";
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(key);
+
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
             App.AdditionalAssemblies = new[] { typeof(Program).Assembly };
@@ -34,12 +38,15 @@ namespace AdventureWorks.Client.Blazor.Wasm
             services.AddOperators();
             services.AddSingleton<IPrincipalProvider, AuthStatePrincipalProvider>();
 
+            services.AddSyncfusionBlazor();
+
             // App services configuration
             services.AddSingleton<AuthenticationStateProvider, AuthStateProvider>();
             services.AddRestServices(apiBaseAddress);
             services.AddRestClients();
             services.AddSingleton<ResourceManager>(sp => new CompositeResourceManager(
                 Client.Common.Messages.ResourceManager,
+                Client.Common.Labels.ResourceManager,
                 Messages.ResourceManager));
             services.AddDataObjects();
             services.AddViewModels();
@@ -47,7 +54,8 @@ namespace AdventureWorks.Client.Blazor.Wasm
 
             MainMenu.Items.Insert(0, new MenuItem()
             {
-                Text = "Home",
+                ResourceKey = Client.Common.Messages.HomeView_NavMenu,
+                IconClass = "bi bi-house-door",
                 Href = "/"
             });
 

@@ -52,6 +52,7 @@ namespace AdventureWorks.Client.Objects
             Expression<Func<SalesOrderDetailObject, decimal>> xLineTotal = sod =>
                 GetLineTotal(sod.UnitPriceProperty.Value, sod.UnitPriceDiscountProperty.Value, sod.OrderQtyProperty.Value);
             LineTotalProperty.SetComputedValue(xLineTotal, this);
+
         }
 
         private decimal GetLineTotal(decimal? price, decimal? discount, int? qty) =>

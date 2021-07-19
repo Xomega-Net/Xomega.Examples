@@ -8,18 +8,6 @@
     <type name="operator" base="enumeration">
       <config>
         <xfk:property class="OperatorProperty" namespace="Xomega.Framework.Properties" tsModule="xomega"/>
-        <ui:control>
-          <ComboBox Style="{StaticResource OperatorStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"/>
-        </ui:control>
-        <ui:web-control>
-          <asp:DropDownList runat="server" AutoPostBack="true" CssClass="operator"/>
-        </ui:web-control>
-        <ui:html-control>
-          <select xmlns="http://www.w3.org/1999/xhtml" class="operator"/>
-        </ui:html-control>
-        <ui:blazor-control>
-          <XSelect class="operator" />
-        </ui:blazor-control>
       </config>
       <enum ref="operators"/>
       <usage generic="true"/>

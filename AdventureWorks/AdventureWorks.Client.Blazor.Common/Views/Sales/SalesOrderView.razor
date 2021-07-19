@@ -11,491 +11,193 @@
 
 @if (Visible)
 {
-<div @ref="MainPanel"
-     class="view-composition">
-  <div class="view with-footer" data-width="800" data-height="680">
-    <div class="view-header"><span class="view-title">
-        <ViewTitle @ref="TitleComponent" Title="@Model?.ViewTitle"></ViewTitle></span></div>
-    <div class="view-body">
-      <div class="content indented">
-        <div class="xw-obj indented">
-          <fieldset>
-            <legend>Sales Order</legend>
-            <table class="xw-fieldset-layout">
-              <tr>
-                <td class="fieldColumn" style="width: 50%">
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.SalesOrderNumberProperty"
-                            Text="Sales Order Number:"
-                            class="label"></XLabel>
-                    <XDataLabel Property="@VM?.MainObj?.SalesOrderNumberProperty"></XDataLabel>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.OrderDateProperty" Text="Order Date:"
-                            class="label"></XLabel>
-                    <XDataLabel Property="@VM?.MainObj?.OrderDateProperty"></XDataLabel>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.StatusProperty" Text="Status:" class="label"></XLabel>
-                    <XSelect Property="@VM?.MainObj?.StatusProperty"></XSelect>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.OnlineOrderFlagProperty"
-                            Text="Online Order Flag:"
-                            class="label"></XLabel>
-                    <XCheckBox
-                               Property="@VM?.MainObj?.OnlineOrderFlagProperty"></XCheckBox>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.PurchaseOrderNumberProperty"
-                            Text="Purchase Order Number:"
-                            class="label"></XLabel>
-                    <XInputText
-                                Property="@VM?.MainObj?.PurchaseOrderNumberProperty"></XInputText>
-                  </div>
-                </td>
-                <td class="fieldColumn" style="width: 50%">
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.AccountNumberProperty" Text="Account Number:"
-                            class="label"></XLabel>
-                    <XInputText
-                                Property="@VM?.MainObj?.AccountNumberProperty"></XInputText>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.ShipDateProperty" Text="Ship Date:"
-                            class="label"></XLabel>
-                    <XInputText Property="@VM?.MainObj?.ShipDateProperty"
-                                class="date"></XInputText>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.CommentProperty" Text="Comment:" class="label"></XLabel>
-                    <XInputText Property="@VM?.MainObj?.CommentProperty"></XInputText>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.RevisionNumberProperty" Text="Revision Number:"
-                            class="label"></XLabel>
-                    <XDataLabel Property="@VM?.MainObj?.RevisionNumberProperty"></XDataLabel>
-                  </div>
-                  <div class="field">
-                    <XLabel Property="@VM?.MainObj?.ModifiedDateProperty" Text="Modified Date:"
-                            class="label"></XLabel>
-                    <XDataLabel Property="@VM?.MainObj?.ModifiedDateProperty"></XDataLabel>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </fieldset>
-          <div class="xw-obj-children">
-            <TabSet>
-              <TabPage Title="Customer">
-                <div class="xw-obj borderless">
-                  <fieldset>
-                    <table class="xw-fieldset-layout">
-                      <tr>
-                        <td class="fieldColumn" style="width: 50%">
-                          <div class="field">
-                            <XLabel Property="@VM?.MainObj?.CustomerObject?.StoreNameProperty"
-                                    Text="Store Name:"
-                                    class="label"></XLabel>
-                            <XDataLabel Property="@VM?.MainObj?.CustomerObject?.StoreNameProperty"></XDataLabel>
-                          </div>
-                          <div class="field">
-                            <XLabel Property="@VM?.MainObj?.CustomerObject?.PersonNameProperty"
-                                    Text="Person Name:"
-                                    class="label"></XLabel>
-                            <XDataLabel Property="@VM?.MainObj?.CustomerObject?.PersonNameProperty"></XDataLabel>
-                          </div>
-                        </td>
-                        <td class="fieldColumn" style="width: 50%">
-                          <div class="field">
-                            <XLabel Property="@VM?.MainObj?.CustomerObject?.AccountNumberProperty"
-                                    Text="Account Number:"
-                                    class="label"></XLabel>
-                            <XDataLabel Property="@VM?.MainObj?.CustomerObject?.AccountNumberProperty"></XDataLabel>
-                          </div>
-                          <div class="field">
-                            <XLabel Property="@VM?.MainObj?.CustomerObject?.TerritoryIdProperty"
-                                    Text="Territory:"
-                                    class="label"></XLabel>
-                            <XDataLabel Property="@VM?.MainObj?.CustomerObject?.TerritoryIdProperty"></XDataLabel>
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
-                  </fieldset>
-                </div>
-                <div class="xw-obj-children">
-                  <div class="xw-obj">
-                    <fieldset>
-                      <legend>Lookup</legend>
-                      <table class="xw-fieldset-layout">
-                        <tr>
-                          <td class="fieldColumn" style="width: 50%">
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.LookupObject?.StoreNameProperty"
-                                      Text="Store Name:"
-                                      class="label"></XLabel>
-                              <XInputText
-                                          Property="@VM?.MainObj?.CustomerObject?.LookupObject?.StoreNameProperty"></XInputText>
-                            </div>
-                          </td>
-                          <td class="fieldColumn" style="width: 50%">
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.LookupObject?.PersonNameProperty"
-                                      Text="Person Name:"
-                                      class="label"></XLabel>
-                              <XInputText
-                                          Property="@VM?.MainObj?.CustomerObject?.LookupObject?.PersonNameProperty"></XInputText>
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                      <div class="action-bar"><a href="javascript: void(0)"
-                           @onclick="() => LinkCustomerLookupLookUp_ClickAsync()"
-                           class="@LinkCustomerLookupLookUp_Disabled()">Look Up</a></div>
+<div @ref="MainPanel" class="@UpperClass">
+  <div class="@MiddleClass">
+    <div class="d-flex">
+      <div class="@GetViewCol(null) @LowerClass">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <ViewTitle @ref="TitleComponent" Title="@Model?.ViewTitle"></ViewTitle>
+          </h5>
+          <XActionButton Class="btn-close" NoText="true" OnClick="OnCloseAsync"
+                         Action="@VM?.CloseAction"></XActionButton>
+        </div>
+        <div class="modal-body">
+          <div class="row g-0">
+            <Errors Class="mb-3" ErrorList="@Model?.Errors" ViewKey="@Model?.GetResourceKey()"></Errors>
+            <fieldset class="@GetPanelCol(1, 6)">
+              <legend>@VM?.MainObj?.GetTitle()</legend>
+              <div class="row @GetRowCol(6)">
+                <XDataLabel Class="mb-3" Property="@VM?.MainObj?.SalesOrderNumberProperty"></XDataLabel>
+                <XDataLabel Class="mb-3" Property="@VM?.MainObj?.OrderDateProperty"></XDataLabel>
+                <XSelect Class="mb-3" Property="@VM?.MainObj?.StatusProperty"></XSelect>
+                <XCheckBox Class="mb-3" Property="@VM?.MainObj?.OnlineOrderFlagProperty"></XCheckBox>
+                <XInputText Class="mb-3" Property="@VM?.MainObj?.PurchaseOrderNumberProperty"></XInputText>
+                <XInputText Class="mb-3" Property="@VM?.MainObj?.AccountNumberProperty"></XInputText>
+                <XDatePicker Class="mb-3" Property="@VM?.MainObj?.ShipDateProperty"></XDatePicker>
+                <XInputText Class="mb-3" Property="@VM?.MainObj?.CommentProperty"></XInputText>
+                <XDataLabel Class="mb-3" Property="@VM?.MainObj?.RevisionNumberProperty"></XDataLabel>
+                <XDataLabel Class="mb-3" Property="@VM?.MainObj?.ModifiedDateProperty"></XDataLabel>
+              </div>
+            </fieldset>
+            <div class="@GetPanelCol(1, 4)">
+              <TabSet>
+                <TabPage Title="@VM?.MainObj?.GetChildTitle(SalesOrderObject.Customer)">
+                  <div class="row pt-3">
+                    <fieldset class="@GetPanelCol(2, 2)">
+                      <legend>@VM?.MainObj?.CustomerObject?.GetTitle()</legend>
+                      <div class="row @GetRowCol(2)">
+                        <XDataLabel Class="mb-3" Property="@VM?.MainObj?.CustomerObject?.StoreNameProperty"></XDataLabel>
+                        <XDataLabel Class="mb-3" Property="@VM?.MainObj?.CustomerObject?.PersonNameProperty"></XDataLabel>
+                        <XDataLabel Class="mb-3" Property="@VM?.MainObj?.CustomerObject?.AccountNumberProperty"></XDataLabel>
+                        <XDataLabel Class="mb-3" Property="@VM?.MainObj?.CustomerObject?.TerritoryIdProperty"></XDataLabel>
+                      </div>
                     </fieldset>
-                  </div>
-                  <div class="xw-obj">
-                    <fieldset>
-                      <legend>Billing Address</legend>
-                      <table class="xw-fieldset-layout">
-                        <tr>
-                          <td class="fieldColumn" style="width: 50%">
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.AddressIdProperty"
-                                      Text="Address Type:"
-                                      class="label"></XLabel>
-                              <XSelect
-                                       Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.AddressIdProperty"></XSelect>
-                            </div>
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.AddressLine1Property"
-                                      Text="Address Line1:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.AddressLine1Property"></XDataLabel>
-                            </div>
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.AddressLine2Property"
-                                      Text="Address Line2:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.AddressLine2Property"></XDataLabel>
-                            </div>
-                          </td>
-                          <td class="fieldColumn" style="width: 50%">
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.CityStateProperty"
-                                      Text="City/State:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.CityStateProperty"></XDataLabel>
-                            </div>
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.PostalCodeProperty"
-                                      Text="Postal Code:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.PostalCodeProperty"></XDataLabel>
-                            </div>
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.CountryProperty"
-                                      Text="Country:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.CountryProperty"></XDataLabel>
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </fieldset>
-                  </div>
-                  <div class="xw-obj">
-                    <fieldset>
-                      <legend>Shipping Address</legend>
-                      <table class="xw-fieldset-layout">
-                        <tr>
-                          <td class="fieldColumn" style="width: 50%">
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.AddressIdProperty"
-                                      Text="Address Type:"
-                                      class="label"></XLabel>
-                              <XSelect
-                                       Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.AddressIdProperty"></XSelect>
-                            </div>
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.AddressLine1Property"
-                                      Text="Address Line1:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.AddressLine1Property"></XDataLabel>
-                            </div>
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.AddressLine2Property"
-                                      Text="Address Line2:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.AddressLine2Property"></XDataLabel>
-                            </div>
-                          </td>
-                          <td class="fieldColumn" style="width: 50%">
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.CityStateProperty"
-                                      Text="City/State:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.CityStateProperty"></XDataLabel>
-                            </div>
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.PostalCodeProperty"
-                                      Text="Postal Code:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.PostalCodeProperty"></XDataLabel>
-                            </div>
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.CountryProperty"
-                                      Text="Country:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.CountryProperty"></XDataLabel>
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </fieldset>
-                  </div>
-                </div>
-              </TabPage>
-              <TabPage Title="Detail">
-                <div class="xw-obj borderless">
-                  <Pager ItemsCount="@(VM?.MainObj?.DetailList.GetData().Count() ?? 0)" PageSize="10">
-                    <div style="overflow: auto">
-                      <table class="grid @SelectableClass(VM?.MainObj?.DetailList)" id="gridDetail">
-                        <thead>
-                          <tr>
-                            <ColumnHeader Property="@VM?.MainObj?.DetailList?.ProductIdProperty" Text="Product"></ColumnHeader>
-                            <ColumnHeader Property="@VM?.MainObj?.DetailList?.OrderQtyProperty" Text="Qty"></ColumnHeader>
-                            <ColumnHeader Property="@VM?.MainObj?.DetailList?.UnitPriceProperty" Text="Price"></ColumnHeader>
-                            <ColumnHeader Property="@VM?.MainObj?.DetailList?.UnitPriceDiscountProperty" Text="Discount"></ColumnHeader>
-                            <ColumnHeader Property="@VM?.MainObj?.DetailList?.SpecialOfferIdProperty"
-                                          Text="Special Offer"></ColumnHeader>
-                            <ColumnHeader Property="@VM?.MainObj?.DetailList?.LineTotalProperty" Text="Total"></ColumnHeader>
-                            <ColumnHeader Property="@VM?.MainObj?.DetailList?.CarrierTrackingNumberProperty"
-                                          Text="Tracking #"></ColumnHeader>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach (var idx in context)
-                          {
-                          var row = VM?.MainObj?.DetailList.GetData()[idx];
-                          
-                          <CascadingValue Value="row">
-                            <tr class="@SelectedClass(VM?.MainObj?.DetailList, row)"
-                                @onclick="@(() => RowClicked(VM?.MainObj?.DetailList, row))">
-                              <td><a href="javascript: void(0)"
-                                   @onclick="() => LinkDetailDetails_ClickAsync(row)"
-                                   class="@LinkDetailDetails_Disabled(row)">
-                                  <XDataLabel Property="@VM?.MainObj?.DetailList?.ProductIdProperty"></XDataLabel></a></td>
-                              <td>
-                                <XDataLabel Property="@VM?.MainObj?.DetailList?.OrderQtyProperty"></XDataLabel>
-                              </td>
-                              <td>
-                                <XDataLabel Property="@VM?.MainObj?.DetailList?.UnitPriceProperty"></XDataLabel>
-                              </td>
-                              <td>
-                                <XDataLabel Property="@VM?.MainObj?.DetailList?.UnitPriceDiscountProperty"></XDataLabel>
-                              </td>
-                              <td>
-                                <XDataLabel Property="@VM?.MainObj?.DetailList?.SpecialOfferIdProperty"></XDataLabel>
-                              </td>
-                              <td>
-                                <XDataLabel Property="@VM?.MainObj?.DetailList?.LineTotalProperty"></XDataLabel>
-                              </td>
-                              <td>
-                                <XDataLabel Property="@VM?.MainObj?.DetailList?.CarrierTrackingNumberProperty"></XDataLabel>
-                              </td>
-                            </tr>
-                          </CascadingValue>
-                          }
-                        </tbody>
-                      </table>
-                    </div>
-                  </Pager>
-                  <div><a href="javascript: void(0)" @onclick="() => LinkDetailNew_ClickAsync()"
-                       class="@LinkDetailNew_Disabled()">New</a></div>
-                </div>
-              </TabPage>
-              <TabPage Title="Payment">
-                <div class="xw-obj borderless">
-                  <fieldset>
-                    <table class="xw-fieldset-layout">
-                      <tr>
-                        <td class="fieldColumn" style="width: 50%">
-                          <div class="field">
-                            <XLabel Property="@VM?.MainObj?.PaymentObject?.SubTotalProperty"
-                                    Text="Sub Total:"
-                                    class="label"></XLabel>
-                            <XDataLabel Property="@VM?.MainObj?.PaymentObject?.SubTotalProperty"></XDataLabel>
-                          </div>
-                          <div class="field">
-                            <XLabel Property="@VM?.MainObj?.PaymentObject?.ShipMethodIdProperty"
-                                    Text="Shipment Method:"
-                                    class="label"></XLabel>
-                            <XSelect
-                                     Property="@VM?.MainObj?.PaymentObject?.ShipMethodIdProperty"></XSelect>
-                          </div>
-                          <div class="field">
-                            <XLabel Property="@VM?.MainObj?.PaymentObject?.TaxAmtProperty" Text="Tax Amt:"
-                                    class="label"></XLabel>
-                            <XDataLabel Property="@VM?.MainObj?.PaymentObject?.TaxAmtProperty"></XDataLabel>
-                          </div>
-                          <div class="field">
-                            <XLabel Property="@VM?.MainObj?.PaymentObject?.FreightProperty" Text="Freight:"
-                                    class="label"></XLabel>
-                            <XDataLabel Property="@VM?.MainObj?.PaymentObject?.FreightProperty"></XDataLabel>
-                          </div>
-                        </td>
-                        <td class="fieldColumn" style="width: 50%">
-                          <div class="field">
-                            <XLabel Property="@VM?.MainObj?.PaymentObject?.TotalDueProperty"
-                                    Text="Total Due:"
-                                    class="label"></XLabel>
-                            <XDataLabel Property="@VM?.MainObj?.PaymentObject?.TotalDueProperty"></XDataLabel>
-                          </div>
-                          <div class="field">
-                            <XLabel Property="@VM?.MainObj?.PaymentObject?.DueDateProperty"
-                                    Text="Due Date:"
-                                    class="label"></XLabel>
-                            <XInputText
-                                        Property="@VM?.MainObj?.PaymentObject?.DueDateProperty"
-                                        class="date"></XInputText>
-                          </div>
-                          <div class="field">
-                            <XLabel Property="@VM?.MainObj?.PaymentObject?.CurrencyRateProperty"
-                                    Text="Currency Rate:"
-                                    class="label"></XLabel>
-                            <XDataLabel Property="@VM?.MainObj?.PaymentObject?.CurrencyRateProperty"></XDataLabel>
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
-                  </fieldset>
-                </div>
-                <div class="xw-obj-children">
-                  <div class="xw-obj">
-                    <fieldset>
-                      <legend>Credit Card</legend>
-                      <table class="xw-fieldset-layout">
-                        <tr>
-                          <td class="fieldColumn" style="width: 50%">
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.CreditCardIdProperty"
-                                      Text="Credit Card:"
-                                      class="label"></XLabel>
-                              <XSelect
-                                       Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.CreditCardIdProperty"></XSelect>
-                            </div>
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.CardNumberProperty"
-                                      Text="Card Number:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.CardNumberProperty"></XDataLabel>
-                            </div>
-                          </td>
-                          <td class="fieldColumn" style="width: 50%">
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.ExpirationProperty"
-                                      Text="Expiration:"
-                                      class="label"></XLabel>
-                              <XDataLabel
-                                          Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.ExpirationProperty"></XDataLabel>
-                            </div>
-                            <div class="field">
-                              <XLabel
-                                      Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.CreditCardApprovalCodeProperty"
-                                      Text="Credit Card Approval Code:"
-                                      class="label"></XLabel>
-                              <XInputText
-                                          Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.CreditCardApprovalCodeProperty"></XInputText>
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </fieldset>
-                  </div>
-                </div>
-              </TabPage>
-              <TabPage Title="Sales">
-                <div class="xw-obj borderless">
-                  <table class="xw-fieldset-layout">
-                    <tr>
-                      <td class="fieldColumn" style="width: 50%">
-                        <div class="field">
-                          <XLabel Property="@VM?.MainObj?.SalesObject?.TerritoryIdProperty"
-                                  Text="Territory:"
-                                  class="label"></XLabel>
-                          <XSelect
-                                   Property="@VM?.MainObj?.SalesObject?.TerritoryIdProperty"></XSelect>
+                    <fieldset class="@GetPanelCol(2, 2)">
+                      <legend>@VM?.MainObj?.CustomerObject?.GetChildTitle(SalesOrderCustomerObject.Lookup)</legend>
+                      <fieldset>
+                        <div class="row @GetRowCol(2)">
+                          <XInputText Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.LookupObject?.StoreNameProperty"></XInputText>
+                          <XInputText Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.LookupObject?.PersonNameProperty"></XInputText>
                         </div>
-                        <div class="field">
-                          <XLabel Property="@VM?.MainObj?.SalesObject?.SalesPersonIdProperty"
-                                  Text="Sales Person:"
-                                  class="label"></XLabel>
-                          <XSelect
-                                   Property="@VM?.MainObj?.SalesObject?.SalesPersonIdProperty"></XSelect>
+                        <div class="btn-group mb-3">
+                          <XActionButton Action="@VM?.MainObj?.CustomerObject?.LookupObject?.LookUpAction"
+                                         OnClick="async () => await LinkCustomerLookupLookUp_ClickAsync()"
+                                         Outline="true"></XActionButton>
                         </div>
-                      </td>
-                      <td class="fieldColumn" style="width: 50%">
-                        <div class="field">
-                          <XLabel Property="@VM?.MainObj?.SalesObject?.SalesReasonProperty"
-                                  Text="Sales Reason:"
-                                  class="label"></XLabel>
-                          <XPickList
-                                     Property="@VM?.MainObj?.SalesObject?.SalesReasonProperty"></XPickList>
+                      </fieldset>
+                    </fieldset>
+                    <fieldset class="@GetPanelCol(2, 3, 100)">
+                      <legend>@VM?.MainObj?.CustomerObject?.GetChildTitle(SalesOrderCustomerObject.BillingAddress)</legend>
+                      <fieldset>
+                        <div class="row @GetRowCol(3, 100)">
+                          <XSelect Class="mb-3"
+                                   Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.AddressIdProperty"></XSelect>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.AddressLine1Property"></XDataLabel>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.AddressLine2Property"></XDataLabel>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.CityStateProperty"></XDataLabel>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.PostalCodeProperty"></XDataLabel>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.BillingAddressObject?.CountryProperty"></XDataLabel>
                         </div>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              </TabPage>
-            </TabSet>
+                      </fieldset>
+                    </fieldset>
+                    <fieldset class="@GetPanelCol(2, 3, 100)">
+                      <legend>@VM?.MainObj?.CustomerObject?.GetChildTitle(SalesOrderCustomerObject.ShippingAddress)</legend>
+                      <fieldset>
+                        <div class="row @GetRowCol(3, 100)">
+                          <XSelect Class="mb-3"
+                                   Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.AddressIdProperty"></XSelect>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.AddressLine1Property"></XDataLabel>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.AddressLine2Property"></XDataLabel>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.CityStateProperty"></XDataLabel>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.PostalCodeProperty"></XDataLabel>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.CustomerObject?.ShippingAddressObject?.CountryProperty"></XDataLabel>
+                        </div>
+                      </fieldset>
+                    </fieldset>
+                  </div>
+                </TabPage>
+                <TabPage Title="@VM?.MainObj?.GetChildTitle(SalesOrderObject.Detail)">
+                  <div class="pt-3">
+                    <fieldset>
+                      <div class="mb-3">
+                        <XGrid List="@VM?.MainObj?.DetailList" ResourceKey="@Model?.GetResourceKey()">
+                          <GridColumns>
+                            <XGridColumn Property="@VM?.MainObj?.DetailList?.ProductIdProperty" Width="26%">
+                              <Template>
+                                <a role="button"
+                                   @onclick="async () => await LinkDetailDetails_ClickAsync(context as DataRow)"
+                                   class="btn-link @(DisabledIfNot(VM?.LinkDetailDetails_Enabled(context as DataRow)))">
+                                  <XDataText Property="@VM?.MainObj?.DetailList?.ProductIdProperty"></XDataText>
+                                </a>
+                              </Template>
+                            </XGridColumn>
+                            <XGridColumn Property="@VM?.MainObj?.DetailList?.OrderQtyProperty" Width="9%"></XGridColumn>
+                            <XGridColumn Property="@VM?.MainObj?.DetailList?.UnitPriceProperty" Width="11%"></XGridColumn>
+                            <XGridColumn Property="@VM?.MainObj?.DetailList?.UnitPriceDiscountProperty" Width="9%"></XGridColumn>
+                            <XGridColumn Property="@VM?.MainObj?.DetailList?.SpecialOfferIdProperty" Width="18%"></XGridColumn>
+                            <XGridColumn Property="@VM?.MainObj?.DetailList?.LineTotalProperty" Width="11%"></XGridColumn>
+                            <XGridColumn Property="@VM?.MainObj?.DetailList?.CarrierTrackingNumberProperty" Width="18%"></XGridColumn>
+                          </GridColumns>
+                        </XGrid>
+                      </div>
+                      <div class="btn-group mb-3">
+                        <XActionButton Action="@VM?.MainObj?.DetailList?.NewAction"
+                                       OnClick="async () => await LinkDetailNew_ClickAsync()"
+                                       Outline="true"></XActionButton>
+                      </div>
+                    </fieldset>
+                  </div>
+                </TabPage>
+                <TabPage Title="@VM?.MainObj?.GetChildTitle(SalesOrderObject.Payment)">
+                  <div class="row pt-3">
+                    <fieldset class="@GetPanelCol(1, 4)">
+                      <div class="row @GetRowCol(4)">
+                        <XDataLabel Class="mb-3" Property="@VM?.MainObj?.PaymentObject?.SubTotalProperty"></XDataLabel>
+                        <XSelect Class="mb-3" Property="@VM?.MainObj?.PaymentObject?.ShipMethodIdProperty"></XSelect>
+                        <XDataLabel Class="mb-3" Property="@VM?.MainObj?.PaymentObject?.TaxAmtProperty"></XDataLabel>
+                        <XDataLabel Class="mb-3" Property="@VM?.MainObj?.PaymentObject?.FreightProperty"></XDataLabel>
+                        <XDataLabel Class="mb-3" Property="@VM?.MainObj?.PaymentObject?.TotalDueProperty"></XDataLabel>
+                        <XDatePicker Class="mb-3" Property="@VM?.MainObj?.PaymentObject?.DueDateProperty"></XDatePicker>
+                        <XDataLabel Class="mb-3" Property="@VM?.MainObj?.PaymentObject?.CurrencyRateProperty"></XDataLabel>
+                      </div>
+                    </fieldset>
+                    <fieldset class="@GetPanelCol(1, 4)">
+                      <legend>@VM?.MainObj?.PaymentObject?.GetChildTitle(SalesOrderPaymentObject.CreditCard)</legend>
+                      <fieldset>
+                        <div class="row @GetRowCol(4)">
+                          <XSelect Class="mb-3"
+                                   Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.CreditCardIdProperty"></XSelect>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.CardNumberProperty"></XDataLabel>
+                          <XDataLabel Class="mb-3"
+                                      Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.ExpirationProperty"></XDataLabel>
+                          <XInputText Class="mb-3"
+                                      Property="@VM?.MainObj?.PaymentObject?.CreditCardObject?.CreditCardApprovalCodeProperty"></XInputText>
+                        </div>
+                      </fieldset>
+                    </fieldset>
+                  </div>
+                </TabPage>
+                <TabPage Title="@VM?.MainObj?.GetChildTitle(SalesOrderObject.Sales)">
+                  <div class="pt-3">
+                    <fieldset>
+                      <div class="row @GetRowCol(1)">
+                        <XSelect Class="mb-3" Property="@VM?.MainObj?.SalesObject?.TerritoryIdProperty"></XSelect>
+                        <XSelect Class="mb-3" Property="@VM?.MainObj?.SalesObject?.SalesPersonIdProperty"></XSelect>
+                        <XPickList Class="mb-3" Property="@VM?.MainObj?.SalesObject?.SalesReasonProperty"></XPickList>
+                      </div>
+                    </fieldset>
+                  </div>
+                </TabPage>
+              </TabSet>
+            </div>
           </div>
         </div>
-        <Errors ErrorList="@Model?.Errors"></Errors>
+        <div class="@FooterClass">
+          <XActionButton Action="@VM?.MainObj?.DeleteAction" OnClick="OnDeleteAsync"
+                         Class="me-auto"></XActionButton>
+          <XActionButton Action="@VM?.MainObj?.SaveAction" OnClick="OnSaveAsync"
+                         IsPrimary="true"></XActionButton>
+          <XActionButton Action="@VM?.CloseAction" OnClick="OnCloseAsync"></XActionButton>
+        </div>
       </div>
-    </div>
-    <div class="view-footer action-bar">
-      <input type="button" value="@DeleteText" disabled="@(!DeleteEnabled)"
-             @onclick="@OnDeleteAsync"
-             class="btn-delete" />
-      <input type="button" value="@SaveText" disabled="@(!SaveEnabled)"
-             @onclick="@OnSaveAsync"
-             class="btn-save" />
-      @if (CloseVisible) {
-      <input type="button" value="@CloseText" @onclick="@OnCloseAsync" class="btn-close" />
-      }
+      <CustomerListView @ref="cvCustomerListView" Class="@GetViewCol(cvCustomerListView)"></CustomerListView>
+      <SalesOrderDetailView @ref="cvSalesOrderDetailView"
+                            Class="@GetViewCol(cvSalesOrderDetailView)"></SalesOrderDetailView>
     </div>
   </div>
-  <CustomerListView @ref="cvCustomerListView" Visible="false"></CustomerListView>
-  <SalesOrderDetailView @ref="cvSalesOrderDetailView" Visible="false"></SalesOrderDetailView>
 </div>
 }

@@ -53,6 +53,13 @@ namespace AdventureWorks.Client.Objects
 
         #endregion
 
+        #region Actions
+
+        public ActionProperty DetailsAction { get; private set; }
+        public ActionProperty NewAction { get; private set; }
+
+        #endregion
+
         #region Construction
 
         public SalesOrderList()
@@ -65,31 +72,6 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            CustomerNameProperty = new TextProperty(this, CustomerName)
-            {
-                Editable = false,
-            };
-            CustomerStoreProperty = new TextProperty(this, CustomerStore)
-            {
-                Editable = false,
-            };
-            DueDateProperty = new DateProperty(this, DueDate)
-            {
-                Required = true,
-                Editable = false,
-            };
-            OnlineOrderFlagProperty = new EnumBoolProperty(this, OnlineOrderFlag)
-            {
-                Required = true,
-                EnumType = "yesno",
-                LookupValidation = LookupValidationType.None,
-                Editable = false,
-            };
-            OrderDateProperty = new DateProperty(this, OrderDate)
-            {
-                Required = true,
-                Editable = false,
-            };
             SalesOrderIdProperty = new IntegerKeyProperty(this, SalesOrderId)
             {
                 Required = true,
@@ -102,24 +84,24 @@ namespace AdventureWorks.Client.Objects
                 Size = 25,
                 Editable = false,
             };
-            SalesPersonIdProperty = new EnumIntProperty(this, SalesPersonId)
-            {
-                EnumType = "sales person",
-                Editable = false,
-            };
-            ShipDateProperty = new DateProperty(this, ShipDate)
-            {
-                Editable = false,
-            };
             StatusProperty = new EnumByteProperty(this, Status)
             {
                 Required = true,
                 EnumType = "sales order status",
                 Editable = false,
             };
-            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            OrderDateProperty = new DateProperty(this, OrderDate)
             {
-                EnumType = "sales territory",
+                Required = true,
+                Editable = false,
+            };
+            ShipDateProperty = new DateProperty(this, ShipDate)
+            {
+                Editable = false,
+            };
+            DueDateProperty = new DateProperty(this, DueDate)
+            {
+                Required = true,
                 Editable = false,
             };
             TotalDueProperty = new MoneyProperty(this, TotalDue)
@@ -127,6 +109,35 @@ namespace AdventureWorks.Client.Objects
                 Required = true,
                 Editable = false,
             };
+            OnlineOrderFlagProperty = new EnumBoolProperty(this, OnlineOrderFlag)
+            {
+                Required = true,
+                EnumType = "yesno",
+                LookupValidation = LookupValidationType.None,
+                Editable = false,
+            };
+            CustomerStoreProperty = new TextProperty(this, CustomerStore)
+            {
+                Size = 50,
+                Editable = false,
+            };
+            CustomerNameProperty = new TextProperty(this, CustomerName)
+            {
+                Size = 50,
+                Editable = false,
+            };
+            SalesPersonIdProperty = new EnumIntProperty(this, SalesPersonId)
+            {
+                EnumType = "sales person",
+                Editable = false,
+            };
+            TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)
+            {
+                EnumType = "sales territory",
+                Editable = false,
+            };
+          DetailsAction = new ActionProperty(this, "Details");
+          NewAction = new ActionProperty(this, "New");
         }
 
         #endregion

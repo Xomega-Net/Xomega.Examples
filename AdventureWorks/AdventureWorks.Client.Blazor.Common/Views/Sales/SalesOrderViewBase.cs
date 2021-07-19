@@ -31,33 +31,26 @@ namespace AdventureWorks.Client.Blazor.Common.Views
         }
 
         protected CustomerListView cvCustomerListView;
-
         protected SalesOrderDetailView cvSalesOrderDetailView;
 
-        protected virtual string LinkCustomerLookupLookUp_Disabled()
-            => VM != null && VM.LinkCustomerLookupLookUp_Enabled() ? "" : "disabled";
-
-        
+        protected override BlazorView[] ChildViews => new BlazorView[]
+        {
+            cvCustomerListView,
+            cvSalesOrderDetailView,
+        };
+    
         protected virtual async Task LinkCustomerLookupLookUp_ClickAsync(CancellationToken token = default)
         {
             if (VM != null && VM.LinkCustomerLookupLookUp_Enabled())
                 await VM.LinkCustomerLookupLookUp_CommandAsync(cvCustomerListView, cvCustomerListView.Visible ? cvCustomerListView : null, token);
         }
-
-        protected virtual string LinkDetailDetails_Disabled(DataRow row)
-            => VM != null && VM.LinkDetailDetails_Enabled(row) ? "" : "disabled";
-
-        
+    
         protected virtual async Task LinkDetailDetails_ClickAsync(DataRow row, CancellationToken token = default)
         {
             if (VM != null && VM.LinkDetailDetails_Enabled(row))
                 await VM.LinkDetailDetails_CommandAsync(cvSalesOrderDetailView, cvSalesOrderDetailView.Visible ? cvSalesOrderDetailView : null, row, token);
         }
-
-        protected virtual string LinkDetailNew_Disabled()
-            => VM != null && VM.LinkDetailNew_Enabled() ? "" : "disabled";
-
-        
+    
         protected virtual async Task LinkDetailNew_ClickAsync(CancellationToken token = default)
         {
             if (VM != null && VM.LinkDetailNew_Enabled())

@@ -26,7 +26,5 @@ namespace AdventureWorks.Client.ViewModels
             List = ServiceProvider.GetService<CustomerList>();
             List.CriteriaObject = ServiceProvider.GetService<CustomerCriteria>();
         }
-
-        public override string BaseTitle => GetString("Customer List");
     }
 }

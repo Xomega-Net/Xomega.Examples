@@ -27,7 +27,7 @@
                Margin="10,0,0,5"/>
     <GroupBox Grid.Row="1" Header="Sales Order">
       <StackPanel>
-        <Grid xmlns:clr="http://www.xomega.net/clr">
+        <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -117,7 +117,7 @@
     <TabControl Grid.Row="2" Margin="0,10,0,0">
       <TabItem Header="Customer">
         <StackPanel DataContext="{Binding CustomerObject}" xom:Data.ObjectBinding="">
-          <Grid xmlns:clr="http://www.xomega.net/clr">
+          <Grid>
             <Grid.RowDefinitions>
               <RowDefinition Height="Auto"/>
               <RowDefinition Height="Auto"/>
@@ -159,7 +159,7 @@
           </Grid>
           <GroupBox Header="Lookup">
             <StackPanel DataContext="{Binding LookupObject}" xom:Data.ObjectBinding="">
-              <Grid xmlns:clr="http://www.xomega.net/clr">
+              <Grid>
                 <Grid.RowDefinitions>
                   <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -185,7 +185,7 @@
                          Style="{StaticResource ControlStyle}"/>
               </Grid>
               <StackPanel Orientation="Horizontal" Margin="5">
-                <TextBlock xmlns:clr="http://www.xomega.net/clr">
+                <TextBlock>
                   <Hyperlink Name="LinkCustomerLookupLookUp"
                              Command="{Binding Path=LinkCustomerLookupLookUp_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}">Look Up</Hyperlink>
                 </TextBlock>
@@ -194,7 +194,7 @@
           </GroupBox>
           <GroupBox Header="Billing Address">
             <StackPanel DataContext="{Binding BillingAddressObject}" xom:Data.ObjectBinding="">
-              <Grid xmlns:clr="http://www.xomega.net/clr">
+              <Grid>
                 <Grid.RowDefinitions>
                   <RowDefinition Height="Auto"/>
                   <RowDefinition Height="Auto"/>
@@ -253,7 +253,7 @@
           </GroupBox>
           <GroupBox Header="Shipping Address">
             <StackPanel DataContext="{Binding ShippingAddressObject}" xom:Data.ObjectBinding="">
-              <Grid xmlns:clr="http://www.xomega.net/clr">
+              <Grid>
                 <Grid.RowDefinitions>
                   <RowDefinition Height="Auto"/>
                   <RowDefinition Height="Auto"/>
@@ -323,7 +323,7 @@
             <ListView.View>
               <GridView>
                 <GridView.Columns>
-                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Product">
+                  <GridViewColumn Header="Product">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock>
@@ -335,42 +335,42 @@
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
-                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Qty">
+                  <GridViewColumn Header="Qty">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.OrderQty}"/>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
-                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Price">
+                  <GridViewColumn Header="Price">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.UnitPrice}"/>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
-                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Discount">
+                  <GridViewColumn Header="Discount">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.UnitPriceDiscount}"/>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
-                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Special Offer">
+                  <GridViewColumn Header="Special Offer">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.SpecialOfferId}"/>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
-                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Total">
+                  <GridViewColumn Header="Total">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.LineTotal}"/>
                       </DataTemplate>
                     </GridViewColumn.CellTemplate>
                   </GridViewColumn>
-                  <GridViewColumn xmlns:clr="http://www.xomega.net/clr" Header="Tracking #">
+                  <GridViewColumn Header="Tracking #">
                     <GridViewColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock xom:Property.Name="{x:Static o:SalesOrderDetailList.CarrierTrackingNumber}"/>
@@ -382,7 +382,7 @@
             </ListView.View>
           </ListView>
           <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1">
-            <TextBlock xmlns:clr="http://www.xomega.net/clr">
+            <TextBlock>
               <Hyperlink Name="LinkDetailNew"
                          Command="{Binding Path=LinkDetailNew_Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xov:WPFView}}}">New</Hyperlink>
             </TextBlock>
@@ -391,7 +391,7 @@
       </TabItem>
       <TabItem Header="Payment">
         <StackPanel DataContext="{Binding PaymentObject}" xom:Data.ObjectBinding="">
-          <Grid xmlns:clr="http://www.xomega.net/clr">
+          <Grid>
             <Grid.RowDefinitions>
               <RowDefinition Height="Auto"/>
               <RowDefinition Height="Auto"/>
@@ -456,7 +456,7 @@
           </Grid>
           <GroupBox Header="Credit Card">
             <StackPanel DataContext="{Binding CreditCardObject}" xom:Data.ObjectBinding="">
-              <Grid xmlns:clr="http://www.xomega.net/clr">
+              <Grid>
                 <Grid.RowDefinitions>
                   <RowDefinition Height="Auto"/>
                   <RowDefinition Height="Auto"/>
@@ -502,7 +502,7 @@
       </TabItem>
       <TabItem Header="Sales">
         <StackPanel DataContext="{Binding SalesObject}" xom:Data.ObjectBinding="">
-          <Grid xmlns:clr="http://www.xomega.net/clr">
+          <Grid>
             <Grid.RowDefinitions>
               <RowDefinition Height="Auto"/>
               <RowDefinition Height="Auto"/>
@@ -528,7 +528,7 @@
                       xom:Property.Name="{x:Static o:SalesOrderSalesObject.SalesPersonId}"
                       Style="{StaticResource ControlStyle}"/>
             <Label Grid.Row="0" Grid.Column="2" Name="lblSalesSalesReason"
-                   Style="{StaticResource LabelStyle}">_Sales Reason:</Label>
+                   Style="{StaticResource LabelStyle}">_Sales Reasons:</Label>
             <ListBox Grid.Row="0" Grid.Column="3"
                      xom:Property.Label="{Binding ElementName=lblSalesSalesReason}"
                      x:Name="ctlSalesSalesReason"

@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Syncfusion.Blazor;
 using System.Resources;
 using Xomega.Framework;
 using Xomega.Framework.Blazor.Components;
@@ -39,6 +40,7 @@ namespace AdventureWorks.Client.Blazor.Server
         {
             // ASP.NET configuration
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            services.AddSyncfusionBlazor();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddHttpContextAccessor();
@@ -46,7 +48,7 @@ namespace AdventureWorks.Client.Blazor.Server
             // Xomega Framework configuration
             services.AddErrors(env.IsDevelopment());
             services.AddSingletonLookupCacheProvider();
-            services.AddXmlResourceCacheLoader(typeof(Operators).Assembly, ".enumerations.xres", true);
+            services.AddXmlResourceCacheLoader(typeof(Operators).Assembly, ".enumerations.xres", false);
             services.AddOperators();
             services.AddTransient<IPrincipalProvider, ContextPrincipalProvider>();
             services.AddScoped<SignInManager>();
@@ -54,6 +56,7 @@ namespace AdventureWorks.Client.Blazor.Server
             // App services configuration
             services.AddSingleton<ResourceManager>(sp => new CompositeResourceManager(
                 Client.Common.Messages.ResourceManager,
+                Client.Common.Labels.ResourceManager,
                 Services.Entities.Messages.ResourceManager,
                 Xomega.Framework.Messages.ResourceManager));
             string connStr = configuration.GetValue<string>(ConfigConnectionString);
@@ -69,7 +72,8 @@ namespace AdventureWorks.Client.Blazor.Server
 
             MainMenu.Items.Insert(0, new MenuItem()
             {
-                Text = "Home",
+                ResourceKey = Client.Common.Messages.HomeView_NavMenu,
+                IconClass = "bi bi-house-door",
                 Href = "/"
             });
 
@@ -96,6 +100,9 @@ namespace AdventureWorks.Client.Blazor.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var key = "<Your Syncfusion Blazor license key>";
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(key);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

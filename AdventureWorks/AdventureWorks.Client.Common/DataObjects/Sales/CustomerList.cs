@@ -54,17 +54,19 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            AccountNumberProperty = new TextProperty(this, AccountNumber)
-            {
-                Required = true,
-                Size = 10,
-                Editable = false,
-            };
             CustomerIdProperty = new IntegerKeyProperty(this, CustomerId)
             {
                 Required = true,
                 Editable = false,
                 IsKey = true,
+            };
+            StoreIdProperty = new IntegerKeyProperty(this, StoreId)
+            {
+                Editable = false,
+            };
+            StoreNameProperty = new TextProperty(this, StoreName)
+            {
+                Editable = false,
             };
             PersonIdProperty = new IntegerKeyProperty(this, PersonId)
             {
@@ -74,12 +76,10 @@ namespace AdventureWorks.Client.Objects
             {
                 Editable = false,
             };
-            StoreIdProperty = new IntegerKeyProperty(this, StoreId)
+            AccountNumberProperty = new TextProperty(this, AccountNumber)
             {
-                Editable = false,
-            };
-            StoreNameProperty = new TextProperty(this, StoreName)
-            {
+                Required = true,
+                Size = 10,
                 Editable = false,
             };
             TerritoryIdProperty = new EnumIntProperty(this, TerritoryId)

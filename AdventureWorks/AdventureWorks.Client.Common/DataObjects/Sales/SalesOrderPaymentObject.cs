@@ -56,15 +56,7 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            CurrencyRateProperty = new TextProperty(this, CurrencyRate)
-            {
-                Editable = false,
-            };
-            DueDateProperty = new DateProperty(this, DueDate)
-            {
-                Required = true,
-            };
-            FreightProperty = new MoneyProperty(this, Freight)
+            SubTotalProperty = new MoneyProperty(this, SubTotal)
             {
                 Required = true,
                 Editable = false,
@@ -74,12 +66,12 @@ namespace AdventureWorks.Client.Objects
                 Required = true,
                 EnumType = "ship method",
             };
-            SubTotalProperty = new MoneyProperty(this, SubTotal)
+            TaxAmtProperty = new MoneyProperty(this, TaxAmt)
             {
                 Required = true,
                 Editable = false,
             };
-            TaxAmtProperty = new MoneyProperty(this, TaxAmt)
+            FreightProperty = new MoneyProperty(this, Freight)
             {
                 Required = true,
                 Editable = false,
@@ -87,6 +79,14 @@ namespace AdventureWorks.Client.Objects
             TotalDueProperty = new MoneyProperty(this, TotalDue)
             {
                 Required = true,
+                Editable = false,
+            };
+            DueDateProperty = new DateProperty(this, DueDate)
+            {
+                Required = true,
+            };
+            CurrencyRateProperty = new TextProperty(this, CurrencyRate)
+            {
                 Editable = false,
             };
             DataObject objCreditCard = ServiceProvider.GetService<CreditCardPaymentObject>();

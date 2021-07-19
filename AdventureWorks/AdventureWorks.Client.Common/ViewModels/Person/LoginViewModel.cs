@@ -24,7 +24,5 @@ namespace AdventureWorks.Client.ViewModels
             base.Initialize();
             DetailsObject = ServiceProvider.GetService<AuthenticationObject>();
         }
-        
-        public override string BaseTitle => GetString("Login");
     }
 }

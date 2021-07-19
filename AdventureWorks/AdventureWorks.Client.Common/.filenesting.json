@@ -4,9 +4,10 @@
 
   "dependentFileProviders": {
     "add": {
+      "addedExtension": {},
       "extensionToExtension": {
         "add": {
-          ".cs" : [ ".tt" ]
+          ".cs": [ ".tt" ]
         }
       },
       "fileSuffixToExtension": {

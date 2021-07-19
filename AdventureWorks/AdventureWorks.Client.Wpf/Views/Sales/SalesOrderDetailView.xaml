@@ -25,9 +25,9 @@
                Style="{StaticResource ViewTitleStyle}"
                Margin="10,0,0,5"/>
     <v:Errors Grid.Row="1" x:Name="pnlErrors"/>
-    <GroupBox Grid.Row="2" Header="Detail">
+    <GroupBox Grid.Row="2" Header="Line Item Detail">
       <StackPanel>
-        <Grid xmlns:clr="http://www.xomega.net/clr">
+        <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

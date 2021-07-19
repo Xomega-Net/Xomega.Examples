@@ -329,7 +329,7 @@
                           </td>
                           <td class="fieldColumn" style="width: 50%">
                             <div class="field">
-                              <asp:Label ID="lblSalesSalesReason" Text="Sales Reason:" CssClass="label" runat="server"></asp:Label>
+                              <asp:Label ID="lblSalesSalesReason" Text="Sales Reasons:" CssClass="label" runat="server"></asp:Label>
                               <uc:PickListControl LabelID="lblSalesSalesReason" ID="ctlSalesSalesReason" Property="<%# SalesOrderSalesObject.SalesReason %>" Rows="6" runat="server"></uc:PickListControl>
                             </div>
                           </td>

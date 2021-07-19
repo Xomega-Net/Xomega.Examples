@@ -74,37 +74,6 @@ namespace AdventureWorks.Client.Objects
 
         protected override void Initialize()
         {
-            AccountNumberProperty = new TextProperty(this, AccountNumber)
-            {
-                Size = 15,
-            };
-            CommentProperty = new TextProperty(this, Comment)
-            {
-                Size = 128,
-            };
-            ModifiedDateProperty = new DateTimeProperty(this, ModifiedDate)
-            {
-                Required = true,
-                Editable = false,
-            };
-            OnlineOrderFlagProperty = new BooleanProperty(this, OnlineOrderFlag)
-            {
-                Required = true,
-            };
-            OrderDateProperty = new DateProperty(this, OrderDate)
-            {
-                Required = true,
-                Editable = false,
-            };
-            PurchaseOrderNumberProperty = new TextProperty(this, PurchaseOrderNumber)
-            {
-                Size = 25,
-            };
-            RevisionNumberProperty = new TinyIntegerProperty(this, RevisionNumber)
-            {
-                Required = true,
-                Editable = false,
-            };
             SalesOrderIdProperty = new IntegerKeyProperty(this, SalesOrderId)
             {
                 Required = true,
@@ -117,13 +86,44 @@ namespace AdventureWorks.Client.Objects
                 Size = 25,
                 Editable = false,
             };
-            ShipDateProperty = new DateProperty(this, ShipDate)
+            OrderDateProperty = new DateProperty(this, OrderDate)
             {
+                Required = true,
+                Editable = false,
             };
             StatusProperty = new EnumByteProperty(this, Status)
             {
                 Required = true,
                 EnumType = "sales order status",
+            };
+            OnlineOrderFlagProperty = new BooleanProperty(this, OnlineOrderFlag)
+            {
+                Required = true,
+            };
+            PurchaseOrderNumberProperty = new TextProperty(this, PurchaseOrderNumber)
+            {
+                Size = 25,
+            };
+            AccountNumberProperty = new TextProperty(this, AccountNumber)
+            {
+                Size = 15,
+            };
+            ShipDateProperty = new DateProperty(this, ShipDate)
+            {
+            };
+            CommentProperty = new TextProperty(this, Comment)
+            {
+                Size = 128,
+            };
+            RevisionNumberProperty = new TinyIntegerProperty(this, RevisionNumber)
+            {
+                Required = true,
+                Editable = false,
+            };
+            ModifiedDateProperty = new DateTimeProperty(this, ModifiedDate)
+            {
+                Required = true,
+                Editable = false,
             };
             DataObject objCustomer = ServiceProvider.GetService<SalesOrderCustomerObject>();
             AddChildObject(Customer, objCustomer);
